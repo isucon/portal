@@ -1,0 +1,26 @@
+{
+  "name": "isucon10-portal-api-mock",
+  "version": "1.0.0",
+  "description": "API Mock Server of ISUCON10 Portal",
+  "main": "index.js",
+  "scripts": {
+    "agreed:server": "agreed-server --path index.js --port 3010 --cors",
+    "agreed:ui": "agreed-ui --path index.js --port 3031",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isucon/isucon10-portal.git"
+  },
+  "author": "progfay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isucon/isucon10-portal/issues"
+  },
+  "homepage": "https://github.com/isucon/isucon10-portal#readme",
+  "devDependencies": {
+    "@agreed/cli": "^5.1.7",
+    "standard": "^14.3.4"
+  }
+}
