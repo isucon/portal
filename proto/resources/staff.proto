@@ -1,0 +1,8 @@
+syntax = "proto3";
+package isucon10_portal.proto.resources;
+option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+message Staff {
+ int64 id = 1;
+ string github_login = 2;
+}

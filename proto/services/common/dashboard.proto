@@ -1,0 +1,11 @@
+syntax = "proto3";
+package isucon10_portal.proto.common;
+option go_package = "github.com/isucon/isucon10-portal/proto/common";
+
+message DashboardRequest {
+}
+
+message DashboardResponse {
+}
+
+

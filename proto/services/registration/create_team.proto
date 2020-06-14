@@ -1,0 +1,13 @@
+syntax = "proto3";
+package isucon10_portal.proto.services.registration;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/registration";
+
+message CreateTeamRequest {
+  string name = 1;
+  string email_address = 2;
+}
+
+message CreateTeamResponse {
+  int64 team_id = 1;
+}
+

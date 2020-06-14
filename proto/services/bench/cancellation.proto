@@ -1,0 +1,4 @@
+syntax = "proto3";
+package isucon10_portal.proto.services.bench;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/bench";
+
