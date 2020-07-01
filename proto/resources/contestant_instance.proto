@@ -1,0 +1,23 @@
+syntax = "proto3";
+package isucon10_portal.proto.resources;
+option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+message ContestantInstance {
+  string cloud_id = 1;
+  int64 team_id = 2;
+  int64 number = 3;
+  string public_ipv4_address = 4;
+  string private_ipv4_address = 5;
+
+  Status status = 6;
+  enum Status {
+    UNKNOWN = 1;
+    PENDING = 2;
+    MODIFYING = 3;
+    STOPPED = 4;
+    RUNNING = 5;
+    TERMINATED = 6;
+  }
+
+  Team team = 16;
+}

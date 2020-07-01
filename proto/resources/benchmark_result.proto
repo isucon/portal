@@ -1,0 +1,24 @@
+syntax = "proto3";
+package isucon10_portal.proto.resources;
+option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+message BenchmarkResult {
+  bool finished = ;
+  bool passed = ;
+  int64 score = ;
+  ScoreBreakdown score_breakdown = 2;
+  message ScoreBreakdown {
+    int64 base = 1;
+    int64 deduction = 2;
+  }
+
+  string reason = ;
+  string stdout = ;
+  string stderr = ;
+
+  Survey survey =;
+
+  message Survey {
+    string language = 1;
+  }
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+package isucon10_portal.proto.resources;
+option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+message Clarification {
+  int64 id = 1;
+  int64 team_id = 2;
+  bool answered = 3;
+  bool disclosed = 4;
+  string question = 5;
+  string answer = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp answered_at = 8;
+
+  Team team = 16;
+}

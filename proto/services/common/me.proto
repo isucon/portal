@@ -1,0 +1,16 @@
+syntax = "proto3";
+package isucon10_portal.proto.services.common;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/common";
+
+import "resources/team.proto";
+import "resources/contestant.proto";
+
+message GetCurrentSessionRequest {
+}
+
+message GetCurrentSettionResponse {
+  Team team = 1;
+  Contestant contestant = 2;
+  string discord_invitation_url = 3;
+}
+
