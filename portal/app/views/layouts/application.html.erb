@@ -1,14 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang='ja'>
   <head>
-    <title>Isuxportal</title>
+    <title>ISUCON10 Portal</title>
+    <meta name="viewport" content="width=device-width">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+    <%= begin; javascript_pack_tag 'vendor'; rescue Simpacker::Manifest::MissingEntryError ; end  %>
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">ISUCON 10 Portal</a>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="/">Top</a>
+            <a class="navbar-item" href="/">Top</a>
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-light" href="/">Top</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <%= yield %>
+    </div>
   </body>
 </html>
