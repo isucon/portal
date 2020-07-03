@@ -1,5 +1,5 @@
 syntax = "proto3";
-package isucon10_portal.proto.resources;
+package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto/resources";
 
 message Contestant {

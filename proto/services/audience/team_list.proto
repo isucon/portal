@@ -1,5 +1,5 @@
 syntax = "proto3";
-package isucon10_portal.proto.services.audience;
+package isuxportal.proto.services.audience;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/audience";
 
 message ListTeamRequest {

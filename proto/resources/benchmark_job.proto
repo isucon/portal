@@ -1,10 +1,12 @@
 syntax = "proto3";
-package isucon10_portal.proto.resources;
+package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto/resources";
 
 import "resources/benchmark_result.proto";
 import "resources/contestant_instance.proto";
 import "resources/team.proto";
+
+import "google/protobuf/timestamp.proto";
 
 message BenchmarkJob {
   int64 id = 1;
@@ -12,11 +14,11 @@ message BenchmarkJob {
   int64 target_id = 3;
   Status status = 4;
   enum Status {
-    PENDING = 1;
-    RUNNING = 2;
-    ERRORED = 3;
-    CANCELLED = 4;
-    FINISHED = 5;
+    PENDING = 0;
+    RUNNING = 1;
+    ERRORED = 2;
+    CANCELLED = 3;
+    FINISHED = 4;
   }
 
   BenchmarkResult result = 5;

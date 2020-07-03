@@ -1,0 +1,12 @@
+syntax = "proto3";
+package isuxportal.proto.services.registration;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/registraiton";
+
+message GetRegistrationSessionRequest {
+}
+
+message GetRegistrationSessionResponse {
+  string github_login = 1;
+  string discord_user_tag = 2;
+}
+

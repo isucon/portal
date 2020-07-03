@@ -1,6 +1,8 @@
 syntax = "proto3";
-package isucon10_portal.proto.resources;
+package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+import "resources/team.proto";
 
 message ContestantInstance {
   string cloud_id = 1;
@@ -11,12 +13,12 @@ message ContestantInstance {
 
   Status status = 6;
   enum Status {
-    UNKNOWN = 1;
-    PENDING = 2;
-    MODIFYING = 3;
-    STOPPED = 4;
-    RUNNING = 5;
-    TERMINATED = 6;
+    UNKNOWN = 0;
+    PENDING = 1;
+    MODIFYING = 2;
+    STOPPED = 3;
+    RUNNING = 4;
+    TERMINATED = 5;
   }
 
   Team team = 16;

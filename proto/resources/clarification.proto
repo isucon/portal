@@ -1,6 +1,9 @@
 syntax = "proto3";
-package isucon10_portal.proto.resources;
+package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+
+import "resources/team.proto";
+import "google/protobuf/timestamp.proto";
 
 message Clarification {
   int64 id = 1;

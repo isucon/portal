@@ -1,5 +1,5 @@
 syntax = "proto3";
-package isucon10_portal.proto.services.dcim;
+package isuxportal.proto.services.dcim;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/dcim";
 
 import "resources/contestant_instance.proto";
@@ -10,8 +10,9 @@ service InstanceManagementService {
 
 message InformInstanceStateUpdateRequest {
   string token = 1;
-  ContestantInstance instance = 2;
+  isuxportal.proto.resources.ContestantInstance instance = 2;
 }
 
-message InformInstanceStateUpdateResponse [
+message InformInstanceStateUpdateResponse {
+}
 

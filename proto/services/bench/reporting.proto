@@ -1,5 +1,5 @@
 syntax = "proto3";
-package isucon10_portal.proto.services.bench;
+package isuxportal.proto.services.bench;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/bench";
 
 import "resources/benchmark_result.proto";
@@ -12,7 +12,7 @@ service BenchmarkReportService {
 message ReportBenchmarkResultRequest {
   int64 job_id = 1;
   string handle = 2;
-  BenchmarkResult result = 3;
+  isuxportal.proto.resources.BenchmarkResult result = 3;
 }
 
 message ReportBenchmarkResultResponse {
