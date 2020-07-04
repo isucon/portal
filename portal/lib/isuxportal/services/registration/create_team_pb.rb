@@ -8,6 +8,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.registration.CreateTeamRequest" do
       optional :name, :string, 1
       optional :email_address, :string, 2
+      optional :is_student, :bool, 3
     end
     add_message "isuxportal.proto.services.registration.CreateTeamResponse" do
       optional :team_id, :int64, 1

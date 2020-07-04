@@ -10,6 +10,9 @@ export class CreateTeamRequest extends jspb.Message {
   getEmailAddress(): string;
   setEmailAddress(value: string): void;
 
+  getIsStudent(): boolean;
+  setIsStudent(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateTeamRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateTeamRequest): CreateTeamRequest.AsObject;
@@ -24,6 +27,7 @@ export namespace CreateTeamRequest {
   export type AsObject = {
     name: string,
     emailAddress: string,
+    isStudent: boolean,
   }
 }
 

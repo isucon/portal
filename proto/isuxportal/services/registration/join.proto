@@ -5,6 +5,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto/services/registrati
 message JoinTeamRequest {
   string invite_token = 1;
   string name = 2;
+  bool is_student = 3;
 }
 
 message JoinTeamResponse {

@@ -8,6 +8,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.registration.JoinTeamRequest" do
       optional :invite_token, :string, 1
       optional :name, :string, 2
+      optional :is_student, :bool, 3
     end
     add_message "isuxportal.proto.services.registration.JoinTeamResponse" do
     end

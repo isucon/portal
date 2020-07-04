@@ -10,6 +10,9 @@ export class JoinTeamRequest extends jspb.Message {
   getName(): string;
   setName(value: string): void;
 
+  getIsStudent(): boolean;
+  setIsStudent(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): JoinTeamRequest.AsObject;
   static toObject(includeInstance: boolean, msg: JoinTeamRequest): JoinTeamRequest.AsObject;
@@ -24,6 +27,7 @@ export namespace JoinTeamRequest {
   export type AsObject = {
     inviteToken: string,
     name: string,
+    isStudent: boolean,
   }
 }
 

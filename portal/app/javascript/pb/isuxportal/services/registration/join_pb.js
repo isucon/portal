@@ -89,7 +89,8 @@ proto.isuxportal.proto.services.registration.JoinTeamRequest.prototype.toObject 
 proto.isuxportal.proto.services.registration.JoinTeamRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     inviteToken: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, "")
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    isStudent: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
   };
 
   if (includeInstance) {
@@ -134,6 +135,10 @@ proto.isuxportal.proto.services.registration.JoinTeamRequest.deserializeBinaryFr
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsStudent(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -177,6 +182,13 @@ proto.isuxportal.proto.services.registration.JoinTeamRequest.serializeBinaryToWr
       f
     );
   }
+  f = message.getIsStudent();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -213,6 +225,24 @@ proto.isuxportal.proto.services.registration.JoinTeamRequest.prototype.getName =
  */
 proto.isuxportal.proto.services.registration.JoinTeamRequest.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bool is_student = 3;
+ * @return {boolean}
+ */
+proto.isuxportal.proto.services.registration.JoinTeamRequest.prototype.getIsStudent = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.isuxportal.proto.services.registration.JoinTeamRequest} returns this
+ */
+proto.isuxportal.proto.services.registration.JoinTeamRequest.prototype.setIsStudent = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
 
