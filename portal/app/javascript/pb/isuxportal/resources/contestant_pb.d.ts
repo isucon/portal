@@ -13,9 +13,6 @@ export class Contestant extends jspb.Message {
   getName(): string;
   setName(value: string): void;
 
-  getAvatarUrl(): string;
-  setAvatarUrl(value: string): void;
-
   hasContestantDetail(): boolean;
   clearContestantDetail(): void;
   getContestantDetail(): Contestant.ContestantDetail | undefined;
@@ -36,7 +33,6 @@ export namespace Contestant {
     id: number,
     teamId: number,
     name: string,
-    avatarUrl: string,
     contestantDetail?: Contestant.ContestantDetail.AsObject,
   }
 
@@ -49,6 +45,9 @@ export namespace Contestant {
 
     getIsStudent(): boolean;
     setIsStudent(value: boolean): void;
+
+    getAvatarUrl(): string;
+    setAvatarUrl(value: string): void;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ContestantDetail.AsObject;
@@ -65,6 +64,7 @@ export namespace Contestant {
       githubLogin: string,
       discordTag: string,
       isStudent: boolean,
+      avatarUrl: string,
     }
   }
 }

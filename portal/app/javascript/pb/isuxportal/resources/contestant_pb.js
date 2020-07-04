@@ -91,7 +91,6 @@ proto.isuxportal.proto.resources.Contestant.toObject = function(includeInstance,
     id: jspb.Message.getFieldWithDefault(msg, 1, 0),
     teamId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     name: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    avatarUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
     contestantDetail: (f = msg.getContestantDetail()) && proto.isuxportal.proto.resources.Contestant.ContestantDetail.toObject(includeInstance, f)
   };
 
@@ -140,10 +139,6 @@ proto.isuxportal.proto.resources.Contestant.deserializeBinaryFromReader = functi
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAvatarUrl(value);
       break;
     case 7:
       var value = new proto.isuxportal.proto.resources.Contestant.ContestantDetail;
@@ -200,13 +195,6 @@ proto.isuxportal.proto.resources.Contestant.serializeBinaryToWriter = function(m
       f
     );
   }
-  f = message.getAvatarUrl();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
-      f
-    );
-  }
   f = message.getContestantDetail();
   if (f != null) {
     writer.writeMessage(
@@ -252,7 +240,8 @@ proto.isuxportal.proto.resources.Contestant.ContestantDetail.toObject = function
   var f, obj = {
     githubLogin: jspb.Message.getFieldWithDefault(msg, 1, ""),
     discordTag: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    isStudent: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
+    isStudent: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
+    avatarUrl: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -301,6 +290,10 @@ proto.isuxportal.proto.resources.Contestant.ContestantDetail.deserializeBinaryFr
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsStudent(value);
       break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAvatarUrl(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -348,6 +341,13 @@ proto.isuxportal.proto.resources.Contestant.ContestantDetail.serializeBinaryToWr
   if (f) {
     writer.writeBool(
       3,
+      f
+    );
+  }
+  f = message.getAvatarUrl();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
       f
     );
   }
@@ -409,6 +409,24 @@ proto.isuxportal.proto.resources.Contestant.ContestantDetail.prototype.setIsStud
 
 
 /**
+ * optional string avatar_url = 4;
+ * @return {string}
+ */
+proto.isuxportal.proto.resources.Contestant.ContestantDetail.prototype.getAvatarUrl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.isuxportal.proto.resources.Contestant.ContestantDetail} returns this
+ */
+proto.isuxportal.proto.resources.Contestant.ContestantDetail.prototype.setAvatarUrl = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
  * optional int64 id = 1;
  * @return {number}
  */
@@ -459,24 +477,6 @@ proto.isuxportal.proto.resources.Contestant.prototype.getName = function() {
  */
 proto.isuxportal.proto.resources.Contestant.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string avatar_url = 4;
- * @return {string}
- */
-proto.isuxportal.proto.resources.Contestant.prototype.getAvatarUrl = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.isuxportal.proto.resources.Contestant} returns this
- */
-proto.isuxportal.proto.resources.Contestant.prototype.setAvatarUrl = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 

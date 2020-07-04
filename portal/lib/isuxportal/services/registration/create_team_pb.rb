@@ -6,9 +6,10 @@ require 'google/protobuf'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/registration/create_team.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.registration.CreateTeamRequest" do
-      optional :name, :string, 1
-      optional :email_address, :string, 2
-      optional :is_student, :bool, 3
+      optional :team_name, :string, 1
+      optional :name, :string, 2
+      optional :email_address, :string, 3
+      optional :is_student, :bool, 4
     end
     add_message "isuxportal.proto.services.registration.CreateTeamResponse" do
       optional :team_id, :int64, 1

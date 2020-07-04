@@ -3,9 +3,10 @@ package isuxportal.proto.services.registration;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/registration";
 
 message CreateTeamRequest {
-  string name = 1;
-  string email_address = 2;
-  bool is_student = 3;
+  string team_name = 1;
+  string name = 2; // contestant name
+  string email_address = 3;
+  bool is_student = 4;
 }
 
 message CreateTeamResponse {

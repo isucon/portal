@@ -4,14 +4,18 @@ option go_package = "github.com/isucon/isucon10-portal/proto/services/registrait
 
 import "isuxportal/resources/team.proto";
 
-message GetRegistrationSessionRequest {
-  string invite_token = 1;
+// query parameter
+message GetRegistrationSessionQuery {
+  int64 team_id = 1;
+  string invite_token = 2;
 }
 
 message GetRegistrationSessionResponse {
   isuxportal.proto.resources.Team team = 1;
   bool ready = 2;
-  string github_login = 3;
-  string discord_tag = 4;
+  bool joinable = 3;
+  string github_login = 4;
+  string discord_tag = 5;
+  string invite_url = 6;
 }
 

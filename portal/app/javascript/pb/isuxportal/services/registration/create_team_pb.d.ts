@@ -4,6 +4,9 @@
 import * as jspb from "google-protobuf";
 
 export class CreateTeamRequest extends jspb.Message {
+  getTeamName(): string;
+  setTeamName(value: string): void;
+
   getName(): string;
   setName(value: string): void;
 
@@ -25,6 +28,7 @@ export class CreateTeamRequest extends jspb.Message {
 
 export namespace CreateTeamRequest {
   export type AsObject = {
+    teamName: string,
     name: string,
     emailAddress: string,
     isStudent: boolean,

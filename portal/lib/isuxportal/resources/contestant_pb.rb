@@ -9,13 +9,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :id, :int64, 1
       optional :team_id, :int64, 2
       optional :name, :string, 3
-      optional :avatar_url, :string, 4
       optional :contestant_detail, :message, 7, "isuxportal.proto.resources.Contestant.ContestantDetail"
     end
     add_message "isuxportal.proto.resources.Contestant.ContestantDetail" do
       optional :github_login, :string, 1
       optional :discord_tag, :string, 2
       optional :is_student, :bool, 3
+      optional :avatar_url, :string, 4
     end
   end
 end

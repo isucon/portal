@@ -8,7 +8,7 @@ import "isuxportal/resources/contestant.proto";
 message GetCurrentSessionRequest {
 }
 
-message GetCurrentSettionResponse {
+message GetCurrentSessionResponse {
   isuxportal.proto.resources.Team team = 1;
   isuxportal.proto.resources.Contestant contestant = 2;
   string discord_invitation_url = 3;

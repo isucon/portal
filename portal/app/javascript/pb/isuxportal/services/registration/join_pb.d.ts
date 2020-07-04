@@ -4,6 +4,9 @@
 import * as jspb from "google-protobuf";
 
 export class JoinTeamRequest extends jspb.Message {
+  getTeamId(): number;
+  setTeamId(value: number): void;
+
   getInviteToken(): string;
   setInviteToken(value: string): void;
 
@@ -25,6 +28,7 @@ export class JoinTeamRequest extends jspb.Message {
 
 export namespace JoinTeamRequest {
   export type AsObject = {
+    teamId: number,
     inviteToken: string,
     name: string,
     isStudent: boolean,

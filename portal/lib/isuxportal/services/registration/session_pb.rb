@@ -6,14 +6,17 @@ require 'google/protobuf'
 require 'isuxportal/resources/team_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/registration/session.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.registration.GetRegistrationSessionRequest" do
-      optional :invite_token, :string, 1
+    add_message "isuxportal.proto.services.registration.GetRegistrationSessionQuery" do
+      optional :team_id, :int64, 1
+      optional :invite_token, :string, 2
     end
     add_message "isuxportal.proto.services.registration.GetRegistrationSessionResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
       optional :ready, :bool, 2
-      optional :github_login, :string, 3
-      optional :discord_tag, :string, 4
+      optional :joinable, :bool, 3
+      optional :github_login, :string, 4
+      optional :discord_tag, :string, 5
+      optional :invite_url, :string, 6
     end
   end
 end
@@ -22,7 +25,7 @@ module Isuxportal
   module Proto
     module Services
       module Registration
-        GetRegistrationSessionRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionRequest").msgclass
+        GetRegistrationSessionQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionQuery").msgclass
         GetRegistrationSessionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse").msgclass
       end
     end

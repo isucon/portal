@@ -21,7 +21,7 @@ export namespace GetCurrentSessionRequest {
   }
 }
 
-export class GetCurrentSettionResponse extends jspb.Message {
+export class GetCurrentSessionResponse extends jspb.Message {
   hasTeam(): boolean;
   clearTeam(): void;
   getTeam(): isuxportal_resources_team_pb.Team | undefined;
@@ -36,16 +36,16 @@ export class GetCurrentSettionResponse extends jspb.Message {
   setDiscordInvitationUrl(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetCurrentSettionResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetCurrentSettionResponse): GetCurrentSettionResponse.AsObject;
+  toObject(includeInstance?: boolean): GetCurrentSessionResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetCurrentSessionResponse): GetCurrentSessionResponse.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: GetCurrentSettionResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetCurrentSettionResponse;
-  static deserializeBinaryFromReader(message: GetCurrentSettionResponse, reader: jspb.BinaryReader): GetCurrentSettionResponse;
+  static serializeBinaryToWriter(message: GetCurrentSessionResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetCurrentSessionResponse;
+  static deserializeBinaryFromReader(message: GetCurrentSessionResponse, reader: jspb.BinaryReader): GetCurrentSessionResponse;
 }
 
-export namespace GetCurrentSettionResponse {
+export namespace GetCurrentSessionResponse {
   export type AsObject = {
     team?: isuxportal_resources_team_pb.Team.AsObject,
     contestant?: isuxportal_resources_contestant_pb.Contestant.AsObject,

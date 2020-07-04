@@ -9,7 +9,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/common/me.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.common.GetCurrentSessionRequest" do
     end
-    add_message "isuxportal.proto.services.common.GetCurrentSettionResponse" do
+    add_message "isuxportal.proto.services.common.GetCurrentSessionResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
       optional :contestant, :message, 2, "isuxportal.proto.resources.Contestant"
       optional :discord_invitation_url, :string, 3
@@ -22,7 +22,7 @@ module Isuxportal
     module Services
       module Common
         GetCurrentSessionRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.common.GetCurrentSessionRequest").msgclass
-        GetCurrentSettionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.common.GetCurrentSettionResponse").msgclass
+        GetCurrentSessionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.common.GetCurrentSessionResponse").msgclass
       end
     end
   end

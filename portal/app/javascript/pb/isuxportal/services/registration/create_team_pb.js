@@ -88,9 +88,10 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.toObjec
  */
 proto.isuxportal.proto.services.registration.CreateTeamRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    emailAddress: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    isStudent: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
+    teamName: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    emailAddress: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    isStudent: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -129,13 +130,17 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.deserializeBinary
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setTeamName(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setEmailAddress(value);
+      msg.setName(value);
       break;
     case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmailAddress(value);
+      break;
+    case 4:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsStudent(value);
       break;
@@ -168,24 +173,31 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.seriali
  */
 proto.isuxportal.proto.services.registration.CreateTeamRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getName();
+  f = message.getTeamName();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getEmailAddress();
+  f = message.getName();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
+  f = message.getEmailAddress();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
   f = message.getIsStudent();
   if (f) {
     writer.writeBool(
-      3,
+      4,
       f
     );
   }
@@ -193,10 +205,10 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.serializeBinaryTo
 
 
 /**
- * optional string name = 1;
+ * optional string team_name = 1;
  * @return {string}
  */
-proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getName = function() {
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getTeamName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -205,16 +217,16 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getName
  * @param {string} value
  * @return {!proto.isuxportal.proto.services.registration.CreateTeamRequest} returns this
  */
-proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setName = function(value) {
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setTeamName = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string email_address = 2;
+ * optional string name = 2;
  * @return {string}
  */
-proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getEmailAddress = function() {
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -223,17 +235,35 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getEmai
  * @param {string} value
  * @return {!proto.isuxportal.proto.services.registration.CreateTeamRequest} returns this
  */
-proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setEmailAddress = function(value) {
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional bool is_student = 3;
+ * optional string email_address = 3;
+ * @return {string}
+ */
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getEmailAddress = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.isuxportal.proto.services.registration.CreateTeamRequest} returns this
+ */
+proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setEmailAddress = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional bool is_student = 4;
  * @return {boolean}
  */
 proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getIsStudent = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
 };
 
 
@@ -242,7 +272,7 @@ proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.getIsSt
  * @return {!proto.isuxportal.proto.services.registration.CreateTeamRequest} returns this
  */
 proto.isuxportal.proto.services.registration.CreateTeamRequest.prototype.setIsStudent = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 3, value);
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
