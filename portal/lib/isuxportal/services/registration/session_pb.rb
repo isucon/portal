@@ -12,11 +12,22 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "isuxportal.proto.services.registration.GetRegistrationSessionResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
-      optional :ready, :bool, 2
-      optional :joinable, :bool, 3
-      optional :github_login, :string, 4
+      optional :status, :enum, 2, "isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status"
+      optional :github_login, :string, 3
+      optional :github_avatar_url, :string, 4
       optional :discord_tag, :string, 5
-      optional :invite_url, :string, 6
+      optional :discord_avatar_url, :string, 6
+      optional :member_invite_url, :string, 7
+      optional :discord_server_id, :string, 8
+      optional :is_open, :bool, 9
+    end
+    add_enum "isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status" do
+      value :NOT_FOUND, 0
+      value :NOT_JOINABLE, 1
+      value :NOT_LOGGED_IN, 2
+      value :CREATABLE, 3
+      value :JOINABLE, 4
+      value :JOINED, 5
     end
   end
 end
@@ -27,6 +38,7 @@ module Isuxportal
       module Registration
         GetRegistrationSessionQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionQuery").msgclass
         GetRegistrationSessionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse").msgclass
+        GetRegistrationSessionResponse::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status").enummodule
       end
     end
   end

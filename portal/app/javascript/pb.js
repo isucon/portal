@@ -275,6 +275,607 @@ $root.isuxportal = (function() {
          */
         var proto = {};
 
+        proto.Error = (function() {
+
+            /**
+             * Properties of an Error.
+             * @memberof isuxportal.proto
+             * @interface IError
+             * @property {number|null} [code] Error code
+             * @property {string|null} [name] Error name
+             * @property {string|null} [humanMessage] Error humanMessage
+             * @property {Array.<string>|null} [humanDescriptions] Error humanDescriptions
+             * @property {isuxportal.proto.Error.IDebugInfo|null} [debugInfo] Error debugInfo
+             */
+
+            /**
+             * Constructs a new Error.
+             * @memberof isuxportal.proto
+             * @classdesc Represents an Error.
+             * @implements IError
+             * @constructor
+             * @param {isuxportal.proto.IError=} [properties] Properties to set
+             */
+            function Error(properties) {
+                this.humanDescriptions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Error code.
+             * @member {number} code
+             * @memberof isuxportal.proto.Error
+             * @instance
+             */
+            Error.prototype.code = 0;
+
+            /**
+             * Error name.
+             * @member {string} name
+             * @memberof isuxportal.proto.Error
+             * @instance
+             */
+            Error.prototype.name = "";
+
+            /**
+             * Error humanMessage.
+             * @member {string} humanMessage
+             * @memberof isuxportal.proto.Error
+             * @instance
+             */
+            Error.prototype.humanMessage = "";
+
+            /**
+             * Error humanDescriptions.
+             * @member {Array.<string>} humanDescriptions
+             * @memberof isuxportal.proto.Error
+             * @instance
+             */
+            Error.prototype.humanDescriptions = $util.emptyArray;
+
+            /**
+             * Error debugInfo.
+             * @member {isuxportal.proto.Error.IDebugInfo|null|undefined} debugInfo
+             * @memberof isuxportal.proto.Error
+             * @instance
+             */
+            Error.prototype.debugInfo = null;
+
+            /**
+             * Creates a new Error instance using the specified properties.
+             * @function create
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {isuxportal.proto.IError=} [properties] Properties to set
+             * @returns {isuxportal.proto.Error} Error instance
+             */
+            Error.create = function create(properties) {
+                return new Error(properties);
+            };
+
+            /**
+             * Encodes the specified Error message. Does not implicitly {@link isuxportal.proto.Error.verify|verify} messages.
+             * @function encode
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {isuxportal.proto.IError} message Error message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Error.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.code != null && Object.hasOwnProperty.call(message, "code"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                if (message.humanMessage != null && Object.hasOwnProperty.call(message, "humanMessage"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.humanMessage);
+                if (message.humanDescriptions != null && message.humanDescriptions.length)
+                    for (var i = 0; i < message.humanDescriptions.length; ++i)
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.humanDescriptions[i]);
+                if (message.debugInfo != null && Object.hasOwnProperty.call(message, "debugInfo"))
+                    $root.isuxportal.proto.Error.DebugInfo.encode(message.debugInfo, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified Error message, length delimited. Does not implicitly {@link isuxportal.proto.Error.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {isuxportal.proto.IError} message Error message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Error.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an Error message from the specified reader or buffer.
+             * @function decode
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {isuxportal.proto.Error} Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Error.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.Error();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.code = reader.int32();
+                        break;
+                    case 2:
+                        message.name = reader.string();
+                        break;
+                    case 3:
+                        message.humanMessage = reader.string();
+                        break;
+                    case 4:
+                        if (!(message.humanDescriptions && message.humanDescriptions.length))
+                            message.humanDescriptions = [];
+                        message.humanDescriptions.push(reader.string());
+                        break;
+                    case 16:
+                        message.debugInfo = $root.isuxportal.proto.Error.DebugInfo.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an Error message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {isuxportal.proto.Error} Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Error.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an Error message.
+             * @function verify
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Error.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.code != null && message.hasOwnProperty("code"))
+                    if (!$util.isInteger(message.code))
+                        return "code: integer expected";
+                if (message.name != null && message.hasOwnProperty("name"))
+                    if (!$util.isString(message.name))
+                        return "name: string expected";
+                if (message.humanMessage != null && message.hasOwnProperty("humanMessage"))
+                    if (!$util.isString(message.humanMessage))
+                        return "humanMessage: string expected";
+                if (message.humanDescriptions != null && message.hasOwnProperty("humanDescriptions")) {
+                    if (!Array.isArray(message.humanDescriptions))
+                        return "humanDescriptions: array expected";
+                    for (var i = 0; i < message.humanDescriptions.length; ++i)
+                        if (!$util.isString(message.humanDescriptions[i]))
+                            return "humanDescriptions: string[] expected";
+                }
+                if (message.debugInfo != null && message.hasOwnProperty("debugInfo")) {
+                    var error = $root.isuxportal.proto.Error.DebugInfo.verify(message.debugInfo);
+                    if (error)
+                        return "debugInfo." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates an Error message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {isuxportal.proto.Error} Error
+             */
+            Error.fromObject = function fromObject(object) {
+                if (object instanceof $root.isuxportal.proto.Error)
+                    return object;
+                var message = new $root.isuxportal.proto.Error();
+                if (object.code != null)
+                    message.code = object.code | 0;
+                if (object.name != null)
+                    message.name = String(object.name);
+                if (object.humanMessage != null)
+                    message.humanMessage = String(object.humanMessage);
+                if (object.humanDescriptions) {
+                    if (!Array.isArray(object.humanDescriptions))
+                        throw TypeError(".isuxportal.proto.Error.humanDescriptions: array expected");
+                    message.humanDescriptions = [];
+                    for (var i = 0; i < object.humanDescriptions.length; ++i)
+                        message.humanDescriptions[i] = String(object.humanDescriptions[i]);
+                }
+                if (object.debugInfo != null) {
+                    if (typeof object.debugInfo !== "object")
+                        throw TypeError(".isuxportal.proto.Error.debugInfo: object expected");
+                    message.debugInfo = $root.isuxportal.proto.Error.DebugInfo.fromObject(object.debugInfo);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an Error message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof isuxportal.proto.Error
+             * @static
+             * @param {isuxportal.proto.Error} message Error
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Error.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.humanDescriptions = [];
+                if (options.defaults) {
+                    object.code = 0;
+                    object.name = "";
+                    object.humanMessage = "";
+                    object.debugInfo = null;
+                }
+                if (message.code != null && message.hasOwnProperty("code"))
+                    object.code = message.code;
+                if (message.name != null && message.hasOwnProperty("name"))
+                    object.name = message.name;
+                if (message.humanMessage != null && message.hasOwnProperty("humanMessage"))
+                    object.humanMessage = message.humanMessage;
+                if (message.humanDescriptions && message.humanDescriptions.length) {
+                    object.humanDescriptions = [];
+                    for (var j = 0; j < message.humanDescriptions.length; ++j)
+                        object.humanDescriptions[j] = message.humanDescriptions[j];
+                }
+                if (message.debugInfo != null && message.hasOwnProperty("debugInfo"))
+                    object.debugInfo = $root.isuxportal.proto.Error.DebugInfo.toObject(message.debugInfo, options);
+                return object;
+            };
+
+            /**
+             * Converts this Error to JSON.
+             * @function toJSON
+             * @memberof isuxportal.proto.Error
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Error.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            Error.DebugInfo = (function() {
+
+                /**
+                 * Properties of a DebugInfo.
+                 * @memberof isuxportal.proto.Error
+                 * @interface IDebugInfo
+                 * @property {string|null} [exception] DebugInfo exception
+                 * @property {Array.<string>|null} [trace] DebugInfo trace
+                 * @property {Array.<string>|null} [applicationTrace] DebugInfo applicationTrace
+                 * @property {Array.<string>|null} [frameworkTrace] DebugInfo frameworkTrace
+                 */
+
+                /**
+                 * Constructs a new DebugInfo.
+                 * @memberof isuxportal.proto.Error
+                 * @classdesc Represents a DebugInfo.
+                 * @implements IDebugInfo
+                 * @constructor
+                 * @param {isuxportal.proto.Error.IDebugInfo=} [properties] Properties to set
+                 */
+                function DebugInfo(properties) {
+                    this.trace = [];
+                    this.applicationTrace = [];
+                    this.frameworkTrace = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * DebugInfo exception.
+                 * @member {string} exception
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @instance
+                 */
+                DebugInfo.prototype.exception = "";
+
+                /**
+                 * DebugInfo trace.
+                 * @member {Array.<string>} trace
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @instance
+                 */
+                DebugInfo.prototype.trace = $util.emptyArray;
+
+                /**
+                 * DebugInfo applicationTrace.
+                 * @member {Array.<string>} applicationTrace
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @instance
+                 */
+                DebugInfo.prototype.applicationTrace = $util.emptyArray;
+
+                /**
+                 * DebugInfo frameworkTrace.
+                 * @member {Array.<string>} frameworkTrace
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @instance
+                 */
+                DebugInfo.prototype.frameworkTrace = $util.emptyArray;
+
+                /**
+                 * Creates a new DebugInfo instance using the specified properties.
+                 * @function create
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {isuxportal.proto.Error.IDebugInfo=} [properties] Properties to set
+                 * @returns {isuxportal.proto.Error.DebugInfo} DebugInfo instance
+                 */
+                DebugInfo.create = function create(properties) {
+                    return new DebugInfo(properties);
+                };
+
+                /**
+                 * Encodes the specified DebugInfo message. Does not implicitly {@link isuxportal.proto.Error.DebugInfo.verify|verify} messages.
+                 * @function encode
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {isuxportal.proto.Error.IDebugInfo} message DebugInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DebugInfo.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.exception != null && Object.hasOwnProperty.call(message, "exception"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.exception);
+                    if (message.trace != null && message.trace.length)
+                        for (var i = 0; i < message.trace.length; ++i)
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.trace[i]);
+                    if (message.applicationTrace != null && message.applicationTrace.length)
+                        for (var i = 0; i < message.applicationTrace.length; ++i)
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.applicationTrace[i]);
+                    if (message.frameworkTrace != null && message.frameworkTrace.length)
+                        for (var i = 0; i < message.frameworkTrace.length; ++i)
+                            writer.uint32(/* id 4, wireType 2 =*/34).string(message.frameworkTrace[i]);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified DebugInfo message, length delimited. Does not implicitly {@link isuxportal.proto.Error.DebugInfo.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {isuxportal.proto.Error.IDebugInfo} message DebugInfo message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DebugInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a DebugInfo message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {isuxportal.proto.Error.DebugInfo} DebugInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DebugInfo.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.Error.DebugInfo();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.exception = reader.string();
+                            break;
+                        case 2:
+                            if (!(message.trace && message.trace.length))
+                                message.trace = [];
+                            message.trace.push(reader.string());
+                            break;
+                        case 3:
+                            if (!(message.applicationTrace && message.applicationTrace.length))
+                                message.applicationTrace = [];
+                            message.applicationTrace.push(reader.string());
+                            break;
+                        case 4:
+                            if (!(message.frameworkTrace && message.frameworkTrace.length))
+                                message.frameworkTrace = [];
+                            message.frameworkTrace.push(reader.string());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a DebugInfo message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {isuxportal.proto.Error.DebugInfo} DebugInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DebugInfo.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a DebugInfo message.
+                 * @function verify
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DebugInfo.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.exception != null && message.hasOwnProperty("exception"))
+                        if (!$util.isString(message.exception))
+                            return "exception: string expected";
+                    if (message.trace != null && message.hasOwnProperty("trace")) {
+                        if (!Array.isArray(message.trace))
+                            return "trace: array expected";
+                        for (var i = 0; i < message.trace.length; ++i)
+                            if (!$util.isString(message.trace[i]))
+                                return "trace: string[] expected";
+                    }
+                    if (message.applicationTrace != null && message.hasOwnProperty("applicationTrace")) {
+                        if (!Array.isArray(message.applicationTrace))
+                            return "applicationTrace: array expected";
+                        for (var i = 0; i < message.applicationTrace.length; ++i)
+                            if (!$util.isString(message.applicationTrace[i]))
+                                return "applicationTrace: string[] expected";
+                    }
+                    if (message.frameworkTrace != null && message.hasOwnProperty("frameworkTrace")) {
+                        if (!Array.isArray(message.frameworkTrace))
+                            return "frameworkTrace: array expected";
+                        for (var i = 0; i < message.frameworkTrace.length; ++i)
+                            if (!$util.isString(message.frameworkTrace[i]))
+                                return "frameworkTrace: string[] expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a DebugInfo message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {isuxportal.proto.Error.DebugInfo} DebugInfo
+                 */
+                DebugInfo.fromObject = function fromObject(object) {
+                    if (object instanceof $root.isuxportal.proto.Error.DebugInfo)
+                        return object;
+                    var message = new $root.isuxportal.proto.Error.DebugInfo();
+                    if (object.exception != null)
+                        message.exception = String(object.exception);
+                    if (object.trace) {
+                        if (!Array.isArray(object.trace))
+                            throw TypeError(".isuxportal.proto.Error.DebugInfo.trace: array expected");
+                        message.trace = [];
+                        for (var i = 0; i < object.trace.length; ++i)
+                            message.trace[i] = String(object.trace[i]);
+                    }
+                    if (object.applicationTrace) {
+                        if (!Array.isArray(object.applicationTrace))
+                            throw TypeError(".isuxportal.proto.Error.DebugInfo.applicationTrace: array expected");
+                        message.applicationTrace = [];
+                        for (var i = 0; i < object.applicationTrace.length; ++i)
+                            message.applicationTrace[i] = String(object.applicationTrace[i]);
+                    }
+                    if (object.frameworkTrace) {
+                        if (!Array.isArray(object.frameworkTrace))
+                            throw TypeError(".isuxportal.proto.Error.DebugInfo.frameworkTrace: array expected");
+                        message.frameworkTrace = [];
+                        for (var i = 0; i < object.frameworkTrace.length; ++i)
+                            message.frameworkTrace[i] = String(object.frameworkTrace[i]);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a DebugInfo message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @static
+                 * @param {isuxportal.proto.Error.DebugInfo} message DebugInfo
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DebugInfo.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.trace = [];
+                        object.applicationTrace = [];
+                        object.frameworkTrace = [];
+                    }
+                    if (options.defaults)
+                        object.exception = "";
+                    if (message.exception != null && message.hasOwnProperty("exception"))
+                        object.exception = message.exception;
+                    if (message.trace && message.trace.length) {
+                        object.trace = [];
+                        for (var j = 0; j < message.trace.length; ++j)
+                            object.trace[j] = message.trace[j];
+                    }
+                    if (message.applicationTrace && message.applicationTrace.length) {
+                        object.applicationTrace = [];
+                        for (var j = 0; j < message.applicationTrace.length; ++j)
+                            object.applicationTrace[j] = message.applicationTrace[j];
+                    }
+                    if (message.frameworkTrace && message.frameworkTrace.length) {
+                        object.frameworkTrace = [];
+                        for (var j = 0; j < message.frameworkTrace.length; ++j)
+                            object.frameworkTrace[j] = message.frameworkTrace[j];
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this DebugInfo to JSON.
+                 * @function toJSON
+                 * @memberof isuxportal.proto.Error.DebugInfo
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DebugInfo.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return DebugInfo;
+            })();
+
+            return Error;
+        })();
+
         proto.resources = (function() {
 
             /**
@@ -5853,7 +6454,7 @@ $root.isuxportal = (function() {
                      * @interface IGetCurrentSessionResponse
                      * @property {isuxportal.proto.resources.ITeam|null} [team] GetCurrentSessionResponse team
                      * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
-                     * @property {string|null} [discordInvitationUrl] GetCurrentSessionResponse discordInvitationUrl
+                     * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
                      */
 
                     /**
@@ -5888,12 +6489,12 @@ $root.isuxportal = (function() {
                     GetCurrentSessionResponse.prototype.contestant = null;
 
                     /**
-                     * GetCurrentSessionResponse discordInvitationUrl.
-                     * @member {string} discordInvitationUrl
+                     * GetCurrentSessionResponse discordServerId.
+                     * @member {string} discordServerId
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
                      * @instance
                      */
-                    GetCurrentSessionResponse.prototype.discordInvitationUrl = "";
+                    GetCurrentSessionResponse.prototype.discordServerId = "";
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -5923,8 +6524,8 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         if (message.contestant != null && Object.hasOwnProperty.call(message, "contestant"))
                             $root.isuxportal.proto.resources.Contestant.encode(message.contestant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                        if (message.discordInvitationUrl != null && Object.hasOwnProperty.call(message, "discordInvitationUrl"))
-                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordInvitationUrl);
+                        if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
                         return writer;
                     };
 
@@ -5966,7 +6567,7 @@ $root.isuxportal = (function() {
                                 message.contestant = $root.isuxportal.proto.resources.Contestant.decode(reader, reader.uint32());
                                 break;
                             case 3:
-                                message.discordInvitationUrl = reader.string();
+                                message.discordServerId = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -6013,9 +6614,9 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "contestant." + error;
                         }
-                        if (message.discordInvitationUrl != null && message.hasOwnProperty("discordInvitationUrl"))
-                            if (!$util.isString(message.discordInvitationUrl))
-                                return "discordInvitationUrl: string expected";
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            if (!$util.isString(message.discordServerId))
+                                return "discordServerId: string expected";
                         return null;
                     };
 
@@ -6041,8 +6642,8 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestant: object expected");
                             message.contestant = $root.isuxportal.proto.resources.Contestant.fromObject(object.contestant);
                         }
-                        if (object.discordInvitationUrl != null)
-                            message.discordInvitationUrl = String(object.discordInvitationUrl);
+                        if (object.discordServerId != null)
+                            message.discordServerId = String(object.discordServerId);
                         return message;
                     };
 
@@ -6062,14 +6663,14 @@ $root.isuxportal = (function() {
                         if (options.defaults) {
                             object.team = null;
                             object.contestant = null;
-                            object.discordInvitationUrl = "";
+                            object.discordServerId = "";
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                         if (message.contestant != null && message.hasOwnProperty("contestant"))
                             object.contestant = $root.isuxportal.proto.resources.Contestant.toObject(message.contestant, options);
-                        if (message.discordInvitationUrl != null && message.hasOwnProperty("discordInvitationUrl"))
-                            object.discordInvitationUrl = message.discordInvitationUrl;
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            object.discordServerId = message.discordServerId;
                         return object;
                     };
 
@@ -7668,11 +8269,14 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.registration
                      * @interface IGetRegistrationSessionResponse
                      * @property {isuxportal.proto.resources.ITeam|null} [team] GetRegistrationSessionResponse team
-                     * @property {boolean|null} [ready] GetRegistrationSessionResponse ready
-                     * @property {boolean|null} [joinable] GetRegistrationSessionResponse joinable
+                     * @property {isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status|null} [status] GetRegistrationSessionResponse status
                      * @property {string|null} [githubLogin] GetRegistrationSessionResponse githubLogin
+                     * @property {string|null} [githubAvatarUrl] GetRegistrationSessionResponse githubAvatarUrl
                      * @property {string|null} [discordTag] GetRegistrationSessionResponse discordTag
-                     * @property {string|null} [inviteUrl] GetRegistrationSessionResponse inviteUrl
+                     * @property {string|null} [discordAvatarUrl] GetRegistrationSessionResponse discordAvatarUrl
+                     * @property {string|null} [memberInviteUrl] GetRegistrationSessionResponse memberInviteUrl
+                     * @property {string|null} [discordServerId] GetRegistrationSessionResponse discordServerId
+                     * @property {boolean|null} [isOpen] GetRegistrationSessionResponse isOpen
                      */
 
                     /**
@@ -7699,20 +8303,12 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.team = null;
 
                     /**
-                     * GetRegistrationSessionResponse ready.
-                     * @member {boolean} ready
+                     * GetRegistrationSessionResponse status.
+                     * @member {isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status} status
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
                      * @instance
                      */
-                    GetRegistrationSessionResponse.prototype.ready = false;
-
-                    /**
-                     * GetRegistrationSessionResponse joinable.
-                     * @member {boolean} joinable
-                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
-                     * @instance
-                     */
-                    GetRegistrationSessionResponse.prototype.joinable = false;
+                    GetRegistrationSessionResponse.prototype.status = 0;
 
                     /**
                      * GetRegistrationSessionResponse githubLogin.
@@ -7723,6 +8319,14 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.githubLogin = "";
 
                     /**
+                     * GetRegistrationSessionResponse githubAvatarUrl.
+                     * @member {string} githubAvatarUrl
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.githubAvatarUrl = "";
+
+                    /**
                      * GetRegistrationSessionResponse discordTag.
                      * @member {string} discordTag
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
@@ -7731,12 +8335,36 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.discordTag = "";
 
                     /**
-                     * GetRegistrationSessionResponse inviteUrl.
-                     * @member {string} inviteUrl
+                     * GetRegistrationSessionResponse discordAvatarUrl.
+                     * @member {string} discordAvatarUrl
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
                      * @instance
                      */
-                    GetRegistrationSessionResponse.prototype.inviteUrl = "";
+                    GetRegistrationSessionResponse.prototype.discordAvatarUrl = "";
+
+                    /**
+                     * GetRegistrationSessionResponse memberInviteUrl.
+                     * @member {string} memberInviteUrl
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.memberInviteUrl = "";
+
+                    /**
+                     * GetRegistrationSessionResponse discordServerId.
+                     * @member {string} discordServerId
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.discordServerId = "";
+
+                    /**
+                     * GetRegistrationSessionResponse isOpen.
+                     * @member {boolean} isOpen
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.isOpen = false;
 
                     /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
@@ -7764,16 +8392,22 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                             $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                        if (message.ready != null && Object.hasOwnProperty.call(message, "ready"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.ready);
-                        if (message.joinable != null && Object.hasOwnProperty.call(message, "joinable"))
-                            writer.uint32(/* id 3, wireType 0 =*/24).bool(message.joinable);
+                        if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.status);
                         if (message.githubLogin != null && Object.hasOwnProperty.call(message, "githubLogin"))
-                            writer.uint32(/* id 4, wireType 2 =*/34).string(message.githubLogin);
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.githubLogin);
+                        if (message.githubAvatarUrl != null && Object.hasOwnProperty.call(message, "githubAvatarUrl"))
+                            writer.uint32(/* id 4, wireType 2 =*/34).string(message.githubAvatarUrl);
                         if (message.discordTag != null && Object.hasOwnProperty.call(message, "discordTag"))
                             writer.uint32(/* id 5, wireType 2 =*/42).string(message.discordTag);
-                        if (message.inviteUrl != null && Object.hasOwnProperty.call(message, "inviteUrl"))
-                            writer.uint32(/* id 6, wireType 2 =*/50).string(message.inviteUrl);
+                        if (message.discordAvatarUrl != null && Object.hasOwnProperty.call(message, "discordAvatarUrl"))
+                            writer.uint32(/* id 6, wireType 2 =*/50).string(message.discordAvatarUrl);
+                        if (message.memberInviteUrl != null && Object.hasOwnProperty.call(message, "memberInviteUrl"))
+                            writer.uint32(/* id 7, wireType 2 =*/58).string(message.memberInviteUrl);
+                        if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
+                            writer.uint32(/* id 8, wireType 2 =*/66).string(message.discordServerId);
+                        if (message.isOpen != null && Object.hasOwnProperty.call(message, "isOpen"))
+                            writer.uint32(/* id 9, wireType 0 =*/72).bool(message.isOpen);
                         return writer;
                     };
 
@@ -7812,19 +8446,28 @@ $root.isuxportal = (function() {
                                 message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
                                 break;
                             case 2:
-                                message.ready = reader.bool();
+                                message.status = reader.int32();
                                 break;
                             case 3:
-                                message.joinable = reader.bool();
+                                message.githubLogin = reader.string();
                                 break;
                             case 4:
-                                message.githubLogin = reader.string();
+                                message.githubAvatarUrl = reader.string();
                                 break;
                             case 5:
                                 message.discordTag = reader.string();
                                 break;
                             case 6:
-                                message.inviteUrl = reader.string();
+                                message.discordAvatarUrl = reader.string();
+                                break;
+                            case 7:
+                                message.memberInviteUrl = reader.string();
+                                break;
+                            case 8:
+                                message.discordServerId = reader.string();
+                                break;
+                            case 9:
+                                message.isOpen = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -7866,21 +8509,39 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "team." + error;
                         }
-                        if (message.ready != null && message.hasOwnProperty("ready"))
-                            if (typeof message.ready !== "boolean")
-                                return "ready: boolean expected";
-                        if (message.joinable != null && message.hasOwnProperty("joinable"))
-                            if (typeof message.joinable !== "boolean")
-                                return "joinable: boolean expected";
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            switch (message.status) {
+                            default:
+                                return "status: enum value expected";
+                            case 0:
+                            case 1:
+                            case 2:
+                            case 3:
+                            case 4:
+                            case 5:
+                                break;
+                            }
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
                             if (!$util.isString(message.githubLogin))
                                 return "githubLogin: string expected";
+                        if (message.githubAvatarUrl != null && message.hasOwnProperty("githubAvatarUrl"))
+                            if (!$util.isString(message.githubAvatarUrl))
+                                return "githubAvatarUrl: string expected";
                         if (message.discordTag != null && message.hasOwnProperty("discordTag"))
                             if (!$util.isString(message.discordTag))
                                 return "discordTag: string expected";
-                        if (message.inviteUrl != null && message.hasOwnProperty("inviteUrl"))
-                            if (!$util.isString(message.inviteUrl))
-                                return "inviteUrl: string expected";
+                        if (message.discordAvatarUrl != null && message.hasOwnProperty("discordAvatarUrl"))
+                            if (!$util.isString(message.discordAvatarUrl))
+                                return "discordAvatarUrl: string expected";
+                        if (message.memberInviteUrl != null && message.hasOwnProperty("memberInviteUrl"))
+                            if (!$util.isString(message.memberInviteUrl))
+                                return "memberInviteUrl: string expected";
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            if (!$util.isString(message.discordServerId))
+                                return "discordServerId: string expected";
+                        if (message.isOpen != null && message.hasOwnProperty("isOpen"))
+                            if (typeof message.isOpen !== "boolean")
+                                return "isOpen: boolean expected";
                         return null;
                     };
 
@@ -7901,16 +8562,46 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.registration.GetRegistrationSessionResponse.team: object expected");
                             message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
                         }
-                        if (object.ready != null)
-                            message.ready = Boolean(object.ready);
-                        if (object.joinable != null)
-                            message.joinable = Boolean(object.joinable);
+                        switch (object.status) {
+                        case "NOT_FOUND":
+                        case 0:
+                            message.status = 0;
+                            break;
+                        case "NOT_JOINABLE":
+                        case 1:
+                            message.status = 1;
+                            break;
+                        case "NOT_LOGGED_IN":
+                        case 2:
+                            message.status = 2;
+                            break;
+                        case "CREATABLE":
+                        case 3:
+                            message.status = 3;
+                            break;
+                        case "JOINABLE":
+                        case 4:
+                            message.status = 4;
+                            break;
+                        case "JOINED":
+                        case 5:
+                            message.status = 5;
+                            break;
+                        }
                         if (object.githubLogin != null)
                             message.githubLogin = String(object.githubLogin);
+                        if (object.githubAvatarUrl != null)
+                            message.githubAvatarUrl = String(object.githubAvatarUrl);
                         if (object.discordTag != null)
                             message.discordTag = String(object.discordTag);
-                        if (object.inviteUrl != null)
-                            message.inviteUrl = String(object.inviteUrl);
+                        if (object.discordAvatarUrl != null)
+                            message.discordAvatarUrl = String(object.discordAvatarUrl);
+                        if (object.memberInviteUrl != null)
+                            message.memberInviteUrl = String(object.memberInviteUrl);
+                        if (object.discordServerId != null)
+                            message.discordServerId = String(object.discordServerId);
+                        if (object.isOpen != null)
+                            message.isOpen = Boolean(object.isOpen);
                         return message;
                     };
 
@@ -7929,24 +8620,33 @@ $root.isuxportal = (function() {
                         var object = {};
                         if (options.defaults) {
                             object.team = null;
-                            object.ready = false;
-                            object.joinable = false;
+                            object.status = options.enums === String ? "NOT_FOUND" : 0;
                             object.githubLogin = "";
+                            object.githubAvatarUrl = "";
                             object.discordTag = "";
-                            object.inviteUrl = "";
+                            object.discordAvatarUrl = "";
+                            object.memberInviteUrl = "";
+                            object.discordServerId = "";
+                            object.isOpen = false;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
-                        if (message.ready != null && message.hasOwnProperty("ready"))
-                            object.ready = message.ready;
-                        if (message.joinable != null && message.hasOwnProperty("joinable"))
-                            object.joinable = message.joinable;
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            object.status = options.enums === String ? $root.isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status[message.status] : message.status;
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
                             object.githubLogin = message.githubLogin;
+                        if (message.githubAvatarUrl != null && message.hasOwnProperty("githubAvatarUrl"))
+                            object.githubAvatarUrl = message.githubAvatarUrl;
                         if (message.discordTag != null && message.hasOwnProperty("discordTag"))
                             object.discordTag = message.discordTag;
-                        if (message.inviteUrl != null && message.hasOwnProperty("inviteUrl"))
-                            object.inviteUrl = message.inviteUrl;
+                        if (message.discordAvatarUrl != null && message.hasOwnProperty("discordAvatarUrl"))
+                            object.discordAvatarUrl = message.discordAvatarUrl;
+                        if (message.memberInviteUrl != null && message.hasOwnProperty("memberInviteUrl"))
+                            object.memberInviteUrl = message.memberInviteUrl;
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            object.discordServerId = message.discordServerId;
+                        if (message.isOpen != null && message.hasOwnProperty("isOpen"))
+                            object.isOpen = message.isOpen;
                         return object;
                     };
 
@@ -7960,6 +8660,28 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
+
+                    /**
+                     * Status enum.
+                     * @name isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status
+                     * @enum {number}
+                     * @property {number} NOT_FOUND=0 NOT_FOUND value
+                     * @property {number} NOT_JOINABLE=1 NOT_JOINABLE value
+                     * @property {number} NOT_LOGGED_IN=2 NOT_LOGGED_IN value
+                     * @property {number} CREATABLE=3 CREATABLE value
+                     * @property {number} JOINABLE=4 JOINABLE value
+                     * @property {number} JOINED=5 JOINED value
+                     */
+                    GetRegistrationSessionResponse.Status = (function() {
+                        var valuesById = {}, values = Object.create(valuesById);
+                        values[valuesById[0] = "NOT_FOUND"] = 0;
+                        values[valuesById[1] = "NOT_JOINABLE"] = 1;
+                        values[valuesById[2] = "NOT_LOGGED_IN"] = 2;
+                        values[valuesById[3] = "CREATABLE"] = 3;
+                        values[valuesById[4] = "JOINABLE"] = 4;
+                        values[valuesById[5] = "JOINED"] = 5;
+                        return values;
+                    })();
 
                     return GetRegistrationSessionResponse;
                 })();

@@ -109,6 +109,231 @@ export namespace isuxportal {
     /** Namespace proto. */
     namespace proto {
 
+        /** Properties of an Error. */
+        interface IError {
+
+            /** Error code */
+            code?: (number|null);
+
+            /** Error name */
+            name?: (string|null);
+
+            /** Error humanMessage */
+            humanMessage?: (string|null);
+
+            /** Error humanDescriptions */
+            humanDescriptions?: (string[]|null);
+
+            /** Error debugInfo */
+            debugInfo?: (isuxportal.proto.Error.IDebugInfo|null);
+        }
+
+        /** Represents an Error. */
+        class Error implements IError {
+
+            /**
+             * Constructs a new Error.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: isuxportal.proto.IError);
+
+            /** Error code. */
+            public code: number;
+
+            /** Error name. */
+            public name: string;
+
+            /** Error humanMessage. */
+            public humanMessage: string;
+
+            /** Error humanDescriptions. */
+            public humanDescriptions: string[];
+
+            /** Error debugInfo. */
+            public debugInfo?: (isuxportal.proto.Error.IDebugInfo|null);
+
+            /**
+             * Creates a new Error instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Error instance
+             */
+            public static create(properties?: isuxportal.proto.IError): isuxportal.proto.Error;
+
+            /**
+             * Encodes the specified Error message. Does not implicitly {@link isuxportal.proto.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: isuxportal.proto.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Error message, length delimited. Does not implicitly {@link isuxportal.proto.Error.verify|verify} messages.
+             * @param message Error message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: isuxportal.proto.IError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.Error;
+
+            /**
+             * Decodes an Error message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Error
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.Error;
+
+            /**
+             * Verifies an Error message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Error message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Error
+             */
+            public static fromObject(object: { [k: string]: any }): isuxportal.proto.Error;
+
+            /**
+             * Creates a plain object from an Error message. Also converts values to other types if specified.
+             * @param message Error
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: isuxportal.proto.Error, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Error to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        namespace Error {
+
+            /** Properties of a DebugInfo. */
+            interface IDebugInfo {
+
+                /** DebugInfo exception */
+                exception?: (string|null);
+
+                /** DebugInfo trace */
+                trace?: (string[]|null);
+
+                /** DebugInfo applicationTrace */
+                applicationTrace?: (string[]|null);
+
+                /** DebugInfo frameworkTrace */
+                frameworkTrace?: (string[]|null);
+            }
+
+            /** Represents a DebugInfo. */
+            class DebugInfo implements IDebugInfo {
+
+                /**
+                 * Constructs a new DebugInfo.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.Error.IDebugInfo);
+
+                /** DebugInfo exception. */
+                public exception: string;
+
+                /** DebugInfo trace. */
+                public trace: string[];
+
+                /** DebugInfo applicationTrace. */
+                public applicationTrace: string[];
+
+                /** DebugInfo frameworkTrace. */
+                public frameworkTrace: string[];
+
+                /**
+                 * Creates a new DebugInfo instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns DebugInfo instance
+                 */
+                public static create(properties?: isuxportal.proto.Error.IDebugInfo): isuxportal.proto.Error.DebugInfo;
+
+                /**
+                 * Encodes the specified DebugInfo message. Does not implicitly {@link isuxportal.proto.Error.DebugInfo.verify|verify} messages.
+                 * @param message DebugInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.Error.IDebugInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified DebugInfo message, length delimited. Does not implicitly {@link isuxportal.proto.Error.DebugInfo.verify|verify} messages.
+                 * @param message DebugInfo message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.Error.IDebugInfo, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a DebugInfo message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns DebugInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.Error.DebugInfo;
+
+                /**
+                 * Decodes a DebugInfo message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns DebugInfo
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.Error.DebugInfo;
+
+                /**
+                 * Verifies a DebugInfo message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a DebugInfo message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns DebugInfo
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.Error.DebugInfo;
+
+                /**
+                 * Creates a plain object from a DebugInfo message. Also converts values to other types if specified.
+                 * @param message DebugInfo
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.Error.DebugInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this DebugInfo to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+        }
+
         /** Namespace resources. */
         namespace resources {
 
@@ -2330,8 +2555,8 @@ export namespace isuxportal {
                     /** GetCurrentSessionResponse contestant */
                     contestant?: (isuxportal.proto.resources.IContestant|null);
 
-                    /** GetCurrentSessionResponse discordInvitationUrl */
-                    discordInvitationUrl?: (string|null);
+                    /** GetCurrentSessionResponse discordServerId */
+                    discordServerId?: (string|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2349,8 +2574,8 @@ export namespace isuxportal {
                     /** GetCurrentSessionResponse contestant. */
                     public contestant?: (isuxportal.proto.resources.IContestant|null);
 
-                    /** GetCurrentSessionResponse discordInvitationUrl. */
-                    public discordInvitationUrl: string;
+                    /** GetCurrentSessionResponse discordServerId. */
+                    public discordServerId: string;
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -3148,20 +3373,29 @@ export namespace isuxportal {
                     /** GetRegistrationSessionResponse team */
                     team?: (isuxportal.proto.resources.ITeam|null);
 
-                    /** GetRegistrationSessionResponse ready */
-                    ready?: (boolean|null);
-
-                    /** GetRegistrationSessionResponse joinable */
-                    joinable?: (boolean|null);
+                    /** GetRegistrationSessionResponse status */
+                    status?: (isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status|null);
 
                     /** GetRegistrationSessionResponse githubLogin */
                     githubLogin?: (string|null);
 
+                    /** GetRegistrationSessionResponse githubAvatarUrl */
+                    githubAvatarUrl?: (string|null);
+
                     /** GetRegistrationSessionResponse discordTag */
                     discordTag?: (string|null);
 
-                    /** GetRegistrationSessionResponse inviteUrl */
-                    inviteUrl?: (string|null);
+                    /** GetRegistrationSessionResponse discordAvatarUrl */
+                    discordAvatarUrl?: (string|null);
+
+                    /** GetRegistrationSessionResponse memberInviteUrl */
+                    memberInviteUrl?: (string|null);
+
+                    /** GetRegistrationSessionResponse discordServerId */
+                    discordServerId?: (string|null);
+
+                    /** GetRegistrationSessionResponse isOpen */
+                    isOpen?: (boolean|null);
                 }
 
                 /** Represents a GetRegistrationSessionResponse. */
@@ -3176,20 +3410,29 @@ export namespace isuxportal {
                     /** GetRegistrationSessionResponse team. */
                     public team?: (isuxportal.proto.resources.ITeam|null);
 
-                    /** GetRegistrationSessionResponse ready. */
-                    public ready: boolean;
-
-                    /** GetRegistrationSessionResponse joinable. */
-                    public joinable: boolean;
+                    /** GetRegistrationSessionResponse status. */
+                    public status: isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status;
 
                     /** GetRegistrationSessionResponse githubLogin. */
                     public githubLogin: string;
 
+                    /** GetRegistrationSessionResponse githubAvatarUrl. */
+                    public githubAvatarUrl: string;
+
                     /** GetRegistrationSessionResponse discordTag. */
                     public discordTag: string;
 
-                    /** GetRegistrationSessionResponse inviteUrl. */
-                    public inviteUrl: string;
+                    /** GetRegistrationSessionResponse discordAvatarUrl. */
+                    public discordAvatarUrl: string;
+
+                    /** GetRegistrationSessionResponse memberInviteUrl. */
+                    public memberInviteUrl: string;
+
+                    /** GetRegistrationSessionResponse discordServerId. */
+                    public discordServerId: string;
+
+                    /** GetRegistrationSessionResponse isOpen. */
+                    public isOpen: boolean;
 
                     /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
@@ -3260,6 +3503,19 @@ export namespace isuxportal {
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
+                }
+
+                namespace GetRegistrationSessionResponse {
+
+                    /** Status enum. */
+                    enum Status {
+                        NOT_FOUND = 0,
+                        NOT_JOINABLE = 1,
+                        NOT_LOGGED_IN = 2,
+                        CREATABLE = 3,
+                        JOINABLE = 4,
+                        JOINED = 5
+                    }
                 }
             }
         }

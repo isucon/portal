@@ -91,4 +91,13 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  #
+  config.x.github.client_id = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_ID')
+  config.x.github.client_secret = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_SECRET')
+  config.x.discord.client_id = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_ID')
+  config.x.discord.client_secret = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_SECRET')
+  config.x.discord.server_id = ENV.fetch('ISUXPORTAL_DISCORD_SERVER_ID')
+
+  config.x.admin_auth.login = ENV.fetch('ISUXPORTAL_ADMIN_LOGIN')
+  config.x.admin_auth.password = ENV.fetch('ISUXPORTAL_ADMIN_PASSWORD')
 end

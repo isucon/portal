@@ -11,6 +11,6 @@ message GetCurrentSessionRequest {
 message GetCurrentSessionResponse {
   isuxportal.proto.resources.Team team = 1;
   isuxportal.proto.resources.Contestant contestant = 2;
-  string discord_invitation_url = 3;
+  string discord_server_id = 3;
 }
 

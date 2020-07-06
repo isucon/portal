@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_182411) do
+ActiveRecord::Schema.define(version: 2020_07_04_170956) do
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "team_id", null: false
     t.string "name", null: false
     t.string "github_login", null: false
-    t.string "discord_user_id", null: false
+    t.string "discord_id", null: false
     t.string "avatar_url", null: false
     t.boolean "student", default: false, null: false
-    t.boolean "withdrawn", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "github_id", null: false
+    t.string "discord_tag", null: false
+    t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
+    t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
+  end
+
+  create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "contestant_id", null: false
+    t.text "public_key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contestant_id"], name: "index_ssh_public_keys_on_contestant_id"
   end
 
   create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -33,6 +44,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_182411) do
     t.string "invite_token", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "withdrawn"
   end
 
 end

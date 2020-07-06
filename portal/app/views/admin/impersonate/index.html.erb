@@ -1,0 +1,95 @@
+<section class="mt-3">
+  <h5 class="title is-5">Contestant</h5>
+
+  <p>Current: <code><%= session[:contestant_id] %></code></p>
+
+  <%= form_with(url: impersonate_contestant_path, local: true, method: :post) do %>
+    <div class="field">
+      <label class="label">Clear</label>
+      <div class="control">
+        <%= check_box_tag(:clear) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">ID</label>
+      <div class="control">
+        <%= number_field_tag(:id) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= submit_tag("Submit", class: "button is-primary") %>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<section class="mt-3">
+  <h5 class="title is-5">GitHub</h5>
+  <p>Current: <code><%= session[:github_login]&.except('token').inspect %></code></p>
+
+  <%= form_with(url: impersonate_github_path, local: true, method: :post) do %>
+    <div class="field">
+      <label class="label">Clear</label>
+      <div class="control">
+        <%= check_box_tag(:clear) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">ID</label>
+      <div class="control">
+        <%= number_field_tag(:id) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Login</label>
+      <div class="control">
+        <%= text_field_tag(:login) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= submit_tag("Submit", class: "button is-primary") %>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<section class="mt-3">
+  <h5 class="title is-5">Discord</h5>
+  <p>Current: <code><%= session[:discord_login]&.except('token').inspect %></code></p>
+
+  <%= form_with(url: impersonate_discord_path, local: true, method: :post) do %>
+    <div class="field">
+      <label class="label">Clear</label>
+      <div class="control">
+        <%= check_box_tag(:clear) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">ID</label>
+      <div class="control">
+        <%= number_field_tag(:id) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Login</label>
+      <div class="control">
+        <%= text_field_tag(:login) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= submit_tag("Submit", class: "button is-primary") %>
+      </div>
+    </div>
+  <% end %>
+</section>

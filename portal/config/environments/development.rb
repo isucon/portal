@@ -44,4 +44,13 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.x.github.client_id = ENV['ISUXPORTAL_GITHUB_CLIENT_ID']
+  config.x.github.client_secret = ENV['ISUXPORTAL_GITHUB_CLIENT_SECRET']
+  config.x.discord.client_id = ENV['ISUXPORTAL_DISCORD_CLIENT_ID']
+  config.x.discord.client_secret = ENV['ISUXPORTAL_DISCORD_CLIENT_SECRET']
+  config.x.discord.server_id = ENV['ISUXPORTAL_DISCORD_SERVER_ID'] || '721578039779262486'
+
+  config.x.admin_auth.login = ENV['ISUXPORTAL_ADMIN_LOGIN']
+  config.x.admin_auth.password = ENV['ISUXPORTAL_ADMIN_PASSWORD']
 end

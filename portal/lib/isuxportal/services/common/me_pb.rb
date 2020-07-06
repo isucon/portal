@@ -12,7 +12,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.common.GetCurrentSessionResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
       optional :contestant, :message, 2, "isuxportal.proto.resources.Contestant"
-      optional :discord_invitation_url, :string, 3
+      optional :discord_server_id, :string, 3
     end
   end
 end

@@ -1,0 +1,6 @@
+
+.isux-visibility-user { display: none !important; }
+.isux-visibility-guest { display: none !important; }
+
+body.isux-session-user .isux-visibility-user { display: block !important; }
+body.isux-session-guest .isux-visibility-guest { display: block !important; }

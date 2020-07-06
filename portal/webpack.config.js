@@ -7,7 +7,7 @@ const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
 
 const entries = {};
-glob.sync("app/javascript/packs/*.ts").forEach(filePath => {
+glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
   const name = path.basename(filePath, path.extname(filePath));
   entries[name] = path.resolve(__dirname, filePath);
 });

@@ -12,10 +12,21 @@ message GetRegistrationSessionQuery {
 
 message GetRegistrationSessionResponse {
   isuxportal.proto.resources.Team team = 1;
-  bool ready = 2;
-  bool joinable = 3;
-  string github_login = 4;
+  enum Status {
+    NOT_FOUND = 0;
+    NOT_JOINABLE = 1;
+    NOT_LOGGED_IN = 2;
+    CREATABLE = 3;
+    JOINABLE = 4;
+    JOINED = 5;
+  }
+  Status status = 2;
+  string github_login = 3;
+  string github_avatar_url = 4;
   string discord_tag = 5;
-  string invite_url = 6;
+  string discord_avatar_url = 6;
+  string member_invite_url = 7;
+  string discord_server_id = 8;
+  bool is_open = 9;
 }
 
