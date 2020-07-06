@@ -1,0 +1,32 @@
+<div class="columns">
+  <div class="column is-3">
+    <%- if flash[:error] -%>
+      <iframe style="width: 100%;" src="https://www.youtube-nocookie.com/embed/iJ-H3gx2P9Y?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <%- else -%>
+      <div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/l0O9wZubPw2LfAG7S" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/l0O9wZubPw2LfAG7S">via GIPHY</a></p>
+    <%- end -%>
+  </div>
+  <div class="column">
+    <%= form_with url: admin_session_path, method: :post, local: true do %>
+      <%= hidden_field_tag :back_to, params[:back_to] if params[:back_to].present? %>
+      <div class="field">
+        <div class="control">
+          <%= text_field_tag :login, "", placeholder: "login", required: true, class: "input" %>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <%= password_field_tag :password, "", placeholder: "our top secret", required: true, class: "input" %>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <%= submit_tag "Escalate", class: "button is-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+

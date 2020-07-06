@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def destroy
     session.delete(:contestant_id)
-    session.delete(:staff_id)
+    session.delete(:staff)
     session.delete(:github_login)
     session.delete(:discord_login)
     redirect_to '/'

@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
   helper_method def discord_login
     session[:discord_login]
   end
+
+  private def require_staff
+    if !session[:staff]
+      return redirect_to new_admin_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true)))
+    end
+  end
 end

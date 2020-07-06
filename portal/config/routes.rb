@@ -34,8 +34,6 @@ Rails.application.routes.draw do
     post 'impersonate/github' => 'impersonate#github'
     post 'impersonate/discord' => 'impersonate#discord'
 
-
-    # TODO:
-    resource :session, only: %i(new create destroy)
+    resource :session, only: %i(new create), as: :admin_session
   end
 end
