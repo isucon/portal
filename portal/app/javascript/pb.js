@@ -4537,23 +4537,23 @@ $root.isuxportal = (function() {
                  */
                 var audience = {};
 
-                audience.ListTeamRequest = (function() {
+                audience.ListTeamsRequest = (function() {
 
                     /**
-                     * Properties of a ListTeamRequest.
+                     * Properties of a ListTeamsRequest.
                      * @memberof isuxportal.proto.services.audience
-                     * @interface IListTeamRequest
+                     * @interface IListTeamsRequest
                      */
 
                     /**
-                     * Constructs a new ListTeamRequest.
+                     * Constructs a new ListTeamsRequest.
                      * @memberof isuxportal.proto.services.audience
-                     * @classdesc Represents a ListTeamRequest.
-                     * @implements IListTeamRequest
+                     * @classdesc Represents a ListTeamsRequest.
+                     * @implements IListTeamsRequest
                      * @constructor
-                     * @param {isuxportal.proto.services.audience.IListTeamRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.audience.IListTeamsRequest=} [properties] Properties to set
                      */
-                    function ListTeamRequest(properties) {
+                    function ListTeamsRequest(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -4561,60 +4561,60 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Creates a new ListTeamRequest instance using the specified properties.
+                     * Creates a new ListTeamsRequest instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.audience.ListTeamRequest} ListTeamRequest instance
+                     * @param {isuxportal.proto.services.audience.IListTeamsRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.ListTeamsRequest} ListTeamsRequest instance
                      */
-                    ListTeamRequest.create = function create(properties) {
-                        return new ListTeamRequest(properties);
+                    ListTeamsRequest.create = function create(properties) {
+                        return new ListTeamsRequest(properties);
                     };
 
                     /**
-                     * Encodes the specified ListTeamRequest message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamRequest.verify|verify} messages.
+                     * Encodes the specified ListTeamsRequest message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsRequest.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamRequest} message ListTeamRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IListTeamsRequest} message ListTeamsRequest message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListTeamRequest.encode = function encode(message, writer) {
+                    ListTeamsRequest.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified ListTeamRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamRequest.verify|verify} messages.
+                     * Encodes the specified ListTeamsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsRequest.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamRequest} message ListTeamRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IListTeamsRequest} message ListTeamsRequest message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListTeamRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListTeamsRequest.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListTeamRequest message from the specified reader or buffer.
+                     * Decodes a ListTeamsRequest message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.audience.ListTeamRequest} ListTeamRequest
+                     * @returns {isuxportal.proto.services.audience.ListTeamsRequest} ListTeamsRequest
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListTeamRequest.decode = function decode(reader, length) {
+                    ListTeamsRequest.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamsRequest();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -4627,94 +4627,94 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListTeamRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListTeamsRequest message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.audience.ListTeamRequest} ListTeamRequest
+                     * @returns {isuxportal.proto.services.audience.ListTeamsRequest} ListTeamsRequest
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListTeamRequest.decodeDelimited = function decodeDelimited(reader) {
+                    ListTeamsRequest.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListTeamRequest message.
+                     * Verifies a ListTeamsRequest message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListTeamRequest.verify = function verify(message) {
+                    ListTeamsRequest.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         return null;
                     };
 
                     /**
-                     * Creates a ListTeamRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListTeamsRequest message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.audience.ListTeamRequest} ListTeamRequest
+                     * @returns {isuxportal.proto.services.audience.ListTeamsRequest} ListTeamsRequest
                      */
-                    ListTeamRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.audience.ListTeamRequest)
+                    ListTeamsRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.ListTeamsRequest)
                             return object;
-                        return new $root.isuxportal.proto.services.audience.ListTeamRequest();
+                        return new $root.isuxportal.proto.services.audience.ListTeamsRequest();
                     };
 
                     /**
-                     * Creates a plain object from a ListTeamRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListTeamsRequest message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @static
-                     * @param {isuxportal.proto.services.audience.ListTeamRequest} message ListTeamRequest
+                     * @param {isuxportal.proto.services.audience.ListTeamsRequest} message ListTeamsRequest
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListTeamRequest.toObject = function toObject() {
+                    ListTeamsRequest.toObject = function toObject() {
                         return {};
                     };
 
                     /**
-                     * Converts this ListTeamRequest to JSON.
+                     * Converts this ListTeamsRequest to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.audience.ListTeamRequest
+                     * @memberof isuxportal.proto.services.audience.ListTeamsRequest
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListTeamRequest.prototype.toJSON = function toJSON() {
+                    ListTeamsRequest.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return ListTeamRequest;
+                    return ListTeamsRequest;
                 })();
 
-                audience.ListTeamResponse = (function() {
+                audience.ListTeamsResponse = (function() {
 
                     /**
-                     * Properties of a ListTeamResponse.
+                     * Properties of a ListTeamsResponse.
                      * @memberof isuxportal.proto.services.audience
-                     * @interface IListTeamResponse
-                     * @property {Array.<isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem>|null} [teams] ListTeamResponse teams
+                     * @interface IListTeamsResponse
+                     * @property {Array.<isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem>|null} [teams] ListTeamsResponse teams
                      */
 
                     /**
-                     * Constructs a new ListTeamResponse.
+                     * Constructs a new ListTeamsResponse.
                      * @memberof isuxportal.proto.services.audience
-                     * @classdesc Represents a ListTeamResponse.
-                     * @implements IListTeamResponse
+                     * @classdesc Represents a ListTeamsResponse.
+                     * @implements IListTeamsResponse
                      * @constructor
-                     * @param {isuxportal.proto.services.audience.IListTeamResponse=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.audience.IListTeamsResponse=} [properties] Properties to set
                      */
-                    function ListTeamResponse(properties) {
+                    function ListTeamsResponse(properties) {
                         this.teams = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -4723,78 +4723,78 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * ListTeamResponse teams.
-                     * @member {Array.<isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem>} teams
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * ListTeamsResponse teams.
+                     * @member {Array.<isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem>} teams
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @instance
                      */
-                    ListTeamResponse.prototype.teams = $util.emptyArray;
+                    ListTeamsResponse.prototype.teams = $util.emptyArray;
 
                     /**
-                     * Creates a new ListTeamResponse instance using the specified properties.
+                     * Creates a new ListTeamsResponse instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamResponse=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.audience.ListTeamResponse} ListTeamResponse instance
+                     * @param {isuxportal.proto.services.audience.IListTeamsResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.ListTeamsResponse} ListTeamsResponse instance
                      */
-                    ListTeamResponse.create = function create(properties) {
-                        return new ListTeamResponse(properties);
+                    ListTeamsResponse.create = function create(properties) {
+                        return new ListTeamsResponse(properties);
                     };
 
                     /**
-                     * Encodes the specified ListTeamResponse message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.verify|verify} messages.
+                     * Encodes the specified ListTeamsResponse message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamResponse} message ListTeamResponse message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IListTeamsResponse} message ListTeamsResponse message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListTeamResponse.encode = function encode(message, writer) {
+                    ListTeamsResponse.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.teams != null && message.teams.length)
                             for (var i = 0; i < message.teams.length; ++i)
-                                $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.encode(message.teams[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                                $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.encode(message.teams[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified ListTeamResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.verify|verify} messages.
+                     * Encodes the specified ListTeamsResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
-                     * @param {isuxportal.proto.services.audience.IListTeamResponse} message ListTeamResponse message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IListTeamsResponse} message ListTeamsResponse message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListTeamResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListTeamsResponse.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListTeamResponse message from the specified reader or buffer.
+                     * Decodes a ListTeamsResponse message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.audience.ListTeamResponse} ListTeamResponse
+                     * @returns {isuxportal.proto.services.audience.ListTeamsResponse} ListTeamsResponse
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListTeamResponse.decode = function decode(reader, length) {
+                    ListTeamsResponse.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamResponse();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamsResponse();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
                                 if (!(message.teams && message.teams.length))
                                     message.teams = [];
-                                message.teams.push($root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.decode(reader, reader.uint32()));
+                                message.teams.push($root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -4805,37 +4805,37 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListTeamResponse message from the specified reader or buffer, length delimited.
+                     * Decodes a ListTeamsResponse message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.audience.ListTeamResponse} ListTeamResponse
+                     * @returns {isuxportal.proto.services.audience.ListTeamsResponse} ListTeamsResponse
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListTeamResponse.decodeDelimited = function decodeDelimited(reader) {
+                    ListTeamsResponse.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListTeamResponse message.
+                     * Verifies a ListTeamsResponse message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListTeamResponse.verify = function verify(message) {
+                    ListTeamsResponse.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.teams != null && message.hasOwnProperty("teams")) {
                             if (!Array.isArray(message.teams))
                                 return "teams: array expected";
                             for (var i = 0; i < message.teams.length; ++i) {
-                                var error = $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.verify(message.teams[i]);
+                                var error = $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.verify(message.teams[i]);
                                 if (error)
                                     return "teams." + error;
                             }
@@ -4844,40 +4844,40 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a ListTeamResponse message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListTeamsResponse message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.audience.ListTeamResponse} ListTeamResponse
+                     * @returns {isuxportal.proto.services.audience.ListTeamsResponse} ListTeamsResponse
                      */
-                    ListTeamResponse.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.audience.ListTeamResponse)
+                    ListTeamsResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.ListTeamsResponse)
                             return object;
-                        var message = new $root.isuxportal.proto.services.audience.ListTeamResponse();
+                        var message = new $root.isuxportal.proto.services.audience.ListTeamsResponse();
                         if (object.teams) {
                             if (!Array.isArray(object.teams))
-                                throw TypeError(".isuxportal.proto.services.audience.ListTeamResponse.teams: array expected");
+                                throw TypeError(".isuxportal.proto.services.audience.ListTeamsResponse.teams: array expected");
                             message.teams = [];
                             for (var i = 0; i < object.teams.length; ++i) {
                                 if (typeof object.teams[i] !== "object")
-                                    throw TypeError(".isuxportal.proto.services.audience.ListTeamResponse.teams: object expected");
-                                message.teams[i] = $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.fromObject(object.teams[i]);
+                                    throw TypeError(".isuxportal.proto.services.audience.ListTeamsResponse.teams: object expected");
+                                message.teams[i] = $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.fromObject(object.teams[i]);
                             }
                         }
                         return message;
                     };
 
                     /**
-                     * Creates a plain object from a ListTeamResponse message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListTeamsResponse message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @static
-                     * @param {isuxportal.proto.services.audience.ListTeamResponse} message ListTeamResponse
+                     * @param {isuxportal.proto.services.audience.ListTeamsResponse} message ListTeamsResponse
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListTeamResponse.toObject = function toObject(message, options) {
+                    ListTeamsResponse.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -4886,27 +4886,27 @@ $root.isuxportal = (function() {
                         if (message.teams && message.teams.length) {
                             object.teams = [];
                             for (var j = 0; j < message.teams.length; ++j)
-                                object.teams[j] = $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.toObject(message.teams[j], options);
+                                object.teams[j] = $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.toObject(message.teams[j], options);
                         }
                         return object;
                     };
 
                     /**
-                     * Converts this ListTeamResponse to JSON.
+                     * Converts this ListTeamsResponse to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                     * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListTeamResponse.prototype.toJSON = function toJSON() {
+                    ListTeamsResponse.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    ListTeamResponse.TeamListItem = (function() {
+                    ListTeamsResponse.TeamListItem = (function() {
 
                         /**
                          * Properties of a TeamListItem.
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                          * @interface ITeamListItem
                          * @property {number|Long|null} [teamId] TeamListItem teamId
                          * @property {string|null} [name] TeamListItem name
@@ -4916,11 +4916,11 @@ $root.isuxportal = (function() {
 
                         /**
                          * Constructs a new TeamListItem.
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse
                          * @classdesc Represents a TeamListItem.
                          * @implements ITeamListItem
                          * @constructor
-                         * @param {isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem=} [properties] Properties to set
+                         * @param {isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem=} [properties] Properties to set
                          */
                         function TeamListItem(properties) {
                             this.memberNames = [];
@@ -4933,7 +4933,7 @@ $root.isuxportal = (function() {
                         /**
                          * TeamListItem teamId.
                          * @member {number|Long} teamId
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @instance
                          */
                         TeamListItem.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
@@ -4941,7 +4941,7 @@ $root.isuxportal = (function() {
                         /**
                          * TeamListItem name.
                          * @member {string} name
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @instance
                          */
                         TeamListItem.prototype.name = "";
@@ -4949,7 +4949,7 @@ $root.isuxportal = (function() {
                         /**
                          * TeamListItem memberNames.
                          * @member {Array.<string>} memberNames
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @instance
                          */
                         TeamListItem.prototype.memberNames = $util.emptyArray;
@@ -4957,7 +4957,7 @@ $root.isuxportal = (function() {
                         /**
                          * TeamListItem finalParticipation.
                          * @member {boolean} finalParticipation
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @instance
                          */
                         TeamListItem.prototype.finalParticipation = false;
@@ -4965,21 +4965,21 @@ $root.isuxportal = (function() {
                         /**
                          * Creates a new TeamListItem instance using the specified properties.
                          * @function create
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
-                         * @param {isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem=} [properties] Properties to set
-                         * @returns {isuxportal.proto.services.audience.ListTeamResponse.TeamListItem} TeamListItem instance
+                         * @param {isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem=} [properties] Properties to set
+                         * @returns {isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem} TeamListItem instance
                          */
                         TeamListItem.create = function create(properties) {
                             return new TeamListItem(properties);
                         };
 
                         /**
-                         * Encodes the specified TeamListItem message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.verify|verify} messages.
+                         * Encodes the specified TeamListItem message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.verify|verify} messages.
                          * @function encode
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
-                         * @param {isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem} message TeamListItem message or plain object to encode
+                         * @param {isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem} message TeamListItem message or plain object to encode
                          * @param {$protobuf.Writer} [writer] Writer to encode to
                          * @returns {$protobuf.Writer} Writer
                          */
@@ -4999,11 +4999,11 @@ $root.isuxportal = (function() {
                         };
 
                         /**
-                         * Encodes the specified TeamListItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.verify|verify} messages.
+                         * Encodes the specified TeamListItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.verify|verify} messages.
                          * @function encodeDelimited
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
-                         * @param {isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem} message TeamListItem message or plain object to encode
+                         * @param {isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem} message TeamListItem message or plain object to encode
                          * @param {$protobuf.Writer} [writer] Writer to encode to
                          * @returns {$protobuf.Writer} Writer
                          */
@@ -5014,18 +5014,18 @@ $root.isuxportal = (function() {
                         /**
                          * Decodes a TeamListItem message from the specified reader or buffer.
                          * @function decode
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
                          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                          * @param {number} [length] Message length if known beforehand
-                         * @returns {isuxportal.proto.services.audience.ListTeamResponse.TeamListItem} TeamListItem
+                         * @returns {isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem} TeamListItem
                          * @throws {Error} If the payload is not a reader or valid buffer
                          * @throws {$protobuf.util.ProtocolError} If required fields are missing
                          */
                         TeamListItem.decode = function decode(reader, length) {
                             if (!(reader instanceof $Reader))
                                 reader = $Reader.create(reader);
-                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem();
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem();
                             while (reader.pos < end) {
                                 var tag = reader.uint32();
                                 switch (tag >>> 3) {
@@ -5054,10 +5054,10 @@ $root.isuxportal = (function() {
                         /**
                          * Decodes a TeamListItem message from the specified reader or buffer, length delimited.
                          * @function decodeDelimited
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
                          * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {isuxportal.proto.services.audience.ListTeamResponse.TeamListItem} TeamListItem
+                         * @returns {isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem} TeamListItem
                          * @throws {Error} If the payload is not a reader or valid buffer
                          * @throws {$protobuf.util.ProtocolError} If required fields are missing
                          */
@@ -5070,7 +5070,7 @@ $root.isuxportal = (function() {
                         /**
                          * Verifies a TeamListItem message.
                          * @function verify
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
                          * @param {Object.<string,*>} message Plain object to verify
                          * @returns {string|null} `null` if valid, otherwise the reason why it is not
@@ -5100,15 +5100,15 @@ $root.isuxportal = (function() {
                         /**
                          * Creates a TeamListItem message from a plain object. Also converts values to their respective internal types.
                          * @function fromObject
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
                          * @param {Object.<string,*>} object Plain object
-                         * @returns {isuxportal.proto.services.audience.ListTeamResponse.TeamListItem} TeamListItem
+                         * @returns {isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem} TeamListItem
                          */
                         TeamListItem.fromObject = function fromObject(object) {
-                            if (object instanceof $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem)
+                            if (object instanceof $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem)
                                 return object;
-                            var message = new $root.isuxportal.proto.services.audience.ListTeamResponse.TeamListItem();
+                            var message = new $root.isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem();
                             if (object.teamId != null)
                                 if ($util.Long)
                                     (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
@@ -5122,7 +5122,7 @@ $root.isuxportal = (function() {
                                 message.name = String(object.name);
                             if (object.memberNames) {
                                 if (!Array.isArray(object.memberNames))
-                                    throw TypeError(".isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.memberNames: array expected");
+                                    throw TypeError(".isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.memberNames: array expected");
                                 message.memberNames = [];
                                 for (var i = 0; i < object.memberNames.length; ++i)
                                     message.memberNames[i] = String(object.memberNames[i]);
@@ -5135,9 +5135,9 @@ $root.isuxportal = (function() {
                         /**
                          * Creates a plain object from a TeamListItem message. Also converts values to other types if specified.
                          * @function toObject
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @static
-                         * @param {isuxportal.proto.services.audience.ListTeamResponse.TeamListItem} message TeamListItem
+                         * @param {isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem} message TeamListItem
                          * @param {$protobuf.IConversionOptions} [options] Conversion options
                          * @returns {Object.<string,*>} Plain object
                          */
@@ -5176,7 +5176,7 @@ $root.isuxportal = (function() {
                         /**
                          * Converts this TeamListItem to JSON.
                          * @function toJSON
-                         * @memberof isuxportal.proto.services.audience.ListTeamResponse.TeamListItem
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
                          * @instance
                          * @returns {Object.<string,*>} JSON object
                          */
@@ -5187,7 +5187,7 @@ $root.isuxportal = (function() {
                         return TeamListItem;
                     })();
 
-                    return ListTeamResponse;
+                    return ListTeamsResponse;
                 })();
 
                 return audience;

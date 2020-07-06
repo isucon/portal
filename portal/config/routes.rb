@@ -26,6 +26,11 @@ Rails.application.routes.draw do
       # registration/join JoinTeam: POST /api/registration/contestant
       resource :contestant, only: %i(create)
     end
+
+    scope path: 'audience', module: 'audience' do
+      # audience/team_list ListTeams: GET /api/audience/teams
+      resources :teams, only: %i(index)
+    end
   end
 
   scope path: 'admin', module: 'admin' do

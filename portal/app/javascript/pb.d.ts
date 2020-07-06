@@ -1668,181 +1668,181 @@ export namespace isuxportal {
             /** Namespace audience. */
             namespace audience {
 
-                /** Properties of a ListTeamRequest. */
-                interface IListTeamRequest {
+                /** Properties of a ListTeamsRequest. */
+                interface IListTeamsRequest {
                 }
 
-                /** Represents a ListTeamRequest. */
-                class ListTeamRequest implements IListTeamRequest {
+                /** Represents a ListTeamsRequest. */
+                class ListTeamsRequest implements IListTeamsRequest {
 
                     /**
-                     * Constructs a new ListTeamRequest.
+                     * Constructs a new ListTeamsRequest.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.audience.IListTeamRequest);
+                    constructor(properties?: isuxportal.proto.services.audience.IListTeamsRequest);
 
                     /**
-                     * Creates a new ListTeamRequest instance using the specified properties.
+                     * Creates a new ListTeamsRequest instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns ListTeamRequest instance
+                     * @returns ListTeamsRequest instance
                      */
-                    public static create(properties?: isuxportal.proto.services.audience.IListTeamRequest): isuxportal.proto.services.audience.ListTeamRequest;
+                    public static create(properties?: isuxportal.proto.services.audience.IListTeamsRequest): isuxportal.proto.services.audience.ListTeamsRequest;
 
                     /**
-                     * Encodes the specified ListTeamRequest message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamRequest.verify|verify} messages.
-                     * @param message ListTeamRequest message or plain object to encode
+                     * Encodes the specified ListTeamsRequest message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsRequest.verify|verify} messages.
+                     * @param message ListTeamsRequest message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.audience.IListTeamRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.audience.IListTeamsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified ListTeamRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamRequest.verify|verify} messages.
-                     * @param message ListTeamRequest message or plain object to encode
+                     * Encodes the specified ListTeamsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsRequest.verify|verify} messages.
+                     * @param message ListTeamsRequest message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.audience.IListTeamRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.IListTeamsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a ListTeamRequest message from the specified reader or buffer.
+                     * Decodes a ListTeamsRequest message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns ListTeamRequest
+                     * @returns ListTeamsRequest
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamsRequest;
 
                     /**
-                     * Decodes a ListTeamRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListTeamsRequest message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns ListTeamRequest
+                     * @returns ListTeamsRequest
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamsRequest;
 
                     /**
-                     * Verifies a ListTeamRequest message.
+                     * Verifies a ListTeamsRequest message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a ListTeamRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListTeamsRequest message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns ListTeamRequest
+                     * @returns ListTeamsRequest
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamsRequest;
 
                     /**
-                     * Creates a plain object from a ListTeamRequest message. Also converts values to other types if specified.
-                     * @param message ListTeamRequest
+                     * Creates a plain object from a ListTeamsRequest message. Also converts values to other types if specified.
+                     * @param message ListTeamsRequest
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.audience.ListTeamRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.audience.ListTeamsRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this ListTeamRequest to JSON.
+                     * Converts this ListTeamsRequest to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a ListTeamResponse. */
-                interface IListTeamResponse {
+                /** Properties of a ListTeamsResponse. */
+                interface IListTeamsResponse {
 
-                    /** ListTeamResponse teams */
-                    teams?: (isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem[]|null);
+                    /** ListTeamsResponse teams */
+                    teams?: (isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem[]|null);
                 }
 
-                /** Represents a ListTeamResponse. */
-                class ListTeamResponse implements IListTeamResponse {
+                /** Represents a ListTeamsResponse. */
+                class ListTeamsResponse implements IListTeamsResponse {
 
                     /**
-                     * Constructs a new ListTeamResponse.
+                     * Constructs a new ListTeamsResponse.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.audience.IListTeamResponse);
+                    constructor(properties?: isuxportal.proto.services.audience.IListTeamsResponse);
 
-                    /** ListTeamResponse teams. */
-                    public teams: isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem[];
+                    /** ListTeamsResponse teams. */
+                    public teams: isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem[];
 
                     /**
-                     * Creates a new ListTeamResponse instance using the specified properties.
+                     * Creates a new ListTeamsResponse instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns ListTeamResponse instance
+                     * @returns ListTeamsResponse instance
                      */
-                    public static create(properties?: isuxportal.proto.services.audience.IListTeamResponse): isuxportal.proto.services.audience.ListTeamResponse;
+                    public static create(properties?: isuxportal.proto.services.audience.IListTeamsResponse): isuxportal.proto.services.audience.ListTeamsResponse;
 
                     /**
-                     * Encodes the specified ListTeamResponse message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.verify|verify} messages.
-                     * @param message ListTeamResponse message or plain object to encode
+                     * Encodes the specified ListTeamsResponse message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.verify|verify} messages.
+                     * @param message ListTeamsResponse message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.audience.IListTeamResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.audience.IListTeamsResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified ListTeamResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.verify|verify} messages.
-                     * @param message ListTeamResponse message or plain object to encode
+                     * Encodes the specified ListTeamsResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.verify|verify} messages.
+                     * @param message ListTeamsResponse message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.audience.IListTeamResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.IListTeamsResponse, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a ListTeamResponse message from the specified reader or buffer.
+                     * Decodes a ListTeamsResponse message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns ListTeamResponse
+                     * @returns ListTeamsResponse
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamResponse;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamsResponse;
 
                     /**
-                     * Decodes a ListTeamResponse message from the specified reader or buffer, length delimited.
+                     * Decodes a ListTeamsResponse message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns ListTeamResponse
+                     * @returns ListTeamsResponse
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamResponse;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamsResponse;
 
                     /**
-                     * Verifies a ListTeamResponse message.
+                     * Verifies a ListTeamsResponse message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a ListTeamResponse message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListTeamsResponse message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns ListTeamResponse
+                     * @returns ListTeamsResponse
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamResponse;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamsResponse;
 
                     /**
-                     * Creates a plain object from a ListTeamResponse message. Also converts values to other types if specified.
-                     * @param message ListTeamResponse
+                     * Creates a plain object from a ListTeamsResponse message. Also converts values to other types if specified.
+                     * @param message ListTeamsResponse
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.audience.ListTeamResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.audience.ListTeamsResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this ListTeamResponse to JSON.
+                     * Converts this ListTeamsResponse to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
                 }
 
-                namespace ListTeamResponse {
+                namespace ListTeamsResponse {
 
                     /** Properties of a TeamListItem. */
                     interface ITeamListItem {
@@ -1867,7 +1867,7 @@ export namespace isuxportal {
                          * Constructs a new TeamListItem.
                          * @param [properties] Properties to set
                          */
-                        constructor(properties?: isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem);
+                        constructor(properties?: isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem);
 
                         /** TeamListItem teamId. */
                         public teamId: (number|Long);
@@ -1886,23 +1886,23 @@ export namespace isuxportal {
                          * @param [properties] Properties to set
                          * @returns TeamListItem instance
                          */
-                        public static create(properties?: isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem): isuxportal.proto.services.audience.ListTeamResponse.TeamListItem;
+                        public static create(properties?: isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem): isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem;
 
                         /**
-                         * Encodes the specified TeamListItem message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.verify|verify} messages.
+                         * Encodes the specified TeamListItem message. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.verify|verify} messages.
                          * @param message TeamListItem message or plain object to encode
                          * @param [writer] Writer to encode to
                          * @returns Writer
                          */
-                        public static encode(message: isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem, writer?: $protobuf.Writer): $protobuf.Writer;
+                        public static encode(message: isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem, writer?: $protobuf.Writer): $protobuf.Writer;
 
                         /**
-                         * Encodes the specified TeamListItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamResponse.TeamListItem.verify|verify} messages.
+                         * Encodes the specified TeamListItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem.verify|verify} messages.
                          * @param message TeamListItem message or plain object to encode
                          * @param [writer] Writer to encode to
                          * @returns Writer
                          */
-                        public static encodeDelimited(message: isuxportal.proto.services.audience.ListTeamResponse.ITeamListItem, writer?: $protobuf.Writer): $protobuf.Writer;
+                        public static encodeDelimited(message: isuxportal.proto.services.audience.ListTeamsResponse.ITeamListItem, writer?: $protobuf.Writer): $protobuf.Writer;
 
                         /**
                          * Decodes a TeamListItem message from the specified reader or buffer.
@@ -1912,7 +1912,7 @@ export namespace isuxportal {
                          * @throws {Error} If the payload is not a reader or valid buffer
                          * @throws {$protobuf.util.ProtocolError} If required fields are missing
                          */
-                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamResponse.TeamListItem;
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem;
 
                         /**
                          * Decodes a TeamListItem message from the specified reader or buffer, length delimited.
@@ -1921,7 +1921,7 @@ export namespace isuxportal {
                          * @throws {Error} If the payload is not a reader or valid buffer
                          * @throws {$protobuf.util.ProtocolError} If required fields are missing
                          */
-                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamResponse.TeamListItem;
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem;
 
                         /**
                          * Verifies a TeamListItem message.
@@ -1935,7 +1935,7 @@ export namespace isuxportal {
                          * @param object Plain object
                          * @returns TeamListItem
                          */
-                        public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamResponse.TeamListItem;
+                        public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem;
 
                         /**
                          * Creates a plain object from a TeamListItem message. Also converts values to other types if specified.
@@ -1943,7 +1943,7 @@ export namespace isuxportal {
                          * @param [options] Conversion options
                          * @returns Plain object
                          */
-                        public static toObject(message: isuxportal.proto.services.audience.ListTeamResponse.TeamListItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                        public static toObject(message: isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                         /**
                          * Converts this TeamListItem to JSON.

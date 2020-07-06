@@ -35,6 +35,12 @@ export class ApiClient {
     this.baseUrl = baseUrl.replace(/\/$/, '');
   }
 
+  public async listTeams() {
+    const klass = isuxportal.proto.services.audience.ListTeamsResponse;
+    const resp = await this.request(`${this.baseUrl}/api/audience/teams`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async getCurrentSession() {
     const klass = isuxportal.proto.services.common.GetCurrentSessionResponse;
     // const pb = payload ? klass.encode(klass.fromObject(payload)).finish() : null;
