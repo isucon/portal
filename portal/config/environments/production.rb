@@ -16,7 +16,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = false
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -48,8 +48,17 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "isuxportal_production"
+  config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
+
+  config.session_store :redis_store, {
+    servers: [ENV.fetch('REDIS_URL')],
+    expire_after: 14.days,
+    key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', '__Host-isuxportal_sess'),
+    same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
+    threadsafe: true,
+    secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
+  }
+
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
