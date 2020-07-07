@@ -3,10 +3,13 @@ require 'isuxportal/services/registration/create_team_pb'
 class Api::Registration::TeamsController < Api::Registration::ApplicationController
   pb :create, Isuxportal::Proto::Services::Registration::CreateTeamRequest
   def create
-    raise ActiveRecord::RecordNotFound if current_contestant
-    raise ActiveRecord::RecordInvalid, "logins are missing" if !github_login || !discord_login
+    raise ActiveRecord::RecordNotFound, "already signed up" if current_contestant
+    raise ActiveRecord::RecordNotFound, "logins are missing" if !github_login || !discord_login
 
     ApplicationRecord.transaction do
+      if !Contest.registration_open? || Contest.max_teams_reached?
+        raise Contest::RegistrationClosed 
+      end
       @team = Team.new(
         name: pb.team_name,
         email_address: pb.email_address,

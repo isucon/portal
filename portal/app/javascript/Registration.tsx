@@ -74,6 +74,16 @@ export class Registration extends React.Component<Props, State> {
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.NOT_LOGGED_IN:
           return login;
           break;
+        case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.CLOSED:
+          return <>
+            <div className="message is-danger">
+              <div className="message-body">
+                参加登録受付は終了しました (定員到達もしくは締切を過ぎたため)
+              </div>
+            </div>
+            {login}
+          </>;
+          break;
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.NOT_JOINABLE:
           return <>
             <div className="message is-danger">
@@ -98,7 +108,8 @@ export class Registration extends React.Component<Props, State> {
     } else {
       return <p>Loading...</p>;
     }
-    throw new Error("undeterminable state");
+    const err = new Error("[BUG] undeterminable state");
+    throw err;
   }
 
   renderTeam() {

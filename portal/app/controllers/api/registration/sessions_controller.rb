@@ -22,6 +22,8 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::JOINED
     when @team && !@team.joinable?
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::NOT_JOINABLE
+    when !@team && (!Contest.registration_open? || Contest.max_teams_reached?)
+      Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED
     when github_login.nil? || discord_login.nil?
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::NOT_LOGGED_IN
     when @team

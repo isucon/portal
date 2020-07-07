@@ -22,7 +22,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :is_open, :bool, 9
     end
     add_enum "isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status" do
-      value :NOT_FOUND, 0
+      value :CLOSED, 0
       value :NOT_JOINABLE, 1
       value :NOT_LOGGED_IN, 2
       value :CREATABLE, 3

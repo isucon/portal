@@ -62,4 +62,8 @@ Rails.application.configure do
 
   config.x.admin_auth.login = ENV['ISUXPORTAL_ADMIN_LOGIN']
   config.x.admin_auth.password = ENV['ISUXPORTAL_ADMIN_PASSWORD']
+
+  config.x.contest.max_teams = 500
+  config.x.contest.registration_open = ENV['ISUXPORTAL_TIMING_REGISTRATION_OPEN']&.yield_self { |_| Time.xmlschema(_) }
+  config.x.contest.registration_close = ENV['ISUXPORTAL_TIMING_REGISTRATION_CLOSE']&.yield_self { |_| Time.xmlschema(_) }
 end

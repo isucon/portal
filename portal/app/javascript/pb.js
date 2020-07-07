@@ -8563,7 +8563,7 @@ $root.isuxportal = (function() {
                             message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
                         }
                         switch (object.status) {
-                        case "NOT_FOUND":
+                        case "CLOSED":
                         case 0:
                             message.status = 0;
                             break;
@@ -8620,7 +8620,7 @@ $root.isuxportal = (function() {
                         var object = {};
                         if (options.defaults) {
                             object.team = null;
-                            object.status = options.enums === String ? "NOT_FOUND" : 0;
+                            object.status = options.enums === String ? "CLOSED" : 0;
                             object.githubLogin = "";
                             object.githubAvatarUrl = "";
                             object.discordTag = "";
@@ -8665,7 +8665,7 @@ $root.isuxportal = (function() {
                      * Status enum.
                      * @name isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status
                      * @enum {number}
-                     * @property {number} NOT_FOUND=0 NOT_FOUND value
+                     * @property {number} CLOSED=0 CLOSED value
                      * @property {number} NOT_JOINABLE=1 NOT_JOINABLE value
                      * @property {number} NOT_LOGGED_IN=2 NOT_LOGGED_IN value
                      * @property {number} CREATABLE=3 CREATABLE value
@@ -8674,7 +8674,7 @@ $root.isuxportal = (function() {
                      */
                     GetRegistrationSessionResponse.Status = (function() {
                         var valuesById = {}, values = Object.create(valuesById);
-                        values[valuesById[0] = "NOT_FOUND"] = 0;
+                        values[valuesById[0] = "CLOSED"] = 0;
                         values[valuesById[1] = "NOT_JOINABLE"] = 1;
                         values[valuesById[2] = "NOT_LOGGED_IN"] = 2;
                         values[valuesById[3] = "CREATABLE"] = 3;

@@ -3509,7 +3509,7 @@ export namespace isuxportal {
 
                     /** Status enum. */
                     enum Status {
-                        NOT_FOUND = 0,
+                        CLOSED = 0,
                         NOT_JOINABLE = 1,
                         NOT_LOGGED_IN = 2,
                         CREATABLE = 3,

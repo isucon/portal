@@ -11,4 +11,13 @@ class Api::ApplicationController < ApplicationController
       human_descriptions: err.record.errors.full_messages,
     )
   end
+
+  rescue_from Contest::RegistrationClosed do |err|
+    render status: 422, protobuf: Isuxportal::Proto::Error.new(
+      code: 422,
+      name: "Contest::RegistrationClosed",
+      human_message: "Registration is closed",
+      human_descriptions: ['Registration is closed', '参加登録受付は終了しました (定員もしくは締切超過)'],
+    )
+  end
 end
