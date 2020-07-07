@@ -191,6 +191,10 @@ GEM
     rbnacl (3.4.0)
       ffi
     redis (4.2.1)
+    redis-actionpack (5.2.0)
+      actionpack (>= 5, < 7)
+      redis-rack (>= 2.1.0, < 3)
+      redis-store (>= 1.1.0, < 2)
     redis-rack (2.1.2)
       rack (>= 2.0.8, < 3)
       redis-store (>= 1.2, < 2)
@@ -279,7 +283,7 @@ DEPENDENCIES
   puma
   rails (~> 6.0.3, >= 6.0.3.2)
   redis
-  redis-rack
+  redis-actionpack
   revision_plate
   rspec
   rspec-rails (~> 4)
