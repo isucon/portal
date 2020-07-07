@@ -1,4 +1,5 @@
 import "./application.scss";
+import "../sentry.js";
 
 // TODO: import 'raven';
 

@@ -294,6 +294,7 @@ DEPENDENCIES
   revision_plate
   rspec
   rspec-rails (~> 4)
+  sentry-raven
   sidekiq
   simpacker
 

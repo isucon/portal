@@ -10,6 +10,10 @@
     <meta name="isux:discord-auth-path" content="<%= new_discord_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true))) %>">
     <meta name="isux:api-base-url" content="/">
 
+    <%- if Rails.application.config.x.sentry.dsn.present? -%>
+    <meta name="isux:sentry-dsn" content="<%= Rails.applicaiton.config.x.sentry.dsn %>">
+    <%- end -%>
+
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'vendor' %>
     <%= javascript_pack_tag 'application' %>

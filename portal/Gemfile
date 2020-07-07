@@ -12,6 +12,7 @@ gem 'sidekiq'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
 gem 'redis-rails'
+gem 'sentry-raven'
 
 gem 'simpacker'
 

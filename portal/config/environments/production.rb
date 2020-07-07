@@ -128,4 +128,5 @@ Rails.application.configure do
   config.x.contest.registration_open = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_OPEN').yield_self { |_| Time.xmlschema(_) }
   config.x.contest.registration_close = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_CLOSE').yield_self { |_| Time.xmlschema(_) }
 
+  config.x.sentry.dsn = ENV.fetch('SENTRY_DSN')
 end
