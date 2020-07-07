@@ -49,5 +49,5 @@ test:
 #
 production:
   <<: *default
-  url: "<%= ENV['DATABASE_URL'] || 'mysql2://x' %>"
+  url: <%= ENV['DATABASE_URL']&.yield_self {|_| %("#{_}") } %>
   password: "<%= ENV['DATABASE_PASSWORD'] %>"
