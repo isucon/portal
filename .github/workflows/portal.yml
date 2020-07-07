@@ -60,6 +60,8 @@ jobs:
           docker push ${DOCKER_REPO}:${GITHUB_SHA}-arm64
           docker push ${DOCKER_REPO}:builder-amd64
           docker push ${DOCKER_REPO}:builder-arm64
+          docker push ${DOCKER_REPO}:latest-amd64
+          docker push ${DOCKER_REPO}:latest-arm64
           docker push ${DOCKER_REPO}:assets-builder
 
       - name: docker-manifest-push
