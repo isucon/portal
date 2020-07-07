@@ -14,7 +14,7 @@ RUN NODE_ENV=production node_modules/.bin/webpack
 FROM sorah/ruby:2.7-dev as builder
 
 RUN apt-get update \
-    && apt-get install -y libmysqlclient-dev git-core \
+    && apt-get install -y libmysqlclient-dev libsodium-dev git-core \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -27,7 +27,7 @@ RUN bundle install --path /gems --jobs 100 --deployment --without development:te
 FROM sorah/ruby:2.7
 
 RUN apt-get update \
-    && apt-get install -y libmysqlclient21 \
+    && apt-get install -y libmysqlclient21 libsodium23 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
