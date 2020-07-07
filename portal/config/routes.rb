@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get '/' => 'root#index'
+  get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
+  get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
+
 
   resource :session, only: %i(destroy) do
     get 'new/github' => 'sessions#github_new'

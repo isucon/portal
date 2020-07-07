@@ -49,7 +49,7 @@ export class RegistrationUpdateForm extends React.Component<Props, State> {
       <section className="mt-3">
         <h4 className="title is-4">その他</h4>
         <p>登録内容の変更については、Discord 上で運営へお問い合わせください。</p>
-        <p><a href="/terms">参加規約</a></p>
+        <p><a href="/terms">参加規約</a>, <a href="/rules">レギュレーション</a></p>
       </section>
     </>;
   }
