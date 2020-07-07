@@ -1,6 +1,11 @@
 module Contest
   class RegistrationClosed < StandardError; end
 
+  def self.registration_started?(now=Time.zone.now)
+    open = Rails.application.config.x.contest.registration_open
+    open ? now >= open : true
+  end
+
   def self.registration_open?(now=Time.zone.now)
     open = Rails.application.config.x.contest.registration_open
     close = Rails.application.config.x.contest.registration_close
