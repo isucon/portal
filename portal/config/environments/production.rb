@@ -57,6 +57,7 @@ Rails.application.configure do
     same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
     threadsafe: true,
     secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
+    sidbits: 256,
   }
 
 

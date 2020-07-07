@@ -95,3 +95,17 @@ resource "aws_route53_record" "aaaa_bastion-x-isucon-dev" {
   //records = data.aws_instance.bastion-001.ipv6_addresses
   records = ["2406:da14:73e:aec0:e91c:9649:de13:a354"]
 }
+
+resource "aws_route53_record" "cname_portal-prd-x-isucon-dev" {
+  for_each = {
+    for k in [
+      aws_route53_zone.public.zone_id,
+      aws_route53_zone.private.zone_id,
+    ] : k => k
+  }
+  zone_id = each.value
+  name    = "portal-prd.x.isucon.dev"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["hako-isuxportal-prd-fargate-437609489.ap-northeast-1.elb.amazonaws.com."]
+}
