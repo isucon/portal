@@ -46,12 +46,10 @@ Rails.application.configure do
         },
       ],
       expire_after: 14.days,
-      key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', '__Host-isuxportaldev_sess'),
+      key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', 'isuxportaldev_sess'),
       same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
       threadsafe: true,
-      signed: true,
-      secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
-      sidbits: 256,
+      secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '0') == '1',
     }
     config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
   end
