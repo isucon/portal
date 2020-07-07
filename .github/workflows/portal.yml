@@ -43,7 +43,7 @@ jobs:
       - run: "docker pull ${DOCKER_REPO}:builder-arm64 || :"
       - run: "docker pull ${DOCKER_REPO}:assets-builder || :"
 
-      - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder -t ${DOCKER_REPO}:assets-builder -f Dockerfile ."
+      - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder -t ${DOCKER_REPO}:assets-builder --target assets-builder -f Dockerfile ."
 
       - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-amd64 --cache-from ${DOCKER_REPO}:latest-amd64 -t ${DOCKER_REPO}:${GITHUB_SHA}-amd64 -f Dockerfile ."
       - run: "docker build --pull --platform linux/arm64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-arm64 --cache-from ${DOCKER_REPO}:latest-arm64 -t ${DOCKER_REPO}:${GITHUB_SHA}-arm64 -f Dockerfile ."
