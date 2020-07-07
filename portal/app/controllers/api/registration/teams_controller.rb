@@ -30,8 +30,10 @@ class Api::Registration::TeamsController < Api::Registration::ApplicationControl
       @team.save!
     end
 
+    SlackWebhookJob.perform_later(text: ":raising_hand: *New team:* #{@team.name} (#{@team.id}) leader=#{@contestant.name} (#{@contestant.id})")
     SyncSshKeysOfContestantJob.perform_later(@contestant, github_login.fetch('token'))
     session[:contestant_id] = @contestant.id
+
     render protobuf: Isuxportal::Proto::Services::Registration::CreateTeamResponse.new(
       team_id: @team.id,
     )

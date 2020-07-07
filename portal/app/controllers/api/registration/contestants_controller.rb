@@ -20,9 +20,11 @@ class Api::Registration::ContestantsController < Api::Registration::ApplicationC
         github_login: github_login.fetch('login'),
       )
     end
-    SyncSshKeysOfContestantJob.perform_later(@contestant, github_login.fetch('token'))
 
+    SlackWebhookJob.perform_later(text: ":raised_hands: *New contestant:* #{@team.name} (#{@team.id}) member=#{@contestant.name} (#{@contestant.id})")
+    SyncSshKeysOfContestantJob.perform_later(@contestant, github_login.fetch('token'))
     session[:contestant_id] = @contestant.id
+
     render protobuf: Isuxportal::Proto::Services::Registration::JoinTeamResponse.new(
     )
   end
