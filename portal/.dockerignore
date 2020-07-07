@@ -1,0 +1,10 @@
+/.bundle
+/log/*
+/tmp/*
+/tmp/pids/*
+/public/assets
+/public/packs
+.byebug_history
+/config/master.key
+/public/packs
+node_modules/

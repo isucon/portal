@@ -32,9 +32,5 @@ bundle exec rails s
 ### protoc
 
 ```
-rm -rf app/javascript/pb lib/isuxportal
-protoc -I../proto --ruby_out=./lib --js_out="import_style=commonjs,binary:./app/javascript/pb" --plugin="protoc-gen-ts=./node_modules/.bin/protoc-gen-ts" --ts_out=./app/javascript/pb ../proto/**/*.proto
-protoc -I../proto --ruby_out=./lib ../proto/**/*.proto
-npx pbjs -p ../proto -t static-module -w commonjs -o app/javascript/pb.js ../proto/**/*.proto
-npx pbts -o app/javascript/pb.d.ts app/javascript/pb.js
+./bin/isuxportal-protoc.sh
 ```

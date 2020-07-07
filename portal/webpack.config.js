@@ -2,6 +2,7 @@ const path = require("path");
 const glob = require("glob");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
@@ -14,7 +15,7 @@ glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
 
 module.exports = {
   mode: isProd ? "production" : "development",
-  devtool: "source-map",
+  devtool: isProd ? "nosources-source-map" : "source-map",
   entry: entries,
   output: {
     path: path.resolve(__dirname, "public/packs"),
@@ -25,7 +26,16 @@ module.exports = {
     splitChunks: {
       name: "vendor",
       chunks: "initial"
-    }
+    },
+    minimize: isProd,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        keep_classnames: false,
+        compress: {
+          ecma: "2017",
+        },
+      }
+    })],
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"]

@@ -1662,8 +1662,370 @@ export namespace isuxportal {
             }
         }
 
+        /** Namespace common. */
+        namespace common {
+
+            /** Properties of a DashboardRequest. */
+            interface IDashboardRequest {
+            }
+
+            /** Represents a DashboardRequest. */
+            class DashboardRequest implements IDashboardRequest {
+
+                /**
+                 * Constructs a new DashboardRequest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.common.IDashboardRequest);
+
+                /**
+                 * Creates a new DashboardRequest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns DashboardRequest instance
+                 */
+                public static create(properties?: isuxportal.proto.common.IDashboardRequest): isuxportal.proto.common.DashboardRequest;
+
+                /**
+                 * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
+                 * @param message DashboardRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
+                 * @param message DashboardRequest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a DashboardRequest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns DashboardRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardRequest;
+
+                /**
+                 * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns DashboardRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardRequest;
+
+                /**
+                 * Verifies a DashboardRequest message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns DashboardRequest
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardRequest;
+
+                /**
+                 * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                 * @param message DashboardRequest
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.common.DashboardRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this DashboardRequest to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a DashboardResponse. */
+            interface IDashboardResponse {
+            }
+
+            /** Represents a DashboardResponse. */
+            class DashboardResponse implements IDashboardResponse {
+
+                /**
+                 * Constructs a new DashboardResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.common.IDashboardResponse);
+
+                /**
+                 * Creates a new DashboardResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns DashboardResponse instance
+                 */
+                public static create(properties?: isuxportal.proto.common.IDashboardResponse): isuxportal.proto.common.DashboardResponse;
+
+                /**
+                 * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
+                 * @param message DashboardResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
+                 * @param message DashboardResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a DashboardResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns DashboardResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardResponse;
+
+                /**
+                 * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns DashboardResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardResponse;
+
+                /**
+                 * Verifies a DashboardResponse message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns DashboardResponse
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardResponse;
+
+                /**
+                 * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
+                 * @param message DashboardResponse
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.common.DashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this DashboardResponse to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+        }
+
         /** Namespace services. */
         namespace services {
+
+            /** Namespace common. */
+            namespace common {
+
+                /** Properties of a GetCurrentSessionRequest. */
+                interface IGetCurrentSessionRequest {
+                }
+
+                /** Represents a GetCurrentSessionRequest. */
+                class GetCurrentSessionRequest implements IGetCurrentSessionRequest {
+
+                    /**
+                     * Constructs a new GetCurrentSessionRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest);
+
+                    /**
+                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCurrentSessionRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @param message GetCurrentSessionRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @param message GetCurrentSessionRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Verifies a GetCurrentSessionRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCurrentSessionRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
+                     * @param message GetCurrentSessionRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCurrentSessionRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a GetCurrentSessionResponse. */
+                interface IGetCurrentSessionResponse {
+
+                    /** GetCurrentSessionResponse team */
+                    team?: (isuxportal.proto.resources.ITeam|null);
+
+                    /** GetCurrentSessionResponse contestant */
+                    contestant?: (isuxportal.proto.resources.IContestant|null);
+
+                    /** GetCurrentSessionResponse discordServerId */
+                    discordServerId?: (string|null);
+                }
+
+                /** Represents a GetCurrentSessionResponse. */
+                class GetCurrentSessionResponse implements IGetCurrentSessionResponse {
+
+                    /**
+                     * Constructs a new GetCurrentSessionResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse);
+
+                    /** GetCurrentSessionResponse team. */
+                    public team?: (isuxportal.proto.resources.ITeam|null);
+
+                    /** GetCurrentSessionResponse contestant. */
+                    public contestant?: (isuxportal.proto.resources.IContestant|null);
+
+                    /** GetCurrentSessionResponse discordServerId. */
+                    public discordServerId: string;
+
+                    /**
+                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCurrentSessionResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @param message GetCurrentSessionResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @param message GetCurrentSessionResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Verifies a GetCurrentSessionResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCurrentSessionResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
+                     * @param message GetCurrentSessionResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCurrentSessionResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+            }
 
             /** Namespace audience. */
             namespace audience {
@@ -1951,930 +2313,6 @@ export namespace isuxportal {
                          */
                         public toJSON(): { [k: string]: any };
                     }
-                }
-            }
-
-            /** Namespace bench. */
-            namespace bench {
-
-                /** Represents a BenchmarkQueueService */
-                class BenchmarkQueueService extends $protobuf.rpc.Service {
-
-                    /**
-                     * Constructs a new BenchmarkQueueService service.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     */
-                    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-                    /**
-                     * Creates new BenchmarkQueueService service using the specified rpc implementation.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     * @returns RPC service. Useful where requests and/or responses are streamed.
-                     */
-                    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): BenchmarkQueueService;
-
-                    /**
-                     * Calls ReceiveBenchmarkJob.
-                     * @param request ReceiveBenchmarkJobRequest message or plain object
-                     * @param callback Node-style callback called with the error, if any, and ReceiveBenchmarkJobResponse
-                     */
-                    public receiveBenchmarkJob(request: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest, callback: isuxportal.proto.services.bench.BenchmarkQueueService.ReceiveBenchmarkJobCallback): void;
-
-                    /**
-                     * Calls ReceiveBenchmarkJob.
-                     * @param request ReceiveBenchmarkJobRequest message or plain object
-                     * @returns Promise
-                     */
-                    public receiveBenchmarkJob(request: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest): Promise<isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse>;
-                }
-
-                namespace BenchmarkQueueService {
-
-                    /**
-                     * Callback as used by {@link isuxportal.proto.services.bench.BenchmarkQueueService#receiveBenchmarkJob}.
-                     * @param error Error, if any
-                     * @param [response] ReceiveBenchmarkJobResponse
-                     */
-                    type ReceiveBenchmarkJobCallback = (error: (Error|null), response?: isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse) => void;
-                }
-
-                /** Properties of a ReceiveBenchmarkJobRequest. */
-                interface IReceiveBenchmarkJobRequest {
-
-                    /** ReceiveBenchmarkJobRequest instanceName */
-                    instanceName?: (string|null);
-
-                    /** ReceiveBenchmarkJobRequest teamId */
-                    teamId?: (number|Long|null);
-                }
-
-                /** Represents a ReceiveBenchmarkJobRequest. */
-                class ReceiveBenchmarkJobRequest implements IReceiveBenchmarkJobRequest {
-
-                    /**
-                     * Constructs a new ReceiveBenchmarkJobRequest.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest);
-
-                    /** ReceiveBenchmarkJobRequest instanceName. */
-                    public instanceName: string;
-
-                    /** ReceiveBenchmarkJobRequest teamId. */
-                    public teamId: (number|Long);
-
-                    /**
-                     * Creates a new ReceiveBenchmarkJobRequest instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns ReceiveBenchmarkJobRequest instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest): isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest;
-
-                    /**
-                     * Encodes the specified ReceiveBenchmarkJobRequest message. Does not implicitly {@link isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest.verify|verify} messages.
-                     * @param message ReceiveBenchmarkJobRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified ReceiveBenchmarkJobRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest.verify|verify} messages.
-                     * @param message ReceiveBenchmarkJobRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.bench.IReceiveBenchmarkJobRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a ReceiveBenchmarkJobRequest message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns ReceiveBenchmarkJobRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest;
-
-                    /**
-                     * Decodes a ReceiveBenchmarkJobRequest message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns ReceiveBenchmarkJobRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest;
-
-                    /**
-                     * Verifies a ReceiveBenchmarkJobRequest message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a ReceiveBenchmarkJobRequest message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns ReceiveBenchmarkJobRequest
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest;
-
-                    /**
-                     * Creates a plain object from a ReceiveBenchmarkJobRequest message. Also converts values to other types if specified.
-                     * @param message ReceiveBenchmarkJobRequest
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this ReceiveBenchmarkJobRequest to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of a ReceiveBenchmarkJobResponse. */
-                interface IReceiveBenchmarkJobResponse {
-
-                    /** ReceiveBenchmarkJobResponse jobId */
-                    jobId?: (number|Long|null);
-
-                    /** ReceiveBenchmarkJobResponse handle */
-                    handle?: (string|null);
-
-                    /** ReceiveBenchmarkJobResponse targetIpv4Address */
-                    targetIpv4Address?: (string|null);
-
-                    /** ReceiveBenchmarkJobResponse descriptionHuman */
-                    descriptionHuman?: (string|null);
-                }
-
-                /** Represents a ReceiveBenchmarkJobResponse. */
-                class ReceiveBenchmarkJobResponse implements IReceiveBenchmarkJobResponse {
-
-                    /**
-                     * Constructs a new ReceiveBenchmarkJobResponse.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.bench.IReceiveBenchmarkJobResponse);
-
-                    /** ReceiveBenchmarkJobResponse jobId. */
-                    public jobId: (number|Long);
-
-                    /** ReceiveBenchmarkJobResponse handle. */
-                    public handle: string;
-
-                    /** ReceiveBenchmarkJobResponse targetIpv4Address. */
-                    public targetIpv4Address: string;
-
-                    /** ReceiveBenchmarkJobResponse descriptionHuman. */
-                    public descriptionHuman: string;
-
-                    /**
-                     * Creates a new ReceiveBenchmarkJobResponse instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns ReceiveBenchmarkJobResponse instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.bench.IReceiveBenchmarkJobResponse): isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse;
-
-                    /**
-                     * Encodes the specified ReceiveBenchmarkJobResponse message. Does not implicitly {@link isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.verify|verify} messages.
-                     * @param message ReceiveBenchmarkJobResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.bench.IReceiveBenchmarkJobResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified ReceiveBenchmarkJobResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.verify|verify} messages.
-                     * @param message ReceiveBenchmarkJobResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.bench.IReceiveBenchmarkJobResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a ReceiveBenchmarkJobResponse message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns ReceiveBenchmarkJobResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse;
-
-                    /**
-                     * Decodes a ReceiveBenchmarkJobResponse message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns ReceiveBenchmarkJobResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse;
-
-                    /**
-                     * Verifies a ReceiveBenchmarkJobResponse message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a ReceiveBenchmarkJobResponse message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns ReceiveBenchmarkJobResponse
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse;
-
-                    /**
-                     * Creates a plain object from a ReceiveBenchmarkJobResponse message. Also converts values to other types if specified.
-                     * @param message ReceiveBenchmarkJobResponse
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this ReceiveBenchmarkJobResponse to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Represents a BenchmarkReportService */
-                class BenchmarkReportService extends $protobuf.rpc.Service {
-
-                    /**
-                     * Constructs a new BenchmarkReportService service.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     */
-                    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-                    /**
-                     * Creates new BenchmarkReportService service using the specified rpc implementation.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     * @returns RPC service. Useful where requests and/or responses are streamed.
-                     */
-                    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): BenchmarkReportService;
-
-                    /**
-                     * Calls ReportBenchmarkResult.
-                     * @param request ReportBenchmarkResultRequest message or plain object
-                     * @param callback Node-style callback called with the error, if any, and ReportBenchmarkResultResponse
-                     */
-                    public reportBenchmarkResult(request: isuxportal.proto.services.bench.IReportBenchmarkResultRequest, callback: isuxportal.proto.services.bench.BenchmarkReportService.ReportBenchmarkResultCallback): void;
-
-                    /**
-                     * Calls ReportBenchmarkResult.
-                     * @param request ReportBenchmarkResultRequest message or plain object
-                     * @returns Promise
-                     */
-                    public reportBenchmarkResult(request: isuxportal.proto.services.bench.IReportBenchmarkResultRequest): Promise<isuxportal.proto.services.bench.ReportBenchmarkResultResponse>;
-
-                    /**
-                     * Calls StreamBenchmarkResult.
-                     * @param request ReportBenchmarkResultRequest message or plain object
-                     * @param callback Node-style callback called with the error, if any, and ReportBenchmarkResultResponse
-                     */
-                    public streamBenchmarkResult(request: isuxportal.proto.services.bench.IReportBenchmarkResultRequest, callback: isuxportal.proto.services.bench.BenchmarkReportService.StreamBenchmarkResultCallback): void;
-
-                    /**
-                     * Calls StreamBenchmarkResult.
-                     * @param request ReportBenchmarkResultRequest message or plain object
-                     * @returns Promise
-                     */
-                    public streamBenchmarkResult(request: isuxportal.proto.services.bench.IReportBenchmarkResultRequest): Promise<isuxportal.proto.services.bench.ReportBenchmarkResultResponse>;
-                }
-
-                namespace BenchmarkReportService {
-
-                    /**
-                     * Callback as used by {@link isuxportal.proto.services.bench.BenchmarkReportService#reportBenchmarkResult}.
-                     * @param error Error, if any
-                     * @param [response] ReportBenchmarkResultResponse
-                     */
-                    type ReportBenchmarkResultCallback = (error: (Error|null), response?: isuxportal.proto.services.bench.ReportBenchmarkResultResponse) => void;
-
-                    /**
-                     * Callback as used by {@link isuxportal.proto.services.bench.BenchmarkReportService#streamBenchmarkResult}.
-                     * @param error Error, if any
-                     * @param [response] ReportBenchmarkResultResponse
-                     */
-                    type StreamBenchmarkResultCallback = (error: (Error|null), response?: isuxportal.proto.services.bench.ReportBenchmarkResultResponse) => void;
-                }
-
-                /** Properties of a ReportBenchmarkResultRequest. */
-                interface IReportBenchmarkResultRequest {
-
-                    /** ReportBenchmarkResultRequest jobId */
-                    jobId?: (number|Long|null);
-
-                    /** ReportBenchmarkResultRequest handle */
-                    handle?: (string|null);
-
-                    /** ReportBenchmarkResultRequest result */
-                    result?: (isuxportal.proto.resources.IBenchmarkResult|null);
-                }
-
-                /** Represents a ReportBenchmarkResultRequest. */
-                class ReportBenchmarkResultRequest implements IReportBenchmarkResultRequest {
-
-                    /**
-                     * Constructs a new ReportBenchmarkResultRequest.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.bench.IReportBenchmarkResultRequest);
-
-                    /** ReportBenchmarkResultRequest jobId. */
-                    public jobId: (number|Long);
-
-                    /** ReportBenchmarkResultRequest handle. */
-                    public handle: string;
-
-                    /** ReportBenchmarkResultRequest result. */
-                    public result?: (isuxportal.proto.resources.IBenchmarkResult|null);
-
-                    /**
-                     * Creates a new ReportBenchmarkResultRequest instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns ReportBenchmarkResultRequest instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.bench.IReportBenchmarkResultRequest): isuxportal.proto.services.bench.ReportBenchmarkResultRequest;
-
-                    /**
-                     * Encodes the specified ReportBenchmarkResultRequest message. Does not implicitly {@link isuxportal.proto.services.bench.ReportBenchmarkResultRequest.verify|verify} messages.
-                     * @param message ReportBenchmarkResultRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.bench.IReportBenchmarkResultRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified ReportBenchmarkResultRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.bench.ReportBenchmarkResultRequest.verify|verify} messages.
-                     * @param message ReportBenchmarkResultRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.bench.IReportBenchmarkResultRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a ReportBenchmarkResultRequest message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns ReportBenchmarkResultRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.bench.ReportBenchmarkResultRequest;
-
-                    /**
-                     * Decodes a ReportBenchmarkResultRequest message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns ReportBenchmarkResultRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.bench.ReportBenchmarkResultRequest;
-
-                    /**
-                     * Verifies a ReportBenchmarkResultRequest message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a ReportBenchmarkResultRequest message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns ReportBenchmarkResultRequest
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.bench.ReportBenchmarkResultRequest;
-
-                    /**
-                     * Creates a plain object from a ReportBenchmarkResultRequest message. Also converts values to other types if specified.
-                     * @param message ReportBenchmarkResultRequest
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.bench.ReportBenchmarkResultRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this ReportBenchmarkResultRequest to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of a ReportBenchmarkResultResponse. */
-                interface IReportBenchmarkResultResponse {
-                }
-
-                /** Represents a ReportBenchmarkResultResponse. */
-                class ReportBenchmarkResultResponse implements IReportBenchmarkResultResponse {
-
-                    /**
-                     * Constructs a new ReportBenchmarkResultResponse.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.bench.IReportBenchmarkResultResponse);
-
-                    /**
-                     * Creates a new ReportBenchmarkResultResponse instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns ReportBenchmarkResultResponse instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.bench.IReportBenchmarkResultResponse): isuxportal.proto.services.bench.ReportBenchmarkResultResponse;
-
-                    /**
-                     * Encodes the specified ReportBenchmarkResultResponse message. Does not implicitly {@link isuxportal.proto.services.bench.ReportBenchmarkResultResponse.verify|verify} messages.
-                     * @param message ReportBenchmarkResultResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.bench.IReportBenchmarkResultResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified ReportBenchmarkResultResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.bench.ReportBenchmarkResultResponse.verify|verify} messages.
-                     * @param message ReportBenchmarkResultResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.bench.IReportBenchmarkResultResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a ReportBenchmarkResultResponse message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns ReportBenchmarkResultResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.bench.ReportBenchmarkResultResponse;
-
-                    /**
-                     * Decodes a ReportBenchmarkResultResponse message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns ReportBenchmarkResultResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.bench.ReportBenchmarkResultResponse;
-
-                    /**
-                     * Verifies a ReportBenchmarkResultResponse message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a ReportBenchmarkResultResponse message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns ReportBenchmarkResultResponse
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.bench.ReportBenchmarkResultResponse;
-
-                    /**
-                     * Creates a plain object from a ReportBenchmarkResultResponse message. Also converts values to other types if specified.
-                     * @param message ReportBenchmarkResultResponse
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.bench.ReportBenchmarkResultResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this ReportBenchmarkResultResponse to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-            }
-
-            /** Namespace common. */
-            namespace common {
-
-                /** Properties of a GetCurrentSessionRequest. */
-                interface IGetCurrentSessionRequest {
-                }
-
-                /** Represents a GetCurrentSessionRequest. */
-                class GetCurrentSessionRequest implements IGetCurrentSessionRequest {
-
-                    /**
-                     * Constructs a new GetCurrentSessionRequest.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest);
-
-                    /**
-                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns GetCurrentSessionRequest instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @param message GetCurrentSessionRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @param message GetCurrentSessionRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Verifies a GetCurrentSessionRequest message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns GetCurrentSessionRequest
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
-                     * @param message GetCurrentSessionRequest
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this GetCurrentSessionRequest to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of a GetCurrentSessionResponse. */
-                interface IGetCurrentSessionResponse {
-
-                    /** GetCurrentSessionResponse team */
-                    team?: (isuxportal.proto.resources.ITeam|null);
-
-                    /** GetCurrentSessionResponse contestant */
-                    contestant?: (isuxportal.proto.resources.IContestant|null);
-
-                    /** GetCurrentSessionResponse discordServerId */
-                    discordServerId?: (string|null);
-                }
-
-                /** Represents a GetCurrentSessionResponse. */
-                class GetCurrentSessionResponse implements IGetCurrentSessionResponse {
-
-                    /**
-                     * Constructs a new GetCurrentSessionResponse.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse);
-
-                    /** GetCurrentSessionResponse team. */
-                    public team?: (isuxportal.proto.resources.ITeam|null);
-
-                    /** GetCurrentSessionResponse contestant. */
-                    public contestant?: (isuxportal.proto.resources.IContestant|null);
-
-                    /** GetCurrentSessionResponse discordServerId. */
-                    public discordServerId: string;
-
-                    /**
-                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns GetCurrentSessionResponse instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @param message GetCurrentSessionResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @param message GetCurrentSessionResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Verifies a GetCurrentSessionResponse message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns GetCurrentSessionResponse
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
-                     * @param message GetCurrentSessionResponse
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this GetCurrentSessionResponse to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-            }
-
-            /** Namespace dcim. */
-            namespace dcim {
-
-                /** Represents an InstanceManagementService */
-                class InstanceManagementService extends $protobuf.rpc.Service {
-
-                    /**
-                     * Constructs a new InstanceManagementService service.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     */
-                    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-                    /**
-                     * Creates new InstanceManagementService service using the specified rpc implementation.
-                     * @param rpcImpl RPC implementation
-                     * @param [requestDelimited=false] Whether requests are length-delimited
-                     * @param [responseDelimited=false] Whether responses are length-delimited
-                     * @returns RPC service. Useful where requests and/or responses are streamed.
-                     */
-                    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): InstanceManagementService;
-
-                    /**
-                     * Calls InformInstanceStateUpdate.
-                     * @param request InformInstanceStateUpdateRequest message or plain object
-                     * @param callback Node-style callback called with the error, if any, and InformInstanceStateUpdateResponse
-                     */
-                    public informInstanceStateUpdate(request: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest, callback: isuxportal.proto.services.dcim.InstanceManagementService.InformInstanceStateUpdateCallback): void;
-
-                    /**
-                     * Calls InformInstanceStateUpdate.
-                     * @param request InformInstanceStateUpdateRequest message or plain object
-                     * @returns Promise
-                     */
-                    public informInstanceStateUpdate(request: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest): Promise<isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse>;
-                }
-
-                namespace InstanceManagementService {
-
-                    /**
-                     * Callback as used by {@link isuxportal.proto.services.dcim.InstanceManagementService#informInstanceStateUpdate}.
-                     * @param error Error, if any
-                     * @param [response] InformInstanceStateUpdateResponse
-                     */
-                    type InformInstanceStateUpdateCallback = (error: (Error|null), response?: isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse) => void;
-                }
-
-                /** Properties of an InformInstanceStateUpdateRequest. */
-                interface IInformInstanceStateUpdateRequest {
-
-                    /** InformInstanceStateUpdateRequest token */
-                    token?: (string|null);
-
-                    /** InformInstanceStateUpdateRequest instance */
-                    instance?: (isuxportal.proto.resources.IContestantInstance|null);
-                }
-
-                /** Represents an InformInstanceStateUpdateRequest. */
-                class InformInstanceStateUpdateRequest implements IInformInstanceStateUpdateRequest {
-
-                    /**
-                     * Constructs a new InformInstanceStateUpdateRequest.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest);
-
-                    /** InformInstanceStateUpdateRequest token. */
-                    public token: string;
-
-                    /** InformInstanceStateUpdateRequest instance. */
-                    public instance?: (isuxportal.proto.resources.IContestantInstance|null);
-
-                    /**
-                     * Creates a new InformInstanceStateUpdateRequest instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns InformInstanceStateUpdateRequest instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest): isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest;
-
-                    /**
-                     * Encodes the specified InformInstanceStateUpdateRequest message. Does not implicitly {@link isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest.verify|verify} messages.
-                     * @param message InformInstanceStateUpdateRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified InformInstanceStateUpdateRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest.verify|verify} messages.
-                     * @param message InformInstanceStateUpdateRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.dcim.IInformInstanceStateUpdateRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes an InformInstanceStateUpdateRequest message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns InformInstanceStateUpdateRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest;
-
-                    /**
-                     * Decodes an InformInstanceStateUpdateRequest message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns InformInstanceStateUpdateRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest;
-
-                    /**
-                     * Verifies an InformInstanceStateUpdateRequest message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates an InformInstanceStateUpdateRequest message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns InformInstanceStateUpdateRequest
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest;
-
-                    /**
-                     * Creates a plain object from an InformInstanceStateUpdateRequest message. Also converts values to other types if specified.
-                     * @param message InformInstanceStateUpdateRequest
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.dcim.InformInstanceStateUpdateRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this InformInstanceStateUpdateRequest to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of an InformInstanceStateUpdateResponse. */
-                interface IInformInstanceStateUpdateResponse {
-                }
-
-                /** Represents an InformInstanceStateUpdateResponse. */
-                class InformInstanceStateUpdateResponse implements IInformInstanceStateUpdateResponse {
-
-                    /**
-                     * Constructs a new InformInstanceStateUpdateResponse.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.dcim.IInformInstanceStateUpdateResponse);
-
-                    /**
-                     * Creates a new InformInstanceStateUpdateResponse instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns InformInstanceStateUpdateResponse instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.dcim.IInformInstanceStateUpdateResponse): isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse;
-
-                    /**
-                     * Encodes the specified InformInstanceStateUpdateResponse message. Does not implicitly {@link isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse.verify|verify} messages.
-                     * @param message InformInstanceStateUpdateResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.dcim.IInformInstanceStateUpdateResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified InformInstanceStateUpdateResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse.verify|verify} messages.
-                     * @param message InformInstanceStateUpdateResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.dcim.IInformInstanceStateUpdateResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes an InformInstanceStateUpdateResponse message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns InformInstanceStateUpdateResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse;
-
-                    /**
-                     * Decodes an InformInstanceStateUpdateResponse message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns InformInstanceStateUpdateResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse;
-
-                    /**
-                     * Verifies an InformInstanceStateUpdateResponse message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates an InformInstanceStateUpdateResponse message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns InformInstanceStateUpdateResponse
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse;
-
-                    /**
-                     * Creates a plain object from an InformInstanceStateUpdateResponse message. Also converts values to other types if specified.
-                     * @param message InformInstanceStateUpdateResponse
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.dcim.InformInstanceStateUpdateResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this InformInstanceStateUpdateResponse to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
                 }
             }
 
@@ -3517,178 +2955,6 @@ export namespace isuxportal {
                         JOINED = 5
                     }
                 }
-            }
-        }
-
-        /** Namespace common. */
-        namespace common {
-
-            /** Properties of a DashboardRequest. */
-            interface IDashboardRequest {
-            }
-
-            /** Represents a DashboardRequest. */
-            class DashboardRequest implements IDashboardRequest {
-
-                /**
-                 * Constructs a new DashboardRequest.
-                 * @param [properties] Properties to set
-                 */
-                constructor(properties?: isuxportal.proto.common.IDashboardRequest);
-
-                /**
-                 * Creates a new DashboardRequest instance using the specified properties.
-                 * @param [properties] Properties to set
-                 * @returns DashboardRequest instance
-                 */
-                public static create(properties?: isuxportal.proto.common.IDashboardRequest): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @param message DashboardRequest message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encode(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @param message DashboardRequest message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encodeDelimited(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer.
-                 * @param reader Reader or buffer to decode from
-                 * @param [length] Message length if known beforehand
-                 * @returns DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
-                 * @param reader Reader or buffer to decode from
-                 * @returns DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Verifies a DashboardRequest message.
-                 * @param message Plain object to verify
-                 * @returns `null` if valid, otherwise the reason why it is not
-                 */
-                public static verify(message: { [k: string]: any }): (string|null);
-
-                /**
-                 * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
-                 * @param object Plain object
-                 * @returns DashboardRequest
-                 */
-                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
-                 * @param message DashboardRequest
-                 * @param [options] Conversion options
-                 * @returns Plain object
-                 */
-                public static toObject(message: isuxportal.proto.common.DashboardRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                /**
-                 * Converts this DashboardRequest to JSON.
-                 * @returns JSON object
-                 */
-                public toJSON(): { [k: string]: any };
-            }
-
-            /** Properties of a DashboardResponse. */
-            interface IDashboardResponse {
-            }
-
-            /** Represents a DashboardResponse. */
-            class DashboardResponse implements IDashboardResponse {
-
-                /**
-                 * Constructs a new DashboardResponse.
-                 * @param [properties] Properties to set
-                 */
-                constructor(properties?: isuxportal.proto.common.IDashboardResponse);
-
-                /**
-                 * Creates a new DashboardResponse instance using the specified properties.
-                 * @param [properties] Properties to set
-                 * @returns DashboardResponse instance
-                 */
-                public static create(properties?: isuxportal.proto.common.IDashboardResponse): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @param message DashboardResponse message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encode(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @param message DashboardResponse message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encodeDelimited(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer.
-                 * @param reader Reader or buffer to decode from
-                 * @param [length] Message length if known beforehand
-                 * @returns DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
-                 * @param reader Reader or buffer to decode from
-                 * @returns DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Verifies a DashboardResponse message.
-                 * @param message Plain object to verify
-                 * @returns `null` if valid, otherwise the reason why it is not
-                 */
-                public static verify(message: { [k: string]: any }): (string|null);
-
-                /**
-                 * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
-                 * @param object Plain object
-                 * @returns DashboardResponse
-                 */
-                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
-                 * @param message DashboardResponse
-                 * @param [options] Conversion options
-                 * @returns Plain object
-                 */
-                public static toObject(message: isuxportal.proto.common.DashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                /**
-                 * Converts this DashboardResponse to JSON.
-                 * @returns JSON object
-                 */
-                public toJSON(): { [k: string]: any };
             }
         }
     }
