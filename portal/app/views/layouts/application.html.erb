@@ -11,7 +11,7 @@
     <meta name="isux:api-base-url" content="/">
 
     <%- if Rails.application.config.x.sentry.dsn.present? -%>
-    <meta name="isux:sentry-dsn" content="<%= Rails.applicaiton.config.x.sentry.dsn %>">
+    <meta name="isux:sentry-dsn" content="<%= Rails.application.config.x.sentry.dsn %>">
     <%- end -%>
 
     <%= stylesheet_pack_tag 'application', media: 'all' %>
@@ -27,7 +27,9 @@
         </div>
         <div class="navbar-menu is-active">
           <div class="navbar-start">
-            <a class="navbar-item" href="/">参加チームリスト</a>
+            <a class="navbar-item" href="/">チーム一覧</a>
+            <a class="navbar-item" href="/terms">規約</a>
+            <a class="navbar-item" href="/rules">レギュレーション</a>
           </div>
           <div class="navbar-end">
             <div class="navbar-item">

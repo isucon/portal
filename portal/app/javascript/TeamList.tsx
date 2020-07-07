@@ -39,7 +39,7 @@ export class TeamList extends React.Component<Props, State> {
   public render() {
     return <>
       <header>
-        <h1 className="title is-1">ISUCON 参加チームリスト</h1>
+        <h1 className="title is-1">参加チームリスト</h1>
       </header>
       <main>
         {this.renderError()}
