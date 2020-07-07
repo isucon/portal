@@ -1,0 +1,60 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ansi (1.5.0)
+    aws-eventstream (1.1.0)
+    aws-partitions (1.338.0)
+    aws-sdk-core (3.103.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.239.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-ec2 (1.174.0)
+      aws-sdk-core (~> 3, >= 3.99.0)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.2.1)
+      aws-eventstream (~> 1, >= 1.0.2)
+    bcrypt_pbkdf (1.0.1)
+    ed25519 (1.2.4)
+    hashie (4.1.0)
+    hocho (0.3.6)
+      hashie
+      itamae
+      net-ssh (>= 4.1.0)
+      thor
+    hocho-ec2 (1.0.0)
+      aws-sdk-ec2
+    itamae (1.10.10)
+      ansi
+      hashie
+      schash (~> 0.1.0)
+      specinfra (>= 2.64.0, < 3.0.0)
+      thor
+    itamae-secrets (0.2.3)
+      thor
+    jmespath (1.4.0)
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
+    net-ssh (6.1.0)
+    net-telnet (0.1.1)
+    schash (0.1.2)
+    sfl (2.3)
+    specinfra (2.82.18)
+      net-scp
+      net-ssh (>= 2.7)
+      net-telnet (= 0.1.1)
+      sfl
+    thor (1.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bcrypt_pbkdf
+  ed25519
+  hocho
+  hocho-ec2
+  itamae-secrets
+
+BUNDLED WITH
+   2.1.4
