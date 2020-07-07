@@ -34,4 +34,3 @@ bundle exec rails s
 ```
 ./bin/isuxportal-protoc.sh
 ```
-
