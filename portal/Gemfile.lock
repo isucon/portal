@@ -193,6 +193,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    revision_plate (0.1.2)
+      rack
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -263,6 +265,7 @@ DEPENDENCIES
   omniauth-github
   puma
   rails (~> 6.0.3, >= 6.0.3.2)
+  revision_plate
   rspec
   rspec-rails (~> 4)
   simpacker

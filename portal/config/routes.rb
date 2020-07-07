@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/' => 'root#index'
   get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
   get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
+  get '/site/sha' => RevisionPlate::App.new("#{__dir__}/../REVISION")
 
 
   resource :session, only: %i(destroy) do
