@@ -34,18 +34,7 @@ resource "aws_acm_certificate_validation" "use1_wild-x-isucon-dev" {
   ]
 }
 
-resource "aws_acm_certificate" "portal-isucon-net" {
-  domain_name               = "portal.isucon.net"
-  subject_alternative_names = ["portal-dev.isucon.net"]
-  validation_method         = "DNS"
-  tags = {
-    Project = "isucon10"
-  }
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-resource "aws_acm_certificate" "use1_portal-dev-isucon-net" {
+resource "aws_acm_certificate" "use1_portal-isucon-net" {
   provider                  = aws.use1
   domain_name               = "portal.isucon.net"
   subject_alternative_names = ["portal-dev.isucon.net"]
