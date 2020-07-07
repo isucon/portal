@@ -51,11 +51,17 @@ Rails.application.configure do
   config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
 
   config.session_store :redis_store, {
-    servers: [ENV.fetch('REDIS_URL')],
+    servers: [
+      {
+        url: ENV.fetch('REDIS_URL'),
+        serializer: JSON,
+      },
+    ],
     expire_after: 14.days,
     key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', '__Host-isuxportal_sess'),
     same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
     threadsafe: true,
+    signed: true,
     secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
     sidbits: 256,
   }
