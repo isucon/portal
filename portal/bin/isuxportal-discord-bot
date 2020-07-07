@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require_relative '../config/environment'
+$stdout.sync = true
+
+def expected_server_id
+  Rails.application.config.x.discord.server_id
+end
+
+bot = Discordrb::Commands::CommandBot.new token: Rails.application.config.x.discord.bot_token, prefix: '.'
+
+bot.member_join() do |event|
+  next unless event.server.id.to_s == expected_server_id
+  contestant = Contestant.find_by(discord_id: event.user.id)
+  if contestant
+    Rails.logger.info "GUILD_MEMBER_ADD: contestant=#{contestant.id}"
+    MaintainDiscordContestantRolesJob.perform_later(contestant)
+  end
+end
+
+CHAIR_EMOJI = "\xf0\x9f\xaa\x91"
+bot.reaction_add() do |event|
+  next unless event.server.id.to_s == expected_server_id
+  next unless event.channel.name == "readme"
+  Rails.logger.info "CHANNEL_REACTION_ADD: #{event.emoji.inspect}"
+  if event.emoji.name == CHAIR_EMOJI
+    contestant = Contestant.find_by(discord_id: event.user.id)
+    if Contestant
+      MaintainDiscordContestantRolesJob.perform_later(contestant)
+    end
+  end
+  Discordrb::API::Channel.delete_user_reaction(
+    bot.token,
+    event.instance_variable_get(:@channel_id).to_s,
+    event.instance_variable_get(:@message_id).to_s,
+    CHAIR_EMOJI,
+    event.instance_variable_get(:@user_id).to_s,
+  )
+  Discordrb::API::Channel.create_reaction(
+    bot.token,
+    event.instance_variable_get(:@channel_id).to_s,
+    event.instance_variable_get(:@message_id).to_s,
+    CHAIR_EMOJI,
+  )
+end
+
+bot.command(:ping) do |event|
+  next unless event.server.id.to_s == expected_server_id
+  "Pong, #{event.user.name}"
+end
+
+bot.run

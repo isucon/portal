@@ -47,9 +47,18 @@ Rails.application.configure do
 
   config.x.github.client_id = ENV['ISUXPORTAL_GITHUB_CLIENT_ID']
   config.x.github.client_secret = ENV['ISUXPORTAL_GITHUB_CLIENT_SECRET']
+
   config.x.discord.client_id = ENV['ISUXPORTAL_DISCORD_CLIENT_ID']
   config.x.discord.client_secret = ENV['ISUXPORTAL_DISCORD_CLIENT_SECRET']
+  config.x.discord.bot_token = ENV['ISUXPORTAL_DISCORD_BOT_TOKEN']
+
   config.x.discord.server_id = ENV['ISUXPORTAL_DISCORD_SERVER_ID'] || '721578039779262486'
+  config.x.discord.contestant_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID'] || '721583193270255617'
+  config.x.discord.contestant_final_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID'] || '721584047175761940'
+  config.x.discord.contestant_final_role = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE'] == '1'
+  config.x.discord.contestant_qualify_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID'] || '721583975230865428'
+  config.x.discord.contestant_qualify_role = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE', '1') == '1'
+  config.x.discord.support_comm_channel_roles = (ENV['ISUXPORTAL_DISCORD_SUPPORT_COMM_CHANNEL_ROLES'] || '729682389441445921=729679151396552704,729756952812322928=729755442951094312,729757140432060537=729755492351737857').split(?,).map{ |_| _.split(?=,2) }.to_h
 
   config.x.admin_auth.login = ENV['ISUXPORTAL_ADMIN_LOGIN']
   config.x.admin_auth.password = ENV['ISUXPORTAL_ADMIN_PASSWORD']
