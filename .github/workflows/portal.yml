@@ -1,3 +1,4 @@
+name: portal
 on: 
   push:
     paths:
