@@ -12,7 +12,7 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("THREADS_NUM") { 5 } %>
   username: root
   password:
   socket: /tmp/mysql.sock
@@ -49,6 +49,5 @@ test:
 #
 production:
   <<: *default
-  database: isuxportal_production
-  username: isuxportal
-  password: <%= ENV['ISUXPORTAL_DATABASE_PASSWORD'] %>
+  url: "<%= ENV['DATABASE_URL'] || 'mysql2://x' %>"
+  password: "<%= ENV['DATABASE_PASSWORD'] %>"
