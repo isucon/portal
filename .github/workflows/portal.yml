@@ -48,30 +48,30 @@ jobs:
       - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder -t ${DOCKER_REPO}:assets-builder --target assets-builder -f Dockerfile ."
 
       - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-amd64 --target builder -t ${DOCKER_REPO}:builder-amd64 -f Dockerfile ."
-      - run: "docker build --pull --platform linux/arm64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-arm64 --target builder -t ${DOCKER_REPO}:builder-arm64 -f Dockerfile ."
+      #- run: "docker build --pull --platform linux/arm64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-arm64 --target builder -t ${DOCKER_REPO}:builder-arm64 -f Dockerfile ."
 
       - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-amd64 --cache-from ${DOCKER_REPO}:latest-amd64 -t ${DOCKER_REPO}:${GITHUB_SHA}-amd64 -f Dockerfile ."
-      - run: "docker build --pull --platform linux/arm64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-arm64 --cache-from ${DOCKER_REPO}:latest-arm64 -t ${DOCKER_REPO}:${GITHUB_SHA}-arm64 -f Dockerfile ."
+      #- run: "docker build --pull --platform linux/arm64 --cache-from ${DOCKER_REPO}:assets-builder --cache-from ${DOCKER_REPO}:builder-arm64 --cache-from ${DOCKER_REPO}:latest-arm64 -t ${DOCKER_REPO}:${GITHUB_SHA}-arm64 -f Dockerfile ."
 
       - name: docker-push
         run: |
           set -x
           docker tag ${DOCKER_REPO}:${GITHUB_SHA}-amd64 ${DOCKER_REPO}:latest-amd64
-          docker tag ${DOCKER_REPO}:${GITHUB_SHA}-arm64 ${DOCKER_REPO}:latest-arm64
+          #docker tag ${DOCKER_REPO}:${GITHUB_SHA}-arm64 ${DOCKER_REPO}:latest-arm64
           docker push ${DOCKER_REPO}:${GITHUB_SHA}-amd64
-          docker push ${DOCKER_REPO}:${GITHUB_SHA}-arm64
+          #docker push ${DOCKER_REPO}:${GITHUB_SHA}-arm64
           docker push ${DOCKER_REPO}:builder-amd64
-          docker push ${DOCKER_REPO}:builder-arm64
+          #docker push ${DOCKER_REPO}:builder-arm64
           docker push ${DOCKER_REPO}:latest-amd64
-          docker push ${DOCKER_REPO}:latest-arm64
+          #docker push ${DOCKER_REPO}:latest-arm64
           docker push ${DOCKER_REPO}:assets-builder
 
       - name: docker-manifest-push
         run: |
           set -x
           for repo in ${DOCKER_REPO}; do
-            docker manifest create --amend ${repo}:${GITHUB_SHA} ${repo}:${GITHUB_SHA}-amd64 ${repo}:${GITHUB_SHA}-arm64
+            docker manifest create --amend ${repo}:${GITHUB_SHA} ${repo}:${GITHUB_SHA}-amd64 #${repo}:${GITHUB_SHA}-arm64
             docker manifest push ${repo}:${GITHUB_SHA}
-            docker manifest create --amend ${repo}:latest ${repo}:${GITHUB_SHA}-amd64 ${repo}:${GITHUB_SHA}-arm64
+            docker manifest create --amend ${repo}:latest ${repo}:${GITHUB_SHA}-amd64 #${repo}:${GITHUB_SHA}-arm64
             docker manifest push ${repo}:latest
           done
