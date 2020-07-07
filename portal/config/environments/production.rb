@@ -94,10 +94,23 @@ Rails.application.configure do
   #
   config.x.github.client_id = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_ID')
   config.x.github.client_secret = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_SECRET')
+
   config.x.discord.client_id = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_ID')
   config.x.discord.client_secret = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_SECRET')
   config.x.discord.server_id = ENV.fetch('ISUXPORTAL_DISCORD_SERVER_ID')
+  config.x.discord.bot_token = ENV.fetch('ISUXPORTAL_DISCORD_BOT_TOKEN')
+  config.x.discord.contestant_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID')
+  config.x.discord.contestant_final_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID')
+  config.x.discord.contestant_final_role = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE') == '1'
+  config.x.discord.contestant_qualify_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID')
+  config.x.discord.contestant_qualify_role = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE') == '1'
+  config.x.discord.support_comm_channel_roles = ENV.fetch('ISUXPORTAL_DISCORD_SUPPORT_COMM_CHANNEL_ROLES').split(?,).map{ |_| _.split(?=,2) }.to_h
 
   config.x.admin_auth.login = ENV.fetch('ISUXPORTAL_ADMIN_LOGIN')
   config.x.admin_auth.password = ENV.fetch('ISUXPORTAL_ADMIN_PASSWORD')
+
+  config.x.contest.max_teams = 500
+  config.x.contest.registration_open = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_OPEN').yield_self { |_| Time.xmlschema(_) }
+  config.x.contest.registration_close = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_CLOSE').yield_self { |_| Time.xmlschema(_) }
+
 end
