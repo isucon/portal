@@ -28,16 +28,10 @@ data "aws_iam_policy_document" "Ecs-ecr" {
   statement {
     effect = "Allow"
     actions = [
-      "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:BatchGetImage",
-      "ecr:CompleteLayerUpload",
-      "ecr:DescribeRepositories",
+      "ecr:GetAuthorizationToken",
       "ecr:GetDownloadUrlForLayer",
-      "ecr:GetRepositoryPolicy",
-      "ecr:InitiateLayerUpload",
-      "ecr:PutImage",
-      "ecr:UploadLayerPart",
     ]
     resources = ["*"]
   }
