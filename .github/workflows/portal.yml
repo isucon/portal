@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - 'portal/**'
+      - '.github/workflows/portal.yml'
     branches:
       - master
 
