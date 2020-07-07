@@ -27,7 +27,7 @@ RUN bundle install --path /gems --jobs 100 --deployment --without development:te
 FROM sorah/ruby:2.7
 
 RUN apt-get update \
-    && apt-get install -y libmysqlclient21 libsodium23 \
+    && apt-get install -y libmysqlclient21 libsodium23 libsodium-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
