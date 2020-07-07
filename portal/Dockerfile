@@ -22,7 +22,7 @@ COPY Gemfile /app/
 COPY Gemfile.lock /app/
 
 ENV BUNDLE_FORCE_RUBY_PLATFORM 1
-RUN bundle install --path /gems --jobs 100 --deployment --without development:test
+RUN bundle install --path /gems --jobs 2 --deployment --without development:test
 
 FROM sorah/ruby:2.7
 
