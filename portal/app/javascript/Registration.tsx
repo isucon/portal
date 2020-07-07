@@ -78,7 +78,7 @@ export class Registration extends React.Component<Props, State> {
           return <>
             <div className="message is-danger">
               <div className="message-body">
-                参加登録受付は終了しました (定員到達もしくは締切を過ぎたため)
+                参加登録を現在受け付けていません (定員到達、締切後、もしくは受付開始前)
               </div>
             </div>
             {login}

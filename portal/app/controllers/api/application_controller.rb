@@ -17,7 +17,7 @@ class Api::ApplicationController < ApplicationController
       code: 422,
       name: "Contest::RegistrationClosed",
       human_message: "Registration is closed",
-      human_descriptions: ['Registration is closed', '参加登録受付は終了しました (定員もしくは締切超過)'],
+      human_descriptions: ['Registration is closed', '参加登録を受け付けていません (定員、開始前、もしくは締切超過)'],
     )
   end
 end
