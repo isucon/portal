@@ -37,6 +37,24 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  if ENV['ISUXPORTAL_DEV_REDIS'] == '1'
+    config.session_store :redis_store, {
+      servers: [
+        {
+          url: ENV.fetch('REDIS_URL'),
+          serializer: JSON,
+        },
+      ],
+      expire_after: 14.days,
+      key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', '__Host-isuxportaldev_sess'),
+      same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
+      threadsafe: true,
+      signed: true,
+      secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
+      sidbits: 256,
+    }
+    config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
+  end
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
