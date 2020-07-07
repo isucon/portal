@@ -56,6 +56,8 @@ jobs:
       - name: docker-push
         run: |
           set -x
+          docker tag ${DOCKER_REPO}:${GITHUB_SHA}-amd64 ${DOCKER_REPO}:latest-amd64
+          docker tag ${DOCKER_REPO}:${GITHUB_SHA}-arm64 ${DOCKER_REPO}:latest-arm64
           docker push ${DOCKER_REPO}:${GITHUB_SHA}-amd64
           docker push ${DOCKER_REPO}:${GITHUB_SHA}-arm64
           docker push ${DOCKER_REPO}:builder-amd64
