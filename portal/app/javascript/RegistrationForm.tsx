@@ -150,7 +150,7 @@ export class RegistrationForm extends React.Component<Props, State> {
   public renderJoinTeamFormFields() {
     return <>
       <div className="field">
-        <label className="label" htmlFor="fieldName">参加者名</label>
+        <label className="label" htmlFor="fieldName">{this.props.registrationSession.team ? "代表者名" : "参加者名"}</label>
         <div className="control">
           <input className="input" required id="fieldName" name="name" value={this.state.name} onChange={this.onChange.bind(this)} />
         </div>
