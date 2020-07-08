@@ -1,4 +1,6 @@
 class Admin::SessionsController < ApplicationController
+  skip_before_action :require_staff_when_always_required
+
   def new
     if session[:staff] && params[:back_to].present?
       uri = Addressable::URI.parse(params[:back_to])
