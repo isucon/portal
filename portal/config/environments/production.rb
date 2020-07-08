@@ -50,7 +50,7 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
 
-  config.session_store :cookie_store, {
+  config.session_store :redis_store, {
     servers: [
       {
         url: ENV.fetch('REDIS_URL'),
