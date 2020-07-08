@@ -37,6 +37,8 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.hosts << "portal-dev.x.isucon.dev"
+
   if ENV['ISUXPORTAL_DEV_REDIS'] == '1'
     config.session_store :redis_store, {
       servers: [
