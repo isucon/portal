@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   end
 
   scope path: 'admin', module: 'admin' do
+    get '/' => 'root#index'
+
     get 'impersonate' => 'impersonate#index', ad: :impersonate
     post 'impersonate/contestant' => 'impersonate#contestant'
     post 'impersonate/github' => 'impersonate#github'
