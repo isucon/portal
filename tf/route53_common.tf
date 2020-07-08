@@ -109,3 +109,17 @@ resource "aws_route53_record" "cname_portal-prd-x-isucon-dev" {
   ttl     = "300"
   records = ["hako-isuxportal-prd-fargate-437609489.ap-northeast-1.elb.amazonaws.com."]
 }
+
+resource "aws_route53_record" "cname_portal-dev-x-isucon-dev" {
+  for_each = {
+    for k in [
+      aws_route53_zone.public.zone_id,
+      aws_route53_zone.private.zone_id,
+    ] : k => k
+  }
+  zone_id = each.value
+  name    = "portal-dev.x.isucon.dev"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["hako-isuxportal-dev-fargate-480405202.ap-northeast-1.elb.amazonaws.com."]
+}
