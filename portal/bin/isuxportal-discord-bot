@@ -24,7 +24,7 @@ bot.reaction_add() do |event|
   Rails.logger.info "CHANNEL_REACTION_ADD: #{event.emoji.inspect}"
   if event.emoji.name == CHAIR_EMOJI
     contestant = Contestant.find_by(discord_id: event.user.id)
-    if Contestant
+    if contestant
       MaintainDiscordContestantRolesJob.perform_later(contestant)
     end
   end
