@@ -77,6 +77,7 @@ Rails.application.configure do
   config.x.discord.contestant_qualify_role = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE', '1') == '1'
   config.x.discord.support_comm_channel_roles = (ENV['ISUXPORTAL_DISCORD_SUPPORT_COMM_CHANNEL_ROLES'] || '729682389441445921=729679151396552704,729756952812322928=729755442951094312,729757140432060537=729755492351737857').split(?,).map{ |_| _.split(?=,2) }.to_h
 
+  config.x.admin_auth.always_required = ENV['ISUXPORTAL_ADMIN_ONLY'] == '1'
   config.x.admin_auth.login = ENV['ISUXPORTAL_ADMIN_LOGIN']
   config.x.admin_auth.password = ENV['ISUXPORTAL_ADMIN_PASSWORD']
 
