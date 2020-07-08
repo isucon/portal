@@ -19,12 +19,12 @@ default: &default
 
 development:
   <<: *default
-<%- if ENV['DATABASE_URL'] -%>
+<% if ENV['DATABASE_URL'] %>
   url: <%= ENV['DATABASE_URL']&.yield_self {|_| %("#{_}") } %>
   password: "<%= ENV['DATABASE_PASSWORD'] %>"
-<%- else -%>
+<% else %>
   database: isuxportal_development
-<%- end -%>
+<% end %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
