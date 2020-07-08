@@ -153,7 +153,7 @@ export class RegistrationForm extends React.Component<Props, State> {
         <div className="control">
           <input className="input" required id="fieldName" name="name" value={this.state.name} onChange={this.onChange.bind(this)} />
         </div>
-        <p className="help">本名でなくて構いません。id, HN 等可です。</p>
+        <p className="help">公開されます。本名でなくて構いません。id, HN, その他匿名な記入でも問題ありません。</p>
       </div>
 
       <div className="field">
