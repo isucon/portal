@@ -8,7 +8,7 @@ class SlackWebhookJob < ApplicationJob
     return unless webhook_url()
 
     Net::HTTP.post_form(
-      URI.parse(webhook_url(hook_name)),
+      URI.parse(webhook_url()),
       payload: payload.to_json,
     )
   end
