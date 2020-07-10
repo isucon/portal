@@ -6,7 +6,7 @@ import {ErrorMessage} from "./ErrorMessage";
 
 import {RegistrationLogin} from "./RegistrationLogin";
 import {RegistrationForm} from "./RegistrationForm";
-import {RegistrationUpdateForm} from "./RegistrationUpdateForm";
+import {RegistrationStatus} from "./RegistrationStatus";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -102,7 +102,7 @@ export class Registration extends React.Component<Props, State> {
           </>;
           break;
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.JOINED:
-          return <RegistrationUpdateForm client={this.props.client} session={this.props.session} registrationSession={this.state.registrationSession}  updateRegistrationSession={this.updateRegistrationSession.bind(this)} />;
+          return <RegistrationStatus client={this.props.client} session={this.props.session} registrationSession={this.state.registrationSession}  updateRegistrationSession={this.updateRegistrationSession.bind(this)} />;
           break;
       }
     } else {

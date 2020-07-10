@@ -12,7 +12,7 @@ export interface Props {
 export interface State {
 }
 
-export class RegistrationUpdateForm extends React.Component<Props, State> {
+export class RegistrationStatus extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
