@@ -2220,6 +2220,9 @@ export namespace isuxportal {
 
                         /** TeamListItem finalParticipation */
                         finalParticipation?: (boolean|null);
+
+                        /** TeamListItem isStudent */
+                        isStudent?: (boolean|null);
                     }
 
                     /** Represents a TeamListItem. */
@@ -2242,6 +2245,9 @@ export namespace isuxportal {
 
                         /** TeamListItem finalParticipation. */
                         public finalParticipation: boolean;
+
+                        /** TeamListItem isStudent. */
+                        public isStudent: boolean;
 
                         /**
                          * Creates a new TeamListItem instance using the specified properties.

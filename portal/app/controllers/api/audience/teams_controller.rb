@@ -9,6 +9,7 @@ class Api::Audience::TeamsController < Api::Audience::ApplicationController
         name: team.name,
         member_names: team.members.map(&:name),
         final_participation: team.final_participation,
+        is_student: team.student?,
       )
     end
     render protobuf: Isuxportal::Proto::Services::Audience::ListTeamsResponse.new(

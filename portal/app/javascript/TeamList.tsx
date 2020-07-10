@@ -64,6 +64,7 @@ export class TeamList extends React.Component<Props, State> {
     return <div className="card mt-4" key={i}>
       <div className="card-content">
         <p className="title is-5">{team.name}</p>
+        {team.isStudent ? <p className="subtitle"><span className="tag is-info">学生チーム</span></p> : null}
         <ul>
           {team.memberNames!.map((name,j) => <li key={j}>{name}</li>)}
         </ul>

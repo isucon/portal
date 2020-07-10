@@ -14,6 +14,10 @@ class Team < ApplicationRecord
     members.count < 3
   end
 
+  def student?
+    members.all?(&:student?)
+  end
+
   def generate_invite_token
     self.invite_token ||= SecureRandom.urlsafe_base64(64)
   end

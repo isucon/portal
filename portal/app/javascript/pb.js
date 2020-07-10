@@ -5658,6 +5658,7 @@ $root.isuxportal = (function() {
                          * @property {string|null} [name] TeamListItem name
                          * @property {Array.<string>|null} [memberNames] TeamListItem memberNames
                          * @property {boolean|null} [finalParticipation] TeamListItem finalParticipation
+                         * @property {boolean|null} [isStudent] TeamListItem isStudent
                          */
 
                         /**
@@ -5709,6 +5710,14 @@ $root.isuxportal = (function() {
                         TeamListItem.prototype.finalParticipation = false;
 
                         /**
+                         * TeamListItem isStudent.
+                         * @member {boolean} isStudent
+                         * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
+                         * @instance
+                         */
+                        TeamListItem.prototype.isStudent = false;
+
+                        /**
                          * Creates a new TeamListItem instance using the specified properties.
                          * @function create
                          * @memberof isuxportal.proto.services.audience.ListTeamsResponse.TeamListItem
@@ -5741,6 +5750,8 @@ $root.isuxportal = (function() {
                                     writer.uint32(/* id 3, wireType 2 =*/26).string(message.memberNames[i]);
                             if (message.finalParticipation != null && Object.hasOwnProperty.call(message, "finalParticipation"))
                                 writer.uint32(/* id 4, wireType 0 =*/32).bool(message.finalParticipation);
+                            if (message.isStudent != null && Object.hasOwnProperty.call(message, "isStudent"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).bool(message.isStudent);
                             return writer;
                         };
 
@@ -5788,6 +5799,9 @@ $root.isuxportal = (function() {
                                     break;
                                 case 4:
                                     message.finalParticipation = reader.bool();
+                                    break;
+                                case 5:
+                                    message.isStudent = reader.bool();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -5840,6 +5854,9 @@ $root.isuxportal = (function() {
                             if (message.finalParticipation != null && message.hasOwnProperty("finalParticipation"))
                                 if (typeof message.finalParticipation !== "boolean")
                                     return "finalParticipation: boolean expected";
+                            if (message.isStudent != null && message.hasOwnProperty("isStudent"))
+                                if (typeof message.isStudent !== "boolean")
+                                    return "isStudent: boolean expected";
                             return null;
                         };
 
@@ -5875,6 +5892,8 @@ $root.isuxportal = (function() {
                             }
                             if (object.finalParticipation != null)
                                 message.finalParticipation = Boolean(object.finalParticipation);
+                            if (object.isStudent != null)
+                                message.isStudent = Boolean(object.isStudent);
                             return message;
                         };
 
@@ -5901,6 +5920,7 @@ $root.isuxportal = (function() {
                                     object.teamId = options.longs === String ? "0" : 0;
                                 object.name = "";
                                 object.finalParticipation = false;
+                                object.isStudent = false;
                             }
                             if (message.teamId != null && message.hasOwnProperty("teamId"))
                                 if (typeof message.teamId === "number")
@@ -5916,6 +5936,8 @@ $root.isuxportal = (function() {
                             }
                             if (message.finalParticipation != null && message.hasOwnProperty("finalParticipation"))
                                 object.finalParticipation = message.finalParticipation;
+                            if (message.isStudent != null && message.hasOwnProperty("isStudent"))
+                                object.isStudent = message.isStudent;
                             return object;
                         };
 

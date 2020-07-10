@@ -15,6 +15,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :name, :string, 2
       repeated :member_names, :string, 3
       optional :final_participation, :bool, 4
+      optional :is_student, :bool, 5
     end
   end
 end
