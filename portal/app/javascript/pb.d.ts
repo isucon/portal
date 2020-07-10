@@ -2837,9 +2837,6 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId */
                     discordServerId?: (string|null);
-
-                    /** GetRegistrationSessionResponse isOpen */
-                    isOpen?: (boolean|null);
                 }
 
                 /** Represents a GetRegistrationSessionResponse. */
@@ -2874,9 +2871,6 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId. */
                     public discordServerId: string;
-
-                    /** GetRegistrationSessionResponse isOpen. */
-                    public isOpen: boolean;
 
                     /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
@@ -2960,6 +2954,198 @@ export namespace isuxportal {
                         JOINABLE = 4,
                         JOINED = 5
                     }
+                }
+
+                /** Properties of an UpdateRegistrationRequest. */
+                interface IUpdateRegistrationRequest {
+
+                    /** UpdateRegistrationRequest teamName */
+                    teamName?: (string|null);
+
+                    /** UpdateRegistrationRequest name */
+                    name?: (string|null);
+
+                    /** UpdateRegistrationRequest emailAddress */
+                    emailAddress?: (string|null);
+
+                    /** UpdateRegistrationRequest isStudent */
+                    isStudent?: (boolean|null);
+                }
+
+                /** Represents an UpdateRegistrationRequest. */
+                class UpdateRegistrationRequest implements IUpdateRegistrationRequest {
+
+                    /**
+                     * Constructs a new UpdateRegistrationRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.registration.IUpdateRegistrationRequest);
+
+                    /** UpdateRegistrationRequest teamName. */
+                    public teamName: string;
+
+                    /** UpdateRegistrationRequest name. */
+                    public name: string;
+
+                    /** UpdateRegistrationRequest emailAddress. */
+                    public emailAddress: string;
+
+                    /** UpdateRegistrationRequest isStudent. */
+                    public isStudent: boolean;
+
+                    /**
+                     * Creates a new UpdateRegistrationRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns UpdateRegistrationRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.registration.IUpdateRegistrationRequest): isuxportal.proto.services.registration.UpdateRegistrationRequest;
+
+                    /**
+                     * Encodes the specified UpdateRegistrationRequest message. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationRequest.verify|verify} messages.
+                     * @param message UpdateRegistrationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.registration.IUpdateRegistrationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified UpdateRegistrationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationRequest.verify|verify} messages.
+                     * @param message UpdateRegistrationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.registration.IUpdateRegistrationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes an UpdateRegistrationRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns UpdateRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.registration.UpdateRegistrationRequest;
+
+                    /**
+                     * Decodes an UpdateRegistrationRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns UpdateRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.registration.UpdateRegistrationRequest;
+
+                    /**
+                     * Verifies an UpdateRegistrationRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates an UpdateRegistrationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns UpdateRegistrationRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.registration.UpdateRegistrationRequest;
+
+                    /**
+                     * Creates a plain object from an UpdateRegistrationRequest message. Also converts values to other types if specified.
+                     * @param message UpdateRegistrationRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.registration.UpdateRegistrationRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this UpdateRegistrationRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of an UpdateRegistrationResponse. */
+                interface IUpdateRegistrationResponse {
+                }
+
+                /** Represents an UpdateRegistrationResponse. */
+                class UpdateRegistrationResponse implements IUpdateRegistrationResponse {
+
+                    /**
+                     * Constructs a new UpdateRegistrationResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.registration.IUpdateRegistrationResponse);
+
+                    /**
+                     * Creates a new UpdateRegistrationResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns UpdateRegistrationResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.registration.IUpdateRegistrationResponse): isuxportal.proto.services.registration.UpdateRegistrationResponse;
+
+                    /**
+                     * Encodes the specified UpdateRegistrationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationResponse.verify|verify} messages.
+                     * @param message UpdateRegistrationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.registration.IUpdateRegistrationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified UpdateRegistrationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationResponse.verify|verify} messages.
+                     * @param message UpdateRegistrationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.registration.IUpdateRegistrationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes an UpdateRegistrationResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns UpdateRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.registration.UpdateRegistrationResponse;
+
+                    /**
+                     * Decodes an UpdateRegistrationResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns UpdateRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.registration.UpdateRegistrationResponse;
+
+                    /**
+                     * Verifies an UpdateRegistrationResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates an UpdateRegistrationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns UpdateRegistrationResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.registration.UpdateRegistrationResponse;
+
+                    /**
+                     * Creates a plain object from an UpdateRegistrationResponse message. Also converts values to other types if specified.
+                     * @param message UpdateRegistrationResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.registration.UpdateRegistrationResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this UpdateRegistrationResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
                 }
             }
         }

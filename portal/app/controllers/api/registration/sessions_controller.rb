@@ -35,7 +35,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     end
 
     render protobuf: Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse.new(
-      team: @team&.to_pb(member_detail: true, members: true),
+      team: @team&.to_pb(detail: current_contestant&.id == current_team&.leader_id, member_detail: true, members: true),
       status: status,
       github_login: github_login&.fetch('login'),
       github_avatar_url: github_login&.fetch('avatar_url'),
@@ -44,5 +44,25 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
       member_invite_url: @team && registration_url(team_id: @team.id, invite_token: @team.invite_token), # TODO:
       discord_server_id: status == Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::JOINED ? Rails.application.config.x.discord.server_id : "",
     )
+  end
+
+  pb :update, Isuxportal::Proto::Services::Registration::UpdateRegistrationRequest
+  def update
+    raise ActiveRecord::RecordNotFound unless current_contestant
+
+    ApplicationRecord.transaction do
+      current_contestant.update_attributes!(
+        name: pb.name,
+        student: pb.is_student,
+      )
+      if current_team.leader_id == current_contestant.id
+        current_team.update_attributes!(
+          name: pb.team_name,
+          email_address: pb.email_address,
+        )
+      end
+    end
+
+    render protobuf: Isuxportal::Proto::Services::Registration::UpdateRegistrationResponse.new()
   end
 end

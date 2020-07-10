@@ -19,7 +19,6 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :discord_avatar_url, :string, 6
       optional :member_invite_url, :string, 7
       optional :discord_server_id, :string, 8
-      optional :is_open, :bool, 9
     end
     add_enum "isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status" do
       value :CLOSED, 0
@@ -28,6 +27,14 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :CREATABLE, 3
       value :JOINABLE, 4
       value :JOINED, 5
+    end
+    add_message "isuxportal.proto.services.registration.UpdateRegistrationRequest" do
+      optional :team_name, :string, 1
+      optional :name, :string, 2
+      optional :email_address, :string, 3
+      optional :is_student, :bool, 4
+    end
+    add_message "isuxportal.proto.services.registration.UpdateRegistrationResponse" do
     end
   end
 end
@@ -39,6 +46,8 @@ module Isuxportal
         GetRegistrationSessionQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionQuery").msgclass
         GetRegistrationSessionResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse").msgclass
         GetRegistrationSessionResponse::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status").enummodule
+        UpdateRegistrationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.UpdateRegistrationRequest").msgclass
+        UpdateRegistrationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.UpdateRegistrationResponse").msgclass
       end
     end
   end

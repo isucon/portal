@@ -72,6 +72,15 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async updateRegistration(payload: isuxportal.proto.services.registration.IUpdateRegistrationRequest) {
+    const responseClass = isuxportal.proto.services.registration.UpdateRegistrationResponse;
+    const payloadClass = isuxportal.proto.services.registration.UpdateRegistrationRequest;
+    const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
+    const resp = await this.request(`${this.baseUrl}/api/registration`, "PUT", null, payloadMessage);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();

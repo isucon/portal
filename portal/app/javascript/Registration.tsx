@@ -14,20 +14,24 @@ export interface Props {
 }
 
 export interface State {
+  session: isuxportal.proto.services.common.GetCurrentSessionResponse,
   registrationSession: isuxportal.proto.services.registration.GetRegistrationSessionResponse | null,
   teamId: number | null,
   inviteToken: string | null,
+  edit: boolean,
   error: Error | null,
 }
 
 export class Registration extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const params = new URLSearchParams(document.location.search)
+    const params = new URLSearchParams(document.location.search);
     this.state = {
+      session: this.props.session,
       registrationSession: null,
       teamId: parseInt(params.get("team_id") || '0', 10),
       inviteToken: params.get("invite_token"),
+      edit: false,
       error: null,
     };
   }
@@ -38,15 +42,25 @@ export class Registration extends React.Component<Props, State> {
 
   async updateRegistrationSession() {
     try {
-      const session = await this.props.client.getRegistrationSession({
+      const registrationSession = await this.props.client.getRegistrationSession({
         teamId: this.state.teamId,
         inviteToken: this.state.inviteToken,
       });
-      this.setState({registrationSession: session});
+      let session = this.state.session;
+      if (this.state.registrationSession) {
+        // XXX: Contestant name might be updated inside the registration page, and it is only included in GetCurrentSession response, not available in GetRegistrationSession.
+        session = await this.props.client.getCurrentSession();
+      }
+      this.setState({session, registrationSession, edit: false});
     } catch (err) {
       this.setState({error: err});
     }
   }
+
+  enableEdit() {
+    this.setState({edit: true});
+  }
+
   public render() {
     return <>
       <header>
@@ -68,7 +82,7 @@ export class Registration extends React.Component<Props, State> {
     if (this.state.registrationSession) {
       const login = <>
         {this.renderTeam()}
-        <RegistrationLogin client={this.props.client} session={this.props.session} registrationSession={this.state.registrationSession} />
+        <RegistrationLogin client={this.props.client} session={this.state.session} registrationSession={this.state.registrationSession} />
       </>;
       switch(this.state.registrationSession.status) {
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.NOT_LOGGED_IN:
@@ -98,11 +112,14 @@ export class Registration extends React.Component<Props, State> {
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.JOINABLE:
           return <>
             {login}
-            <RegistrationForm client={this.props.client} session={this.props.session} inviteToken={this.state.inviteToken} registrationSession={this.state.registrationSession} updateRegistrationSession={this.updateRegistrationSession.bind(this)} />
+            <RegistrationForm client={this.props.client} session={this.state.session} inviteToken={this.state.inviteToken} registrationSession={this.state.registrationSession} updateRegistrationSession={this.updateRegistrationSession.bind(this)} />
           </>;
           break;
         case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.JOINED:
-          return <RegistrationStatus client={this.props.client} session={this.props.session} registrationSession={this.state.registrationSession}  updateRegistrationSession={this.updateRegistrationSession.bind(this)} />;
+          if (this.state.edit) {
+            return <RegistrationForm client={this.props.client} session={this.state.session} inviteToken={null} registrationSession={this.state.registrationSession} updateRegistrationSession={this.updateRegistrationSession.bind(this)} />;
+          }
+          return <RegistrationStatus client={this.props.client} session={this.state.session} registrationSession={this.state.registrationSession}  updateRegistrationSession={this.updateRegistrationSession.bind(this)} enableEdit={this.enableEdit.bind(this)} />;
           break;
       }
     } else {

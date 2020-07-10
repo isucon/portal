@@ -7,6 +7,7 @@ export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
   registrationSession: isuxportal.proto.services.registration.GetRegistrationSessionResponse,
   updateRegistrationSession: () => void,
+  enableEdit: () => void,
 }
 
 export interface State {
@@ -15,8 +16,11 @@ export interface State {
 export class RegistrationStatus extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-    };
+  }
+
+  onEditButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    this.props.enableEdit();
   }
 
   public render() {
@@ -47,9 +51,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
       </div>
 
       <section className="mt-3">
-        <h4 className="title is-4">その他</h4>
-        <p>登録内容の変更については、Discord 上で運営へお問い合わせください。</p>
-        <p><a href="/terms">参加規約</a>, <a href="/rules">レギュレーション</a></p>
+        <h4 className="title is-4">登録内容の編集</h4>
+        <p>
+          <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>編集</button><br/>
+          参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
+        </p>
       </section>
     </>;
   }
@@ -70,7 +76,8 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <div className="media-content">
             <p className="title is-5">{member.name}</p>
             <p className="subtitle is-6">
-              {this.props.registrationSession.team!.leaderId == member.id ? "代表者, " : ""}
+              {this.props.registrationSession.team!.leaderId == member.id ? <span className="tag is-danger">代表者</span> : null}
+              {member.contestantDetail!.isStudent ? <span className="tag is-info">学生</span> : null }
               GitHub @{member.contestantDetail!.githubLogin}, Discord {member.contestantDetail!.discordTag}
             </p>
           </div>
