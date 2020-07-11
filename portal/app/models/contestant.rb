@@ -13,6 +13,16 @@ class Contestant < ApplicationRecord
 
   validate :validate_number_of_team_members
 
+  scope :active, -> { eager_load(:team).joins(:team).where(teams: {withdrawn: false, disqualified: false}) }
+
+  def active?
+    team.active?
+  end
+
+  def leader?
+    team.leader_id == id
+  end
+
   def validate_number_of_team_members
     return if persisted?
     unless team&.joinable?
