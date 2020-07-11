@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :require_staff_when_always_required
 
   helper_method def current_contestant
-    @current_contestant ||= session[:contestant_id]&.yield_self { |id| Contestant.find_by(id: id) }
+    @current_contestant ||= session[:contestant_id]&.yield_self { |id| Contestant.active.find_by(id: id) }
   end
   
   helper_method def current_team

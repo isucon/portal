@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
 
     session[:github_login] = {id: auth['uid'], login: auth['info']['nickname'], token: auth['credentials']['token'], avatar_url: auth['info']['image']}
-    contestant = Contestant.find_by(github_id: auth['uid'])
+    contestant = Contestant.active.find_by(github_id: auth['uid'])
 
     case
     when contestant
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
     tag = "#{auth['extra']['raw_info']['username']}##{auth['extra']['raw_info']['discriminator']}"
     session[:discord_login] = {id: auth['uid'], tag: tag, token: auth['credentials']['token'], avatar_url: auth['info']['image']}
-    contestant = Contestant.find_by(discord_id: auth['uid'])
+    contestant = Contestant.active.find_by(discord_id: auth['uid'])
 
     case
     when contestant

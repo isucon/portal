@@ -7091,7 +7091,6 @@ $root.isuxportal = (function() {
                      * @property {string|null} [discordAvatarUrl] GetRegistrationSessionResponse discordAvatarUrl
                      * @property {string|null} [memberInviteUrl] GetRegistrationSessionResponse memberInviteUrl
                      * @property {string|null} [discordServerId] GetRegistrationSessionResponse discordServerId
-                     * @property {boolean|null} [isOpen] GetRegistrationSessionResponse isOpen
                      */
 
                     /**
@@ -7174,14 +7173,6 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.discordServerId = "";
 
                     /**
-                     * GetRegistrationSessionResponse isOpen.
-                     * @member {boolean} isOpen
-                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
-                     * @instance
-                     */
-                    GetRegistrationSessionResponse.prototype.isOpen = false;
-
-                    /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
@@ -7221,8 +7212,6 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 7, wireType 2 =*/58).string(message.memberInviteUrl);
                         if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
                             writer.uint32(/* id 8, wireType 2 =*/66).string(message.discordServerId);
-                        if (message.isOpen != null && Object.hasOwnProperty.call(message, "isOpen"))
-                            writer.uint32(/* id 9, wireType 0 =*/72).bool(message.isOpen);
                         return writer;
                     };
 
@@ -7280,9 +7269,6 @@ $root.isuxportal = (function() {
                                 break;
                             case 8:
                                 message.discordServerId = reader.string();
-                                break;
-                            case 9:
-                                message.isOpen = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -7354,9 +7340,6 @@ $root.isuxportal = (function() {
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             if (!$util.isString(message.discordServerId))
                                 return "discordServerId: string expected";
-                        if (message.isOpen != null && message.hasOwnProperty("isOpen"))
-                            if (typeof message.isOpen !== "boolean")
-                                return "isOpen: boolean expected";
                         return null;
                     };
 
@@ -7415,8 +7398,6 @@ $root.isuxportal = (function() {
                             message.memberInviteUrl = String(object.memberInviteUrl);
                         if (object.discordServerId != null)
                             message.discordServerId = String(object.discordServerId);
-                        if (object.isOpen != null)
-                            message.isOpen = Boolean(object.isOpen);
                         return message;
                     };
 
@@ -7442,7 +7423,6 @@ $root.isuxportal = (function() {
                             object.discordAvatarUrl = "";
                             object.memberInviteUrl = "";
                             object.discordServerId = "";
-                            object.isOpen = false;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -7460,8 +7440,6 @@ $root.isuxportal = (function() {
                             object.memberInviteUrl = message.memberInviteUrl;
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             object.discordServerId = message.discordServerId;
-                        if (message.isOpen != null && message.hasOwnProperty("isOpen"))
-                            object.isOpen = message.isOpen;
                         return object;
                     };
 
@@ -7499,6 +7477,740 @@ $root.isuxportal = (function() {
                     })();
 
                     return GetRegistrationSessionResponse;
+                })();
+
+                registration.UpdateRegistrationRequest = (function() {
+
+                    /**
+                     * Properties of an UpdateRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IUpdateRegistrationRequest
+                     * @property {string|null} [teamName] UpdateRegistrationRequest teamName
+                     * @property {string|null} [name] UpdateRegistrationRequest name
+                     * @property {string|null} [emailAddress] UpdateRegistrationRequest emailAddress
+                     * @property {boolean|null} [isStudent] UpdateRegistrationRequest isStudent
+                     */
+
+                    /**
+                     * Constructs a new UpdateRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents an UpdateRegistrationRequest.
+                     * @implements IUpdateRegistrationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationRequest=} [properties] Properties to set
+                     */
+                    function UpdateRegistrationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * UpdateRegistrationRequest teamName.
+                     * @member {string} teamName
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @instance
+                     */
+                    UpdateRegistrationRequest.prototype.teamName = "";
+
+                    /**
+                     * UpdateRegistrationRequest name.
+                     * @member {string} name
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @instance
+                     */
+                    UpdateRegistrationRequest.prototype.name = "";
+
+                    /**
+                     * UpdateRegistrationRequest emailAddress.
+                     * @member {string} emailAddress
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @instance
+                     */
+                    UpdateRegistrationRequest.prototype.emailAddress = "";
+
+                    /**
+                     * UpdateRegistrationRequest isStudent.
+                     * @member {boolean} isStudent
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @instance
+                     */
+                    UpdateRegistrationRequest.prototype.isStudent = false;
+
+                    /**
+                     * Creates a new UpdateRegistrationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationRequest} UpdateRegistrationRequest instance
+                     */
+                    UpdateRegistrationRequest.create = function create(properties) {
+                        return new UpdateRegistrationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified UpdateRegistrationRequest message. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationRequest} message UpdateRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UpdateRegistrationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.teamName != null && Object.hasOwnProperty.call(message, "teamName"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.teamName);
+                        if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                        if (message.emailAddress != null && Object.hasOwnProperty.call(message, "emailAddress"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.emailAddress);
+                        if (message.isStudent != null && Object.hasOwnProperty.call(message, "isStudent"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.isStudent);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified UpdateRegistrationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationRequest} message UpdateRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UpdateRegistrationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an UpdateRegistrationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationRequest} UpdateRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UpdateRegistrationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.UpdateRegistrationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.teamName = reader.string();
+                                break;
+                            case 2:
+                                message.name = reader.string();
+                                break;
+                            case 3:
+                                message.emailAddress = reader.string();
+                                break;
+                            case 4:
+                                message.isStudent = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an UpdateRegistrationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationRequest} UpdateRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UpdateRegistrationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an UpdateRegistrationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    UpdateRegistrationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.teamName != null && message.hasOwnProperty("teamName"))
+                            if (!$util.isString(message.teamName))
+                                return "teamName: string expected";
+                        if (message.name != null && message.hasOwnProperty("name"))
+                            if (!$util.isString(message.name))
+                                return "name: string expected";
+                        if (message.emailAddress != null && message.hasOwnProperty("emailAddress"))
+                            if (!$util.isString(message.emailAddress))
+                                return "emailAddress: string expected";
+                        if (message.isStudent != null && message.hasOwnProperty("isStudent"))
+                            if (typeof message.isStudent !== "boolean")
+                                return "isStudent: boolean expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an UpdateRegistrationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationRequest} UpdateRegistrationRequest
+                     */
+                    UpdateRegistrationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.UpdateRegistrationRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.registration.UpdateRegistrationRequest();
+                        if (object.teamName != null)
+                            message.teamName = String(object.teamName);
+                        if (object.name != null)
+                            message.name = String(object.name);
+                        if (object.emailAddress != null)
+                            message.emailAddress = String(object.emailAddress);
+                        if (object.isStudent != null)
+                            message.isStudent = Boolean(object.isStudent);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from an UpdateRegistrationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.UpdateRegistrationRequest} message UpdateRegistrationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    UpdateRegistrationRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults) {
+                            object.teamName = "";
+                            object.name = "";
+                            object.emailAddress = "";
+                            object.isStudent = false;
+                        }
+                        if (message.teamName != null && message.hasOwnProperty("teamName"))
+                            object.teamName = message.teamName;
+                        if (message.name != null && message.hasOwnProperty("name"))
+                            object.name = message.name;
+                        if (message.emailAddress != null && message.hasOwnProperty("emailAddress"))
+                            object.emailAddress = message.emailAddress;
+                        if (message.isStudent != null && message.hasOwnProperty("isStudent"))
+                            object.isStudent = message.isStudent;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this UpdateRegistrationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    UpdateRegistrationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return UpdateRegistrationRequest;
+                })();
+
+                registration.UpdateRegistrationResponse = (function() {
+
+                    /**
+                     * Properties of an UpdateRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IUpdateRegistrationResponse
+                     */
+
+                    /**
+                     * Constructs a new UpdateRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents an UpdateRegistrationResponse.
+                     * @implements IUpdateRegistrationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationResponse=} [properties] Properties to set
+                     */
+                    function UpdateRegistrationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new UpdateRegistrationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationResponse} UpdateRegistrationResponse instance
+                     */
+                    UpdateRegistrationResponse.create = function create(properties) {
+                        return new UpdateRegistrationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified UpdateRegistrationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationResponse} message UpdateRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UpdateRegistrationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified UpdateRegistrationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.UpdateRegistrationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IUpdateRegistrationResponse} message UpdateRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UpdateRegistrationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an UpdateRegistrationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationResponse} UpdateRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UpdateRegistrationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.UpdateRegistrationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an UpdateRegistrationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationResponse} UpdateRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UpdateRegistrationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an UpdateRegistrationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    UpdateRegistrationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an UpdateRegistrationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.UpdateRegistrationResponse} UpdateRegistrationResponse
+                     */
+                    UpdateRegistrationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.UpdateRegistrationResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.UpdateRegistrationResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from an UpdateRegistrationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.UpdateRegistrationResponse} message UpdateRegistrationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    UpdateRegistrationResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this UpdateRegistrationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.UpdateRegistrationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    UpdateRegistrationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return UpdateRegistrationResponse;
+                })();
+
+                registration.DeleteRegistrationRequest = (function() {
+
+                    /**
+                     * Properties of a DeleteRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IDeleteRegistrationRequest
+                     */
+
+                    /**
+                     * Constructs a new DeleteRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents a DeleteRegistrationRequest.
+                     * @implements IDeleteRegistrationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest=} [properties] Properties to set
+                     */
+                    function DeleteRegistrationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DeleteRegistrationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest instance
+                     */
+                    DeleteRegistrationRequest.create = function create(properties) {
+                        return new DeleteRegistrationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationRequest message. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest} message DeleteRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest} message DeleteRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.DeleteRegistrationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DeleteRegistrationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DeleteRegistrationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DeleteRegistrationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     */
+                    DeleteRegistrationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.DeleteRegistrationRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.DeleteRegistrationRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a DeleteRegistrationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.DeleteRegistrationRequest} message DeleteRegistrationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DeleteRegistrationRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DeleteRegistrationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DeleteRegistrationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DeleteRegistrationRequest;
+                })();
+
+                registration.DeleteRegistrationResponse = (function() {
+
+                    /**
+                     * Properties of a DeleteRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IDeleteRegistrationResponse
+                     */
+
+                    /**
+                     * Constructs a new DeleteRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents a DeleteRegistrationResponse.
+                     * @implements IDeleteRegistrationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse=} [properties] Properties to set
+                     */
+                    function DeleteRegistrationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DeleteRegistrationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse instance
+                     */
+                    DeleteRegistrationResponse.create = function create(properties) {
+                        return new DeleteRegistrationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse} message DeleteRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse} message DeleteRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.DeleteRegistrationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DeleteRegistrationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DeleteRegistrationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DeleteRegistrationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     */
+                    DeleteRegistrationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.DeleteRegistrationResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.DeleteRegistrationResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from a DeleteRegistrationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.DeleteRegistrationResponse} message DeleteRegistrationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DeleteRegistrationResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DeleteRegistrationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DeleteRegistrationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DeleteRegistrationResponse;
                 })();
 
                 return registration;

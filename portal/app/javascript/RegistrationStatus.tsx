@@ -2,21 +2,43 @@ import {isuxportal} from "./pb";
 import {ApiClient} from "./ApiClient";
 import React from "react";
 
+import {ErrorMessage} from "./ErrorMessage";
+
 export interface Props {
   client: ApiClient,
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
   registrationSession: isuxportal.proto.services.registration.GetRegistrationSessionResponse,
   updateRegistrationSession: () => void,
+  enableEdit: () => void,
 }
 
 export interface State {
+  error: Error | null,
 }
 
-export class RegistrationUpdateForm extends React.Component<Props, State> {
+export class RegistrationStatus extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      error: null,
     };
+  }
+
+  onEditButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    this.props.enableEdit();
+  }
+
+  async onWithdrawButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    if (!confirm("本当にキャンセルしてよろしいですか? この操作は元に戻すことができません。")) return;
+    try {
+      await this.props.client.deleteRegistration();
+      alert("参加をキャンセルしました。");
+      document.location.href = '/';
+    } catch (error) {
+      this.setState({error});
+    }
   }
 
   public render() {
@@ -47,9 +69,17 @@ export class RegistrationUpdateForm extends React.Component<Props, State> {
       </div>
 
       <section className="mt-3">
-        <h4 className="title is-4">その他</h4>
-        <p>登録内容の変更については、Discord 上で運営へお問い合わせください。</p>
-        <p><a href="/terms">参加規約</a>, <a href="/rules">レギュレーション</a></p>
+        <h4 className="title is-4">登録内容の編集</h4>
+        <p>
+          <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>編集</button><br/>
+          参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
+        </p>
+        <p>
+          <button className="button is-danger" onClick={this.onWithdrawButtonClick.bind(this)}>辞退</button><br/>
+          参加をキャンセルします。
+          {this.props.registrationSession.team!.leaderId == this.props.session.contestant!.id ? <strong>代表者のため、辞退するとチームとして参加辞退となります。</strong> : <span>チームメンバーであるため、チームから離脱します (他のメンバーには影響しません)。</span>}
+        </p>
+        {this.renderError()}
       </section>
     </>;
   }
@@ -70,13 +100,19 @@ export class RegistrationUpdateForm extends React.Component<Props, State> {
           <div className="media-content">
             <p className="title is-5">{member.name}</p>
             <p className="subtitle is-6">
-              {this.props.registrationSession.team!.leaderId == member.id ? "代表者, " : ""}
+              {this.props.registrationSession.team!.leaderId == member.id ? <span className="tag is-danger">代表者</span> : null}
+              {member.contestantDetail!.isStudent ? <span className="tag is-info">学生</span> : null }
               GitHub @{member.contestantDetail!.githubLogin}, Discord {member.contestantDetail!.discordTag}
             </p>
           </div>
         </div>
       </div>
     </div>;
+  }
+
+  renderError() {
+    if (!this.state.error) return null;
+    return <ErrorMessage error={this.state.error} />;
   }
 }
 

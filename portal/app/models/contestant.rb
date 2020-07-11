@@ -2,7 +2,7 @@ require 'isuxportal/resources/contestant_pb'
 
 class Contestant < ApplicationRecord
   belongs_to :team
-  has_many :ssh_public_keys
+  has_many :ssh_public_keys, dependent: :delete_all
 
   validates :name, presence: true
   validates :github_id, presence: true, uniqueness: true
@@ -12,6 +12,16 @@ class Contestant < ApplicationRecord
   validates :avatar_url, presence: true
 
   validate :validate_number_of_team_members
+
+  scope :active, -> { eager_load(:team).joins(:team).where(teams: {withdrawn: false, disqualified: false}) }
+
+  def active?
+    team.active?
+  end
+
+  def leader?
+    team.leader_id == id
+  end
 
   def validate_number_of_team_members
     return if persisted?

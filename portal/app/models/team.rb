@@ -10,6 +10,12 @@ class Team < ApplicationRecord
 
   before_validation :generate_invite_token
 
+  scope :active, -> { where(withdrawn: false, disqualified: false) }
+
+  def active?
+    !withdrawn? && !disqualified?
+  end
+
   def joinable?
     members.count < 3
   end

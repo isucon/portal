@@ -25,6 +25,13 @@ Rails.application.routes.draw do
     resource :session, only: %i(show)
 
     scope path: 'registration', module: 'registration' do
+      # registration/session UpdateRegistration: PUT /api/registration
+      # XXX:
+      put '/' => 'sessions#update'
+
+      # registration/session DeleteRegistration: PUT /api/registration
+      delete  '/' => 'sessions#delete'
+
       # registration/session GetRegistrationSession: GET /api/registration/session
       resource :session, only: %i(show)
       # registration/create_team CreateTeam: POST /api/registration/team

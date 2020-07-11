@@ -21,7 +21,7 @@ module Contest
   end
 
   def self.team_count
-    Team.count
+    Team.active.count
   end
 
   def self.max_teams
