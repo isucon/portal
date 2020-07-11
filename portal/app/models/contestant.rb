@@ -2,7 +2,7 @@ require 'isuxportal/resources/contestant_pb'
 
 class Contestant < ApplicationRecord
   belongs_to :team
-  has_many :ssh_public_keys
+  has_many :ssh_public_keys, dependent: :delete_all
 
   validates :name, presence: true
   validates :github_id, presence: true, uniqueness: true

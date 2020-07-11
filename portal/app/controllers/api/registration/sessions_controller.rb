@@ -65,4 +65,37 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
 
     render protobuf: Isuxportal::Proto::Services::Registration::UpdateRegistrationResponse.new()
   end
+
+  pb :delete, Isuxportal::Proto::Services::Registration::DeleteRegistrationRequest
+  def delete
+    raise ActiveRecord::RecordNotFound unless current_contestant
+
+    contestants = []
+    was_leader = current_contestant.leader?
+    ApplicationRecord.transaction do
+      if was_leader
+        current_team.update_attributes!(
+          withdrawn: true,
+          leader_id: nil,
+        )
+        contestants = current_team.members
+      else
+        contestants = [current_contestant]
+      end
+      contestants.each(&:destroy!)
+    end
+
+    contestants.each do |contestant|
+      MaintainDiscordContestantRolesJob.perform_later(nil, force_discord_id: contestant.discord_id)
+    end
+
+    if was_leader
+      SlackWebhookJob.perform_later(text: ":wave: *Team withdrawal:* #{current_contestant.team.name} (#{current_team.id}), members=#{contestants.map(&:name).join(?,)} (#{contestants.map(&:id).map(&:to_s).join(?,)})")
+    else
+      SlackWebhookJob.perform_later(text: ":wave: *Contestant withdrawal:* #{current_contestant.team.name} (#{current_team.id}), member=#{current_contestant.name} (#{current_contestant.id})")
+    end
+
+    session[:contestant_id] = nil
+    render protobuf: Isuxportal::Proto::Services::Registration::DeleteRegistrationResponse.new()
+  end
 end

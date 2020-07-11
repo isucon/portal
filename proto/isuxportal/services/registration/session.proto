@@ -40,3 +40,10 @@ message UpdateRegistrationRequest {
 message UpdateRegistrationResponse {
 }
 
+
+message DeleteRegistrationRequest {
+}
+
+message DeleteRegistrationResponse {
+}
+

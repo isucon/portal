@@ -29,6 +29,9 @@ Rails.application.routes.draw do
       # XXX:
       put '/' => 'sessions#update'
 
+      # registration/session DeleteRegistration: PUT /api/registration
+      delete  '/' => 'sessions#delete'
+
       # registration/session GetRegistrationSession: GET /api/registration/session
       resource :session, only: %i(show)
       # registration/create_team CreateTeam: POST /api/registration/team

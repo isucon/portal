@@ -36,6 +36,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "isuxportal.proto.services.registration.UpdateRegistrationResponse" do
     end
+    add_message "isuxportal.proto.services.registration.DeleteRegistrationRequest" do
+    end
+    add_message "isuxportal.proto.services.registration.DeleteRegistrationResponse" do
+    end
   end
 end
 
@@ -48,6 +52,8 @@ module Isuxportal
         GetRegistrationSessionResponse::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status").enummodule
         UpdateRegistrationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.UpdateRegistrationRequest").msgclass
         UpdateRegistrationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.UpdateRegistrationResponse").msgclass
+        DeleteRegistrationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.DeleteRegistrationRequest").msgclass
+        DeleteRegistrationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.registration.DeleteRegistrationResponse").msgclass
       end
     end
   end

@@ -2,6 +2,8 @@ import {isuxportal} from "./pb";
 import {ApiClient} from "./ApiClient";
 import React from "react";
 
+import {ErrorMessage} from "./ErrorMessage";
+
 export interface Props {
   client: ApiClient,
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -11,16 +13,32 @@ export interface Props {
 }
 
 export interface State {
+  error: Error | null,
 }
 
 export class RegistrationStatus extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      error: null,
+    };
   }
 
   onEditButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     this.props.enableEdit();
+  }
+
+  async onWithdrawButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    if (!confirm("本当にキャンセルしてよろしいですか? この操作は元に戻すことができません。")) return;
+    try {
+      await this.props.client.deleteRegistration();
+      alert("参加をキャンセルしました。");
+      document.location.href = '/';
+    } catch (error) {
+      this.setState({error});
+    }
   }
 
   public render() {
@@ -56,6 +74,12 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>編集</button><br/>
           参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
         </p>
+        <p>
+          <button className="button is-danger" onClick={this.onWithdrawButtonClick.bind(this)}>辞退</button><br/>
+          参加をキャンセルします。
+          {this.props.registrationSession.team!.leaderId == this.props.session.contestant!.id ? <strong>代表者のため、辞退するとチームとして参加辞退となります。</strong> : <span>チームメンバーであるため、チームから離脱します (他のメンバーには影響しません)。</span>}
+        </p>
+        {this.renderError()}
       </section>
     </>;
   }
@@ -84,6 +108,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
         </div>
       </div>
     </div>;
+  }
+
+  renderError() {
+    if (!this.state.error) return null;
+    return <ErrorMessage error={this.state.error} />;
   }
 }
 

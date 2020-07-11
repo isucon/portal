@@ -7893,6 +7893,326 @@ $root.isuxportal = (function() {
                     return UpdateRegistrationResponse;
                 })();
 
+                registration.DeleteRegistrationRequest = (function() {
+
+                    /**
+                     * Properties of a DeleteRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IDeleteRegistrationRequest
+                     */
+
+                    /**
+                     * Constructs a new DeleteRegistrationRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents a DeleteRegistrationRequest.
+                     * @implements IDeleteRegistrationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest=} [properties] Properties to set
+                     */
+                    function DeleteRegistrationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DeleteRegistrationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest instance
+                     */
+                    DeleteRegistrationRequest.create = function create(properties) {
+                        return new DeleteRegistrationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationRequest message. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest} message DeleteRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationRequest} message DeleteRegistrationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.DeleteRegistrationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DeleteRegistrationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DeleteRegistrationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DeleteRegistrationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationRequest} DeleteRegistrationRequest
+                     */
+                    DeleteRegistrationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.DeleteRegistrationRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.DeleteRegistrationRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a DeleteRegistrationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.DeleteRegistrationRequest} message DeleteRegistrationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DeleteRegistrationRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DeleteRegistrationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DeleteRegistrationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DeleteRegistrationRequest;
+                })();
+
+                registration.DeleteRegistrationResponse = (function() {
+
+                    /**
+                     * Properties of a DeleteRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IDeleteRegistrationResponse
+                     */
+
+                    /**
+                     * Constructs a new DeleteRegistrationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents a DeleteRegistrationResponse.
+                     * @implements IDeleteRegistrationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse=} [properties] Properties to set
+                     */
+                    function DeleteRegistrationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DeleteRegistrationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse instance
+                     */
+                    DeleteRegistrationResponse.create = function create(properties) {
+                        return new DeleteRegistrationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse} message DeleteRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DeleteRegistrationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.DeleteRegistrationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IDeleteRegistrationResponse} message DeleteRegistrationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DeleteRegistrationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.DeleteRegistrationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DeleteRegistrationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DeleteRegistrationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DeleteRegistrationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DeleteRegistrationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DeleteRegistrationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.DeleteRegistrationResponse} DeleteRegistrationResponse
+                     */
+                    DeleteRegistrationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.DeleteRegistrationResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.DeleteRegistrationResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from a DeleteRegistrationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.DeleteRegistrationResponse} message DeleteRegistrationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DeleteRegistrationResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DeleteRegistrationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.DeleteRegistrationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DeleteRegistrationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DeleteRegistrationResponse;
+                })();
+
                 return registration;
             })();
 

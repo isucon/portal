@@ -80,6 +80,11 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async deleteRegistration() {
+    const responseClass = isuxportal.proto.services.registration.DeleteRegistrationResponse;
+    const resp = await this.request(`${this.baseUrl}/api/registration`, "DELETE", null, null);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
 
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
