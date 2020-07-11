@@ -33,6 +33,9 @@ class SessionsController < ApplicationController
 
     case
     when contestant
+      contestant.update_attributes!(
+        github_login: auth['info']['nickname'],
+      )
       session[:contestant_id] = contestant.id
       SyncSshKeysOfContestantJob.perform_later(contestant, auth['credentials']['token'])
       redirect_to session[:back_to] || registration_path # TODO:
@@ -50,6 +53,9 @@ class SessionsController < ApplicationController
 
     case
     when contestant
+      contestant.update_attributes!(
+        discord_tag: tag,
+      )
       session[:contestant_id] = contestant.id
       redirect_to session[:back_to] || registration_path # TODO:
     else
