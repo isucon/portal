@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_052825) do
+ActiveRecord::Schema.define(version: 2020_07_11_054109) do
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "team_id", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_052825) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "withdrawn", default: false, null: false
+    t.boolean "disqualified", default: false, null: false
   end
 
 end
