@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_170956) do
+ActiveRecord::Schema.define(version: 2020_07_11_052825) do
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "team_id", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_170956) do
     t.string "invite_token", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "withdrawn"
+    t.boolean "withdrawn", default: false, null: false
   end
 
 end
