@@ -32,3 +32,13 @@ message RespondClarificationRequest {
 message RespondClarificationResponse {
   Clarification clarification = 1;
 }
+
+message CreateClarificationRequest {
+  int64 id = 1;
+  string answer = 3;
+  string question = 4;
+}
+
+message CreateClarificationResponse {
+  Clarification clarification = 1;
+}
