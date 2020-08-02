@@ -895,13 +895,15 @@ $root.isuxportal = (function() {
                  * @property {number|Long|null} [teamId] BenchmarkJob teamId
                  * @property {number|Long|null} [targetId] BenchmarkJob targetId
                  * @property {isuxportal.proto.resources.BenchmarkJob.Status|null} [status] BenchmarkJob status
-                 * @property {isuxportal.proto.resources.IBenchmarkResult|null} [result] BenchmarkJob result
                  * @property {google.protobuf.ITimestamp|null} [createdAt] BenchmarkJob createdAt
                  * @property {google.protobuf.ITimestamp|null} [updatedAt] BenchmarkJob updatedAt
                  * @property {google.protobuf.ITimestamp|null} [startedAt] BenchmarkJob startedAt
                  * @property {google.protobuf.ITimestamp|null} [finishedAt] BenchmarkJob finishedAt
+                 * @property {number|Long|null} [score] BenchmarkJob score
+                 * @property {string|null} [instanceName] BenchmarkJob instanceName
                  * @property {isuxportal.proto.resources.ITeam|null} [team] BenchmarkJob team
                  * @property {isuxportal.proto.resources.IContestantInstance|null} [target] BenchmarkJob target
+                 * @property {isuxportal.proto.resources.IBenchmarkResult|null} [result] BenchmarkJob result
                  */
 
                 /**
@@ -952,14 +954,6 @@ $root.isuxportal = (function() {
                 BenchmarkJob.prototype.status = 0;
 
                 /**
-                 * BenchmarkJob result.
-                 * @member {isuxportal.proto.resources.IBenchmarkResult|null|undefined} result
-                 * @memberof isuxportal.proto.resources.BenchmarkJob
-                 * @instance
-                 */
-                BenchmarkJob.prototype.result = null;
-
-                /**
                  * BenchmarkJob createdAt.
                  * @member {google.protobuf.ITimestamp|null|undefined} createdAt
                  * @memberof isuxportal.proto.resources.BenchmarkJob
@@ -992,6 +986,22 @@ $root.isuxportal = (function() {
                 BenchmarkJob.prototype.finishedAt = null;
 
                 /**
+                 * BenchmarkJob score.
+                 * @member {number|Long} score
+                 * @memberof isuxportal.proto.resources.BenchmarkJob
+                 * @instance
+                 */
+                BenchmarkJob.prototype.score = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * BenchmarkJob instanceName.
+                 * @member {string} instanceName
+                 * @memberof isuxportal.proto.resources.BenchmarkJob
+                 * @instance
+                 */
+                BenchmarkJob.prototype.instanceName = "";
+
+                /**
                  * BenchmarkJob team.
                  * @member {isuxportal.proto.resources.ITeam|null|undefined} team
                  * @memberof isuxportal.proto.resources.BenchmarkJob
@@ -1006,6 +1016,14 @@ $root.isuxportal = (function() {
                  * @instance
                  */
                 BenchmarkJob.prototype.target = null;
+
+                /**
+                 * BenchmarkJob result.
+                 * @member {isuxportal.proto.resources.IBenchmarkResult|null|undefined} result
+                 * @memberof isuxportal.proto.resources.BenchmarkJob
+                 * @instance
+                 */
+                BenchmarkJob.prototype.result = null;
 
                 /**
                  * Creates a new BenchmarkJob instance using the specified properties.
@@ -1039,20 +1057,24 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 3, wireType 0 =*/24).int64(message.targetId);
                     if (message.status != null && Object.hasOwnProperty.call(message, "status"))
                         writer.uint32(/* id 4, wireType 0 =*/32).int32(message.status);
-                    if (message.result != null && Object.hasOwnProperty.call(message, "result"))
-                        $root.isuxportal.proto.resources.BenchmarkResult.encode(message.result, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     if (message.createdAt != null && Object.hasOwnProperty.call(message, "createdAt"))
-                        $root.google.protobuf.Timestamp.encode(message.createdAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                        $root.google.protobuf.Timestamp.encode(message.createdAt, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     if (message.updatedAt != null && Object.hasOwnProperty.call(message, "updatedAt"))
-                        $root.google.protobuf.Timestamp.encode(message.updatedAt, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                        $root.google.protobuf.Timestamp.encode(message.updatedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                     if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
-                        $root.google.protobuf.Timestamp.encode(message.startedAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                        $root.google.protobuf.Timestamp.encode(message.startedAt, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     if (message.finishedAt != null && Object.hasOwnProperty.call(message, "finishedAt"))
-                        $root.google.protobuf.Timestamp.encode(message.finishedAt, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                        $root.google.protobuf.Timestamp.encode(message.finishedAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.score != null && Object.hasOwnProperty.call(message, "score"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).int64(message.score);
+                    if (message.instanceName != null && Object.hasOwnProperty.call(message, "instanceName"))
+                        writer.uint32(/* id 10, wireType 2 =*/82).string(message.instanceName);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     if (message.target != null && Object.hasOwnProperty.call(message, "target"))
                         $root.isuxportal.proto.resources.ContestantInstance.encode(message.target, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+                    if (message.result != null && Object.hasOwnProperty.call(message, "result"))
+                        $root.isuxportal.proto.resources.BenchmarkResult.encode(message.result, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
                     return writer;
                 };
 
@@ -1100,25 +1122,31 @@ $root.isuxportal = (function() {
                             message.status = reader.int32();
                             break;
                         case 5:
-                            message.result = $root.isuxportal.proto.resources.BenchmarkResult.decode(reader, reader.uint32());
-                            break;
-                        case 6:
                             message.createdAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
-                        case 7:
+                        case 6:
                             message.updatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
-                        case 8:
+                        case 7:
                             message.startedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
-                        case 9:
+                        case 8:
                             message.finishedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 9:
+                            message.score = reader.int64();
+                            break;
+                        case 10:
+                            message.instanceName = reader.string();
                             break;
                         case 16:
                             message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
                             break;
                         case 17:
                             message.target = $root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32());
+                            break;
+                        case 18:
+                            message.result = $root.isuxportal.proto.resources.BenchmarkResult.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -1175,11 +1203,6 @@ $root.isuxportal = (function() {
                         case 4:
                             break;
                         }
-                    if (message.result != null && message.hasOwnProperty("result")) {
-                        var error = $root.isuxportal.proto.resources.BenchmarkResult.verify(message.result);
-                        if (error)
-                            return "result." + error;
-                    }
                     if (message.createdAt != null && message.hasOwnProperty("createdAt")) {
                         var error = $root.google.protobuf.Timestamp.verify(message.createdAt);
                         if (error)
@@ -1200,6 +1223,12 @@ $root.isuxportal = (function() {
                         if (error)
                             return "finishedAt." + error;
                     }
+                    if (message.score != null && message.hasOwnProperty("score"))
+                        if (!$util.isInteger(message.score) && !(message.score && $util.isInteger(message.score.low) && $util.isInteger(message.score.high)))
+                            return "score: integer|Long expected";
+                    if (message.instanceName != null && message.hasOwnProperty("instanceName"))
+                        if (!$util.isString(message.instanceName))
+                            return "instanceName: string expected";
                     if (message.team != null && message.hasOwnProperty("team")) {
                         var error = $root.isuxportal.proto.resources.Team.verify(message.team);
                         if (error)
@@ -1209,6 +1238,11 @@ $root.isuxportal = (function() {
                         var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.target);
                         if (error)
                             return "target." + error;
+                    }
+                    if (message.result != null && message.hasOwnProperty("result")) {
+                        var error = $root.isuxportal.proto.resources.BenchmarkResult.verify(message.result);
+                        if (error)
+                            return "result." + error;
                     }
                     return null;
                 };
@@ -1274,11 +1308,6 @@ $root.isuxportal = (function() {
                         message.status = 4;
                         break;
                     }
-                    if (object.result != null) {
-                        if (typeof object.result !== "object")
-                            throw TypeError(".isuxportal.proto.resources.BenchmarkJob.result: object expected");
-                        message.result = $root.isuxportal.proto.resources.BenchmarkResult.fromObject(object.result);
-                    }
                     if (object.createdAt != null) {
                         if (typeof object.createdAt !== "object")
                             throw TypeError(".isuxportal.proto.resources.BenchmarkJob.createdAt: object expected");
@@ -1299,6 +1328,17 @@ $root.isuxportal = (function() {
                             throw TypeError(".isuxportal.proto.resources.BenchmarkJob.finishedAt: object expected");
                         message.finishedAt = $root.google.protobuf.Timestamp.fromObject(object.finishedAt);
                     }
+                    if (object.score != null)
+                        if ($util.Long)
+                            (message.score = $util.Long.fromValue(object.score)).unsigned = false;
+                        else if (typeof object.score === "string")
+                            message.score = parseInt(object.score, 10);
+                        else if (typeof object.score === "number")
+                            message.score = object.score;
+                        else if (typeof object.score === "object")
+                            message.score = new $util.LongBits(object.score.low >>> 0, object.score.high >>> 0).toNumber();
+                    if (object.instanceName != null)
+                        message.instanceName = String(object.instanceName);
                     if (object.team != null) {
                         if (typeof object.team !== "object")
                             throw TypeError(".isuxportal.proto.resources.BenchmarkJob.team: object expected");
@@ -1308,6 +1348,11 @@ $root.isuxportal = (function() {
                         if (typeof object.target !== "object")
                             throw TypeError(".isuxportal.proto.resources.BenchmarkJob.target: object expected");
                         message.target = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.target);
+                    }
+                    if (object.result != null) {
+                        if (typeof object.result !== "object")
+                            throw TypeError(".isuxportal.proto.resources.BenchmarkJob.result: object expected");
+                        message.result = $root.isuxportal.proto.resources.BenchmarkResult.fromObject(object.result);
                     }
                     return message;
                 };
@@ -1342,13 +1387,19 @@ $root.isuxportal = (function() {
                         } else
                             object.targetId = options.longs === String ? "0" : 0;
                         object.status = options.enums === String ? "PENDING" : 0;
-                        object.result = null;
                         object.createdAt = null;
                         object.updatedAt = null;
                         object.startedAt = null;
                         object.finishedAt = null;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.score = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.score = options.longs === String ? "0" : 0;
+                        object.instanceName = "";
                         object.team = null;
                         object.target = null;
+                        object.result = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
                         if (typeof message.id === "number")
@@ -1367,8 +1418,6 @@ $root.isuxportal = (function() {
                             object.targetId = options.longs === String ? $util.Long.prototype.toString.call(message.targetId) : options.longs === Number ? new $util.LongBits(message.targetId.low >>> 0, message.targetId.high >>> 0).toNumber() : message.targetId;
                     if (message.status != null && message.hasOwnProperty("status"))
                         object.status = options.enums === String ? $root.isuxportal.proto.resources.BenchmarkJob.Status[message.status] : message.status;
-                    if (message.result != null && message.hasOwnProperty("result"))
-                        object.result = $root.isuxportal.proto.resources.BenchmarkResult.toObject(message.result, options);
                     if (message.createdAt != null && message.hasOwnProperty("createdAt"))
                         object.createdAt = $root.google.protobuf.Timestamp.toObject(message.createdAt, options);
                     if (message.updatedAt != null && message.hasOwnProperty("updatedAt"))
@@ -1377,10 +1426,19 @@ $root.isuxportal = (function() {
                         object.startedAt = $root.google.protobuf.Timestamp.toObject(message.startedAt, options);
                     if (message.finishedAt != null && message.hasOwnProperty("finishedAt"))
                         object.finishedAt = $root.google.protobuf.Timestamp.toObject(message.finishedAt, options);
+                    if (message.score != null && message.hasOwnProperty("score"))
+                        if (typeof message.score === "number")
+                            object.score = options.longs === String ? String(message.score) : message.score;
+                        else
+                            object.score = options.longs === String ? $util.Long.prototype.toString.call(message.score) : options.longs === Number ? new $util.LongBits(message.score.low >>> 0, message.score.high >>> 0).toNumber() : message.score;
+                    if (message.instanceName != null && message.hasOwnProperty("instanceName"))
+                        object.instanceName = message.instanceName;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     if (message.target != null && message.hasOwnProperty("target"))
                         object.target = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.target, options);
+                    if (message.result != null && message.hasOwnProperty("result"))
+                        object.result = $root.isuxportal.proto.resources.BenchmarkResult.toObject(message.result, options);
                     return object;
                 };
 
@@ -2630,6 +2688,7 @@ $root.isuxportal = (function() {
                  * @property {boolean|null} [finalParticipation] Team finalParticipation
                  * @property {boolean|null} [hidden] Team hidden
                  * @property {boolean|null} [withdrawn] Team withdrawn
+                 * @property {boolean|null} [disqualified] Team disqualified
                  * @property {isuxportal.proto.resources.Team.ITeamDetail|null} [detail] Team detail
                  * @property {isuxportal.proto.resources.IContestant|null} [leader] Team leader
                  * @property {Array.<isuxportal.proto.resources.IContestant>|null} [members] Team members
@@ -2709,6 +2768,14 @@ $root.isuxportal = (function() {
                 Team.prototype.withdrawn = false;
 
                 /**
+                 * Team disqualified.
+                 * @member {boolean} disqualified
+                 * @memberof isuxportal.proto.resources.Team
+                 * @instance
+                 */
+                Team.prototype.disqualified = false;
+
+                /**
                  * Team detail.
                  * @member {isuxportal.proto.resources.Team.ITeamDetail|null|undefined} detail
                  * @memberof isuxportal.proto.resources.Team
@@ -2776,6 +2843,8 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 7, wireType 0 =*/56).bool(message.withdrawn);
                     if (message.detail != null && Object.hasOwnProperty.call(message, "detail"))
                         $root.isuxportal.proto.resources.Team.TeamDetail.encode(message.detail, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.disqualified != null && Object.hasOwnProperty.call(message, "disqualified"))
+                        writer.uint32(/* id 9, wireType 0 =*/72).bool(message.disqualified);
                     if (message.leader != null && Object.hasOwnProperty.call(message, "leader"))
                         $root.isuxportal.proto.resources.Contestant.encode(message.leader, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     if (message.members != null && message.members.length)
@@ -2842,6 +2911,9 @@ $root.isuxportal = (function() {
                             break;
                         case 7:
                             message.withdrawn = reader.bool();
+                            break;
+                        case 9:
+                            message.disqualified = reader.bool();
                             break;
                         case 8:
                             message.detail = $root.isuxportal.proto.resources.Team.TeamDetail.decode(reader, reader.uint32());
@@ -2914,6 +2986,9 @@ $root.isuxportal = (function() {
                     if (message.withdrawn != null && message.hasOwnProperty("withdrawn"))
                         if (typeof message.withdrawn !== "boolean")
                             return "withdrawn: boolean expected";
+                    if (message.disqualified != null && message.hasOwnProperty("disqualified"))
+                        if (typeof message.disqualified !== "boolean")
+                            return "disqualified: boolean expected";
                     if (message.detail != null && message.hasOwnProperty("detail")) {
                         var error = $root.isuxportal.proto.resources.Team.TeamDetail.verify(message.detail);
                         if (error)
@@ -2988,6 +3063,8 @@ $root.isuxportal = (function() {
                         message.hidden = Boolean(object.hidden);
                     if (object.withdrawn != null)
                         message.withdrawn = Boolean(object.withdrawn);
+                    if (object.disqualified != null)
+                        message.disqualified = Boolean(object.disqualified);
                     if (object.detail != null) {
                         if (typeof object.detail !== "object")
                             throw TypeError(".isuxportal.proto.resources.Team.detail: object expected");
@@ -3044,6 +3121,7 @@ $root.isuxportal = (function() {
                         object.hidden = false;
                         object.withdrawn = false;
                         object.detail = null;
+                        object.disqualified = false;
                         object.leader = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -3074,6 +3152,8 @@ $root.isuxportal = (function() {
                         object.withdrawn = message.withdrawn;
                     if (message.detail != null && message.hasOwnProperty("detail"))
                         object.detail = $root.isuxportal.proto.resources.Team.TeamDetail.toObject(message.detail, options);
+                    if (message.disqualified != null && message.hasOwnProperty("disqualified"))
+                        object.disqualified = message.disqualified;
                     if (message.leader != null && message.hasOwnProperty("leader"))
                         object.leader = $root.isuxportal.proto.resources.Contestant.toObject(message.leader, options);
                     if (message.members && message.members.length) {
@@ -3102,7 +3182,6 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.resources.Team
                      * @interface ITeamDetail
                      * @property {string|null} [emailAddress] TeamDetail emailAddress
-                     * @property {number|Long|null} [benchmarkTargetId] TeamDetail benchmarkTargetId
                      * @property {string|null} [inviteToken] TeamDetail inviteToken
                      */
 
@@ -3128,14 +3207,6 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     TeamDetail.prototype.emailAddress = "";
-
-                    /**
-                     * TeamDetail benchmarkTargetId.
-                     * @member {number|Long} benchmarkTargetId
-                     * @memberof isuxportal.proto.resources.Team.TeamDetail
-                     * @instance
-                     */
-                    TeamDetail.prototype.benchmarkTargetId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * TeamDetail inviteToken.
@@ -3171,8 +3242,6 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.emailAddress != null && Object.hasOwnProperty.call(message, "emailAddress"))
                             writer.uint32(/* id 1, wireType 2 =*/10).string(message.emailAddress);
-                        if (message.benchmarkTargetId != null && Object.hasOwnProperty.call(message, "benchmarkTargetId"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).int64(message.benchmarkTargetId);
                         if (message.inviteToken != null && Object.hasOwnProperty.call(message, "inviteToken"))
                             writer.uint32(/* id 16, wireType 2 =*/130).string(message.inviteToken);
                         return writer;
@@ -3211,9 +3280,6 @@ $root.isuxportal = (function() {
                             switch (tag >>> 3) {
                             case 1:
                                 message.emailAddress = reader.string();
-                                break;
-                            case 2:
-                                message.benchmarkTargetId = reader.int64();
                                 break;
                             case 16:
                                 message.inviteToken = reader.string();
@@ -3256,9 +3322,6 @@ $root.isuxportal = (function() {
                         if (message.emailAddress != null && message.hasOwnProperty("emailAddress"))
                             if (!$util.isString(message.emailAddress))
                                 return "emailAddress: string expected";
-                        if (message.benchmarkTargetId != null && message.hasOwnProperty("benchmarkTargetId"))
-                            if (!$util.isInteger(message.benchmarkTargetId) && !(message.benchmarkTargetId && $util.isInteger(message.benchmarkTargetId.low) && $util.isInteger(message.benchmarkTargetId.high)))
-                                return "benchmarkTargetId: integer|Long expected";
                         if (message.inviteToken != null && message.hasOwnProperty("inviteToken"))
                             if (!$util.isString(message.inviteToken))
                                 return "inviteToken: string expected";
@@ -3279,15 +3342,6 @@ $root.isuxportal = (function() {
                         var message = new $root.isuxportal.proto.resources.Team.TeamDetail();
                         if (object.emailAddress != null)
                             message.emailAddress = String(object.emailAddress);
-                        if (object.benchmarkTargetId != null)
-                            if ($util.Long)
-                                (message.benchmarkTargetId = $util.Long.fromValue(object.benchmarkTargetId)).unsigned = false;
-                            else if (typeof object.benchmarkTargetId === "string")
-                                message.benchmarkTargetId = parseInt(object.benchmarkTargetId, 10);
-                            else if (typeof object.benchmarkTargetId === "number")
-                                message.benchmarkTargetId = object.benchmarkTargetId;
-                            else if (typeof object.benchmarkTargetId === "object")
-                                message.benchmarkTargetId = new $util.LongBits(object.benchmarkTargetId.low >>> 0, object.benchmarkTargetId.high >>> 0).toNumber();
                         if (object.inviteToken != null)
                             message.inviteToken = String(object.inviteToken);
                         return message;
@@ -3308,20 +3362,10 @@ $root.isuxportal = (function() {
                         var object = {};
                         if (options.defaults) {
                             object.emailAddress = "";
-                            if ($util.Long) {
-                                var long = new $util.Long(0, 0, false);
-                                object.benchmarkTargetId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.benchmarkTargetId = options.longs === String ? "0" : 0;
                             object.inviteToken = "";
                         }
                         if (message.emailAddress != null && message.hasOwnProperty("emailAddress"))
                             object.emailAddress = message.emailAddress;
-                        if (message.benchmarkTargetId != null && message.hasOwnProperty("benchmarkTargetId"))
-                            if (typeof message.benchmarkTargetId === "number")
-                                object.benchmarkTargetId = options.longs === String ? String(message.benchmarkTargetId) : message.benchmarkTargetId;
-                            else
-                                object.benchmarkTargetId = options.longs === String ? $util.Long.prototype.toString.call(message.benchmarkTargetId) : options.longs === Number ? new $util.LongBits(message.benchmarkTargetId.low >>> 0, message.benchmarkTargetId.high >>> 0).toNumber() : message.benchmarkTargetId;
                         if (message.inviteToken != null && message.hasOwnProperty("inviteToken"))
                             object.inviteToken = message.inviteToken;
                         return object;
@@ -3899,6 +3943,7 @@ $root.isuxportal = (function() {
                  * @property {string|null} [answer] Clarification answer
                  * @property {google.protobuf.ITimestamp|null} [createdAt] Clarification createdAt
                  * @property {google.protobuf.ITimestamp|null} [answeredAt] Clarification answeredAt
+                 * @property {string|null} [originalQuestion] Clarification originalQuestion
                  * @property {isuxportal.proto.resources.ITeam|null} [team] Clarification team
                  */
 
@@ -3982,6 +4027,14 @@ $root.isuxportal = (function() {
                 Clarification.prototype.answeredAt = null;
 
                 /**
+                 * Clarification originalQuestion.
+                 * @member {string} originalQuestion
+                 * @memberof isuxportal.proto.resources.Clarification
+                 * @instance
+                 */
+                Clarification.prototype.originalQuestion = "";
+
+                /**
                  * Clarification team.
                  * @member {isuxportal.proto.resources.ITeam|null|undefined} team
                  * @memberof isuxportal.proto.resources.Clarification
@@ -4029,6 +4082,8 @@ $root.isuxportal = (function() {
                         $root.google.protobuf.Timestamp.encode(message.createdAt, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     if (message.answeredAt != null && Object.hasOwnProperty.call(message, "answeredAt"))
                         $root.google.protobuf.Timestamp.encode(message.answeredAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.originalQuestion != null && Object.hasOwnProperty.call(message, "originalQuestion"))
+                        writer.uint32(/* id 9, wireType 2 =*/74).string(message.originalQuestion);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     return writer;
@@ -4088,6 +4143,9 @@ $root.isuxportal = (function() {
                             break;
                         case 8:
                             message.answeredAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 9:
+                            message.originalQuestion = reader.string();
                             break;
                         case 16:
                             message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
@@ -4155,6 +4213,9 @@ $root.isuxportal = (function() {
                         if (error)
                             return "answeredAt." + error;
                     }
+                    if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
+                        if (!$util.isString(message.originalQuestion))
+                            return "originalQuestion: string expected";
                     if (message.team != null && message.hasOwnProperty("team")) {
                         var error = $root.isuxportal.proto.resources.Team.verify(message.team);
                         if (error)
@@ -4211,6 +4272,8 @@ $root.isuxportal = (function() {
                             throw TypeError(".isuxportal.proto.resources.Clarification.answeredAt: object expected");
                         message.answeredAt = $root.google.protobuf.Timestamp.fromObject(object.answeredAt);
                     }
+                    if (object.originalQuestion != null)
+                        message.originalQuestion = String(object.originalQuestion);
                     if (object.team != null) {
                         if (typeof object.team !== "object")
                             throw TypeError(".isuxportal.proto.resources.Clarification.team: object expected");
@@ -4249,6 +4312,7 @@ $root.isuxportal = (function() {
                         object.answer = "";
                         object.createdAt = null;
                         object.answeredAt = null;
+                        object.originalQuestion = "";
                         object.team = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -4273,6 +4337,8 @@ $root.isuxportal = (function() {
                         object.createdAt = $root.google.protobuf.Timestamp.toObject(message.createdAt, options);
                     if (message.answeredAt != null && message.hasOwnProperty("answeredAt"))
                         object.answeredAt = $root.google.protobuf.Timestamp.toObject(message.answeredAt, options);
+                    if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
+                        object.originalQuestion = message.originalQuestion;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     return object;
@@ -4290,6 +4356,859 @@ $root.isuxportal = (function() {
                 };
 
                 return Clarification;
+            })();
+
+            resources.Leaderboard = (function() {
+
+                /**
+                 * Properties of a Leaderboard.
+                 * @memberof isuxportal.proto.resources
+                 * @interface ILeaderboard
+                 * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [teams] Leaderboard teams
+                 * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [generalTeams] Leaderboard generalTeams
+                 * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [studentTeams] Leaderboard studentTeams
+                 * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [progresses] Leaderboard progresses
+                 * @property {boolean|null} [frozen] Leaderboard frozen
+                 */
+
+                /**
+                 * Constructs a new Leaderboard.
+                 * @memberof isuxportal.proto.resources
+                 * @classdesc Represents a Leaderboard.
+                 * @implements ILeaderboard
+                 * @constructor
+                 * @param {isuxportal.proto.resources.ILeaderboard=} [properties] Properties to set
+                 */
+                function Leaderboard(properties) {
+                    this.teams = [];
+                    this.generalTeams = [];
+                    this.studentTeams = [];
+                    this.progresses = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Leaderboard teams.
+                 * @member {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>} teams
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.teams = $util.emptyArray;
+
+                /**
+                 * Leaderboard generalTeams.
+                 * @member {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>} generalTeams
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.generalTeams = $util.emptyArray;
+
+                /**
+                 * Leaderboard studentTeams.
+                 * @member {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>} studentTeams
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.studentTeams = $util.emptyArray;
+
+                /**
+                 * Leaderboard progresses.
+                 * @member {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>} progresses
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.progresses = $util.emptyArray;
+
+                /**
+                 * Leaderboard frozen.
+                 * @member {boolean} frozen
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.frozen = false;
+
+                /**
+                 * Creates a new Leaderboard instance using the specified properties.
+                 * @function create
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {isuxportal.proto.resources.ILeaderboard=} [properties] Properties to set
+                 * @returns {isuxportal.proto.resources.Leaderboard} Leaderboard instance
+                 */
+                Leaderboard.create = function create(properties) {
+                    return new Leaderboard(properties);
+                };
+
+                /**
+                 * Encodes the specified Leaderboard message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.verify|verify} messages.
+                 * @function encode
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {isuxportal.proto.resources.ILeaderboard} message Leaderboard message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Leaderboard.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.teams != null && message.teams.length)
+                        for (var i = 0; i < message.teams.length; ++i)
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.teams[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    if (message.generalTeams != null && message.generalTeams.length)
+                        for (var i = 0; i < message.generalTeams.length; ++i)
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.generalTeams[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.studentTeams != null && message.studentTeams.length)
+                        for (var i = 0; i < message.studentTeams.length; ++i)
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.studentTeams[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.progresses != null && message.progresses.length)
+                        for (var i = 0; i < message.progresses.length; ++i)
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.progresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    if (message.frozen != null && Object.hasOwnProperty.call(message, "frozen"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).bool(message.frozen);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Leaderboard message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {isuxportal.proto.resources.ILeaderboard} message Leaderboard message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Leaderboard.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Leaderboard message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {isuxportal.proto.resources.Leaderboard} Leaderboard
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Leaderboard.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Leaderboard();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.teams && message.teams.length))
+                                message.teams = [];
+                            message.teams.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 2:
+                            if (!(message.generalTeams && message.generalTeams.length))
+                                message.generalTeams = [];
+                            message.generalTeams.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 3:
+                            if (!(message.studentTeams && message.studentTeams.length))
+                                message.studentTeams = [];
+                            message.studentTeams.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 4:
+                            if (!(message.progresses && message.progresses.length))
+                                message.progresses = [];
+                            message.progresses.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 5:
+                            message.frozen = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Leaderboard message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {isuxportal.proto.resources.Leaderboard} Leaderboard
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Leaderboard.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Leaderboard message.
+                 * @function verify
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Leaderboard.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.teams != null && message.hasOwnProperty("teams")) {
+                        if (!Array.isArray(message.teams))
+                            return "teams: array expected";
+                        for (var i = 0; i < message.teams.length; ++i) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify(message.teams[i]);
+                            if (error)
+                                return "teams." + error;
+                        }
+                    }
+                    if (message.generalTeams != null && message.hasOwnProperty("generalTeams")) {
+                        if (!Array.isArray(message.generalTeams))
+                            return "generalTeams: array expected";
+                        for (var i = 0; i < message.generalTeams.length; ++i) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify(message.generalTeams[i]);
+                            if (error)
+                                return "generalTeams." + error;
+                        }
+                    }
+                    if (message.studentTeams != null && message.hasOwnProperty("studentTeams")) {
+                        if (!Array.isArray(message.studentTeams))
+                            return "studentTeams: array expected";
+                        for (var i = 0; i < message.studentTeams.length; ++i) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify(message.studentTeams[i]);
+                            if (error)
+                                return "studentTeams." + error;
+                        }
+                    }
+                    if (message.progresses != null && message.hasOwnProperty("progresses")) {
+                        if (!Array.isArray(message.progresses))
+                            return "progresses: array expected";
+                        for (var i = 0; i < message.progresses.length; ++i) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify(message.progresses[i]);
+                            if (error)
+                                return "progresses." + error;
+                        }
+                    }
+                    if (message.frozen != null && message.hasOwnProperty("frozen"))
+                        if (typeof message.frozen !== "boolean")
+                            return "frozen: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Leaderboard message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {isuxportal.proto.resources.Leaderboard} Leaderboard
+                 */
+                Leaderboard.fromObject = function fromObject(object) {
+                    if (object instanceof $root.isuxportal.proto.resources.Leaderboard)
+                        return object;
+                    var message = new $root.isuxportal.proto.resources.Leaderboard();
+                    if (object.teams) {
+                        if (!Array.isArray(object.teams))
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.teams: array expected");
+                        message.teams = [];
+                        for (var i = 0; i < object.teams.length; ++i) {
+                            if (typeof object.teams[i] !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.teams: object expected");
+                            message.teams[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.teams[i]);
+                        }
+                    }
+                    if (object.generalTeams) {
+                        if (!Array.isArray(object.generalTeams))
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.generalTeams: array expected");
+                        message.generalTeams = [];
+                        for (var i = 0; i < object.generalTeams.length; ++i) {
+                            if (typeof object.generalTeams[i] !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.generalTeams: object expected");
+                            message.generalTeams[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.generalTeams[i]);
+                        }
+                    }
+                    if (object.studentTeams) {
+                        if (!Array.isArray(object.studentTeams))
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.studentTeams: array expected");
+                        message.studentTeams = [];
+                        for (var i = 0; i < object.studentTeams.length; ++i) {
+                            if (typeof object.studentTeams[i] !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.studentTeams: object expected");
+                            message.studentTeams[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.studentTeams[i]);
+                        }
+                    }
+                    if (object.progresses) {
+                        if (!Array.isArray(object.progresses))
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.progresses: array expected");
+                        message.progresses = [];
+                        for (var i = 0; i < object.progresses.length; ++i) {
+                            if (typeof object.progresses[i] !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.progresses: object expected");
+                            message.progresses[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.progresses[i]);
+                        }
+                    }
+                    if (object.frozen != null)
+                        message.frozen = Boolean(object.frozen);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Leaderboard message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @static
+                 * @param {isuxportal.proto.resources.Leaderboard} message Leaderboard
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Leaderboard.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults) {
+                        object.teams = [];
+                        object.generalTeams = [];
+                        object.studentTeams = [];
+                        object.progresses = [];
+                    }
+                    if (options.defaults)
+                        object.frozen = false;
+                    if (message.teams && message.teams.length) {
+                        object.teams = [];
+                        for (var j = 0; j < message.teams.length; ++j)
+                            object.teams[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.toObject(message.teams[j], options);
+                    }
+                    if (message.generalTeams && message.generalTeams.length) {
+                        object.generalTeams = [];
+                        for (var j = 0; j < message.generalTeams.length; ++j)
+                            object.generalTeams[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.toObject(message.generalTeams[j], options);
+                    }
+                    if (message.studentTeams && message.studentTeams.length) {
+                        object.studentTeams = [];
+                        for (var j = 0; j < message.studentTeams.length; ++j)
+                            object.studentTeams[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.toObject(message.studentTeams[j], options);
+                    }
+                    if (message.progresses && message.progresses.length) {
+                        object.progresses = [];
+                        for (var j = 0; j < message.progresses.length; ++j)
+                            object.progresses[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.toObject(message.progresses[j], options);
+                    }
+                    if (message.frozen != null && message.hasOwnProperty("frozen"))
+                        object.frozen = message.frozen;
+                    return object;
+                };
+
+                /**
+                 * Converts this Leaderboard to JSON.
+                 * @function toJSON
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Leaderboard.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                Leaderboard.LeaderboardItem = (function() {
+
+                    /**
+                     * Properties of a LeaderboardItem.
+                     * @memberof isuxportal.proto.resources.Leaderboard
+                     * @interface ILeaderboardItem
+                     * @property {Array.<isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore>|null} [scores] LeaderboardItem scores
+                     * @property {isuxportal.proto.resources.ITeam|null} [team] LeaderboardItem team
+                     */
+
+                    /**
+                     * Constructs a new LeaderboardItem.
+                     * @memberof isuxportal.proto.resources.Leaderboard
+                     * @classdesc Represents a LeaderboardItem.
+                     * @implements ILeaderboardItem
+                     * @constructor
+                     * @param {isuxportal.proto.resources.Leaderboard.ILeaderboardItem=} [properties] Properties to set
+                     */
+                    function LeaderboardItem(properties) {
+                        this.scores = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * LeaderboardItem scores.
+                     * @member {Array.<isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore>} scores
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @instance
+                     */
+                    LeaderboardItem.prototype.scores = $util.emptyArray;
+
+                    /**
+                     * LeaderboardItem team.
+                     * @member {isuxportal.proto.resources.ITeam|null|undefined} team
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @instance
+                     */
+                    LeaderboardItem.prototype.team = null;
+
+                    /**
+                     * Creates a new LeaderboardItem instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {isuxportal.proto.resources.Leaderboard.ILeaderboardItem=} [properties] Properties to set
+                     * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem} LeaderboardItem instance
+                     */
+                    LeaderboardItem.create = function create(properties) {
+                        return new LeaderboardItem(properties);
+                    };
+
+                    /**
+                     * Encodes the specified LeaderboardItem message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {isuxportal.proto.resources.Leaderboard.ILeaderboardItem} message LeaderboardItem message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    LeaderboardItem.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.scores != null && message.scores.length)
+                            for (var i = 0; i < message.scores.length; ++i)
+                                $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.scores[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.team != null && Object.hasOwnProperty.call(message, "team"))
+                            $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified LeaderboardItem message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {isuxportal.proto.resources.Leaderboard.ILeaderboardItem} message LeaderboardItem message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    LeaderboardItem.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a LeaderboardItem message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem} LeaderboardItem
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    LeaderboardItem.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.scores && message.scores.length))
+                                    message.scores = [];
+                                message.scores.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32()));
+                                break;
+                            case 16:
+                                message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a LeaderboardItem message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem} LeaderboardItem
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    LeaderboardItem.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a LeaderboardItem message.
+                     * @function verify
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    LeaderboardItem.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.scores != null && message.hasOwnProperty("scores")) {
+                            if (!Array.isArray(message.scores))
+                                return "scores: array expected";
+                            for (var i = 0; i < message.scores.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify(message.scores[i]);
+                                if (error)
+                                    return "scores." + error;
+                            }
+                        }
+                        if (message.team != null && message.hasOwnProperty("team")) {
+                            var error = $root.isuxportal.proto.resources.Team.verify(message.team);
+                            if (error)
+                                return "team." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a LeaderboardItem message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem} LeaderboardItem
+                     */
+                    LeaderboardItem.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem)
+                            return object;
+                        var message = new $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem();
+                        if (object.scores) {
+                            if (!Array.isArray(object.scores))
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.scores: array expected");
+                            message.scores = [];
+                            for (var i = 0; i < object.scores.length; ++i) {
+                                if (typeof object.scores[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.scores: object expected");
+                                message.scores[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.scores[i]);
+                            }
+                        }
+                        if (object.team != null) {
+                            if (typeof object.team !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.team: object expected");
+                            message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a LeaderboardItem message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @static
+                     * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem} message LeaderboardItem
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    LeaderboardItem.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.scores = [];
+                        if (options.defaults)
+                            object.team = null;
+                        if (message.scores && message.scores.length) {
+                            object.scores = [];
+                            for (var j = 0; j < message.scores.length; ++j)
+                                object.scores[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.scores[j], options);
+                        }
+                        if (message.team != null && message.hasOwnProperty("team"))
+                            object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this LeaderboardItem to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    LeaderboardItem.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    LeaderboardItem.LeaderboardScore = (function() {
+
+                        /**
+                         * Properties of a LeaderboardScore.
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                         * @interface ILeaderboardScore
+                         * @property {number|Long|null} [score] LeaderboardScore score
+                         * @property {google.protobuf.ITimestamp|null} [startedAt] LeaderboardScore startedAt
+                         * @property {google.protobuf.ITimestamp|null} [updatedAt] LeaderboardScore updatedAt
+                         */
+
+                        /**
+                         * Constructs a new LeaderboardScore.
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                         * @classdesc Represents a LeaderboardScore.
+                         * @implements ILeaderboardScore
+                         * @constructor
+                         * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore=} [properties] Properties to set
+                         */
+                        function LeaderboardScore(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * LeaderboardScore score.
+                         * @member {number|Long} score
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @instance
+                         */
+                        LeaderboardScore.prototype.score = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                        /**
+                         * LeaderboardScore startedAt.
+                         * @member {google.protobuf.ITimestamp|null|undefined} startedAt
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @instance
+                         */
+                        LeaderboardScore.prototype.startedAt = null;
+
+                        /**
+                         * LeaderboardScore updatedAt.
+                         * @member {google.protobuf.ITimestamp|null|undefined} updatedAt
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @instance
+                         */
+                        LeaderboardScore.prototype.updatedAt = null;
+
+                        /**
+                         * Creates a new LeaderboardScore instance using the specified properties.
+                         * @function create
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore=} [properties] Properties to set
+                         * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore} LeaderboardScore instance
+                         */
+                        LeaderboardScore.create = function create(properties) {
+                            return new LeaderboardScore(properties);
+                        };
+
+                        /**
+                         * Encodes the specified LeaderboardScore message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                         * @function encode
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore} message LeaderboardScore message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        LeaderboardScore.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.score != null && Object.hasOwnProperty.call(message, "score"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.score);
+                            if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
+                                $root.google.protobuf.Timestamp.encode(message.startedAt, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                            if (message.updatedAt != null && Object.hasOwnProperty.call(message, "updatedAt"))
+                                $root.google.protobuf.Timestamp.encode(message.updatedAt, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified LeaderboardScore message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore} message LeaderboardScore message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        LeaderboardScore.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a LeaderboardScore message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore} LeaderboardScore
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        LeaderboardScore.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.score = reader.int64();
+                                    break;
+                                case 2:
+                                    message.startedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                                    break;
+                                case 3:
+                                    message.updatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a LeaderboardScore message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore} LeaderboardScore
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        LeaderboardScore.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a LeaderboardScore message.
+                         * @function verify
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        LeaderboardScore.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                if (!$util.isInteger(message.score) && !(message.score && $util.isInteger(message.score.low) && $util.isInteger(message.score.high)))
+                                    return "score: integer|Long expected";
+                            if (message.startedAt != null && message.hasOwnProperty("startedAt")) {
+                                var error = $root.google.protobuf.Timestamp.verify(message.startedAt);
+                                if (error)
+                                    return "startedAt." + error;
+                            }
+                            if (message.updatedAt != null && message.hasOwnProperty("updatedAt")) {
+                                var error = $root.google.protobuf.Timestamp.verify(message.updatedAt);
+                                if (error)
+                                    return "updatedAt." + error;
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a LeaderboardScore message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore} LeaderboardScore
+                         */
+                        LeaderboardScore.fromObject = function fromObject(object) {
+                            if (object instanceof $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore)
+                                return object;
+                            var message = new $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore();
+                            if (object.score != null)
+                                if ($util.Long)
+                                    (message.score = $util.Long.fromValue(object.score)).unsigned = false;
+                                else if (typeof object.score === "string")
+                                    message.score = parseInt(object.score, 10);
+                                else if (typeof object.score === "number")
+                                    message.score = object.score;
+                                else if (typeof object.score === "object")
+                                    message.score = new $util.LongBits(object.score.low >>> 0, object.score.high >>> 0).toNumber();
+                            if (object.startedAt != null) {
+                                if (typeof object.startedAt !== "object")
+                                    throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.startedAt: object expected");
+                                message.startedAt = $root.google.protobuf.Timestamp.fromObject(object.startedAt);
+                            }
+                            if (object.updatedAt != null) {
+                                if (typeof object.updatedAt !== "object")
+                                    throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.updatedAt: object expected");
+                                message.updatedAt = $root.google.protobuf.Timestamp.fromObject(object.updatedAt);
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a LeaderboardScore message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @static
+                         * @param {isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore} message LeaderboardScore
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        LeaderboardScore.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            var object = {};
+                            if (options.defaults) {
+                                if ($util.Long) {
+                                    var long = new $util.Long(0, 0, false);
+                                    object.score = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                } else
+                                    object.score = options.longs === String ? "0" : 0;
+                                object.startedAt = null;
+                                object.updatedAt = null;
+                            }
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                if (typeof message.score === "number")
+                                    object.score = options.longs === String ? String(message.score) : message.score;
+                                else
+                                    object.score = options.longs === String ? $util.Long.prototype.toString.call(message.score) : options.longs === Number ? new $util.LongBits(message.score.low >>> 0, message.score.high >>> 0).toNumber() : message.score;
+                            if (message.startedAt != null && message.hasOwnProperty("startedAt"))
+                                object.startedAt = $root.google.protobuf.Timestamp.toObject(message.startedAt, options);
+                            if (message.updatedAt != null && message.hasOwnProperty("updatedAt"))
+                                object.updatedAt = $root.google.protobuf.Timestamp.toObject(message.updatedAt, options);
+                            return object;
+                        };
+
+                        /**
+                         * Converts this LeaderboardScore to JSON.
+                         * @function toJSON
+                         * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        LeaderboardScore.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return LeaderboardScore;
+                    })();
+
+                    return LeaderboardItem;
+                })();
+
+                return Leaderboard;
             })();
 
             resources.Staff = (function() {
@@ -4517,338 +5436,6 @@ $root.isuxportal = (function() {
             })();
 
             return resources;
-        })();
-
-        proto.common = (function() {
-
-            /**
-             * Namespace common.
-             * @memberof isuxportal.proto
-             * @namespace
-             */
-            var common = {};
-
-            common.DashboardRequest = (function() {
-
-                /**
-                 * Properties of a DashboardRequest.
-                 * @memberof isuxportal.proto.common
-                 * @interface IDashboardRequest
-                 */
-
-                /**
-                 * Constructs a new DashboardRequest.
-                 * @memberof isuxportal.proto.common
-                 * @classdesc Represents a DashboardRequest.
-                 * @implements IDashboardRequest
-                 * @constructor
-                 * @param {isuxportal.proto.common.IDashboardRequest=} [properties] Properties to set
-                 */
-                function DashboardRequest(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * Creates a new DashboardRequest instance using the specified properties.
-                 * @function create
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardRequest=} [properties] Properties to set
-                 * @returns {isuxportal.proto.common.DashboardRequest} DashboardRequest instance
-                 */
-                DashboardRequest.create = function create(properties) {
-                    return new DashboardRequest(properties);
-                };
-
-                /**
-                 * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @function encode
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardRequest} message DashboardRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DashboardRequest.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardRequest} message DashboardRequest message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DashboardRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {isuxportal.proto.common.DashboardRequest} DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DashboardRequest.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.common.DashboardRequest();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {isuxportal.proto.common.DashboardRequest} DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DashboardRequest.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies a DashboardRequest message.
-                 * @function verify
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                DashboardRequest.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    return null;
-                };
-
-                /**
-                 * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {isuxportal.proto.common.DashboardRequest} DashboardRequest
-                 */
-                DashboardRequest.fromObject = function fromObject(object) {
-                    if (object instanceof $root.isuxportal.proto.common.DashboardRequest)
-                        return object;
-                    return new $root.isuxportal.proto.common.DashboardRequest();
-                };
-
-                /**
-                 * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @static
-                 * @param {isuxportal.proto.common.DashboardRequest} message DashboardRequest
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                DashboardRequest.toObject = function toObject() {
-                    return {};
-                };
-
-                /**
-                 * Converts this DashboardRequest to JSON.
-                 * @function toJSON
-                 * @memberof isuxportal.proto.common.DashboardRequest
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                DashboardRequest.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return DashboardRequest;
-            })();
-
-            common.DashboardResponse = (function() {
-
-                /**
-                 * Properties of a DashboardResponse.
-                 * @memberof isuxportal.proto.common
-                 * @interface IDashboardResponse
-                 */
-
-                /**
-                 * Constructs a new DashboardResponse.
-                 * @memberof isuxportal.proto.common
-                 * @classdesc Represents a DashboardResponse.
-                 * @implements IDashboardResponse
-                 * @constructor
-                 * @param {isuxportal.proto.common.IDashboardResponse=} [properties] Properties to set
-                 */
-                function DashboardResponse(properties) {
-                    if (properties)
-                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * Creates a new DashboardResponse instance using the specified properties.
-                 * @function create
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardResponse=} [properties] Properties to set
-                 * @returns {isuxportal.proto.common.DashboardResponse} DashboardResponse instance
-                 */
-                DashboardResponse.create = function create(properties) {
-                    return new DashboardResponse(properties);
-                };
-
-                /**
-                 * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @function encode
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardResponse} message DashboardResponse message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DashboardResponse.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {isuxportal.proto.common.IDashboardResponse} message DashboardResponse message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DashboardResponse.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {isuxportal.proto.common.DashboardResponse} DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DashboardResponse.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.common.DashboardResponse();
-                    while (reader.pos < end) {
-                        var tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {isuxportal.proto.common.DashboardResponse} DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DashboardResponse.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies a DashboardResponse message.
-                 * @function verify
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                DashboardResponse.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    return null;
-                };
-
-                /**
-                 * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {isuxportal.proto.common.DashboardResponse} DashboardResponse
-                 */
-                DashboardResponse.fromObject = function fromObject(object) {
-                    if (object instanceof $root.isuxportal.proto.common.DashboardResponse)
-                        return object;
-                    return new $root.isuxportal.proto.common.DashboardResponse();
-                };
-
-                /**
-                 * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @static
-                 * @param {isuxportal.proto.common.DashboardResponse} message DashboardResponse
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                DashboardResponse.toObject = function toObject() {
-                    return {};
-                };
-
-                /**
-                 * Converts this DashboardResponse to JSON.
-                 * @function toJSON
-                 * @memberof isuxportal.proto.common.DashboardResponse
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                DashboardResponse.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return DashboardResponse;
-            })();
-
-            return common;
         })();
 
         proto.services = (function() {
@@ -5282,6 +5869,358 @@ $root.isuxportal = (function() {
                  * @namespace
                  */
                 var audience = {};
+
+                audience.DashboardRequest = (function() {
+
+                    /**
+                     * Properties of a DashboardRequest.
+                     * @memberof isuxportal.proto.services.audience
+                     * @interface IDashboardRequest
+                     */
+
+                    /**
+                     * Constructs a new DashboardRequest.
+                     * @memberof isuxportal.proto.services.audience
+                     * @classdesc Represents a DashboardRequest.
+                     * @implements IDashboardRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.audience.IDashboardRequest=} [properties] Properties to set
+                     */
+                    function DashboardRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DashboardRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest instance
+                     */
+                    DashboardRequest.create = function create(properties) {
+                        return new DashboardRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.DashboardRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DashboardRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DashboardRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     */
+                    DashboardRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.DashboardRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.audience.DashboardRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @static
+                     * @param {isuxportal.proto.services.audience.DashboardRequest} message DashboardRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DashboardRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DashboardRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DashboardRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DashboardRequest;
+                })();
+
+                audience.DashboardResponse = (function() {
+
+                    /**
+                     * Properties of a DashboardResponse.
+                     * @memberof isuxportal.proto.services.audience
+                     * @interface IDashboardResponse
+                     * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
+                     */
+
+                    /**
+                     * Constructs a new DashboardResponse.
+                     * @memberof isuxportal.proto.services.audience
+                     * @classdesc Represents a DashboardResponse.
+                     * @implements IDashboardResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.audience.IDashboardResponse=} [properties] Properties to set
+                     */
+                    function DashboardResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * DashboardResponse leaderboard.
+                     * @member {isuxportal.proto.resources.ILeaderboard|null|undefined} leaderboard
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.leaderboard = null;
+
+                    /**
+                     * Creates a new DashboardResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.DashboardResponse} DashboardResponse instance
+                     */
+                    DashboardResponse.create = function create(properties) {
+                        return new DashboardResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardResponse} message DashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
+                            $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.IDashboardResponse} message DashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.audience.DashboardResponse} DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.DashboardResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.audience.DashboardResponse} DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DashboardResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DashboardResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard")) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.verify(message.leaderboard);
+                            if (error)
+                                return "leaderboard." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.audience.DashboardResponse} DashboardResponse
+                     */
+                    DashboardResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.DashboardResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.audience.DashboardResponse();
+                        if (object.leaderboard != null) {
+                            if (typeof object.leaderboard !== "object")
+                                throw TypeError(".isuxportal.proto.services.audience.DashboardResponse.leaderboard: object expected");
+                            message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.DashboardResponse} message DashboardResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DashboardResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.leaderboard = null;
+                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
+                            object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this DashboardResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.audience.DashboardResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DashboardResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DashboardResponse;
+                })();
 
                 audience.ListTeamsRequest = (function() {
 

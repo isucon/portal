@@ -1,7 +1,7 @@
 #!/bin/zsh -xe
 cd "$(dirname $0)/.."
 
-rm -rf app/javascript/pb*.js  app/javascript/pb*.d.ts lib/isuxportal
+rm -rf app/javascript/pb*.js  app/javascript/pb*.d.ts lib/isuxportal || :
 protoc -I../proto --ruby_out=./lib ../proto/**/*.proto
 
 npx pbjs -p ../proto -t static-module -w commonjs -o app/javascript/pb.js \

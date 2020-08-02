@@ -6,10 +6,14 @@ require 'google/protobuf'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/bench/receiving.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest" do
-      optional :instance_name, :string, 1
-      optional :team_id, :int64, 2
+      optional :token, :string, 1
+      optional :instance_name, :string, 2
+      optional :team_id, :int64, 3
     end
     add_message "isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse" do
+      optional :job_handle, :message, 1, "isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.JobHandle"
+    end
+    add_message "isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.JobHandle" do
       optional :job_id, :int64, 1
       optional :handle, :string, 2
       optional :target_ipv4_address, :string, 3
@@ -24,6 +28,7 @@ module Isuxportal
       module Bench
         ReceiveBenchmarkJobRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest").msgclass
         ReceiveBenchmarkJobResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse").msgclass
+        ReceiveBenchmarkJobResponse::JobHandle = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.JobHandle").msgclass
       end
     end
   end

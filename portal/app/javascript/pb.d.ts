@@ -352,9 +352,6 @@ export namespace isuxportal {
                 /** BenchmarkJob status */
                 status?: (isuxportal.proto.resources.BenchmarkJob.Status|null);
 
-                /** BenchmarkJob result */
-                result?: (isuxportal.proto.resources.IBenchmarkResult|null);
-
                 /** BenchmarkJob createdAt */
                 createdAt?: (google.protobuf.ITimestamp|null);
 
@@ -367,11 +364,20 @@ export namespace isuxportal {
                 /** BenchmarkJob finishedAt */
                 finishedAt?: (google.protobuf.ITimestamp|null);
 
+                /** BenchmarkJob score */
+                score?: (number|Long|null);
+
+                /** BenchmarkJob instanceName */
+                instanceName?: (string|null);
+
                 /** BenchmarkJob team */
                 team?: (isuxportal.proto.resources.ITeam|null);
 
                 /** BenchmarkJob target */
                 target?: (isuxportal.proto.resources.IContestantInstance|null);
+
+                /** BenchmarkJob result */
+                result?: (isuxportal.proto.resources.IBenchmarkResult|null);
             }
 
             /** Represents a BenchmarkJob. */
@@ -395,9 +401,6 @@ export namespace isuxportal {
                 /** BenchmarkJob status. */
                 public status: isuxportal.proto.resources.BenchmarkJob.Status;
 
-                /** BenchmarkJob result. */
-                public result?: (isuxportal.proto.resources.IBenchmarkResult|null);
-
                 /** BenchmarkJob createdAt. */
                 public createdAt?: (google.protobuf.ITimestamp|null);
 
@@ -410,11 +413,20 @@ export namespace isuxportal {
                 /** BenchmarkJob finishedAt. */
                 public finishedAt?: (google.protobuf.ITimestamp|null);
 
+                /** BenchmarkJob score. */
+                public score: (number|Long);
+
+                /** BenchmarkJob instanceName. */
+                public instanceName: string;
+
                 /** BenchmarkJob team. */
                 public team?: (isuxportal.proto.resources.ITeam|null);
 
                 /** BenchmarkJob target. */
                 public target?: (isuxportal.proto.resources.IContestantInstance|null);
+
+                /** BenchmarkJob result. */
+                public result?: (isuxportal.proto.resources.IBenchmarkResult|null);
 
                 /**
                  * Creates a new BenchmarkJob instance using the specified properties.
@@ -983,6 +995,9 @@ export namespace isuxportal {
                 /** Team withdrawn */
                 withdrawn?: (boolean|null);
 
+                /** Team disqualified */
+                disqualified?: (boolean|null);
+
                 /** Team detail */
                 detail?: (isuxportal.proto.resources.Team.ITeamDetail|null);
 
@@ -1022,6 +1037,9 @@ export namespace isuxportal {
 
                 /** Team withdrawn. */
                 public withdrawn: boolean;
+
+                /** Team disqualified. */
+                public disqualified: boolean;
 
                 /** Team detail. */
                 public detail?: (isuxportal.proto.resources.Team.ITeamDetail|null);
@@ -1111,9 +1129,6 @@ export namespace isuxportal {
                     /** TeamDetail emailAddress */
                     emailAddress?: (string|null);
 
-                    /** TeamDetail benchmarkTargetId */
-                    benchmarkTargetId?: (number|Long|null);
-
                     /** TeamDetail inviteToken */
                     inviteToken?: (string|null);
                 }
@@ -1129,9 +1144,6 @@ export namespace isuxportal {
 
                     /** TeamDetail emailAddress. */
                     public emailAddress: string;
-
-                    /** TeamDetail benchmarkTargetId. */
-                    public benchmarkTargetId: (number|Long);
 
                     /** TeamDetail inviteToken. */
                     public inviteToken: string;
@@ -1454,6 +1466,9 @@ export namespace isuxportal {
                 /** Clarification answeredAt */
                 answeredAt?: (google.protobuf.ITimestamp|null);
 
+                /** Clarification originalQuestion */
+                originalQuestion?: (string|null);
+
                 /** Clarification team */
                 team?: (isuxportal.proto.resources.ITeam|null);
             }
@@ -1490,6 +1505,9 @@ export namespace isuxportal {
 
                 /** Clarification answeredAt. */
                 public answeredAt?: (google.protobuf.ITimestamp|null);
+
+                /** Clarification originalQuestion. */
+                public originalQuestion: string;
 
                 /** Clarification team. */
                 public team?: (isuxportal.proto.resources.ITeam|null);
@@ -1563,6 +1581,324 @@ export namespace isuxportal {
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a Leaderboard. */
+            interface ILeaderboard {
+
+                /** Leaderboard teams */
+                teams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+
+                /** Leaderboard generalTeams */
+                generalTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+
+                /** Leaderboard studentTeams */
+                studentTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+
+                /** Leaderboard progresses */
+                progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+
+                /** Leaderboard frozen */
+                frozen?: (boolean|null);
+            }
+
+            /** Represents a Leaderboard. */
+            class Leaderboard implements ILeaderboard {
+
+                /**
+                 * Constructs a new Leaderboard.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.ILeaderboard);
+
+                /** Leaderboard teams. */
+                public teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard generalTeams. */
+                public generalTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard studentTeams. */
+                public studentTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard progresses. */
+                public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard frozen. */
+                public frozen: boolean;
+
+                /**
+                 * Creates a new Leaderboard instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Leaderboard instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.ILeaderboard): isuxportal.proto.resources.Leaderboard;
+
+                /**
+                 * Encodes the specified Leaderboard message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.verify|verify} messages.
+                 * @param message Leaderboard message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.ILeaderboard, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Leaderboard message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.verify|verify} messages.
+                 * @param message Leaderboard message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.ILeaderboard, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Leaderboard message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Leaderboard
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Leaderboard;
+
+                /**
+                 * Decodes a Leaderboard message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Leaderboard
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Leaderboard;
+
+                /**
+                 * Verifies a Leaderboard message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Leaderboard message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Leaderboard
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Leaderboard;
+
+                /**
+                 * Creates a plain object from a Leaderboard message. Also converts values to other types if specified.
+                 * @param message Leaderboard
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.Leaderboard, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Leaderboard to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace Leaderboard {
+
+                /** Properties of a LeaderboardItem. */
+                interface ILeaderboardItem {
+
+                    /** LeaderboardItem scores */
+                    scores?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[]|null);
+
+                    /** LeaderboardItem team */
+                    team?: (isuxportal.proto.resources.ITeam|null);
+                }
+
+                /** Represents a LeaderboardItem. */
+                class LeaderboardItem implements ILeaderboardItem {
+
+                    /**
+                     * Constructs a new LeaderboardItem.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.resources.Leaderboard.ILeaderboardItem);
+
+                    /** LeaderboardItem scores. */
+                    public scores: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[];
+
+                    /** LeaderboardItem team. */
+                    public team?: (isuxportal.proto.resources.ITeam|null);
+
+                    /**
+                     * Creates a new LeaderboardItem instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns LeaderboardItem instance
+                     */
+                    public static create(properties?: isuxportal.proto.resources.Leaderboard.ILeaderboardItem): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
+
+                    /**
+                     * Encodes the specified LeaderboardItem message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
+                     * @param message LeaderboardItem message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified LeaderboardItem message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
+                     * @param message LeaderboardItem message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a LeaderboardItem message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns LeaderboardItem
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
+
+                    /**
+                     * Decodes a LeaderboardItem message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns LeaderboardItem
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
+
+                    /**
+                     * Verifies a LeaderboardItem message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a LeaderboardItem message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns LeaderboardItem
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
+
+                    /**
+                     * Creates a plain object from a LeaderboardItem message. Also converts values to other types if specified.
+                     * @param message LeaderboardItem
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this LeaderboardItem to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                namespace LeaderboardItem {
+
+                    /** Properties of a LeaderboardScore. */
+                    interface ILeaderboardScore {
+
+                        /** LeaderboardScore score */
+                        score?: (number|Long|null);
+
+                        /** LeaderboardScore startedAt */
+                        startedAt?: (google.protobuf.ITimestamp|null);
+
+                        /** LeaderboardScore updatedAt */
+                        updatedAt?: (google.protobuf.ITimestamp|null);
+                    }
+
+                    /** Represents a LeaderboardScore. */
+                    class LeaderboardScore implements ILeaderboardScore {
+
+                        /**
+                         * Constructs a new LeaderboardScore.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore);
+
+                        /** LeaderboardScore score. */
+                        public score: (number|Long);
+
+                        /** LeaderboardScore startedAt. */
+                        public startedAt?: (google.protobuf.ITimestamp|null);
+
+                        /** LeaderboardScore updatedAt. */
+                        public updatedAt?: (google.protobuf.ITimestamp|null);
+
+                        /**
+                         * Creates a new LeaderboardScore instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns LeaderboardScore instance
+                         */
+                        public static create(properties?: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
+
+                        /**
+                         * Encodes the specified LeaderboardScore message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                         * @param message LeaderboardScore message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified LeaderboardScore message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                         * @param message LeaderboardScore message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a LeaderboardScore message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns LeaderboardScore
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
+
+                        /**
+                         * Decodes a LeaderboardScore message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns LeaderboardScore
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
+
+                        /**
+                         * Verifies a LeaderboardScore message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a LeaderboardScore message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns LeaderboardScore
+                         */
+                        public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
+
+                        /**
+                         * Creates a plain object from a LeaderboardScore message. Also converts values to other types if specified.
+                         * @param message LeaderboardScore
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this LeaderboardScore to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
             }
 
             /** Properties of a Staff. */
@@ -1656,178 +1992,6 @@ export namespace isuxportal {
 
                 /**
                  * Converts this Staff to JSON.
-                 * @returns JSON object
-                 */
-                public toJSON(): { [k: string]: any };
-            }
-        }
-
-        /** Namespace common. */
-        namespace common {
-
-            /** Properties of a DashboardRequest. */
-            interface IDashboardRequest {
-            }
-
-            /** Represents a DashboardRequest. */
-            class DashboardRequest implements IDashboardRequest {
-
-                /**
-                 * Constructs a new DashboardRequest.
-                 * @param [properties] Properties to set
-                 */
-                constructor(properties?: isuxportal.proto.common.IDashboardRequest);
-
-                /**
-                 * Creates a new DashboardRequest instance using the specified properties.
-                 * @param [properties] Properties to set
-                 * @returns DashboardRequest instance
-                 */
-                public static create(properties?: isuxportal.proto.common.IDashboardRequest): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @param message DashboardRequest message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encode(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardRequest.verify|verify} messages.
-                 * @param message DashboardRequest message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encodeDelimited(message: isuxportal.proto.common.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer.
-                 * @param reader Reader or buffer to decode from
-                 * @param [length] Message length if known beforehand
-                 * @returns DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
-                 * @param reader Reader or buffer to decode from
-                 * @returns DashboardRequest
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Verifies a DashboardRequest message.
-                 * @param message Plain object to verify
-                 * @returns `null` if valid, otherwise the reason why it is not
-                 */
-                public static verify(message: { [k: string]: any }): (string|null);
-
-                /**
-                 * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
-                 * @param object Plain object
-                 * @returns DashboardRequest
-                 */
-                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardRequest;
-
-                /**
-                 * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
-                 * @param message DashboardRequest
-                 * @param [options] Conversion options
-                 * @returns Plain object
-                 */
-                public static toObject(message: isuxportal.proto.common.DashboardRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                /**
-                 * Converts this DashboardRequest to JSON.
-                 * @returns JSON object
-                 */
-                public toJSON(): { [k: string]: any };
-            }
-
-            /** Properties of a DashboardResponse. */
-            interface IDashboardResponse {
-            }
-
-            /** Represents a DashboardResponse. */
-            class DashboardResponse implements IDashboardResponse {
-
-                /**
-                 * Constructs a new DashboardResponse.
-                 * @param [properties] Properties to set
-                 */
-                constructor(properties?: isuxportal.proto.common.IDashboardResponse);
-
-                /**
-                 * Creates a new DashboardResponse instance using the specified properties.
-                 * @param [properties] Properties to set
-                 * @returns DashboardResponse instance
-                 */
-                public static create(properties?: isuxportal.proto.common.IDashboardResponse): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @param message DashboardResponse message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encode(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.common.DashboardResponse.verify|verify} messages.
-                 * @param message DashboardResponse message or plain object to encode
-                 * @param [writer] Writer to encode to
-                 * @returns Writer
-                 */
-                public static encodeDelimited(message: isuxportal.proto.common.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer.
-                 * @param reader Reader or buffer to decode from
-                 * @param [length] Message length if known beforehand
-                 * @returns DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
-                 * @param reader Reader or buffer to decode from
-                 * @returns DashboardResponse
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Verifies a DashboardResponse message.
-                 * @param message Plain object to verify
-                 * @returns `null` if valid, otherwise the reason why it is not
-                 */
-                public static verify(message: { [k: string]: any }): (string|null);
-
-                /**
-                 * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
-                 * @param object Plain object
-                 * @returns DashboardResponse
-                 */
-                public static fromObject(object: { [k: string]: any }): isuxportal.proto.common.DashboardResponse;
-
-                /**
-                 * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
-                 * @param message DashboardResponse
-                 * @param [options] Conversion options
-                 * @returns Plain object
-                 */
-                public static toObject(message: isuxportal.proto.common.DashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                /**
-                 * Converts this DashboardResponse to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
@@ -2029,6 +2193,180 @@ export namespace isuxportal {
 
             /** Namespace audience. */
             namespace audience {
+
+                /** Properties of a DashboardRequest. */
+                interface IDashboardRequest {
+                }
+
+                /** Represents a DashboardRequest. */
+                class DashboardRequest implements IDashboardRequest {
+
+                    /**
+                     * Constructs a new DashboardRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.IDashboardRequest);
+
+                    /**
+                     * Creates a new DashboardRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns DashboardRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.IDashboardRequest): isuxportal.proto.services.audience.DashboardRequest;
+
+                    /**
+                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * @param message DashboardRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * @param message DashboardRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns DashboardRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.DashboardRequest;
+
+                    /**
+                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns DashboardRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.DashboardRequest;
+
+                    /**
+                     * Verifies a DashboardRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns DashboardRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.DashboardRequest;
+
+                    /**
+                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                     * @param message DashboardRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.DashboardRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this DashboardRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a DashboardResponse. */
+                interface IDashboardResponse {
+
+                    /** DashboardResponse leaderboard */
+                    leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+                }
+
+                /** Represents a DashboardResponse. */
+                class DashboardResponse implements IDashboardResponse {
+
+                    /**
+                     * Constructs a new DashboardResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.IDashboardResponse);
+
+                    /** DashboardResponse leaderboard. */
+                    public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+
+                    /**
+                     * Creates a new DashboardResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns DashboardResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.IDashboardResponse): isuxportal.proto.services.audience.DashboardResponse;
+
+                    /**
+                     * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardResponse.verify|verify} messages.
+                     * @param message DashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardResponse.verify|verify} messages.
+                     * @param message DashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.IDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.DashboardResponse;
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.DashboardResponse;
+
+                    /**
+                     * Verifies a DashboardResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns DashboardResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.DashboardResponse;
+
+                    /**
+                     * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
+                     * @param message DashboardResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.DashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this DashboardResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
 
                 /** Properties of a ListTeamsRequest. */
                 interface IListTeamsRequest {
