@@ -1,0 +1,14 @@
+syntax = "proto3";
+package isuxportal.proto.services.admin;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/admin";
+
+import "isuxportal/resources/contestant_instance.proto";
+
+message ListContestantInstancesRequest {
+  // optional filter by team_id
+  int64 team_id = 1;
+}
+
+message ListContestantInstancesResponse {
+  repeated ContestantInstance contestant_instances = 1;
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package isuxportal.proto.services.audience;
+option go_package = "github.com/isucon/isucon10-portal/proto/services/audience";
+
+import "isuxportal/resources/leaderboard.proto";
+
+message DashboardRequest {
+}
+
+message DashboardResponse {
+  Leaderboard leaderboard = 1;
+}
+
+
