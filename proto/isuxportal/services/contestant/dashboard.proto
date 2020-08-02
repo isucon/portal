@@ -10,7 +10,7 @@ message DashboardRequest {
 }
 
 message DashboardResponse {
-  Leaderboard leaderboard = 1;
-  repeated ContestantInstance instances = 2;
-  repeated BenchmarkJob jobs = 3;
+  isuxportal.proto.resources.Leaderboard leaderboard = 1;
+  repeated isuxportal.proto.resources.ContestantInstance instances = 2;
+  repeated isuxportal.proto.resources.BenchmarkJob jobs = 3;
 }

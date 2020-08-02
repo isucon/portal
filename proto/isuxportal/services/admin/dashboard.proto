@@ -8,6 +8,6 @@ message DashboardRequest {
 }
 
 message DashboardResponse {
-  Leaderboard leaderboard = 1;
+  isuxportal.proto.resources.Leaderboard leaderboard = 1;
 }
 

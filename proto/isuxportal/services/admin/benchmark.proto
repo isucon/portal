@@ -14,7 +14,7 @@ message ListBenchmarkJobsRequest {
 }
 
 message ListBenchmarkJobsResponse {
-  repeated BenchmarkJob jobs = 1;
+  repeated isuxportal.proto.resources.BenchmarkJob jobs = 1;
 }
 
 message EnqueueBenchmarkJobRequest {
@@ -24,7 +24,7 @@ message EnqueueBenchmarkJobRequest {
 }
 
 message EnqueueBenchmarkJobResponse {
-  BenchmarkJob job = 1;
+  isuxportal.proto.resources.BenchmarkJob job = 1;
 }
 
 message CancelBenchmarkJobRequest {
@@ -32,7 +32,7 @@ message CancelBenchmarkJobRequest {
 }
 
 message CancelBenchmarkJobResponse {
-  BenchmarkJob job = 1;
+  isuxportal.proto.resources.BenchmarkJob job = 1;
 }
 
 // Query parameter
@@ -41,5 +41,5 @@ message GetBenchmarkJobQuery {
 }
 
 message GetBenchmarkJobResponse {
-  BenchmarkJob job = 1;
+  isuxportal.proto.resources.BenchmarkJob job = 1;
 }

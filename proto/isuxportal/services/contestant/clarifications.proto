@@ -8,7 +8,7 @@ message ListClarificationsRequest {
 }
 
 message ListClarificationsResponse {
-  repeated Clarification clarifications = 1;
+  repeated isuxportal.proto.resources.Clarification clarifications = 1;
 }
 
 message RequestClarificationRequest {
@@ -16,5 +16,5 @@ message RequestClarificationRequest {
 }
 
 message RequestClarificationResponse {
-  Clarification clarification = 1;
+  isuxportal.proto.resources.Clarification clarification = 1;
 }

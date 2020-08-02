@@ -3,6 +3,7 @@ package isuxportal.proto.services.admin;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/admin";
 
 import "isuxportal/resources/team.proto";
+import "isuxportal/resources/contestant.proto";
 
 message ListTeamsRequest {
 }
@@ -25,12 +26,12 @@ message GetTeamRequest {
 }
 
 message GetTeamResponse {
-  Team team = 1;
+  isuxportal.proto.resources.Team team = 1;
 }
 
 message UpdateTeamRequest {
-  Team team = 1;
-  repeated Contestant contestants = 2;
+  isuxportal.proto.resources.Team team = 1;
+  repeated isuxportal.proto.resources.Contestant contestants = 2;
 }
 
 message UpdateTeamResponse {
