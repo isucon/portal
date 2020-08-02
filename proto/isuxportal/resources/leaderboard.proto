@@ -7,9 +7,12 @@ import "isuxportal/resources/team.proto";
 
 message Leaderboard {
   message LeaderboardItem {
+    message LeaderboardScore {
     int64 score = 1;
     google.protobuf.Timestamp started_at = 2;
     google.protobuf.Timestamp updated_at = 3;
+    }
+    repeated LeaderboardScore scores = 1;
     Team team = 16;
   }
   repeated LeaderboardItem teams = 1;
