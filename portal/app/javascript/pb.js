@@ -4369,6 +4369,9 @@ $root.isuxportal = (function() {
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [studentTeams] Leaderboard studentTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [progresses] Leaderboard progresses
                  * @property {boolean|null} [frozen] Leaderboard frozen
+                 * @property {google.protobuf.ITimestamp|null} [contestStartsAt] Leaderboard contestStartsAt
+                 * @property {google.protobuf.ITimestamp|null} [contestFreezesAt] Leaderboard contestFreezesAt
+                 * @property {google.protobuf.ITimestamp|null} [contestEndsAt] Leaderboard contestEndsAt
                  */
 
                 /**
@@ -4431,6 +4434,30 @@ $root.isuxportal = (function() {
                 Leaderboard.prototype.frozen = false;
 
                 /**
+                 * Leaderboard contestStartsAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} contestStartsAt
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.contestStartsAt = null;
+
+                /**
+                 * Leaderboard contestFreezesAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} contestFreezesAt
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.contestFreezesAt = null;
+
+                /**
+                 * Leaderboard contestEndsAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} contestEndsAt
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.contestEndsAt = null;
+
+                /**
                  * Creates a new Leaderboard instance using the specified properties.
                  * @function create
                  * @memberof isuxportal.proto.resources.Leaderboard
@@ -4468,6 +4495,12 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.progresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                     if (message.frozen != null && Object.hasOwnProperty.call(message, "frozen"))
                         writer.uint32(/* id 5, wireType 0 =*/40).bool(message.frozen);
+                    if (message.contestStartsAt != null && Object.hasOwnProperty.call(message, "contestStartsAt"))
+                        $root.google.protobuf.Timestamp.encode(message.contestStartsAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.contestFreezesAt != null && Object.hasOwnProperty.call(message, "contestFreezesAt"))
+                        $root.google.protobuf.Timestamp.encode(message.contestFreezesAt, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    if (message.contestEndsAt != null && Object.hasOwnProperty.call(message, "contestEndsAt"))
+                        $root.google.protobuf.Timestamp.encode(message.contestEndsAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     return writer;
                 };
 
@@ -4524,6 +4557,15 @@ $root.isuxportal = (function() {
                             break;
                         case 5:
                             message.frozen = reader.bool();
+                            break;
+                        case 6:
+                            message.contestStartsAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 7:
+                            message.contestFreezesAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 8:
+                            message.contestEndsAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -4599,6 +4641,21 @@ $root.isuxportal = (function() {
                     if (message.frozen != null && message.hasOwnProperty("frozen"))
                         if (typeof message.frozen !== "boolean")
                             return "frozen: boolean expected";
+                    if (message.contestStartsAt != null && message.hasOwnProperty("contestStartsAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.contestStartsAt);
+                        if (error)
+                            return "contestStartsAt." + error;
+                    }
+                    if (message.contestFreezesAt != null && message.hasOwnProperty("contestFreezesAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.contestFreezesAt);
+                        if (error)
+                            return "contestFreezesAt." + error;
+                    }
+                    if (message.contestEndsAt != null && message.hasOwnProperty("contestEndsAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.contestEndsAt);
+                        if (error)
+                            return "contestEndsAt." + error;
+                    }
                     return null;
                 };
 
@@ -4656,6 +4713,21 @@ $root.isuxportal = (function() {
                     }
                     if (object.frozen != null)
                         message.frozen = Boolean(object.frozen);
+                    if (object.contestStartsAt != null) {
+                        if (typeof object.contestStartsAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.contestStartsAt: object expected");
+                        message.contestStartsAt = $root.google.protobuf.Timestamp.fromObject(object.contestStartsAt);
+                    }
+                    if (object.contestFreezesAt != null) {
+                        if (typeof object.contestFreezesAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.contestFreezesAt: object expected");
+                        message.contestFreezesAt = $root.google.protobuf.Timestamp.fromObject(object.contestFreezesAt);
+                    }
+                    if (object.contestEndsAt != null) {
+                        if (typeof object.contestEndsAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.contestEndsAt: object expected");
+                        message.contestEndsAt = $root.google.protobuf.Timestamp.fromObject(object.contestEndsAt);
+                    }
                     return message;
                 };
 
@@ -4678,8 +4750,12 @@ $root.isuxportal = (function() {
                         object.studentTeams = [];
                         object.progresses = [];
                     }
-                    if (options.defaults)
+                    if (options.defaults) {
                         object.frozen = false;
+                        object.contestStartsAt = null;
+                        object.contestFreezesAt = null;
+                        object.contestEndsAt = null;
+                    }
                     if (message.teams && message.teams.length) {
                         object.teams = [];
                         for (var j = 0; j < message.teams.length; ++j)
@@ -4702,6 +4778,12 @@ $root.isuxportal = (function() {
                     }
                     if (message.frozen != null && message.hasOwnProperty("frozen"))
                         object.frozen = message.frozen;
+                    if (message.contestStartsAt != null && message.hasOwnProperty("contestStartsAt"))
+                        object.contestStartsAt = $root.google.protobuf.Timestamp.toObject(message.contestStartsAt, options);
+                    if (message.contestFreezesAt != null && message.hasOwnProperty("contestFreezesAt"))
+                        object.contestFreezesAt = $root.google.protobuf.Timestamp.toObject(message.contestFreezesAt, options);
+                    if (message.contestEndsAt != null && message.hasOwnProperty("contestEndsAt"))
+                        object.contestEndsAt = $root.google.protobuf.Timestamp.toObject(message.contestEndsAt, options);
                     return object;
                 };
 

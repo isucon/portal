@@ -20,4 +20,7 @@ message Leaderboard {
   repeated LeaderboardItem student_teams = 3;
   repeated LeaderboardItem progresses = 4;
   bool frozen = 5;
+  google.protobuf.Timestamp contest_starts_at = 6;
+  google.protobuf.Timestamp contest_freezes_at = 7;
+  google.protobuf.Timestamp contest_ends_at = 8;
 }

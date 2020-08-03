@@ -1600,6 +1600,15 @@ export namespace isuxportal {
 
                 /** Leaderboard frozen */
                 frozen?: (boolean|null);
+
+                /** Leaderboard contestStartsAt */
+                contestStartsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Leaderboard contestFreezesAt */
+                contestFreezesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Leaderboard contestEndsAt */
+                contestEndsAt?: (google.protobuf.ITimestamp|null);
             }
 
             /** Represents a Leaderboard. */
@@ -1625,6 +1634,15 @@ export namespace isuxportal {
 
                 /** Leaderboard frozen. */
                 public frozen: boolean;
+
+                /** Leaderboard contestStartsAt. */
+                public contestStartsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Leaderboard contestFreezesAt. */
+                public contestFreezesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Leaderboard contestEndsAt. */
+                public contestEndsAt?: (google.protobuf.ITimestamp|null);
 
                 /**
                  * Creates a new Leaderboard instance using the specified properties.
