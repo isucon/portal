@@ -60,6 +60,7 @@ export class AdminTeamList extends React.Component<Props, State> {
     return <table className="table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Team name</th>
           <th>Members</th>
           <th>Flags</th>
@@ -73,6 +74,7 @@ export class AdminTeamList extends React.Component<Props, State> {
 
   renderTeam(team: isuxportal.proto.services.admin.ListTeamsResponse.ITeamListItem, i: number) {
     return <tr key={team.teamId as number}>
+      <td>{team.teamId}</td>
       <td><Link to={`/admin/teams/${encodeURIComponent(team.teamId!.toString())}`}>{team.name}</Link></td>
       <td>{team.memberNames!.map((name,j) => <span key={j} className="mr-1">{name}</span>)}</td>
       <td>

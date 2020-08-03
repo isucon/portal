@@ -44,12 +44,20 @@ Rails.application.routes.draw do
       # audience/team_list ListTeams: GET /api/audience/teams
       resources :teams, only: %i(index)
     end
+
+    scope path: 'admin', module: 'admin' do
+      # admin/teams ListTeams: GET /api/admin/teams
+      # admin/teams GetTeam: GET /api/admin/teams/:id
+      # admin/teams UpdateTeam: PUT /api/admin/teams/:id
+      resources :teams, only: %i(index show update)
+    end
   end
 
   scope path: 'admin', module: 'admin' do
     get '/' => 'root#index'
     get '/teams' => 'root#index'
     get '/teams/:id' => 'root#index'
+    get '/teams/:id/edit' => 'root#index'
 
     get 'impersonate' => 'impersonate#index', ad: :impersonate
     post 'impersonate/contestant' => 'impersonate#contestant'

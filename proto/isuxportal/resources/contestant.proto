@@ -11,6 +11,9 @@ message Contestant {
     string discord_tag = 2;
     bool is_student = 3;
     string avatar_url = 4;
+
+    string github_id = 16;
+    string discord_id = 17;
   }
-  ContestantDetail contestant_detail = 7;
+  ContestantDetail contestant_detail = 7; // FIXME: rename to "detail"
 }

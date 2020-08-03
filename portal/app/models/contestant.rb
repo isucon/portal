@@ -38,7 +38,9 @@ class Contestant < ApplicationRecord
       contestant_detail: !detail ? nil : Isuxportal::Proto::Resources::Contestant::ContestantDetail.new(
         avatar_url: avatar_url,
         github_login: github_login,
+        github_id: github_id,
         discord_tag: discord_tag,
+        discord_id: discord_id,
         is_student: student,
       ),
     )

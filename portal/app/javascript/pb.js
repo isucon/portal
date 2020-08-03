@@ -3682,6 +3682,8 @@ $root.isuxportal = (function() {
                      * @property {string|null} [discordTag] ContestantDetail discordTag
                      * @property {boolean|null} [isStudent] ContestantDetail isStudent
                      * @property {string|null} [avatarUrl] ContestantDetail avatarUrl
+                     * @property {string|null} [githubId] ContestantDetail githubId
+                     * @property {string|null} [discordId] ContestantDetail discordId
                      */
 
                     /**
@@ -3732,6 +3734,22 @@ $root.isuxportal = (function() {
                     ContestantDetail.prototype.avatarUrl = "";
 
                     /**
+                     * ContestantDetail githubId.
+                     * @member {string} githubId
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.githubId = "";
+
+                    /**
+                     * ContestantDetail discordId.
+                     * @member {string} discordId
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.discordId = "";
+
+                    /**
                      * Creates a new ContestantDetail instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
@@ -3763,6 +3781,10 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 3, wireType 0 =*/24).bool(message.isStudent);
                         if (message.avatarUrl != null && Object.hasOwnProperty.call(message, "avatarUrl"))
                             writer.uint32(/* id 4, wireType 2 =*/34).string(message.avatarUrl);
+                        if (message.githubId != null && Object.hasOwnProperty.call(message, "githubId"))
+                            writer.uint32(/* id 16, wireType 2 =*/130).string(message.githubId);
+                        if (message.discordId != null && Object.hasOwnProperty.call(message, "discordId"))
+                            writer.uint32(/* id 17, wireType 2 =*/138).string(message.discordId);
                         return writer;
                     };
 
@@ -3808,6 +3830,12 @@ $root.isuxportal = (function() {
                                 break;
                             case 4:
                                 message.avatarUrl = reader.string();
+                                break;
+                            case 16:
+                                message.githubId = reader.string();
+                                break;
+                            case 17:
+                                message.discordId = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -3856,6 +3884,12 @@ $root.isuxportal = (function() {
                         if (message.avatarUrl != null && message.hasOwnProperty("avatarUrl"))
                             if (!$util.isString(message.avatarUrl))
                                 return "avatarUrl: string expected";
+                        if (message.githubId != null && message.hasOwnProperty("githubId"))
+                            if (!$util.isString(message.githubId))
+                                return "githubId: string expected";
+                        if (message.discordId != null && message.hasOwnProperty("discordId"))
+                            if (!$util.isString(message.discordId))
+                                return "discordId: string expected";
                         return null;
                     };
 
@@ -3879,6 +3913,10 @@ $root.isuxportal = (function() {
                             message.isStudent = Boolean(object.isStudent);
                         if (object.avatarUrl != null)
                             message.avatarUrl = String(object.avatarUrl);
+                        if (object.githubId != null)
+                            message.githubId = String(object.githubId);
+                        if (object.discordId != null)
+                            message.discordId = String(object.discordId);
                         return message;
                     };
 
@@ -3900,6 +3938,8 @@ $root.isuxportal = (function() {
                             object.discordTag = "";
                             object.isStudent = false;
                             object.avatarUrl = "";
+                            object.githubId = "";
+                            object.discordId = "";
                         }
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
                             object.githubLogin = message.githubLogin;
@@ -3909,6 +3949,10 @@ $root.isuxportal = (function() {
                             object.isStudent = message.isStudent;
                         if (message.avatarUrl != null && message.hasOwnProperty("avatarUrl"))
                             object.avatarUrl = message.avatarUrl;
+                        if (message.githubId != null && message.hasOwnProperty("githubId"))
+                            object.githubId = message.githubId;
+                        if (message.discordId != null && message.hasOwnProperty("discordId"))
+                            object.discordId = message.discordId;
                         return object;
                     };
 

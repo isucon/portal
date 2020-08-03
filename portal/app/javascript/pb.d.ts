@@ -1344,6 +1344,12 @@ export namespace isuxportal {
 
                     /** ContestantDetail avatarUrl */
                     avatarUrl?: (string|null);
+
+                    /** ContestantDetail githubId */
+                    githubId?: (string|null);
+
+                    /** ContestantDetail discordId */
+                    discordId?: (string|null);
                 }
 
                 /** Represents a ContestantDetail. */
@@ -1366,6 +1372,12 @@ export namespace isuxportal {
 
                     /** ContestantDetail avatarUrl. */
                     public avatarUrl: string;
+
+                    /** ContestantDetail githubId. */
+                    public githubId: string;
+
+                    /** ContestantDetail discordId. */
+                    public discordId: string;
 
                     /**
                      * Creates a new ContestantDetail instance using the specified properties.

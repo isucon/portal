@@ -7,7 +7,7 @@ require 'isuxportal/resources/team_pb'
 require 'isuxportal/resources/contestant_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/teams.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.admin.ListTeamsRequest" do
+    add_message "isuxportal.proto.services.admin.ListTeamsQuery" do
     end
     add_message "isuxportal.proto.services.admin.ListTeamsResponse" do
       repeated :teams, :message, 1, "isuxportal.proto.services.admin.ListTeamsResponse.TeamListItem"
@@ -21,11 +21,14 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :withdrawn, :bool, 6
       optional :disqualified, :bool, 7
     end
-    add_message "isuxportal.proto.services.admin.GetTeamRequest" do
+    add_message "isuxportal.proto.services.admin.GetTeamQuery" do
       optional :id, :int64, 1
     end
     add_message "isuxportal.proto.services.admin.GetTeamResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
+    end
+    add_message "isuxportal.proto.services.admin.UpdateTeamQuery" do
+      optional :id, :int64, 1
     end
     add_message "isuxportal.proto.services.admin.UpdateTeamRequest" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
@@ -40,11 +43,12 @@ module Isuxportal
   module Proto
     module Services
       module Admin
-        ListTeamsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListTeamsRequest").msgclass
+        ListTeamsQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListTeamsQuery").msgclass
         ListTeamsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListTeamsResponse").msgclass
         ListTeamsResponse::TeamListItem = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListTeamsResponse.TeamListItem").msgclass
-        GetTeamRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetTeamRequest").msgclass
+        GetTeamQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetTeamQuery").msgclass
         GetTeamResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetTeamResponse").msgclass
+        UpdateTeamQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.UpdateTeamQuery").msgclass
         UpdateTeamRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.UpdateTeamRequest").msgclass
         UpdateTeamResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.UpdateTeamResponse").msgclass
       end

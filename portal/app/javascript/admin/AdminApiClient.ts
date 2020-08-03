@@ -26,7 +26,7 @@ export class AdminApiClient {
     const responseClass = isuxportal.proto.services.admin.UpdateTeamResponse;
     const payloadClass = isuxportal.proto.services.admin.UpdateTeamRequest;
     const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
-    const resp = await this.request(`${this.baseUrl}/api/admin/teams/${encodeURIComponent(payload.team!.id!.toString())}`, "POST", null, payloadMessage);
+    const resp = await this.request(`${this.baseUrl}/api/admin/teams/${encodeURIComponent(payload.team!.id!.toString())}`, "PUT", null, payloadMessage);
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 

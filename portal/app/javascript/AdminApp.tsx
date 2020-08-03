@@ -14,6 +14,7 @@ import {ErrorMessage} from "./ErrorMessage";
 import {Navbar} from "./Navbar";
 
 import {AdminTeamList} from "./admin/AdminTeamList";
+import {AdminTeamDetail} from "./admin/AdminTeamDetail";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -52,6 +53,10 @@ export class AdminApp extends React.Component<Props, State> {
               <Route exact path="/admin/teams" render={({match}) => {
                 return <AdminTeamList session={this.props.session} client={this.state.adminClient} />;
               }} />
+              <Route path="/admin/teams/:id" render={({match}) => {
+                return <AdminTeamDetail session={this.props.session} client={this.state.adminClient} teamId={match.params.id} />;
+              }} />
+
             </Switch>
           </main>
         </div>
