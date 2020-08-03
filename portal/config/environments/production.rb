@@ -137,5 +137,7 @@ Rails.application.configure do
   config.x.contest.contest_freeze = ENV.fetch('ISUXPORTAL_TIMING_CONTEST_FREEZE').yield_self { |_| Time.xmlschema(_) }
   config.x.contest.contest_end = ENV.fetch('ISUXPORTAL_TIMING_CONTEST_END').yield_self { |_| Time.xmlschema(_) }
 
+  config.x.bench_auth.token = ENV.fetch('ISUXPORTAL_BENCH_TOKEN')
+
   config.x.sentry.dsn = ENV.fetch('SENTRY_DSN')
 end

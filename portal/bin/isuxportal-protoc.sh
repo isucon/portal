@@ -2,7 +2,7 @@
 cd "$(dirname $0)/.."
 
 rm -rf app/javascript/pb*.js  app/javascript/pb*.d.ts lib/isuxportal || :
-protoc -I../proto --ruby_out=./lib ../proto/**/*.proto
+bundle exec grpc_tools_ruby_protoc -I../proto --ruby_out=./lib --grpc_out=./lib ../proto/**/*.proto
 
 npx pbjs -p ../proto -t static-module -w commonjs -o app/javascript/pb.js \
   ../proto/google/**/*.proto \

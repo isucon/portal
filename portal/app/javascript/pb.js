@@ -1486,10 +1486,8 @@ $root.isuxportal = (function() {
                  * @property {boolean|null} [passed] BenchmarkResult passed
                  * @property {number|Long|null} [score] BenchmarkResult score
                  * @property {isuxportal.proto.resources.BenchmarkResult.IScoreBreakdown|null} [scoreBreakdown] BenchmarkResult scoreBreakdown
-                 * @property {string|null} [reason] BenchmarkResult reason
-                 * @property {string|null} [stdout] BenchmarkResult stdout
-                 * @property {string|null} [stderr] BenchmarkResult stderr
-                 * @property {isuxportal.proto.resources.BenchmarkResult.ISurvey|null} [survey] BenchmarkResult survey
+                 * @property {isuxportal.proto.resources.BenchmarkResult.IExecution|null} [execution] BenchmarkResult execution
+                 * @property {google.protobuf.ITimestamp|null} [markedAt] BenchmarkResult markedAt
                  */
 
                 /**
@@ -1540,36 +1538,20 @@ $root.isuxportal = (function() {
                 BenchmarkResult.prototype.scoreBreakdown = null;
 
                 /**
-                 * BenchmarkResult reason.
-                 * @member {string} reason
+                 * BenchmarkResult execution.
+                 * @member {isuxportal.proto.resources.BenchmarkResult.IExecution|null|undefined} execution
                  * @memberof isuxportal.proto.resources.BenchmarkResult
                  * @instance
                  */
-                BenchmarkResult.prototype.reason = "";
+                BenchmarkResult.prototype.execution = null;
 
                 /**
-                 * BenchmarkResult stdout.
-                 * @member {string} stdout
+                 * BenchmarkResult markedAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} markedAt
                  * @memberof isuxportal.proto.resources.BenchmarkResult
                  * @instance
                  */
-                BenchmarkResult.prototype.stdout = "";
-
-                /**
-                 * BenchmarkResult stderr.
-                 * @member {string} stderr
-                 * @memberof isuxportal.proto.resources.BenchmarkResult
-                 * @instance
-                 */
-                BenchmarkResult.prototype.stderr = "";
-
-                /**
-                 * BenchmarkResult survey.
-                 * @member {isuxportal.proto.resources.BenchmarkResult.ISurvey|null|undefined} survey
-                 * @memberof isuxportal.proto.resources.BenchmarkResult
-                 * @instance
-                 */
-                BenchmarkResult.prototype.survey = null;
+                BenchmarkResult.prototype.markedAt = null;
 
                 /**
                  * Creates a new BenchmarkResult instance using the specified properties.
@@ -1603,14 +1585,10 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 3, wireType 0 =*/24).int64(message.score);
                     if (message.scoreBreakdown != null && Object.hasOwnProperty.call(message, "scoreBreakdown"))
                         $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown.encode(message.scoreBreakdown, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                    if (message.reason != null && Object.hasOwnProperty.call(message, "reason"))
-                        writer.uint32(/* id 5, wireType 2 =*/42).string(message.reason);
-                    if (message.stdout != null && Object.hasOwnProperty.call(message, "stdout"))
-                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.stdout);
-                    if (message.stderr != null && Object.hasOwnProperty.call(message, "stderr"))
-                        writer.uint32(/* id 7, wireType 2 =*/58).string(message.stderr);
-                    if (message.survey != null && Object.hasOwnProperty.call(message, "survey"))
-                        $root.isuxportal.proto.resources.BenchmarkResult.Survey.encode(message.survey, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.execution != null && Object.hasOwnProperty.call(message, "execution"))
+                        $root.isuxportal.proto.resources.BenchmarkResult.Execution.encode(message.execution, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.markedAt != null && Object.hasOwnProperty.call(message, "markedAt"))
+                        $root.google.protobuf.Timestamp.encode(message.markedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                     return writer;
                 };
 
@@ -1658,16 +1636,10 @@ $root.isuxportal = (function() {
                             message.scoreBreakdown = $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown.decode(reader, reader.uint32());
                             break;
                         case 5:
-                            message.reason = reader.string();
+                            message.execution = $root.isuxportal.proto.resources.BenchmarkResult.Execution.decode(reader, reader.uint32());
                             break;
                         case 6:
-                            message.stdout = reader.string();
-                            break;
-                        case 7:
-                            message.stderr = reader.string();
-                            break;
-                        case 8:
-                            message.survey = $root.isuxportal.proto.resources.BenchmarkResult.Survey.decode(reader, reader.uint32());
+                            message.markedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -1718,19 +1690,15 @@ $root.isuxportal = (function() {
                         if (error)
                             return "scoreBreakdown." + error;
                     }
-                    if (message.reason != null && message.hasOwnProperty("reason"))
-                        if (!$util.isString(message.reason))
-                            return "reason: string expected";
-                    if (message.stdout != null && message.hasOwnProperty("stdout"))
-                        if (!$util.isString(message.stdout))
-                            return "stdout: string expected";
-                    if (message.stderr != null && message.hasOwnProperty("stderr"))
-                        if (!$util.isString(message.stderr))
-                            return "stderr: string expected";
-                    if (message.survey != null && message.hasOwnProperty("survey")) {
-                        var error = $root.isuxportal.proto.resources.BenchmarkResult.Survey.verify(message.survey);
+                    if (message.execution != null && message.hasOwnProperty("execution")) {
+                        var error = $root.isuxportal.proto.resources.BenchmarkResult.Execution.verify(message.execution);
                         if (error)
-                            return "survey." + error;
+                            return "execution." + error;
+                    }
+                    if (message.markedAt != null && message.hasOwnProperty("markedAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.markedAt);
+                        if (error)
+                            return "markedAt." + error;
                     }
                     return null;
                 };
@@ -1765,16 +1733,15 @@ $root.isuxportal = (function() {
                             throw TypeError(".isuxportal.proto.resources.BenchmarkResult.scoreBreakdown: object expected");
                         message.scoreBreakdown = $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown.fromObject(object.scoreBreakdown);
                     }
-                    if (object.reason != null)
-                        message.reason = String(object.reason);
-                    if (object.stdout != null)
-                        message.stdout = String(object.stdout);
-                    if (object.stderr != null)
-                        message.stderr = String(object.stderr);
-                    if (object.survey != null) {
-                        if (typeof object.survey !== "object")
-                            throw TypeError(".isuxportal.proto.resources.BenchmarkResult.survey: object expected");
-                        message.survey = $root.isuxportal.proto.resources.BenchmarkResult.Survey.fromObject(object.survey);
+                    if (object.execution != null) {
+                        if (typeof object.execution !== "object")
+                            throw TypeError(".isuxportal.proto.resources.BenchmarkResult.execution: object expected");
+                        message.execution = $root.isuxportal.proto.resources.BenchmarkResult.Execution.fromObject(object.execution);
+                    }
+                    if (object.markedAt != null) {
+                        if (typeof object.markedAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.BenchmarkResult.markedAt: object expected");
+                        message.markedAt = $root.google.protobuf.Timestamp.fromObject(object.markedAt);
                     }
                     return message;
                 };
@@ -1801,10 +1768,8 @@ $root.isuxportal = (function() {
                         } else
                             object.score = options.longs === String ? "0" : 0;
                         object.scoreBreakdown = null;
-                        object.reason = "";
-                        object.stdout = "";
-                        object.stderr = "";
-                        object.survey = null;
+                        object.execution = null;
+                        object.markedAt = null;
                     }
                     if (message.finished != null && message.hasOwnProperty("finished"))
                         object.finished = message.finished;
@@ -1817,14 +1782,10 @@ $root.isuxportal = (function() {
                             object.score = options.longs === String ? $util.Long.prototype.toString.call(message.score) : options.longs === Number ? new $util.LongBits(message.score.low >>> 0, message.score.high >>> 0).toNumber() : message.score;
                     if (message.scoreBreakdown != null && message.hasOwnProperty("scoreBreakdown"))
                         object.scoreBreakdown = $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown.toObject(message.scoreBreakdown, options);
-                    if (message.reason != null && message.hasOwnProperty("reason"))
-                        object.reason = message.reason;
-                    if (message.stdout != null && message.hasOwnProperty("stdout"))
-                        object.stdout = message.stdout;
-                    if (message.stderr != null && message.hasOwnProperty("stderr"))
-                        object.stderr = message.stderr;
-                    if (message.survey != null && message.hasOwnProperty("survey"))
-                        object.survey = $root.isuxportal.proto.resources.BenchmarkResult.Survey.toObject(message.survey, options);
+                    if (message.execution != null && message.hasOwnProperty("execution"))
+                        object.execution = $root.isuxportal.proto.resources.BenchmarkResult.Execution.toObject(message.execution, options);
+                    if (message.markedAt != null && message.hasOwnProperty("markedAt"))
+                        object.markedAt = $root.google.protobuf.Timestamp.toObject(message.markedAt, options);
                     return object;
                 };
 
@@ -1845,7 +1806,7 @@ $root.isuxportal = (function() {
                      * Properties of a ScoreBreakdown.
                      * @memberof isuxportal.proto.resources.BenchmarkResult
                      * @interface IScoreBreakdown
-                     * @property {number|Long|null} [base] ScoreBreakdown base
+                     * @property {number|Long|null} [raw] ScoreBreakdown raw
                      * @property {number|Long|null} [deduction] ScoreBreakdown deduction
                      */
 
@@ -1865,12 +1826,12 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * ScoreBreakdown base.
-                     * @member {number|Long} base
+                     * ScoreBreakdown raw.
+                     * @member {number|Long} raw
                      * @memberof isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown
                      * @instance
                      */
-                    ScoreBreakdown.prototype.base = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    ScoreBreakdown.prototype.raw = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * ScoreBreakdown deduction.
@@ -1904,8 +1865,8 @@ $root.isuxportal = (function() {
                     ScoreBreakdown.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
-                        if (message.base != null && Object.hasOwnProperty.call(message, "base"))
-                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.base);
+                        if (message.raw != null && Object.hasOwnProperty.call(message, "raw"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.raw);
                         if (message.deduction != null && Object.hasOwnProperty.call(message, "deduction"))
                             writer.uint32(/* id 2, wireType 0 =*/16).int64(message.deduction);
                         return writer;
@@ -1943,7 +1904,7 @@ $root.isuxportal = (function() {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
-                                message.base = reader.int64();
+                                message.raw = reader.int64();
                                 break;
                             case 2:
                                 message.deduction = reader.int64();
@@ -1983,9 +1944,9 @@ $root.isuxportal = (function() {
                     ScoreBreakdown.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        if (message.base != null && message.hasOwnProperty("base"))
-                            if (!$util.isInteger(message.base) && !(message.base && $util.isInteger(message.base.low) && $util.isInteger(message.base.high)))
-                                return "base: integer|Long expected";
+                        if (message.raw != null && message.hasOwnProperty("raw"))
+                            if (!$util.isInteger(message.raw) && !(message.raw && $util.isInteger(message.raw.low) && $util.isInteger(message.raw.high)))
+                                return "raw: integer|Long expected";
                         if (message.deduction != null && message.hasOwnProperty("deduction"))
                             if (!$util.isInteger(message.deduction) && !(message.deduction && $util.isInteger(message.deduction.low) && $util.isInteger(message.deduction.high)))
                                 return "deduction: integer|Long expected";
@@ -2004,15 +1965,15 @@ $root.isuxportal = (function() {
                         if (object instanceof $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown)
                             return object;
                         var message = new $root.isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown();
-                        if (object.base != null)
+                        if (object.raw != null)
                             if ($util.Long)
-                                (message.base = $util.Long.fromValue(object.base)).unsigned = false;
-                            else if (typeof object.base === "string")
-                                message.base = parseInt(object.base, 10);
-                            else if (typeof object.base === "number")
-                                message.base = object.base;
-                            else if (typeof object.base === "object")
-                                message.base = new $util.LongBits(object.base.low >>> 0, object.base.high >>> 0).toNumber();
+                                (message.raw = $util.Long.fromValue(object.raw)).unsigned = false;
+                            else if (typeof object.raw === "string")
+                                message.raw = parseInt(object.raw, 10);
+                            else if (typeof object.raw === "number")
+                                message.raw = object.raw;
+                            else if (typeof object.raw === "object")
+                                message.raw = new $util.LongBits(object.raw.low >>> 0, object.raw.high >>> 0).toNumber();
                         if (object.deduction != null)
                             if ($util.Long)
                                 (message.deduction = $util.Long.fromValue(object.deduction)).unsigned = false;
@@ -2041,20 +2002,20 @@ $root.isuxportal = (function() {
                         if (options.defaults) {
                             if ($util.Long) {
                                 var long = new $util.Long(0, 0, false);
-                                object.base = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                object.raw = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
-                                object.base = options.longs === String ? "0" : 0;
+                                object.raw = options.longs === String ? "0" : 0;
                             if ($util.Long) {
                                 var long = new $util.Long(0, 0, false);
                                 object.deduction = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.deduction = options.longs === String ? "0" : 0;
                         }
-                        if (message.base != null && message.hasOwnProperty("base"))
-                            if (typeof message.base === "number")
-                                object.base = options.longs === String ? String(message.base) : message.base;
+                        if (message.raw != null && message.hasOwnProperty("raw"))
+                            if (typeof message.raw === "number")
+                                object.raw = options.longs === String ? String(message.raw) : message.raw;
                             else
-                                object.base = options.longs === String ? $util.Long.prototype.toString.call(message.base) : options.longs === Number ? new $util.LongBits(message.base.low >>> 0, message.base.high >>> 0).toNumber() : message.base;
+                                object.raw = options.longs === String ? $util.Long.prototype.toString.call(message.raw) : options.longs === Number ? new $util.LongBits(message.raw.low >>> 0, message.raw.high >>> 0).toNumber() : message.raw;
                         if (message.deduction != null && message.hasOwnProperty("deduction"))
                             if (typeof message.deduction === "number")
                                 object.deduction = options.longs === String ? String(message.deduction) : message.deduction;
@@ -2077,24 +2038,29 @@ $root.isuxportal = (function() {
                     return ScoreBreakdown;
                 })();
 
-                BenchmarkResult.Survey = (function() {
+                BenchmarkResult.Execution = (function() {
 
                     /**
-                     * Properties of a Survey.
+                     * Properties of an Execution.
                      * @memberof isuxportal.proto.resources.BenchmarkResult
-                     * @interface ISurvey
-                     * @property {string|null} [language] Survey language
+                     * @interface IExecution
+                     * @property {string|null} [reason] Execution reason
+                     * @property {string|null} [stdout] Execution stdout
+                     * @property {string|null} [stderr] Execution stderr
+                     * @property {number|Long|null} [exitStatus] Execution exitStatus
+                     * @property {number|Long|null} [exitSignal] Execution exitSignal
+                     * @property {boolean|null} [signaled] Execution signaled
                      */
 
                     /**
-                     * Constructs a new Survey.
+                     * Constructs a new Execution.
                      * @memberof isuxportal.proto.resources.BenchmarkResult
-                     * @classdesc Represents a Survey.
-                     * @implements ISurvey
+                     * @classdesc Represents an Execution.
+                     * @implements IExecution
                      * @constructor
-                     * @param {isuxportal.proto.resources.BenchmarkResult.ISurvey=} [properties] Properties to set
+                     * @param {isuxportal.proto.resources.BenchmarkResult.IExecution=} [properties] Properties to set
                      */
-                    function Survey(properties) {
+                    function Execution(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -2102,75 +2068,140 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Survey language.
-                     * @member {string} language
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * Execution reason.
+                     * @member {string} reason
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @instance
                      */
-                    Survey.prototype.language = "";
+                    Execution.prototype.reason = "";
 
                     /**
-                     * Creates a new Survey instance using the specified properties.
-                     * @function create
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
-                     * @static
-                     * @param {isuxportal.proto.resources.BenchmarkResult.ISurvey=} [properties] Properties to set
-                     * @returns {isuxportal.proto.resources.BenchmarkResult.Survey} Survey instance
+                     * Execution stdout.
+                     * @member {string} stdout
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @instance
                      */
-                    Survey.create = function create(properties) {
-                        return new Survey(properties);
+                    Execution.prototype.stdout = "";
+
+                    /**
+                     * Execution stderr.
+                     * @member {string} stderr
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @instance
+                     */
+                    Execution.prototype.stderr = "";
+
+                    /**
+                     * Execution exitStatus.
+                     * @member {number|Long} exitStatus
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @instance
+                     */
+                    Execution.prototype.exitStatus = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Execution exitSignal.
+                     * @member {number|Long} exitSignal
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @instance
+                     */
+                    Execution.prototype.exitSignal = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Execution signaled.
+                     * @member {boolean} signaled
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @instance
+                     */
+                    Execution.prototype.signaled = false;
+
+                    /**
+                     * Creates a new Execution instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
+                     * @static
+                     * @param {isuxportal.proto.resources.BenchmarkResult.IExecution=} [properties] Properties to set
+                     * @returns {isuxportal.proto.resources.BenchmarkResult.Execution} Execution instance
+                     */
+                    Execution.create = function create(properties) {
+                        return new Execution(properties);
                     };
 
                     /**
-                     * Encodes the specified Survey message. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Survey.verify|verify} messages.
+                     * Encodes the specified Execution message. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Execution.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
-                     * @param {isuxportal.proto.resources.BenchmarkResult.ISurvey} message Survey message or plain object to encode
+                     * @param {isuxportal.proto.resources.BenchmarkResult.IExecution} message Execution message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    Survey.encode = function encode(message, writer) {
+                    Execution.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
-                        if (message.language != null && Object.hasOwnProperty.call(message, "language"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.language);
+                        if (message.reason != null && Object.hasOwnProperty.call(message, "reason"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.reason);
+                        if (message.stdout != null && Object.hasOwnProperty.call(message, "stdout"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.stdout);
+                        if (message.stderr != null && Object.hasOwnProperty.call(message, "stderr"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.stderr);
+                        if (message.exitStatus != null && Object.hasOwnProperty.call(message, "exitStatus"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).int64(message.exitStatus);
+                        if (message.exitSignal != null && Object.hasOwnProperty.call(message, "exitSignal"))
+                            writer.uint32(/* id 5, wireType 0 =*/40).int64(message.exitSignal);
+                        if (message.signaled != null && Object.hasOwnProperty.call(message, "signaled"))
+                            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.signaled);
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified Survey message, length delimited. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Survey.verify|verify} messages.
+                     * Encodes the specified Execution message, length delimited. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Execution.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
-                     * @param {isuxportal.proto.resources.BenchmarkResult.ISurvey} message Survey message or plain object to encode
+                     * @param {isuxportal.proto.resources.BenchmarkResult.IExecution} message Execution message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    Survey.encodeDelimited = function encodeDelimited(message, writer) {
+                    Execution.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a Survey message from the specified reader or buffer.
+                     * Decodes an Execution message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.resources.BenchmarkResult.Survey} Survey
+                     * @returns {isuxportal.proto.resources.BenchmarkResult.Execution} Execution
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    Survey.decode = function decode(reader, length) {
+                    Execution.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.BenchmarkResult.Survey();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.BenchmarkResult.Execution();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
-                                message.language = reader.string();
+                                message.reason = reader.string();
+                                break;
+                            case 2:
+                                message.stdout = reader.string();
+                                break;
+                            case 3:
+                                message.stderr = reader.string();
+                                break;
+                            case 4:
+                                message.exitStatus = reader.int64();
+                                break;
+                            case 5:
+                                message.exitSignal = reader.int64();
+                                break;
+                            case 6:
+                                message.signaled = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -2181,87 +2212,156 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a Survey message from the specified reader or buffer, length delimited.
+                     * Decodes an Execution message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.resources.BenchmarkResult.Survey} Survey
+                     * @returns {isuxportal.proto.resources.BenchmarkResult.Execution} Execution
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    Survey.decodeDelimited = function decodeDelimited(reader) {
+                    Execution.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a Survey message.
+                     * Verifies an Execution message.
                      * @function verify
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    Survey.verify = function verify(message) {
+                    Execution.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        if (message.language != null && message.hasOwnProperty("language"))
-                            if (!$util.isString(message.language))
-                                return "language: string expected";
+                        if (message.reason != null && message.hasOwnProperty("reason"))
+                            if (!$util.isString(message.reason))
+                                return "reason: string expected";
+                        if (message.stdout != null && message.hasOwnProperty("stdout"))
+                            if (!$util.isString(message.stdout))
+                                return "stdout: string expected";
+                        if (message.stderr != null && message.hasOwnProperty("stderr"))
+                            if (!$util.isString(message.stderr))
+                                return "stderr: string expected";
+                        if (message.exitStatus != null && message.hasOwnProperty("exitStatus"))
+                            if (!$util.isInteger(message.exitStatus) && !(message.exitStatus && $util.isInteger(message.exitStatus.low) && $util.isInteger(message.exitStatus.high)))
+                                return "exitStatus: integer|Long expected";
+                        if (message.exitSignal != null && message.hasOwnProperty("exitSignal"))
+                            if (!$util.isInteger(message.exitSignal) && !(message.exitSignal && $util.isInteger(message.exitSignal.low) && $util.isInteger(message.exitSignal.high)))
+                                return "exitSignal: integer|Long expected";
+                        if (message.signaled != null && message.hasOwnProperty("signaled"))
+                            if (typeof message.signaled !== "boolean")
+                                return "signaled: boolean expected";
                         return null;
                     };
 
                     /**
-                     * Creates a Survey message from a plain object. Also converts values to their respective internal types.
+                     * Creates an Execution message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.resources.BenchmarkResult.Survey} Survey
+                     * @returns {isuxportal.proto.resources.BenchmarkResult.Execution} Execution
                      */
-                    Survey.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.resources.BenchmarkResult.Survey)
+                    Execution.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.resources.BenchmarkResult.Execution)
                             return object;
-                        var message = new $root.isuxportal.proto.resources.BenchmarkResult.Survey();
-                        if (object.language != null)
-                            message.language = String(object.language);
+                        var message = new $root.isuxportal.proto.resources.BenchmarkResult.Execution();
+                        if (object.reason != null)
+                            message.reason = String(object.reason);
+                        if (object.stdout != null)
+                            message.stdout = String(object.stdout);
+                        if (object.stderr != null)
+                            message.stderr = String(object.stderr);
+                        if (object.exitStatus != null)
+                            if ($util.Long)
+                                (message.exitStatus = $util.Long.fromValue(object.exitStatus)).unsigned = false;
+                            else if (typeof object.exitStatus === "string")
+                                message.exitStatus = parseInt(object.exitStatus, 10);
+                            else if (typeof object.exitStatus === "number")
+                                message.exitStatus = object.exitStatus;
+                            else if (typeof object.exitStatus === "object")
+                                message.exitStatus = new $util.LongBits(object.exitStatus.low >>> 0, object.exitStatus.high >>> 0).toNumber();
+                        if (object.exitSignal != null)
+                            if ($util.Long)
+                                (message.exitSignal = $util.Long.fromValue(object.exitSignal)).unsigned = false;
+                            else if (typeof object.exitSignal === "string")
+                                message.exitSignal = parseInt(object.exitSignal, 10);
+                            else if (typeof object.exitSignal === "number")
+                                message.exitSignal = object.exitSignal;
+                            else if (typeof object.exitSignal === "object")
+                                message.exitSignal = new $util.LongBits(object.exitSignal.low >>> 0, object.exitSignal.high >>> 0).toNumber();
+                        if (object.signaled != null)
+                            message.signaled = Boolean(object.signaled);
                         return message;
                     };
 
                     /**
-                     * Creates a plain object from a Survey message. Also converts values to other types if specified.
+                     * Creates a plain object from an Execution message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @static
-                     * @param {isuxportal.proto.resources.BenchmarkResult.Survey} message Survey
+                     * @param {isuxportal.proto.resources.BenchmarkResult.Execution} message Execution
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    Survey.toObject = function toObject(message, options) {
+                    Execution.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.defaults)
-                            object.language = "";
-                        if (message.language != null && message.hasOwnProperty("language"))
-                            object.language = message.language;
+                        if (options.defaults) {
+                            object.reason = "";
+                            object.stdout = "";
+                            object.stderr = "";
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.exitStatus = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.exitStatus = options.longs === String ? "0" : 0;
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.exitSignal = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.exitSignal = options.longs === String ? "0" : 0;
+                            object.signaled = false;
+                        }
+                        if (message.reason != null && message.hasOwnProperty("reason"))
+                            object.reason = message.reason;
+                        if (message.stdout != null && message.hasOwnProperty("stdout"))
+                            object.stdout = message.stdout;
+                        if (message.stderr != null && message.hasOwnProperty("stderr"))
+                            object.stderr = message.stderr;
+                        if (message.exitStatus != null && message.hasOwnProperty("exitStatus"))
+                            if (typeof message.exitStatus === "number")
+                                object.exitStatus = options.longs === String ? String(message.exitStatus) : message.exitStatus;
+                            else
+                                object.exitStatus = options.longs === String ? $util.Long.prototype.toString.call(message.exitStatus) : options.longs === Number ? new $util.LongBits(message.exitStatus.low >>> 0, message.exitStatus.high >>> 0).toNumber() : message.exitStatus;
+                        if (message.exitSignal != null && message.hasOwnProperty("exitSignal"))
+                            if (typeof message.exitSignal === "number")
+                                object.exitSignal = options.longs === String ? String(message.exitSignal) : message.exitSignal;
+                            else
+                                object.exitSignal = options.longs === String ? $util.Long.prototype.toString.call(message.exitSignal) : options.longs === Number ? new $util.LongBits(message.exitSignal.low >>> 0, message.exitSignal.high >>> 0).toNumber() : message.exitSignal;
+                        if (message.signaled != null && message.hasOwnProperty("signaled"))
+                            object.signaled = message.signaled;
                         return object;
                     };
 
                     /**
-                     * Converts this Survey to JSON.
+                     * Converts this Execution to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.resources.BenchmarkResult.Survey
+                     * @memberof isuxportal.proto.resources.BenchmarkResult.Execution
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    Survey.prototype.toJSON = function toJSON() {
+                    Execution.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return Survey;
+                    return Execution;
                 })();
 
                 return BenchmarkResult;

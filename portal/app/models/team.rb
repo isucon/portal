@@ -4,6 +4,9 @@ class Team < ApplicationRecord
   has_many :members, class_name: 'Contestant'
   has_one :leader, class_name: 'Contestant'
 
+  has_many :benchmark_jobs
+  has_many :benchmark_results
+
   validates :name, presence: true, uniqueness: true
   validates :email_address, presence: true
   validates :invite_token, presence: true

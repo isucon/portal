@@ -2,7 +2,7 @@ syntax = "proto3";
 package isuxportal.proto.services.bench;
 option go_package = "github.com/isucon/isucon10-portal/proto/services/bench";
 
-service BenchmarkQueueService {
+service BenchmarkQueue {
   rpc ReceiveBenchmarkJob(ReceiveBenchmarkJobRequest) returns (ReceiveBenchmarkJobResponse);
 }
 

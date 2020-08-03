@@ -10,7 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_054109) do
+ActiveRecord::Schema.define(version: 2020_08_03_150355) do
+
+  create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "benchmark_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "status", default: 0, null: false
+    t.string "instance_name"
+    t.string "handle"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["instance_name", "id"], name: "index_benchmark_jobs_on_instance_name_and_id"
+    t.index ["status", "team_id", "id"], name: "index_benchmark_jobs_on_status_and_team_id_and_id"
+    t.index ["team_id", "id"], name: "index_benchmark_jobs_on_team_id_and_id"
+  end
+
+  create_table "benchmark_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.integer "benchmark_job_id", null: false
+    t.integer "score", default: 0, null: false
+    t.integer "score_raw", default: 0, null: false
+    t.integer "score_deduction", default: 0, null: false
+    t.boolean "finished", null: false
+    t.boolean "passed"
+    t.datetime "marked_at", null: false
+    t.text "reason"
+    t.text "stdout"
+    t.text "stderr"
+    t.integer "exit_status"
+    t.integer "exit_signal"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["benchmark_job_id"], name: "index_benchmark_results_on_benchmark_job_id", unique: true
+    t.index ["team_id"], name: "index_benchmark_results_on_team_id"
+  end
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "team_id", null: false

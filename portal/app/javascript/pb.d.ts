@@ -526,17 +526,11 @@ export namespace isuxportal {
                 /** BenchmarkResult scoreBreakdown */
                 scoreBreakdown?: (isuxportal.proto.resources.BenchmarkResult.IScoreBreakdown|null);
 
-                /** BenchmarkResult reason */
-                reason?: (string|null);
+                /** BenchmarkResult execution */
+                execution?: (isuxportal.proto.resources.BenchmarkResult.IExecution|null);
 
-                /** BenchmarkResult stdout */
-                stdout?: (string|null);
-
-                /** BenchmarkResult stderr */
-                stderr?: (string|null);
-
-                /** BenchmarkResult survey */
-                survey?: (isuxportal.proto.resources.BenchmarkResult.ISurvey|null);
+                /** BenchmarkResult markedAt */
+                markedAt?: (google.protobuf.ITimestamp|null);
             }
 
             /** Represents a BenchmarkResult. */
@@ -560,17 +554,11 @@ export namespace isuxportal {
                 /** BenchmarkResult scoreBreakdown. */
                 public scoreBreakdown?: (isuxportal.proto.resources.BenchmarkResult.IScoreBreakdown|null);
 
-                /** BenchmarkResult reason. */
-                public reason: string;
+                /** BenchmarkResult execution. */
+                public execution?: (isuxportal.proto.resources.BenchmarkResult.IExecution|null);
 
-                /** BenchmarkResult stdout. */
-                public stdout: string;
-
-                /** BenchmarkResult stderr. */
-                public stderr: string;
-
-                /** BenchmarkResult survey. */
-                public survey?: (isuxportal.proto.resources.BenchmarkResult.ISurvey|null);
+                /** BenchmarkResult markedAt. */
+                public markedAt?: (google.protobuf.ITimestamp|null);
 
                 /**
                  * Creates a new BenchmarkResult instance using the specified properties.
@@ -648,8 +636,8 @@ export namespace isuxportal {
                 /** Properties of a ScoreBreakdown. */
                 interface IScoreBreakdown {
 
-                    /** ScoreBreakdown base */
-                    base?: (number|Long|null);
+                    /** ScoreBreakdown raw */
+                    raw?: (number|Long|null);
 
                     /** ScoreBreakdown deduction */
                     deduction?: (number|Long|null);
@@ -664,8 +652,8 @@ export namespace isuxportal {
                      */
                     constructor(properties?: isuxportal.proto.resources.BenchmarkResult.IScoreBreakdown);
 
-                    /** ScoreBreakdown base. */
-                    public base: (number|Long);
+                    /** ScoreBreakdown raw. */
+                    public raw: (number|Long);
 
                     /** ScoreBreakdown deduction. */
                     public deduction: (number|Long);
@@ -741,91 +729,121 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a Survey. */
-                interface ISurvey {
+                /** Properties of an Execution. */
+                interface IExecution {
 
-                    /** Survey language */
-                    language?: (string|null);
+                    /** Execution reason */
+                    reason?: (string|null);
+
+                    /** Execution stdout */
+                    stdout?: (string|null);
+
+                    /** Execution stderr */
+                    stderr?: (string|null);
+
+                    /** Execution exitStatus */
+                    exitStatus?: (number|Long|null);
+
+                    /** Execution exitSignal */
+                    exitSignal?: (number|Long|null);
+
+                    /** Execution signaled */
+                    signaled?: (boolean|null);
                 }
 
-                /** Represents a Survey. */
-                class Survey implements ISurvey {
+                /** Represents an Execution. */
+                class Execution implements IExecution {
 
                     /**
-                     * Constructs a new Survey.
+                     * Constructs a new Execution.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.resources.BenchmarkResult.ISurvey);
+                    constructor(properties?: isuxportal.proto.resources.BenchmarkResult.IExecution);
 
-                    /** Survey language. */
-                    public language: string;
+                    /** Execution reason. */
+                    public reason: string;
+
+                    /** Execution stdout. */
+                    public stdout: string;
+
+                    /** Execution stderr. */
+                    public stderr: string;
+
+                    /** Execution exitStatus. */
+                    public exitStatus: (number|Long);
+
+                    /** Execution exitSignal. */
+                    public exitSignal: (number|Long);
+
+                    /** Execution signaled. */
+                    public signaled: boolean;
 
                     /**
-                     * Creates a new Survey instance using the specified properties.
+                     * Creates a new Execution instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns Survey instance
+                     * @returns Execution instance
                      */
-                    public static create(properties?: isuxportal.proto.resources.BenchmarkResult.ISurvey): isuxportal.proto.resources.BenchmarkResult.Survey;
+                    public static create(properties?: isuxportal.proto.resources.BenchmarkResult.IExecution): isuxportal.proto.resources.BenchmarkResult.Execution;
 
                     /**
-                     * Encodes the specified Survey message. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Survey.verify|verify} messages.
-                     * @param message Survey message or plain object to encode
+                     * Encodes the specified Execution message. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Execution.verify|verify} messages.
+                     * @param message Execution message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.resources.BenchmarkResult.ISurvey, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.resources.BenchmarkResult.IExecution, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified Survey message, length delimited. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Survey.verify|verify} messages.
-                     * @param message Survey message or plain object to encode
+                     * Encodes the specified Execution message, length delimited. Does not implicitly {@link isuxportal.proto.resources.BenchmarkResult.Execution.verify|verify} messages.
+                     * @param message Execution message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.resources.BenchmarkResult.ISurvey, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.resources.BenchmarkResult.IExecution, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a Survey message from the specified reader or buffer.
+                     * Decodes an Execution message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns Survey
+                     * @returns Execution
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.BenchmarkResult.Survey;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.BenchmarkResult.Execution;
 
                     /**
-                     * Decodes a Survey message from the specified reader or buffer, length delimited.
+                     * Decodes an Execution message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns Survey
+                     * @returns Execution
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.BenchmarkResult.Survey;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.BenchmarkResult.Execution;
 
                     /**
-                     * Verifies a Survey message.
+                     * Verifies an Execution message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a Survey message from a plain object. Also converts values to their respective internal types.
+                     * Creates an Execution message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns Survey
+                     * @returns Execution
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.BenchmarkResult.Survey;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.BenchmarkResult.Execution;
 
                     /**
-                     * Creates a plain object from a Survey message. Also converts values to other types if specified.
-                     * @param message Survey
+                     * Creates a plain object from an Execution message. Also converts values to other types if specified.
+                     * @param message Execution
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.resources.BenchmarkResult.Survey, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.resources.BenchmarkResult.Execution, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this Survey to JSON.
+                     * Converts this Execution to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
