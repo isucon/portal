@@ -27,7 +27,7 @@ class BenchmarkJob < ApplicationRecord
     Isuxportal::Proto::Resources::BenchmarkJob.new(
       id: id,
       team_id: team_id,
-      target_id: 0, # TODO:
+      target_id: 0, # TODO: ContestantInstance
       status: status_before_type_cast,
       score: score,
       instance_name: admin ? self.instance_name : '',
@@ -36,7 +36,7 @@ class BenchmarkJob < ApplicationRecord
       started_at: started_at,
       finished_at: finished_at,
       team: team ? self.team.to_pb : nil,
-      target: detail ? nil : nil, # TODO:
+      target: detail ? nil : nil, # TODO: ContestantInstance
       result: detail ? benchmark_result&.to_pb(admin: admin) : nil,
     )
   end
