@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "isuadmin-trust" {
       identifiers = [
         "arn:aws:iam::789035092620:root", // cookpad2
         "arn:aws:iam::341857463381:root", // sorah
+        "arn:aws:iam::625101675473:root", // yuya_mizuki
       ]
     }
   }
