@@ -1,6 +1,6 @@
 import {ApiClient} from "../ApiClient";
 import {updateNavBarSession} from "../NavbarSession";
-import {TeamList} from "../TeamList";
+import {AudienceApp} from "../AudienceApp";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -8,9 +8,9 @@ import ReactDOM from "react-dom";
   const client = new ApiClient();
   const session = await client.getCurrentSession();
   updateNavBarSession(session);
-  const elem = document.getElementById('team_list');
+  const elem = document.getElementById('app');
   ReactDOM.render(
-    <TeamList session={session} client={client} />,
+    <AudienceApp session={session} client={client} />,
     elem,
   );
 })();

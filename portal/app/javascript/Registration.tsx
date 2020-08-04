@@ -1,9 +1,17 @@
 import {isuxportal} from "./pb";
 import {ApiError, ApiClient} from "./ApiClient";
+
 import React from "react";
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
 
 import {ErrorMessage} from "./ErrorMessage";
 
+import {Navbar} from "./Navbar";
 import {RegistrationLogin} from "./RegistrationLogin";
 import {RegistrationForm} from "./RegistrationForm";
 import {RegistrationStatus} from "./RegistrationStatus";
@@ -62,15 +70,18 @@ export class Registration extends React.Component<Props, State> {
   }
 
   public render() {
-    return <>
-      <header>
-        <h1 className="title is-1">参加登録</h1>
-      </header>
-      <main>
-        {this.renderError()}
-        {this.renderPhase()}
-      </main>
-    </>;
+    return <BrowserRouter>
+      <Navbar session={this.props.session} client={this.props.client} />
+      <div className="container mt-5">
+        <header>
+          <h1 className="title is-1">参加登録</h1>
+        </header>
+        <main>
+          {this.renderError()}
+          {this.renderPhase()}
+        </main>
+      </div>
+    </BrowserRouter>;
   }
 
   public renderError() {

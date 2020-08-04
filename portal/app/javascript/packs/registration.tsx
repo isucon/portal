@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
   const client = new ApiClient();
   const session = await client.getCurrentSession();
   updateNavBarSession(session);
-  const elem = document.getElementById('registration');
+  const elem = document.getElementById('app');
   ReactDOM.render(
     <Registration session={session} client={client} />,
     elem,
