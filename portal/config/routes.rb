@@ -48,6 +48,8 @@ Rails.application.routes.draw do
 
   scope path: 'admin', module: 'admin' do
     get '/' => 'root#index'
+    get '/teams' => 'root#index'
+    get '/teams/:id' => 'root#index'
 
     get 'impersonate' => 'impersonate#index', ad: :impersonate
     post 'impersonate/contestant' => 'impersonate#contestant'

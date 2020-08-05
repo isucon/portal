@@ -23,7 +23,6 @@ export class ApiError extends Error {
 export class ApiClient {
   public baseUrl: string;
 
-
   constructor(baseUrl?: string) {
     if (!baseUrl) {
       const metaBaseUrl= document.querySelector('meta[name="isux:api-base-url"]') as HTMLMetaElement;
