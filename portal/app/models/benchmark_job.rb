@@ -6,15 +6,15 @@ class BenchmarkJob < ApplicationRecord
 
   has_one :benchmark_result
 
-  enum status: Isuxportal::Proto::Resources::BenchmarkJob::Status.descriptor.to_enum.sort_by(&:last).map do |k,v|
+  enum(status: Isuxportal::Proto::Resources::BenchmarkJob::Status.descriptor.to_enum.sort_by(&:last).map do |k,v|
     [k.to_s.downcase.to_sym, v]
-  end.to_h
+  end.to_h)
 
   validate :validate_handle
   validate :validate_no_concurrent_jobs
+  validate :validate_finished
 
   before_validation :generate_handle
-  before_validation :generate_finished
 
   # scope :joins_score, -> { left_outer_joins(:benchmark_result).select('benchmark_jobs.*, benchmark_results.score as score') }
   scope :joins_score, -> { eager_load(:benchmark_result) }
@@ -31,10 +31,10 @@ class BenchmarkJob < ApplicationRecord
       status: status_before_type_cast,
       score: score,
       instance_name: admin ? self.instance_name : '',
-      created_at: created_at,
-      updated_at: updated_at,
-      started_at: started_at,
-      finished_at: finished_at,
+      created_at: created_at&.to_time,
+      updated_at: updated_at&.to_time,
+      started_at: started_at&.to_time,
+      finished_at: finished_at&.to_time,
       team: team ? self.team.to_pb : nil,
       target: detail ? nil : nil, # TODO: ContestantInstance
       result: detail ? benchmark_result&.to_pb(admin: admin) : nil,
@@ -92,9 +92,14 @@ class BenchmarkJob < ApplicationRecord
     end
   end
 
+  private def validate_no_concurrent_jobs
+    if (pending? || running?) && self.class.where(team_id: team_id, status: %i(pending running)).merge(self.class.where.not(id: id)).count > 0
+      errors.add :team_id, "must have no other concurrent job"
+    end
+  end
+
   private def validate_finished
     if finished?
-      errors.add :benchmark_execution, "must be present for finished job" unless benchmark_execution
       errors.add :benchmark_result, "finished must be present 1 for finished job" unless benchmark_result
     end
   end

@@ -50,6 +50,12 @@ Rails.application.routes.draw do
       # admin/teams GetTeam: GET /api/admin/teams/:id
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id
       resources :teams, only: %i(index show update)
+      # admin/benchmark ListBenchmarkJobs: GET /api/admin/benchmark_jobs
+      # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs
+      # admin/benchmark GetBenchmarkJobs: GET /api/admin/benchmark_jobs/:id
+      # admin/benchmark CancelBenchmarkJob: DELETE /api/admin/benchmark_jobs/:id
+      resources :benchmark_jobs, only: %i(index create show delete)
+
     end
   end
 
@@ -58,6 +64,9 @@ Rails.application.routes.draw do
     get '/teams' => 'root#index'
     get '/teams/:id' => 'root#index'
     get '/teams/:id/edit' => 'root#index'
+    get '/benchmark_jobs' => 'root#index'
+    get '/benchmark_jobs/:id' => 'root#index'
+
 
     get 'impersonate' => 'impersonate#index', ad: :impersonate
     post 'impersonate/contestant' => 'impersonate#contestant'

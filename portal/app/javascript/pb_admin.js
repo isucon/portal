@@ -6096,25 +6096,25 @@ $root.isuxportal = (function() {
                  */
                 var admin = {};
 
-                admin.ListBenchmarkJobsRequest = (function() {
+                admin.ListBenchmarkJobsQuery = (function() {
 
                     /**
-                     * Properties of a ListBenchmarkJobsRequest.
+                     * Properties of a ListBenchmarkJobsQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface IListBenchmarkJobsRequest
-                     * @property {number|Long|null} [teamId] ListBenchmarkJobsRequest teamId
-                     * @property {boolean|null} [incompleteOnly] ListBenchmarkJobsRequest incompleteOnly
+                     * @interface IListBenchmarkJobsQuery
+                     * @property {number|Long|null} [teamId] ListBenchmarkJobsQuery teamId
+                     * @property {boolean|null} [incompleteOnly] ListBenchmarkJobsQuery incompleteOnly
                      */
 
                     /**
-                     * Constructs a new ListBenchmarkJobsRequest.
+                     * Constructs a new ListBenchmarkJobsQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a ListBenchmarkJobsRequest.
-                     * @implements IListBenchmarkJobsRequest
+                     * @classdesc Represents a ListBenchmarkJobsQuery.
+                     * @implements IListBenchmarkJobsQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsQuery=} [properties] Properties to set
                      */
-                    function ListBenchmarkJobsRequest(properties) {
+                    function ListBenchmarkJobsQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -6122,43 +6122,43 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * ListBenchmarkJobsRequest teamId.
+                     * ListBenchmarkJobsQuery teamId.
                      * @member {number|Long} teamId
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @instance
                      */
-                    ListBenchmarkJobsRequest.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    ListBenchmarkJobsQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * ListBenchmarkJobsRequest incompleteOnly.
+                     * ListBenchmarkJobsQuery incompleteOnly.
                      * @member {boolean} incompleteOnly
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @instance
                      */
-                    ListBenchmarkJobsRequest.prototype.incompleteOnly = false;
+                    ListBenchmarkJobsQuery.prototype.incompleteOnly = false;
 
                     /**
-                     * Creates a new ListBenchmarkJobsRequest instance using the specified properties.
+                     * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsRequest} ListBenchmarkJobsRequest instance
+                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery instance
                      */
-                    ListBenchmarkJobsRequest.create = function create(properties) {
-                        return new ListBenchmarkJobsRequest(properties);
+                    ListBenchmarkJobsQuery.create = function create(properties) {
+                        return new ListBenchmarkJobsQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified ListBenchmarkJobsRequest message. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsRequest.verify|verify} messages.
+                     * Encodes the specified ListBenchmarkJobsQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsRequest} message ListBenchmarkJobsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsQuery} message ListBenchmarkJobsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListBenchmarkJobsRequest.encode = function encode(message, writer) {
+                    ListBenchmarkJobsQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
@@ -6169,33 +6169,33 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Encodes the specified ListBenchmarkJobsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsRequest.verify|verify} messages.
+                     * Encodes the specified ListBenchmarkJobsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsRequest} message ListBenchmarkJobsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListBenchmarkJobsQuery} message ListBenchmarkJobsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListBenchmarkJobsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListBenchmarkJobsQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListBenchmarkJobsRequest message from the specified reader or buffer.
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsRequest} ListBenchmarkJobsRequest
+                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListBenchmarkJobsRequest.decode = function decode(reader, length) {
+                    ListBenchmarkJobsQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListBenchmarkJobsRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListBenchmarkJobsQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -6214,30 +6214,30 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListBenchmarkJobsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsRequest} ListBenchmarkJobsRequest
+                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListBenchmarkJobsRequest.decodeDelimited = function decodeDelimited(reader) {
+                    ListBenchmarkJobsQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListBenchmarkJobsRequest message.
+                     * Verifies a ListBenchmarkJobsQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListBenchmarkJobsRequest.verify = function verify(message) {
+                    ListBenchmarkJobsQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
@@ -6250,17 +6250,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a ListBenchmarkJobsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListBenchmarkJobsQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsRequest} ListBenchmarkJobsRequest
+                     * @returns {isuxportal.proto.services.admin.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
                      */
-                    ListBenchmarkJobsRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.ListBenchmarkJobsRequest)
+                    ListBenchmarkJobsQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.ListBenchmarkJobsQuery)
                             return object;
-                        var message = new $root.isuxportal.proto.services.admin.ListBenchmarkJobsRequest();
+                        var message = new $root.isuxportal.proto.services.admin.ListBenchmarkJobsQuery();
                         if (object.teamId != null)
                             if ($util.Long)
                                 (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
@@ -6276,15 +6276,15 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a plain object from a ListBenchmarkJobsRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListBenchmarkJobsQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ListBenchmarkJobsRequest} message ListBenchmarkJobsRequest
+                     * @param {isuxportal.proto.services.admin.ListBenchmarkJobsQuery} message ListBenchmarkJobsQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListBenchmarkJobsRequest.toObject = function toObject(message, options) {
+                    ListBenchmarkJobsQuery.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -6307,17 +6307,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Converts this ListBenchmarkJobsRequest to JSON.
+                     * Converts this ListBenchmarkJobsQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsRequest
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListBenchmarkJobsRequest.prototype.toJSON = function toJSON() {
+                    ListBenchmarkJobsQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return ListBenchmarkJobsRequest;
+                    return ListBenchmarkJobsQuery;
                 })();
 
                 admin.ListBenchmarkJobsResponse = (function() {
@@ -6958,24 +6958,24 @@ $root.isuxportal = (function() {
                     return EnqueueBenchmarkJobResponse;
                 })();
 
-                admin.CancelBenchmarkJobRequest = (function() {
+                admin.CancelBenchmarkJobQuery = (function() {
 
                     /**
-                     * Properties of a CancelBenchmarkJobRequest.
+                     * Properties of a CancelBenchmarkJobQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface ICancelBenchmarkJobRequest
-                     * @property {number|Long|null} [id] CancelBenchmarkJobRequest id
+                     * @interface ICancelBenchmarkJobQuery
+                     * @property {number|Long|null} [id] CancelBenchmarkJobQuery id
                      */
 
                     /**
-                     * Constructs a new CancelBenchmarkJobRequest.
+                     * Constructs a new CancelBenchmarkJobQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a CancelBenchmarkJobRequest.
-                     * @implements ICancelBenchmarkJobRequest
+                     * @classdesc Represents a CancelBenchmarkJobQuery.
+                     * @implements ICancelBenchmarkJobQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobQuery=} [properties] Properties to set
                      */
-                    function CancelBenchmarkJobRequest(properties) {
+                    function CancelBenchmarkJobQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -6983,35 +6983,35 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * CancelBenchmarkJobRequest id.
+                     * CancelBenchmarkJobQuery id.
                      * @member {number|Long} id
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @instance
                      */
-                    CancelBenchmarkJobRequest.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    CancelBenchmarkJobQuery.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * Creates a new CancelBenchmarkJobRequest instance using the specified properties.
+                     * Creates a new CancelBenchmarkJobQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobRequest} CancelBenchmarkJobRequest instance
+                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobQuery} CancelBenchmarkJobQuery instance
                      */
-                    CancelBenchmarkJobRequest.create = function create(properties) {
-                        return new CancelBenchmarkJobRequest(properties);
+                    CancelBenchmarkJobQuery.create = function create(properties) {
+                        return new CancelBenchmarkJobQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified CancelBenchmarkJobRequest message. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobRequest.verify|verify} messages.
+                     * Encodes the specified CancelBenchmarkJobQuery message. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobRequest} message CancelBenchmarkJobRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobQuery} message CancelBenchmarkJobQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    CancelBenchmarkJobRequest.encode = function encode(message, writer) {
+                    CancelBenchmarkJobQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.id != null && Object.hasOwnProperty.call(message, "id"))
@@ -7020,33 +7020,33 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Encodes the specified CancelBenchmarkJobRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobRequest.verify|verify} messages.
+                     * Encodes the specified CancelBenchmarkJobQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobRequest} message CancelBenchmarkJobRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.ICancelBenchmarkJobQuery} message CancelBenchmarkJobQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    CancelBenchmarkJobRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    CancelBenchmarkJobQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a CancelBenchmarkJobRequest message from the specified reader or buffer.
+                     * Decodes a CancelBenchmarkJobQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobRequest} CancelBenchmarkJobRequest
+                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobQuery} CancelBenchmarkJobQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    CancelBenchmarkJobRequest.decode = function decode(reader, length) {
+                    CancelBenchmarkJobQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.CancelBenchmarkJobRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.CancelBenchmarkJobQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -7062,30 +7062,30 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a CancelBenchmarkJobRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a CancelBenchmarkJobQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobRequest} CancelBenchmarkJobRequest
+                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobQuery} CancelBenchmarkJobQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    CancelBenchmarkJobRequest.decodeDelimited = function decodeDelimited(reader) {
+                    CancelBenchmarkJobQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a CancelBenchmarkJobRequest message.
+                     * Verifies a CancelBenchmarkJobQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    CancelBenchmarkJobRequest.verify = function verify(message) {
+                    CancelBenchmarkJobQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.id != null && message.hasOwnProperty("id"))
@@ -7095,17 +7095,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a CancelBenchmarkJobRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a CancelBenchmarkJobQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobRequest} CancelBenchmarkJobRequest
+                     * @returns {isuxportal.proto.services.admin.CancelBenchmarkJobQuery} CancelBenchmarkJobQuery
                      */
-                    CancelBenchmarkJobRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.CancelBenchmarkJobRequest)
+                    CancelBenchmarkJobQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.CancelBenchmarkJobQuery)
                             return object;
-                        var message = new $root.isuxportal.proto.services.admin.CancelBenchmarkJobRequest();
+                        var message = new $root.isuxportal.proto.services.admin.CancelBenchmarkJobQuery();
                         if (object.id != null)
                             if ($util.Long)
                                 (message.id = $util.Long.fromValue(object.id)).unsigned = false;
@@ -7119,15 +7119,15 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a plain object from a CancelBenchmarkJobRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a CancelBenchmarkJobQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.CancelBenchmarkJobRequest} message CancelBenchmarkJobRequest
+                     * @param {isuxportal.proto.services.admin.CancelBenchmarkJobQuery} message CancelBenchmarkJobQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    CancelBenchmarkJobRequest.toObject = function toObject(message, options) {
+                    CancelBenchmarkJobQuery.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -7146,17 +7146,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Converts this CancelBenchmarkJobRequest to JSON.
+                     * Converts this CancelBenchmarkJobQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobRequest
+                     * @memberof isuxportal.proto.services.admin.CancelBenchmarkJobQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    CancelBenchmarkJobRequest.prototype.toJSON = function toJSON() {
+                    CancelBenchmarkJobQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return CancelBenchmarkJobRequest;
+                    return CancelBenchmarkJobQuery;
                 })();
 
                 admin.CancelBenchmarkJobResponse = (function() {

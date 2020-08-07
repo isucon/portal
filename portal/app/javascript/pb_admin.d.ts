@@ -2242,97 +2242,97 @@ export namespace isuxportal {
             /** Namespace admin. */
             namespace admin {
 
-                /** Properties of a ListBenchmarkJobsRequest. */
-                interface IListBenchmarkJobsRequest {
+                /** Properties of a ListBenchmarkJobsQuery. */
+                interface IListBenchmarkJobsQuery {
 
-                    /** ListBenchmarkJobsRequest teamId */
+                    /** ListBenchmarkJobsQuery teamId */
                     teamId?: (number|Long|null);
 
-                    /** ListBenchmarkJobsRequest incompleteOnly */
+                    /** ListBenchmarkJobsQuery incompleteOnly */
                     incompleteOnly?: (boolean|null);
                 }
 
-                /** Represents a ListBenchmarkJobsRequest. */
-                class ListBenchmarkJobsRequest implements IListBenchmarkJobsRequest {
+                /** Represents a ListBenchmarkJobsQuery. */
+                class ListBenchmarkJobsQuery implements IListBenchmarkJobsQuery {
 
                     /**
-                     * Constructs a new ListBenchmarkJobsRequest.
+                     * Constructs a new ListBenchmarkJobsQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.admin.IListBenchmarkJobsRequest);
+                    constructor(properties?: isuxportal.proto.services.admin.IListBenchmarkJobsQuery);
 
-                    /** ListBenchmarkJobsRequest teamId. */
+                    /** ListBenchmarkJobsQuery teamId. */
                     public teamId: (number|Long);
 
-                    /** ListBenchmarkJobsRequest incompleteOnly. */
+                    /** ListBenchmarkJobsQuery incompleteOnly. */
                     public incompleteOnly: boolean;
 
                     /**
-                     * Creates a new ListBenchmarkJobsRequest instance using the specified properties.
+                     * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns ListBenchmarkJobsRequest instance
+                     * @returns ListBenchmarkJobsQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.admin.IListBenchmarkJobsRequest): isuxportal.proto.services.admin.ListBenchmarkJobsRequest;
+                    public static create(properties?: isuxportal.proto.services.admin.IListBenchmarkJobsQuery): isuxportal.proto.services.admin.ListBenchmarkJobsQuery;
 
                     /**
-                     * Encodes the specified ListBenchmarkJobsRequest message. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsRequest.verify|verify} messages.
-                     * @param message ListBenchmarkJobsRequest message or plain object to encode
+                     * Encodes the specified ListBenchmarkJobsQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsQuery.verify|verify} messages.
+                     * @param message ListBenchmarkJobsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.admin.IListBenchmarkJobsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.admin.IListBenchmarkJobsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified ListBenchmarkJobsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsRequest.verify|verify} messages.
-                     * @param message ListBenchmarkJobsRequest message or plain object to encode
+                     * Encodes the specified ListBenchmarkJobsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListBenchmarkJobsQuery.verify|verify} messages.
+                     * @param message ListBenchmarkJobsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListBenchmarkJobsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListBenchmarkJobsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a ListBenchmarkJobsRequest message from the specified reader or buffer.
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns ListBenchmarkJobsRequest
+                     * @returns ListBenchmarkJobsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListBenchmarkJobsRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListBenchmarkJobsQuery;
 
                     /**
-                     * Decodes a ListBenchmarkJobsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns ListBenchmarkJobsRequest
+                     * @returns ListBenchmarkJobsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListBenchmarkJobsRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListBenchmarkJobsQuery;
 
                     /**
-                     * Verifies a ListBenchmarkJobsRequest message.
+                     * Verifies a ListBenchmarkJobsQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a ListBenchmarkJobsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListBenchmarkJobsQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns ListBenchmarkJobsRequest
+                     * @returns ListBenchmarkJobsQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListBenchmarkJobsRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListBenchmarkJobsQuery;
 
                     /**
-                     * Creates a plain object from a ListBenchmarkJobsRequest message. Also converts values to other types if specified.
-                     * @param message ListBenchmarkJobsRequest
+                     * Creates a plain object from a ListBenchmarkJobsQuery message. Also converts values to other types if specified.
+                     * @param message ListBenchmarkJobsQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.admin.ListBenchmarkJobsRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.admin.ListBenchmarkJobsQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this ListBenchmarkJobsRequest to JSON.
+                     * Converts this ListBenchmarkJobsQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
@@ -2614,91 +2614,91 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a CancelBenchmarkJobRequest. */
-                interface ICancelBenchmarkJobRequest {
+                /** Properties of a CancelBenchmarkJobQuery. */
+                interface ICancelBenchmarkJobQuery {
 
-                    /** CancelBenchmarkJobRequest id */
+                    /** CancelBenchmarkJobQuery id */
                     id?: (number|Long|null);
                 }
 
-                /** Represents a CancelBenchmarkJobRequest. */
-                class CancelBenchmarkJobRequest implements ICancelBenchmarkJobRequest {
+                /** Represents a CancelBenchmarkJobQuery. */
+                class CancelBenchmarkJobQuery implements ICancelBenchmarkJobQuery {
 
                     /**
-                     * Constructs a new CancelBenchmarkJobRequest.
+                     * Constructs a new CancelBenchmarkJobQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.admin.ICancelBenchmarkJobRequest);
+                    constructor(properties?: isuxportal.proto.services.admin.ICancelBenchmarkJobQuery);
 
-                    /** CancelBenchmarkJobRequest id. */
+                    /** CancelBenchmarkJobQuery id. */
                     public id: (number|Long);
 
                     /**
-                     * Creates a new CancelBenchmarkJobRequest instance using the specified properties.
+                     * Creates a new CancelBenchmarkJobQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns CancelBenchmarkJobRequest instance
+                     * @returns CancelBenchmarkJobQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.admin.ICancelBenchmarkJobRequest): isuxportal.proto.services.admin.CancelBenchmarkJobRequest;
+                    public static create(properties?: isuxportal.proto.services.admin.ICancelBenchmarkJobQuery): isuxportal.proto.services.admin.CancelBenchmarkJobQuery;
 
                     /**
-                     * Encodes the specified CancelBenchmarkJobRequest message. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobRequest.verify|verify} messages.
-                     * @param message CancelBenchmarkJobRequest message or plain object to encode
+                     * Encodes the specified CancelBenchmarkJobQuery message. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobQuery.verify|verify} messages.
+                     * @param message CancelBenchmarkJobQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.admin.ICancelBenchmarkJobRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.admin.ICancelBenchmarkJobQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified CancelBenchmarkJobRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobRequest.verify|verify} messages.
-                     * @param message CancelBenchmarkJobRequest message or plain object to encode
+                     * Encodes the specified CancelBenchmarkJobQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.CancelBenchmarkJobQuery.verify|verify} messages.
+                     * @param message CancelBenchmarkJobQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.admin.ICancelBenchmarkJobRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.ICancelBenchmarkJobQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a CancelBenchmarkJobRequest message from the specified reader or buffer.
+                     * Decodes a CancelBenchmarkJobQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns CancelBenchmarkJobRequest
+                     * @returns CancelBenchmarkJobQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.CancelBenchmarkJobRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.CancelBenchmarkJobQuery;
 
                     /**
-                     * Decodes a CancelBenchmarkJobRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a CancelBenchmarkJobQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns CancelBenchmarkJobRequest
+                     * @returns CancelBenchmarkJobQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.CancelBenchmarkJobRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.CancelBenchmarkJobQuery;
 
                     /**
-                     * Verifies a CancelBenchmarkJobRequest message.
+                     * Verifies a CancelBenchmarkJobQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a CancelBenchmarkJobRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a CancelBenchmarkJobQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns CancelBenchmarkJobRequest
+                     * @returns CancelBenchmarkJobQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.CancelBenchmarkJobRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.CancelBenchmarkJobQuery;
 
                     /**
-                     * Creates a plain object from a CancelBenchmarkJobRequest message. Also converts values to other types if specified.
-                     * @param message CancelBenchmarkJobRequest
+                     * Creates a plain object from a CancelBenchmarkJobQuery message. Also converts values to other types if specified.
+                     * @param message CancelBenchmarkJobQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.admin.CancelBenchmarkJobRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.admin.CancelBenchmarkJobQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this CancelBenchmarkJobRequest to JSON.
+                     * Converts this CancelBenchmarkJobQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };

@@ -30,6 +30,32 @@ export class AdminApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listBenchmarkJobs(teamId?: number | null, incompleteOnly?: boolean) {
+    const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs?team_id=${teamId ? teamId.toString() : ''}&incomplete_only=${incompleteOnly ? '1' : '0'}`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async enqueueBenchmarkJob(payload: isuxportal.proto.services.admin.IEnqueueBenchmarkJobRequest) {
+    const responseClass = isuxportal.proto.services.admin.EnqueueBenchmarkJobResponse;
+    const payloadClass = isuxportal.proto.services.admin.EnqueueBenchmarkJobRequest;
+    const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs`, "POST", null, payloadMessage);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async getBenchmarkJob(id: number) {
+    const klass = isuxportal.proto.services.admin.GetBenchmarkJobResponse;
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs/${encodeURIComponent(id.toString())}`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async cancelBenchmarkJob(id: number) {
+    const klass = isuxportal.proto.services.admin.CancelBenchmarkJobResponse;
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs/${encodeURIComponent(id.toString())}`, "DELETE", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
 
   public request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     return this.apiClient.request(path, method, query, payload);
