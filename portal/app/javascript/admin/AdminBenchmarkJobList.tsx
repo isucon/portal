@@ -108,9 +108,6 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
             {this.renderList()}
           </main>
         </Route>
-        <Route path="/admin/benchmark_jobs/:id" render={({match}) => {
-          return <></>;
-        }} />
       </Switch>
     </>;
   }

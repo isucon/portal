@@ -4,23 +4,23 @@ option go_package = "github.com/isucon/isucon10-portal/proto/resources";
 
 import "google/protobuf/timestamp.proto";
 import "isuxportal/resources/team.proto";
+import "isuxportal/resources/contest.proto";
 
 message Leaderboard {
   message LeaderboardItem {
     message LeaderboardScore {
-    int64 score = 1;
-    google.protobuf.Timestamp started_at = 2;
-    google.protobuf.Timestamp updated_at = 3;
+      int64 score = 1;
+      google.protobuf.Timestamp started_at = 2;
+      google.protobuf.Timestamp updated_at = 3;
     }
     repeated LeaderboardScore scores = 1;
+    int64 best_score = 2;
     Team team = 16;
   }
   repeated LeaderboardItem teams = 1;
   repeated LeaderboardItem general_teams = 2;
   repeated LeaderboardItem student_teams = 3;
   repeated LeaderboardItem progresses = 4;
-  bool frozen = 5;
-  google.protobuf.Timestamp contest_starts_at = 6;
-  google.protobuf.Timestamp contest_freezes_at = 7;
-  google.protobuf.Timestamp contest_ends_at = 8;
+  
+  Contest contest = 5;
 }

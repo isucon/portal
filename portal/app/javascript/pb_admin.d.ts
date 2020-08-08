@@ -742,10 +742,10 @@ export namespace isuxportal {
                     stderr?: (string|null);
 
                     /** Execution exitStatus */
-                    exitStatus?: (number|Long|null);
+                    exitStatus?: (number|null);
 
                     /** Execution exitSignal */
-                    exitSignal?: (number|Long|null);
+                    exitSignal?: (number|null);
 
                     /** Execution signaled */
                     signaled?: (boolean|null);
@@ -770,10 +770,10 @@ export namespace isuxportal {
                     public stderr: string;
 
                     /** Execution exitStatus. */
-                    public exitStatus: (number|Long);
+                    public exitStatus: number;
 
                     /** Execution exitSignal. */
-                    public exitSignal: (number|Long);
+                    public exitSignal: number;
 
                     /** Execution signaled. */
                     public signaled: boolean;
@@ -1613,6 +1613,144 @@ export namespace isuxportal {
                 public toJSON(): { [k: string]: any };
             }
 
+            /** Properties of a Contest. */
+            interface IContest {
+
+                /** Contest registrationOpensAt */
+                registrationOpensAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest registrationClosesAt */
+                registrationClosesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest startsAt */
+                startsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest freezesAt */
+                freezesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest endsAt */
+                endsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest status */
+                status?: (isuxportal.proto.resources.Contest.Status|null);
+
+                /** Contest frozen */
+                frozen?: (boolean|null);
+            }
+
+            /** Represents a Contest. */
+            class Contest implements IContest {
+
+                /**
+                 * Constructs a new Contest.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.IContest);
+
+                /** Contest registrationOpensAt. */
+                public registrationOpensAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest registrationClosesAt. */
+                public registrationClosesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest startsAt. */
+                public startsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest freezesAt. */
+                public freezesAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest endsAt. */
+                public endsAt?: (google.protobuf.ITimestamp|null);
+
+                /** Contest status. */
+                public status: isuxportal.proto.resources.Contest.Status;
+
+                /** Contest frozen. */
+                public frozen: boolean;
+
+                /**
+                 * Creates a new Contest instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns Contest instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.IContest): isuxportal.proto.resources.Contest;
+
+                /**
+                 * Encodes the specified Contest message. Does not implicitly {@link isuxportal.proto.resources.Contest.verify|verify} messages.
+                 * @param message Contest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.IContest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified Contest message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Contest.verify|verify} messages.
+                 * @param message Contest message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.IContest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a Contest message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Contest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Contest;
+
+                /**
+                 * Decodes a Contest message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Contest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Contest;
+
+                /**
+                 * Verifies a Contest message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Contest message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Contest
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Contest;
+
+                /**
+                 * Creates a plain object from a Contest message. Also converts values to other types if specified.
+                 * @param message Contest
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.Contest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Contest to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace Contest {
+
+                /** Status enum. */
+                enum Status {
+                    STANDBY = 0,
+                    REGISTRATION = 1,
+                    STARTED = 2,
+                    FROZEN = 3,
+                    FINISHED = 4
+                }
+            }
+
             /** Properties of a Leaderboard. */
             interface ILeaderboard {
 
@@ -1628,17 +1766,8 @@ export namespace isuxportal {
                 /** Leaderboard progresses */
                 progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
 
-                /** Leaderboard frozen */
-                frozen?: (boolean|null);
-
-                /** Leaderboard contestStartsAt */
-                contestStartsAt?: (google.protobuf.ITimestamp|null);
-
-                /** Leaderboard contestFreezesAt */
-                contestFreezesAt?: (google.protobuf.ITimestamp|null);
-
-                /** Leaderboard contestEndsAt */
-                contestEndsAt?: (google.protobuf.ITimestamp|null);
+                /** Leaderboard contest */
+                contest?: (isuxportal.proto.resources.IContest|null);
             }
 
             /** Represents a Leaderboard. */
@@ -1662,17 +1791,8 @@ export namespace isuxportal {
                 /** Leaderboard progresses. */
                 public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
 
-                /** Leaderboard frozen. */
-                public frozen: boolean;
-
-                /** Leaderboard contestStartsAt. */
-                public contestStartsAt?: (google.protobuf.ITimestamp|null);
-
-                /** Leaderboard contestFreezesAt. */
-                public contestFreezesAt?: (google.protobuf.ITimestamp|null);
-
-                /** Leaderboard contestEndsAt. */
-                public contestEndsAt?: (google.protobuf.ITimestamp|null);
+                /** Leaderboard contest. */
+                public contest?: (isuxportal.proto.resources.IContest|null);
 
                 /**
                  * Creates a new Leaderboard instance using the specified properties.
@@ -1753,6 +1873,9 @@ export namespace isuxportal {
                     /** LeaderboardItem scores */
                     scores?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[]|null);
 
+                    /** LeaderboardItem bestScore */
+                    bestScore?: (number|Long|null);
+
                     /** LeaderboardItem team */
                     team?: (isuxportal.proto.resources.ITeam|null);
                 }
@@ -1768,6 +1891,9 @@ export namespace isuxportal {
 
                     /** LeaderboardItem scores. */
                     public scores: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[];
+
+                    /** LeaderboardItem bestScore. */
+                    public bestScore: (number|Long);
 
                     /** LeaderboardItem team. */
                     public team?: (isuxportal.proto.resources.ITeam|null);

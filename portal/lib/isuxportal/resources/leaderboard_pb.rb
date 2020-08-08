@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'google/protobuf/timestamp_pb'
 require 'isuxportal/resources/team_pb'
+require 'isuxportal/resources/contest_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/resources/leaderboard.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.resources.Leaderboard" do
@@ -12,13 +13,11 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       repeated :general_teams, :message, 2, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       repeated :student_teams, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       repeated :progresses, :message, 4, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      optional :frozen, :bool, 5
-      optional :contest_starts_at, :message, 6, "google.protobuf.Timestamp"
-      optional :contest_freezes_at, :message, 7, "google.protobuf.Timestamp"
-      optional :contest_ends_at, :message, 8, "google.protobuf.Timestamp"
+      optional :contest, :message, 5, "isuxportal.proto.resources.Contest"
     end
     add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem" do
       repeated :scores, :message, 1, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
+      optional :best_score, :int64, 2
       optional :team, :message, 16, "isuxportal.proto.resources.Team"
     end
     add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore" do

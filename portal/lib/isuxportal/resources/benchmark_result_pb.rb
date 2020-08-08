@@ -22,8 +22,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :reason, :string, 1
       optional :stdout, :string, 2
       optional :stderr, :string, 3
-      optional :exit_status, :int64, 4
-      optional :exit_signal, :int64, 5
+      optional :exit_status, :int32, 4
+      optional :exit_signal, :int32, 5
       optional :signaled, :bool, 6
     end
   end

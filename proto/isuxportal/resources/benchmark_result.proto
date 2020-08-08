@@ -20,8 +20,8 @@ message BenchmarkResult {
     string reason = 1;
     string stdout = 2;
     string stderr = 3;
-    int64 exit_status = 4;
-    int64 exit_signal = 5;
+    int32 exit_status = 4;
+    int32 exit_signal = 5;
     bool signaled = 6;
   }
 
