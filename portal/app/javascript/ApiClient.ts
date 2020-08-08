@@ -19,7 +19,6 @@ export class ApiError extends Error {
 
 }
 
-
 export class ApiClient {
   public baseUrl: string;
 

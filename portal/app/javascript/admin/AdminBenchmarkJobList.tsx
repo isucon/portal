@@ -4,8 +4,55 @@ import {AdminApiClient} from "./AdminApiClient";
 
 import React from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 
 import {ErrorMessage} from "../ErrorMessage";
+
+type ListFilterProps = {
+  teamId: string | null,
+  incompleteOnly: boolean,
+}
+const ListFilter: React.FC<ListFilterProps>  = (props: ListFilterProps) => {
+  const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
+  const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
+    defaultValues: props,
+  });
+  const onSubmit = handleSubmit((data) => {
+    const search = new URLSearchParams();
+    search.set("team_id", data.teamId || "");
+    search.set("incompleteOnly", data.incompleteOnly ? '1' : '0');
+    setRedirect(<Redirect push={true} to={{
+      pathname: "/admin/benchmark_jobs",
+      search: `?${search.toString()}`,
+    }} />);
+  });
+
+  return <div className="card mt-5">
+    {redirect}
+    <div className="card-content">
+      <form onSubmit={onSubmit}>
+        <div className="columns">
+          <div className="column is-3 field">
+            <label className="label" htmlFor="AdminBenchmarkJobListFilter-teamId">Team ID</label>
+            <div className="control">
+              <input className="input" type="text" name="teamId" id="AdminBenchmarkJobListFilter-teamId" ref={register} />
+            </div>
+          </div>
+          <div className="column is-3 field">
+            <label className="label" htmlFor="AdminBenchmarkJobListFilter-incompleteOnly">Incomplete only</label>
+            <div className="control">
+              <input type="checkbox" name="incompleteOnly" id="AdminBenchmarkJobListFilter-incompleteOnly" ref={register} />
+            </div>
+          </div>
+          <div className="column is-3 field">
+            <button className="button is-link" type="submit">Filter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>;
+}
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -32,6 +79,10 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
     this.updateList();
   }
 
+  public componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevProps !== this.props) this.updateList();
+  }
+
   async updateList() {
     try {
       const list = await this.props.client.listBenchmarkJobs(
@@ -46,19 +97,31 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
 
   public render() {
     return <>
-      <header>
-        <h1 className="title is-1">Benchmark Jobs</h1>
-      </header>
-      <main>
-        {this.renderError()}
-        {this.renderList()}
-      </main>
+      <Switch>
+        <Route exact path="/admin/benchmark_jobs">
+          <header>
+            <h1 className="title is-1">Benchmark Jobs</h1>
+          </header>
+          <main>
+            {this.renderFilter()}
+            {this.renderError()}
+            {this.renderList()}
+          </main>
+        </Route>
+        <Route path="/admin/benchmark_jobs/:id" render={({match}) => {
+          return <></>;
+        }} />
+      </Switch>
     </>;
   }
 
   public renderError() {
     if (!this.state.error) return;
     return <ErrorMessage error={this.state.error} />;
+  }
+
+  renderFilter() {
+    return <ListFilter teamId={this.props.teamId} incompleteOnly={this.props.incompleteOnly} />;
   }
 
   renderList() {
@@ -87,8 +150,10 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       <td>{job.score}</td>
       <td>{job.instanceName}</td>
       <td>
-        {job.status}
+        {isuxportal.proto.resources.BenchmarkJob.Status[job.status!]}
       </td>
     </tr>;
   }
 }
+
+

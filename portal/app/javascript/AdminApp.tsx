@@ -56,11 +56,11 @@ export class AdminApp extends React.Component<Props, State> {
               }} />
               <Route path="/admin/teams/:id" render={({match}) => {
                 return <AdminTeamDetail session={this.props.session} client={this.state.adminClient} teamId={match.params.id} />;
-              }} />
-              <Route path="/admin/benchmark_jobs" render={({match, location}) => {
-                const query = new URLSearchParams(location.search);
-                return <AdminBenchmarkJobList session={this.props.session} client={this.state.adminClient} teamId={query.get("team_id")} incompleteOnly={query.get("incomplete_only") === '1'}/>;
-              }} />
+            }} />
+            <Route path="/admin/benchmark_jobs" render={({match, location}) => {
+              const query = new URLSearchParams(location.search);
+              return <AdminBenchmarkJobList session={this.props.session} client={this.state.adminClient} teamId={query.get("team_id")} incompleteOnly={query.get("incomplete_only") === '1'}/>;
+            }} />
 
             </Switch>
           </main>

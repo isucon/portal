@@ -5,7 +5,7 @@ import {AdminApiClient} from "./AdminApiClient";
 import React from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { useForm, NestedValue } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import {ErrorMessage} from "../ErrorMessage";
 
