@@ -8,6 +8,9 @@ import { Redirect } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
 import {ErrorMessage} from "../ErrorMessage";
+import {TimeDuration} from "../TimeDuration";
+
+import {AdminBenchmarkJobForm} from "./AdminBenchmarkJobForm";
 
 type ListFilterProps = {
   teamId: string | null,
@@ -131,6 +134,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
           <th>Score</th>
           <th>Instance</th>
           <th>Status</th>
+          <th>Duration</th>
         </tr>
       </thead>
       <tbody>
@@ -148,6 +152,9 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       <td>{job.instanceName}</td>
       <td>
         {isuxportal.proto.resources.BenchmarkJob.Status[job.status!]}
+      </td>
+      <td>
+        <TimeDuration a={job.createdAt!} b={job.finishedAt} />
       </td>
     </tr>;
   }
