@@ -41,6 +41,7 @@ Griffin::Server.configure do |c|
   ]
 
   c.workers 2
+  # TODO: pool_size, connection_size
 
   c.logger Rails.logger
 end
