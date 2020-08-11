@@ -106,6 +106,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
             <h1 className="title is-1">Benchmark Jobs</h1>
           </header>
           <main>
+            {this.renderForm()}
             {this.renderFilter()}
             {this.renderError()}
             {this.renderList()}
@@ -118,6 +119,10 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
   public renderError() {
     if (!this.state.error) return;
     return <ErrorMessage error={this.state.error} />;
+  }
+
+  renderForm() {
+    return <AdminBenchmarkJobForm session={this.props.session} client={this.props.client} />;
   }
 
   renderFilter() {
