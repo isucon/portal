@@ -36,9 +36,9 @@ Griffin::Server.configure do |c|
     Griffin::Interceptors::Server::LoggingInterceptor.new,
     Griffin::Interceptors::Server::RailsExceptionInterceptor.new,
     Griffin::Interceptors::Server::ClearConnectionInterceptor.new,
-    Griffin::Interceptors::Server::RavenInterceptor.new,
+    Rails.env.production? ? Griffin::Interceptors::Server::RavenInterceptor.new : nil,
     Griffin::Interceptors::Server::XRequestIdInterceptor.new,
-  ]
+  ].compact
 
   c.workers 2
   # TODO: pool_size, connection_size
