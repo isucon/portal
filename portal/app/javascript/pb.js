@@ -5508,7 +5508,7 @@ $root.isuxportal = (function() {
                          * @interface ILeaderboardScore
                          * @property {number|Long|null} [score] LeaderboardScore score
                          * @property {google.protobuf.ITimestamp|null} [startedAt] LeaderboardScore startedAt
-                         * @property {google.protobuf.ITimestamp|null} [updatedAt] LeaderboardScore updatedAt
+                         * @property {google.protobuf.ITimestamp|null} [markedAt] LeaderboardScore markedAt
                          */
 
                         /**
@@ -5543,12 +5543,12 @@ $root.isuxportal = (function() {
                         LeaderboardScore.prototype.startedAt = null;
 
                         /**
-                         * LeaderboardScore updatedAt.
-                         * @member {google.protobuf.ITimestamp|null|undefined} updatedAt
+                         * LeaderboardScore markedAt.
+                         * @member {google.protobuf.ITimestamp|null|undefined} markedAt
                          * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore
                          * @instance
                          */
-                        LeaderboardScore.prototype.updatedAt = null;
+                        LeaderboardScore.prototype.markedAt = null;
 
                         /**
                          * Creates a new LeaderboardScore instance using the specified properties.
@@ -5578,8 +5578,8 @@ $root.isuxportal = (function() {
                                 writer.uint32(/* id 1, wireType 0 =*/8).int64(message.score);
                             if (message.startedAt != null && Object.hasOwnProperty.call(message, "startedAt"))
                                 $root.google.protobuf.Timestamp.encode(message.startedAt, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                            if (message.updatedAt != null && Object.hasOwnProperty.call(message, "updatedAt"))
-                                $root.google.protobuf.Timestamp.encode(message.updatedAt, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.markedAt != null && Object.hasOwnProperty.call(message, "markedAt"))
+                                $root.google.protobuf.Timestamp.encode(message.markedAt, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                             return writer;
                         };
 
@@ -5621,7 +5621,7 @@ $root.isuxportal = (function() {
                                     message.startedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                                     break;
                                 case 3:
-                                    message.updatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                                    message.markedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -5666,10 +5666,10 @@ $root.isuxportal = (function() {
                                 if (error)
                                     return "startedAt." + error;
                             }
-                            if (message.updatedAt != null && message.hasOwnProperty("updatedAt")) {
-                                var error = $root.google.protobuf.Timestamp.verify(message.updatedAt);
+                            if (message.markedAt != null && message.hasOwnProperty("markedAt")) {
+                                var error = $root.google.protobuf.Timestamp.verify(message.markedAt);
                                 if (error)
-                                    return "updatedAt." + error;
+                                    return "markedAt." + error;
                             }
                             return null;
                         };
@@ -5700,10 +5700,10 @@ $root.isuxportal = (function() {
                                     throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.startedAt: object expected");
                                 message.startedAt = $root.google.protobuf.Timestamp.fromObject(object.startedAt);
                             }
-                            if (object.updatedAt != null) {
-                                if (typeof object.updatedAt !== "object")
-                                    throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.updatedAt: object expected");
-                                message.updatedAt = $root.google.protobuf.Timestamp.fromObject(object.updatedAt);
+                            if (object.markedAt != null) {
+                                if (typeof object.markedAt !== "object")
+                                    throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.markedAt: object expected");
+                                message.markedAt = $root.google.protobuf.Timestamp.fromObject(object.markedAt);
                             }
                             return message;
                         };
@@ -5728,7 +5728,7 @@ $root.isuxportal = (function() {
                                 } else
                                     object.score = options.longs === String ? "0" : 0;
                                 object.startedAt = null;
-                                object.updatedAt = null;
+                                object.markedAt = null;
                             }
                             if (message.score != null && message.hasOwnProperty("score"))
                                 if (typeof message.score === "number")
@@ -5737,8 +5737,8 @@ $root.isuxportal = (function() {
                                     object.score = options.longs === String ? $util.Long.prototype.toString.call(message.score) : options.longs === Number ? new $util.LongBits(message.score.low >>> 0, message.score.high >>> 0).toNumber() : message.score;
                             if (message.startedAt != null && message.hasOwnProperty("startedAt"))
                                 object.startedAt = $root.google.protobuf.Timestamp.toObject(message.startedAt, options);
-                            if (message.updatedAt != null && message.hasOwnProperty("updatedAt"))
-                                object.updatedAt = $root.google.protobuf.Timestamp.toObject(message.updatedAt, options);
+                            if (message.markedAt != null && message.hasOwnProperty("markedAt"))
+                                object.markedAt = $root.google.protobuf.Timestamp.toObject(message.markedAt, options);
                             return object;
                         };
 

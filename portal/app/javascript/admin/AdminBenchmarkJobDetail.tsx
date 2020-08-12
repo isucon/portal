@@ -17,6 +17,7 @@ export interface Props {
 export interface State {
   job: isuxportal.proto.resources.IBenchmarkJob | null,
   error: Error | null,
+  requesting: boolean,
 }
 
 export class AdminBenchmarkJobDetail extends React.Component<Props, State> {
@@ -25,6 +26,7 @@ export class AdminBenchmarkJobDetail extends React.Component<Props, State> {
     this.state = {
       job: null,
       error: null,
+      requesting: false,
     };
   }
 
@@ -66,7 +68,30 @@ export class AdminBenchmarkJobDetail extends React.Component<Props, State> {
     if (!this.state.job) return <p>Loading...</p>;
     return <>
       <BenchmarkJobDetail job={this.state.job} admin={true} />
+      <div className="card mt-5">
+        <div className="card-content">
+          <button onClick={this.onCancelClick.bind(this)} disabled={!this.isJobCancellable()} className="button is-danger">Cancel</button>
+        </div>
+      </div>
     </>;
+  }
+
+  isJobCancellable() {
+    if (!this.state.job) return undefined;
+    return !this.state.requesting && (this.state.job.status == isuxportal.proto.resources.BenchmarkJob.Status.PENDING || this.state.job.status == isuxportal.proto.resources.BenchmarkJob.Status.RUNNING);
+  }
+
+  public async onCancelClick(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (!this.state.job) throw new Error( "[BUG] onCancelClick must not be called without a job");
+    if (this.state.requesting) return;
+    try {
+      this.setState({requesting: true});
+      const resp = await this.props.client.cancelBenchmarkJob(this.state.job.id! as number);
+      this.setState({requesting: false, error: null, job: resp.job!});
+    } catch (e) {
+      this.setState({requesting: false, error: e});
+    }
   }
 }
 

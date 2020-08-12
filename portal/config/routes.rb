@@ -54,7 +54,7 @@ Rails.application.routes.draw do
       # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs
       # admin/benchmark GetBenchmarkJobs: GET /api/admin/benchmark_jobs/:id
       # admin/benchmark CancelBenchmarkJob: DELETE /api/admin/benchmark_jobs/:id
-      resources :benchmark_jobs, only: %i(index create show delete)
+      resources :benchmark_jobs, only: %i(index create show destroy)
 
     end
   end

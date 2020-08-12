@@ -31,16 +31,16 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
       # target_id: 0, # TODO: ContestantInstance
     )
     render protobuf: Isuxportal::Proto::Services::Admin::EnqueueBenchmarkJobResponse.new(
-      job: @benchmark_job.to_pb(admin: true, team: true)
+      job: @benchmark_job.to_pb(admin: true, team: true, detail: true)
     )
   end
 
-  pb :delete, Isuxportal::Proto::Services::Admin::CancelBenchmarkJobQuery
-  def delete
+  pb :destroy, Isuxportal::Proto::Services::Admin::CancelBenchmarkJobQuery
+  def destroy
     @benchmark_job = BenchmarkJob.find(params[:id])
     @benchmark_job.cancel!
     render protobuf: Isuxportal::Proto::Services::Admin::CancelBenchmarkJobResponse.new(
-      job: @benchmark_job.to_pb(admin: true, team: true)
+      job: @benchmark_job.to_pb(admin: true, team: true, detail: true)
     )
   rescue BenchmarkJob::InvalidTransition
     raise Api::ApplicationController::Error::NotFound, "cannot cancel a completed job"

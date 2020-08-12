@@ -23,7 +23,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore" do
       optional :score, :int64, 1
       optional :started_at, :message, 2, "google.protobuf.Timestamp"
-      optional :updated_at, :message, 3, "google.protobuf.Timestamp"
+      optional :marked_at, :message, 3, "google.protobuf.Timestamp"
     end
   end
 end

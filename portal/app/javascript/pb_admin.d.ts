@@ -1980,8 +1980,8 @@ export namespace isuxportal {
                         /** LeaderboardScore startedAt */
                         startedAt?: (google.protobuf.ITimestamp|null);
 
-                        /** LeaderboardScore updatedAt */
-                        updatedAt?: (google.protobuf.ITimestamp|null);
+                        /** LeaderboardScore markedAt */
+                        markedAt?: (google.protobuf.ITimestamp|null);
                     }
 
                     /** Represents a LeaderboardScore. */
@@ -1999,8 +1999,8 @@ export namespace isuxportal {
                         /** LeaderboardScore startedAt. */
                         public startedAt?: (google.protobuf.ITimestamp|null);
 
-                        /** LeaderboardScore updatedAt. */
-                        public updatedAt?: (google.protobuf.ITimestamp|null);
+                        /** LeaderboardScore markedAt. */
+                        public markedAt?: (google.protobuf.ITimestamp|null);
 
                         /**
                          * Creates a new LeaderboardScore instance using the specified properties.
