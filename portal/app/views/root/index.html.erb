@@ -1,13 +1,1 @@
-<%- if Contest.registration_started? %>
-<div class="columns is-centered">
-  <article class="column is-9">
-    <p class="is-sr-only">ISUCON 告知動画</p>
-    <div class="i-yt">
-      <iframe src="https://www.youtube.com/embed/TC4mLW-pQ0U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  </article>
-</div>
-<%- end -%>
-
-<div id="team_list"></div>
-<%= javascript_pack_tag 'team_list' %>
+<%= javascript_pack_tag 'audience' %>

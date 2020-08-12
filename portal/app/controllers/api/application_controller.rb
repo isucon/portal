@@ -3,6 +3,29 @@ require 'isuxportal/error_pb'
 class Api::ApplicationController < ApplicationController
   include ProtobufData
 
+  module Error
+    class NotFound < StandardError; end
+    class BadRequest < StandardError; end
+  end
+
+  rescue_from Error::NotFound do |err|
+    render status: 404, protobuf: Isuxportal::Proto::Error.new(
+      code: 404,
+      name: err.class.name,
+      human_message: err.message.presence || "Not found",
+      human_descriptions: [],
+    )
+  end
+
+  rescue_from Error::BadRequest do |err|
+    render status: 400, protobuf: Isuxportal::Proto::Error.new(
+      code: 400,
+      name: err.class.name,
+      human_message: err.message.presence || "Bad request",
+      human_descriptions: [],
+    )
+  end
+
   rescue_from ActiveRecord::RecordInvalid do |err|
     render status: 422, protobuf: Isuxportal::Proto::Error.new(
       code: 422,

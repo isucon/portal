@@ -20,38 +20,7 @@
   </head>
 
   <body>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-      <div class="container">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">ISUCON 10 Portal</a>
-        </div>
-        <div class="navbar-menu is-active">
-          <div class="navbar-start">
-            <a class="navbar-item" href="/">チーム一覧</a>
-            <a class="navbar-item" href="/terms">規約</a>
-            <a class="navbar-item" href="/rules">レギュレーション</a>
-          </div>
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <div class="isux-visibility-user">
-                  <%- # TODO: what if after registration close...? -%>
-                  <a class="button is-light" href="<%= registration_path %>">登録確認</a>
-                  <a class="button is-light" data-method="delete" href="<%= session_path %>">ログアウト</a>
-                </div>
-                <div class="isux-visibility-guest">
-                  <a class="button is-light" href="<%= registration_path %>">参加登録</a>
-                  <a class="button is-light" href="/auth/github">ログイン</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container mt-5">
-      <%= yield %>
-    </div>
+    <div id="app"></div>
+    <%= yield %>
   </body>
 </html>

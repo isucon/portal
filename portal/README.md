@@ -15,6 +15,10 @@ npx webpack --progress --watch
 bundle exec rails s
 ```
 
+```
+bundle exec rails runner 'Griffin::Server.run(port: 4000)'
+```
+
 ## Environment Variables
 
 - `ISUXPORTAL_GITHUB_CLIENT_ID` `ISUXPORTAL_GITHUB_CLIENT_SECRET`

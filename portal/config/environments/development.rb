@@ -87,5 +87,11 @@ Rails.application.configure do
   config.x.contest.registration_open = ENV['ISUXPORTAL_TIMING_REGISTRATION_OPEN']&.yield_self { |_| Time.xmlschema(_) }
   config.x.contest.registration_close = ENV['ISUXPORTAL_TIMING_REGISTRATION_CLOSE']&.yield_self { |_| Time.xmlschema(_) }
 
+  config.x.contest.contest_start = ENV['ISUXPORTAL_TIMING_CONTEST_START']&.yield_self { |_| Time.xmlschema(_) }
+  config.x.contest.contest_freeze = ENV['ISUXPORTAL_TIMING_CONTEST_FREEZE']&.yield_self { |_| Time.xmlschema(_) }
+  config.x.contest.contest_end = ENV['ISUXPORTAL_TIMING_CONTEST_END']&.yield_self { |_| Time.xmlschema(_) }
+
+  config.x.bench_auth.token = ENV['ISUXPORTAL_BENCH_TOKEN'] || ''
+
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 end

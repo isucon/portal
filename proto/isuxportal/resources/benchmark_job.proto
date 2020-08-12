@@ -26,12 +26,15 @@ message BenchmarkJob {
   google.protobuf.Timestamp started_at = 7;
   google.protobuf.Timestamp finished_at = 8;
 
+
   int64 score = 9;
   // instance_name is not available for contestant
   string instance_name = 10;
 
+  // team is only available at ...
   Team team = 16;
-  // target & result are only available at GetBenchmarkJobResponse
+
+  // target & result & execution are only available at GetBenchmarkJobResponse
   ContestantInstance target = 17;
   BenchmarkResult result = 18;
 }

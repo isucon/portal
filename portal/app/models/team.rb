@@ -4,9 +4,14 @@ class Team < ApplicationRecord
   has_many :members, class_name: 'Contestant'
   has_one :leader, class_name: 'Contestant'
 
+  has_many :benchmark_jobs
+  has_many :benchmark_results
+
   validates :name, presence: true, uniqueness: true
   validates :email_address, presence: true
   validates :invite_token, presence: true
+
+  validate :validate_leader_belongs_to_team
 
   before_validation :generate_invite_token
 
@@ -37,13 +42,19 @@ class Team < ApplicationRecord
       final_participation: final_participation,
       hidden: is_hidden,
       withdrawn: withdrawn,
+      disqualified: disqualified?,
       detail: !detail ? nil : Isuxportal::Proto::Resources::Team::TeamDetail.new(
         email_address: email_address,
-        benchmark_target_id: 0, # TODO:
         invite_token: invite_token,
       ),
       leader: members ? leader&.to_pb(detail: member_detail) : nil,
       members: members ? self.members&.map { |_| _.to_pb(detail: member_detail) } : nil,
     )
+  end
+
+  private def validate_leader_belongs_to_team
+    if leader && self.persisted? && leader.team_id != self.id
+      errors.new :leader, "must belong to the team"
+    end
   end
 end

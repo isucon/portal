@@ -8,6 +8,7 @@ gem 'revision_plate'
 gem 'puma'
 gem 'griffin'
 gem 'griffin-interceptors'
+gem 'google-protobuf'
 gem 'sidekiq'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
@@ -33,4 +34,5 @@ group :development, :test do
 end
 
 group :development do
+  gem 'grpc-tools'
 end

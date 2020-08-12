@@ -9,9 +9,11 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.bench.ReportBenchmarkResultRequest" do
       optional :job_id, :int64, 1
       optional :handle, :string, 2
-      optional :result, :message, 3, "isuxportal.proto.resources.BenchmarkResult"
+      optional :nonce, :int64, 3
+      optional :result, :message, 4, "isuxportal.proto.resources.BenchmarkResult"
     end
     add_message "isuxportal.proto.services.bench.ReportBenchmarkResultResponse" do
+      optional :acked_nonce, :int64, 1
     end
   end
 end

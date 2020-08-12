@@ -16,6 +16,21 @@ module Contest
     end
   end
 
+  def self.contest_running?(now=Time.zone.now)
+    start = Rails.application.config.x.contest.contest_start
+    finish = Rails.application.config.x.contest.contest_end
+    if start && finish
+      (start...finish).cover?(now)
+    else
+      true
+    end
+  end
+
+  def self.contest_frozen?(now=Time.zone.now)
+    freeze = Rails.application.config.x.contest.contest_freeze
+    freeze && freeze <= now
+  end
+
   def self.max_teams_reached?
     team_count >= max_teams
   end
