@@ -15,6 +15,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :hidden, :bool, 6
       optional :withdrawn, :bool, 7
       optional :disqualified, :bool, 9
+      optional :student, :bool, 10
       optional :detail, :message, 8, "isuxportal.proto.resources.Team.TeamDetail"
       optional :leader, :message, 16, "isuxportal.proto.resources.Contestant"
       repeated :members, :message, 17, "isuxportal.proto.resources.Contestant"

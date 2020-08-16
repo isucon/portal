@@ -22,6 +22,7 @@ message Leaderboard {
   repeated LeaderboardItem general_teams = 2;
   repeated LeaderboardItem student_teams = 3;
   repeated LeaderboardItem progresses = 4;
+  // TODO: timestamp of leaderboard
   
   Contest contest = 5;
 }

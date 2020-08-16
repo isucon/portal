@@ -2761,6 +2761,7 @@ $root.isuxportal = (function() {
                  * @property {boolean|null} [hidden] Team hidden
                  * @property {boolean|null} [withdrawn] Team withdrawn
                  * @property {boolean|null} [disqualified] Team disqualified
+                 * @property {isuxportal.proto.resources.Team.IStudentStatus|null} [student] Team student
                  * @property {isuxportal.proto.resources.Team.ITeamDetail|null} [detail] Team detail
                  * @property {isuxportal.proto.resources.IContestant|null} [leader] Team leader
                  * @property {Array.<isuxportal.proto.resources.IContestant>|null} [members] Team members
@@ -2848,6 +2849,14 @@ $root.isuxportal = (function() {
                 Team.prototype.disqualified = false;
 
                 /**
+                 * Team student.
+                 * @member {isuxportal.proto.resources.Team.IStudentStatus|null|undefined} student
+                 * @memberof isuxportal.proto.resources.Team
+                 * @instance
+                 */
+                Team.prototype.student = null;
+
+                /**
                  * Team detail.
                  * @member {isuxportal.proto.resources.Team.ITeamDetail|null|undefined} detail
                  * @memberof isuxportal.proto.resources.Team
@@ -2917,6 +2926,8 @@ $root.isuxportal = (function() {
                         $root.isuxportal.proto.resources.Team.TeamDetail.encode(message.detail, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     if (message.disqualified != null && Object.hasOwnProperty.call(message, "disqualified"))
                         writer.uint32(/* id 9, wireType 0 =*/72).bool(message.disqualified);
+                    if (message.student != null && Object.hasOwnProperty.call(message, "student"))
+                        $root.isuxportal.proto.resources.Team.StudentStatus.encode(message.student, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                     if (message.leader != null && Object.hasOwnProperty.call(message, "leader"))
                         $root.isuxportal.proto.resources.Contestant.encode(message.leader, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     if (message.members != null && message.members.length)
@@ -2986,6 +2997,9 @@ $root.isuxportal = (function() {
                             break;
                         case 9:
                             message.disqualified = reader.bool();
+                            break;
+                        case 10:
+                            message.student = $root.isuxportal.proto.resources.Team.StudentStatus.decode(reader, reader.uint32());
                             break;
                         case 8:
                             message.detail = $root.isuxportal.proto.resources.Team.TeamDetail.decode(reader, reader.uint32());
@@ -3061,6 +3075,11 @@ $root.isuxportal = (function() {
                     if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                         if (typeof message.disqualified !== "boolean")
                             return "disqualified: boolean expected";
+                    if (message.student != null && message.hasOwnProperty("student")) {
+                        var error = $root.isuxportal.proto.resources.Team.StudentStatus.verify(message.student);
+                        if (error)
+                            return "student." + error;
+                    }
                     if (message.detail != null && message.hasOwnProperty("detail")) {
                         var error = $root.isuxportal.proto.resources.Team.TeamDetail.verify(message.detail);
                         if (error)
@@ -3137,6 +3156,11 @@ $root.isuxportal = (function() {
                         message.withdrawn = Boolean(object.withdrawn);
                     if (object.disqualified != null)
                         message.disqualified = Boolean(object.disqualified);
+                    if (object.student != null) {
+                        if (typeof object.student !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Team.student: object expected");
+                        message.student = $root.isuxportal.proto.resources.Team.StudentStatus.fromObject(object.student);
+                    }
                     if (object.detail != null) {
                         if (typeof object.detail !== "object")
                             throw TypeError(".isuxportal.proto.resources.Team.detail: object expected");
@@ -3194,6 +3218,7 @@ $root.isuxportal = (function() {
                         object.withdrawn = false;
                         object.detail = null;
                         object.disqualified = false;
+                        object.student = null;
                         object.leader = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -3226,6 +3251,8 @@ $root.isuxportal = (function() {
                         object.detail = $root.isuxportal.proto.resources.Team.TeamDetail.toObject(message.detail, options);
                     if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                         object.disqualified = message.disqualified;
+                    if (message.student != null && message.hasOwnProperty("student"))
+                        object.student = $root.isuxportal.proto.resources.Team.StudentStatus.toObject(message.student, options);
                     if (message.leader != null && message.hasOwnProperty("leader"))
                         object.leader = $root.isuxportal.proto.resources.Contestant.toObject(message.leader, options);
                     if (message.members && message.members.length) {
@@ -3246,6 +3273,193 @@ $root.isuxportal = (function() {
                 Team.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
+
+                Team.StudentStatus = (function() {
+
+                    /**
+                     * Properties of a StudentStatus.
+                     * @memberof isuxportal.proto.resources.Team
+                     * @interface IStudentStatus
+                     * @property {boolean|null} [status] StudentStatus status
+                     */
+
+                    /**
+                     * Constructs a new StudentStatus.
+                     * @memberof isuxportal.proto.resources.Team
+                     * @classdesc Represents a StudentStatus.
+                     * @implements IStudentStatus
+                     * @constructor
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus=} [properties] Properties to set
+                     */
+                    function StudentStatus(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * StudentStatus status.
+                     * @member {boolean} status
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @instance
+                     */
+                    StudentStatus.prototype.status = false;
+
+                    /**
+                     * Creates a new StudentStatus instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus=} [properties] Properties to set
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus instance
+                     */
+                    StudentStatus.create = function create(properties) {
+                        return new StudentStatus(properties);
+                    };
+
+                    /**
+                     * Encodes the specified StudentStatus message. Does not implicitly {@link isuxportal.proto.resources.Team.StudentStatus.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus} message StudentStatus message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    StudentStatus.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified StudentStatus message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Team.StudentStatus.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus} message StudentStatus message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    StudentStatus.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a StudentStatus message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    StudentStatus.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Team.StudentStatus();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.status = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a StudentStatus message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    StudentStatus.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a StudentStatus message.
+                     * @function verify
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    StudentStatus.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            if (typeof message.status !== "boolean")
+                                return "status: boolean expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a StudentStatus message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     */
+                    StudentStatus.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.resources.Team.StudentStatus)
+                            return object;
+                        var message = new $root.isuxportal.proto.resources.Team.StudentStatus();
+                        if (object.status != null)
+                            message.status = Boolean(object.status);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a StudentStatus message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.StudentStatus} message StudentStatus
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    StudentStatus.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.status = false;
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            object.status = message.status;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this StudentStatus to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    StudentStatus.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return StudentStatus;
+                })();
 
                 Team.TeamDetail = (function() {
 
@@ -15202,23 +15416,23 @@ $root.isuxportal = (function() {
                     return RequestClarificationResponse;
                 })();
 
-                contestant.DashboardRequest = (function() {
+                contestant.DashboardQuery = (function() {
 
                     /**
-                     * Properties of a DashboardRequest.
+                     * Properties of a DashboardQuery.
                      * @memberof isuxportal.proto.services.contestant
-                     * @interface IDashboardRequest
+                     * @interface IDashboardQuery
                      */
 
                     /**
-                     * Constructs a new DashboardRequest.
+                     * Constructs a new DashboardQuery.
                      * @memberof isuxportal.proto.services.contestant
-                     * @classdesc Represents a DashboardRequest.
-                     * @implements IDashboardRequest
+                     * @classdesc Represents a DashboardQuery.
+                     * @implements IDashboardQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.contestant.IDashboardRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery=} [properties] Properties to set
                      */
-                    function DashboardRequest(properties) {
+                    function DashboardQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -15226,60 +15440,60 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Creates a new DashboardRequest instance using the specified properties.
+                     * Creates a new DashboardQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IDashboardRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.contestant.DashboardRequest} DashboardRequest instance
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery instance
                      */
-                    DashboardRequest.create = function create(properties) {
-                        return new DashboardRequest(properties);
+                    DashboardQuery.create = function create(properties) {
+                        return new DashboardQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encode = function encode(message, writer) {
+                    DashboardQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    DashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * Decodes a DashboardQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.contestant.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decode = function decode(reader, length) {
+                    DashboardQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.DashboardRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.DashboardQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -15292,74 +15506,74 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a DashboardQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.contestant.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decodeDelimited = function decodeDelimited(reader) {
+                    DashboardQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a DashboardRequest message.
+                     * Verifies a DashboardQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    DashboardRequest.verify = function verify(message) {
+                    DashboardQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         return null;
                     };
 
                     /**
-                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a DashboardQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.contestant.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
                      */
-                    DashboardRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.contestant.DashboardRequest)
+                    DashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.DashboardQuery)
                             return object;
-                        return new $root.isuxportal.proto.services.contestant.DashboardRequest();
+                        return new $root.isuxportal.proto.services.contestant.DashboardQuery();
                     };
 
                     /**
-                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a DashboardQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.DashboardRequest} message DashboardRequest
+                     * @param {isuxportal.proto.services.contestant.DashboardQuery} message DashboardQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    DashboardRequest.toObject = function toObject() {
+                    DashboardQuery.toObject = function toObject() {
                         return {};
                     };
 
                     /**
-                     * Converts this DashboardRequest to JSON.
+                     * Converts this DashboardQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.contestant.DashboardRequest
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    DashboardRequest.prototype.toJSON = function toJSON() {
+                    DashboardQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return DashboardRequest;
+                    return DashboardQuery;
                 })();
 
                 contestant.DashboardResponse = (function() {

@@ -14,6 +14,7 @@ class Team < ApplicationRecord
   validate :validate_leader_belongs_to_team
 
   before_validation :generate_invite_token
+  before_validation :generate_student_status
 
   scope :active, -> { where(withdrawn: false, disqualified: false) }
 
@@ -26,7 +27,17 @@ class Team < ApplicationRecord
   end
 
   def student?
-    members.all?(&:student?)
+    a = read_attribute(:student)
+    return a unless a.nil?
+    members_all_student?
+  end
+
+  def update_student_status
+    self.student = members_all_student?
+  end
+
+  def members_all_student?
+    members.size > 0 && members.all?(&:student?)
   end
 
   def generate_invite_token
@@ -43,6 +54,7 @@ class Team < ApplicationRecord
       hidden: is_hidden,
       withdrawn: withdrawn,
       disqualified: disqualified?,
+      student: Isuxportal::Proto::Resources::Team::StudentStatus.new(status: student?),
       detail: !detail ? nil : Isuxportal::Proto::Resources::Team::TeamDetail.new(
         email_address: email_address,
         invite_token: invite_token,
@@ -56,5 +68,9 @@ class Team < ApplicationRecord
     if leader && self.persisted? && leader.team_id != self.id
       errors.new :leader, "must belong to the team"
     end
+  end
+
+  private def generate_student_status
+    update_student_status if student.nil?
   end
 end

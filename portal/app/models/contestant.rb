@@ -15,6 +15,8 @@ class Contestant < ApplicationRecord
 
   scope :active, -> { eager_load(:team).joins(:team).where(teams: {withdrawn: false, disqualified: false}) }
 
+  after_save :save_team_student_status
+
   def active?
     team.active?
   end
@@ -44,5 +46,14 @@ class Contestant < ApplicationRecord
         is_student: student,
       ),
     )
+  end
+
+  def save_team_student_status
+    if student
+      team.update_student_status
+      team.save!
+    else
+      team.update_attributes!(student: false)
+    end
   end
 end
