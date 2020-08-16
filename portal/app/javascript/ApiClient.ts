@@ -84,6 +84,26 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listBenchmarkJobs() {
+    const klass = isuxportal.proto.services.contestant.ListBenchmarkJobsResponse;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async enqueueBenchmarkJob(payload: isuxportal.proto.services.contestant.IEnqueueBenchmarkJobRequest) {
+    const responseClass = isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse;
+    const payloadClass = isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest;
+    const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs`, "POST", null, payloadMessage);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async getBenchmarkJob(id: number) {
+    const klass = isuxportal.proto.services.contestant.GetBenchmarkJobResponse;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs/${encodeURIComponent(id.toString())}`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();

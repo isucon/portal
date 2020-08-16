@@ -3,6 +3,7 @@ import {isuxportal} from "./pb";
 import React from "react";
 import {Link} from "react-router-dom";
 
+import {BenchmarkJobStatus} from "./BenchmarkJobStatus";
 import {Timestamp} from "./Timestamp";
 
 export interface Props {
@@ -18,7 +19,7 @@ const renderJobSummary = (job: isuxportal.proto.resources.IBenchmarkJob) => {
     <div className="card-content">
       <p><b>ID:</b> {job.id}</p>
       {/* TODO: ContestantInstance */}
-      <p><b>Status:</b> {isuxportal.proto.resources.BenchmarkJob.Status[job.status!]}</p>
+      <p><b>Status:</b> <BenchmarkJobStatus status={job.status!} /></p>
       <p><b>Enqueued At:</b> <Timestamp timestamp={job.createdAt!} /></p>
       <p><b>Updated At:</b> <Timestamp timestamp={job.updatedAt!} /></p>
       <p><b>Started At:</b> {job.startedAt ? <Timestamp timestamp={job.startedAt} /> : 'N/A'}</p>
