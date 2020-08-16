@@ -19,8 +19,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :STANDBY, 0
       value :REGISTRATION, 1
       value :STARTED, 2
-      value :FROZEN, 3
-      value :FINISHED, 4
+      value :FINISHED, 3
     end
   end
 end

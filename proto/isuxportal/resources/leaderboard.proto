@@ -14,7 +14,8 @@ message Leaderboard {
       google.protobuf.Timestamp marked_at = 3;
     }
     repeated LeaderboardScore scores = 1;
-    int64 best_score = 2;
+    LeaderboardScore best_score = 2;
+    LeaderboardScore latest_score = 3;
     Team team = 16;
   }
   repeated LeaderboardItem teams = 1;

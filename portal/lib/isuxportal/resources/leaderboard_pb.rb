@@ -17,7 +17,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem" do
       repeated :scores, :message, 1, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
-      optional :best_score, :int64, 2
+      optional :best_score, :message, 2, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
+      optional :latest_score, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
       optional :team, :message, 16, "isuxportal.proto.resources.Team"
     end
     add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore" do

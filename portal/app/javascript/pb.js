@@ -4721,7 +4721,6 @@ $root.isuxportal = (function() {
                         case 1:
                         case 2:
                         case 3:
-                        case 4:
                             break;
                         }
                     if (message.frozen != null && message.hasOwnProperty("frozen"))
@@ -4780,13 +4779,9 @@ $root.isuxportal = (function() {
                     case 2:
                         message.status = 2;
                         break;
-                    case "FROZEN":
+                    case "FINISHED":
                     case 3:
                         message.status = 3;
-                        break;
-                    case "FINISHED":
-                    case 4:
-                        message.status = 4;
                         break;
                     }
                     if (object.frozen != null)
@@ -4851,16 +4846,14 @@ $root.isuxportal = (function() {
                  * @property {number} STANDBY=0 STANDBY value
                  * @property {number} REGISTRATION=1 REGISTRATION value
                  * @property {number} STARTED=2 STARTED value
-                 * @property {number} FROZEN=3 FROZEN value
-                 * @property {number} FINISHED=4 FINISHED value
+                 * @property {number} FINISHED=3 FINISHED value
                  */
                 Contest.Status = (function() {
                     var valuesById = {}, values = Object.create(valuesById);
                     values[valuesById[0] = "STANDBY"] = 0;
                     values[valuesById[1] = "REGISTRATION"] = 1;
                     values[valuesById[2] = "STARTED"] = 2;
-                    values[valuesById[3] = "FROZEN"] = 3;
-                    values[valuesById[4] = "FINISHED"] = 4;
+                    values[valuesById[3] = "FINISHED"] = 3;
                     return values;
                 })();
 
@@ -5237,7 +5230,8 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.resources.Leaderboard
                      * @interface ILeaderboardItem
                      * @property {Array.<isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore>|null} [scores] LeaderboardItem scores
-                     * @property {number|Long|null} [bestScore] LeaderboardItem bestScore
+                     * @property {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null} [bestScore] LeaderboardItem bestScore
+                     * @property {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null} [latestScore] LeaderboardItem latestScore
                      * @property {isuxportal.proto.resources.ITeam|null} [team] LeaderboardItem team
                      */
 
@@ -5267,11 +5261,19 @@ $root.isuxportal = (function() {
 
                     /**
                      * LeaderboardItem bestScore.
-                     * @member {number|Long} bestScore
+                     * @member {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null|undefined} bestScore
                      * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
                      * @instance
                      */
-                    LeaderboardItem.prototype.bestScore = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    LeaderboardItem.prototype.bestScore = null;
+
+                    /**
+                     * LeaderboardItem latestScore.
+                     * @member {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null|undefined} latestScore
+                     * @memberof isuxportal.proto.resources.Leaderboard.LeaderboardItem
+                     * @instance
+                     */
+                    LeaderboardItem.prototype.latestScore = null;
 
                     /**
                      * LeaderboardItem team.
@@ -5309,7 +5311,9 @@ $root.isuxportal = (function() {
                             for (var i = 0; i < message.scores.length; ++i)
                                 $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.scores[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         if (message.bestScore != null && Object.hasOwnProperty.call(message, "bestScore"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).int64(message.bestScore);
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.bestScore, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        if (message.latestScore != null && Object.hasOwnProperty.call(message, "latestScore"))
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.latestScore, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                         if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                             $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                         return writer;
@@ -5352,7 +5356,10 @@ $root.isuxportal = (function() {
                                 message.scores.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32()));
                                 break;
                             case 2:
-                                message.bestScore = reader.int64();
+                                message.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32());
+                                break;
+                            case 3:
+                                message.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32());
                                 break;
                             case 16:
                                 message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
@@ -5401,9 +5408,16 @@ $root.isuxportal = (function() {
                                     return "scores." + error;
                             }
                         }
-                        if (message.bestScore != null && message.hasOwnProperty("bestScore"))
-                            if (!$util.isInteger(message.bestScore) && !(message.bestScore && $util.isInteger(message.bestScore.low) && $util.isInteger(message.bestScore.high)))
-                                return "bestScore: integer|Long expected";
+                        if (message.bestScore != null && message.hasOwnProperty("bestScore")) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify(message.bestScore);
+                            if (error)
+                                return "bestScore." + error;
+                        }
+                        if (message.latestScore != null && message.hasOwnProperty("latestScore")) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify(message.latestScore);
+                            if (error)
+                                return "latestScore." + error;
+                        }
                         if (message.team != null && message.hasOwnProperty("team")) {
                             var error = $root.isuxportal.proto.resources.Team.verify(message.team);
                             if (error)
@@ -5434,15 +5448,16 @@ $root.isuxportal = (function() {
                                 message.scores[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.scores[i]);
                             }
                         }
-                        if (object.bestScore != null)
-                            if ($util.Long)
-                                (message.bestScore = $util.Long.fromValue(object.bestScore)).unsigned = false;
-                            else if (typeof object.bestScore === "string")
-                                message.bestScore = parseInt(object.bestScore, 10);
-                            else if (typeof object.bestScore === "number")
-                                message.bestScore = object.bestScore;
-                            else if (typeof object.bestScore === "object")
-                                message.bestScore = new $util.LongBits(object.bestScore.low >>> 0, object.bestScore.high >>> 0).toNumber();
+                        if (object.bestScore != null) {
+                            if (typeof object.bestScore !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.bestScore: object expected");
+                            message.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.bestScore);
+                        }
+                        if (object.latestScore != null) {
+                            if (typeof object.latestScore !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.latestScore: object expected");
+                            message.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.latestScore);
+                        }
                         if (object.team != null) {
                             if (typeof object.team !== "object")
                                 throw TypeError(".isuxportal.proto.resources.Leaderboard.LeaderboardItem.team: object expected");
@@ -5467,11 +5482,8 @@ $root.isuxportal = (function() {
                         if (options.arrays || options.defaults)
                             object.scores = [];
                         if (options.defaults) {
-                            if ($util.Long) {
-                                var long = new $util.Long(0, 0, false);
-                                object.bestScore = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.bestScore = options.longs === String ? "0" : 0;
+                            object.bestScore = null;
+                            object.latestScore = null;
                             object.team = null;
                         }
                         if (message.scores && message.scores.length) {
@@ -5480,10 +5492,9 @@ $root.isuxportal = (function() {
                                 object.scores[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.scores[j], options);
                         }
                         if (message.bestScore != null && message.hasOwnProperty("bestScore"))
-                            if (typeof message.bestScore === "number")
-                                object.bestScore = options.longs === String ? String(message.bestScore) : message.bestScore;
-                            else
-                                object.bestScore = options.longs === String ? $util.Long.prototype.toString.call(message.bestScore) : options.longs === Number ? new $util.LongBits(message.bestScore.low >>> 0, message.bestScore.high >>> 0).toNumber() : message.bestScore;
+                            object.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.bestScore, options);
+                        if (message.latestScore != null && message.hasOwnProperty("latestScore"))
+                            object.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.latestScore, options);
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                         return object;

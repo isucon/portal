@@ -1746,8 +1746,7 @@ export namespace isuxportal {
                     STANDBY = 0,
                     REGISTRATION = 1,
                     STARTED = 2,
-                    FROZEN = 3,
-                    FINISHED = 4
+                    FINISHED = 3
                 }
             }
 
@@ -1874,7 +1873,10 @@ export namespace isuxportal {
                     scores?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[]|null);
 
                     /** LeaderboardItem bestScore */
-                    bestScore?: (number|Long|null);
+                    bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                    /** LeaderboardItem latestScore */
+                    latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
 
                     /** LeaderboardItem team */
                     team?: (isuxportal.proto.resources.ITeam|null);
@@ -1893,7 +1895,10 @@ export namespace isuxportal {
                     public scores: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[];
 
                     /** LeaderboardItem bestScore. */
-                    public bestScore: (number|Long);
+                    public bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                    /** LeaderboardItem latestScore. */
+                    public latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
 
                     /** LeaderboardItem team. */
                     public team?: (isuxportal.proto.resources.ITeam|null);
