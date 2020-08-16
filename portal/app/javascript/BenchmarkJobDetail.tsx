@@ -59,7 +59,7 @@ const renderJobResult = (job: isuxportal.proto.resources.IBenchmarkJob) => {
   </div>;
 };
 
-const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob) => {
+const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob, admin: boolean) => {
   if (!job.result) return;
   if (!job.result.execution) return;
   const {execution} = job.result;
@@ -69,12 +69,15 @@ const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob) => {
       </header>
       <div className="card-content">
         <p><b>Reason:</b> {execution.reason}</p>
-        <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p>
 
         <h5 className="subtitle is-5">Stdout</h5>
         <pre>{execution.stdout}</pre>
-        <h5 className="subtitle is-5">Stderr</h5>
-        <pre>{execution.stderr}</pre>
+
+        {admin ? <>
+          <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p>
+          <h5 className="subtitle is-5">Stderr</h5>
+          <pre>{execution.stderr}</pre>
+        </> : null}
     </div>
   </div>;
 };
@@ -86,7 +89,7 @@ export const BenchmarkJobDetail: React.FC<Props> = (props: Props) => {
       {renderJobSummary(job)}
       {props.admin ? renderTeam(job.team!) : null}
       {renderJobResult(job)}
-      {renderJobExecution(job)}
+      {renderJobExecution(job, !!props.admin)}
     </section>
   </>;
 };
