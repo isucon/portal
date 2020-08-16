@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 
 import {ErrorMessage} from "../ErrorMessage";
 import {TimeDuration} from "../TimeDuration";
+import {Timestamp} from "../Timestamp";
+import {BenchmarkJobStatus} from "../BenchmarkJobStatus";
 
 import {AdminBenchmarkJobForm} from "./AdminBenchmarkJobForm";
 
@@ -139,6 +141,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
           <th>Score</th>
           <th>Instance</th>
           <th>Status</th>
+          <th>Time</th>
           <th>Duration</th>
         </tr>
       </thead>
@@ -155,9 +158,8 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       <td><Link to={`/admin/teams/${encodeURIComponent(job.team!.id!.toString())}`}>{job.team!.id}: {job.team!.name}</Link></td>
       <td>{job.score}</td>
       <td>{job.instanceName}</td>
-      <td>
-        {isuxportal.proto.resources.BenchmarkJob.Status[job.status!]}
-      </td>
+      <td><BenchmarkJobStatus status={job.status!} /></td>
+      <td><Timestamp timestamp={job.createdAt!} /></td>
       <td>
         <TimeDuration a={job.createdAt!} b={job.finishedAt} />
       </td>
