@@ -49,7 +49,7 @@ class Team < ApplicationRecord
       id: id,
       name: name,
       leader_id: leader_id,
-      member_ids: self.members.map(&:id),
+      member_ids: members ? self.members.map(&:id) : [],
       final_participation: final_participation,
       hidden: is_hidden,
       withdrawn: withdrawn,
