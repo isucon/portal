@@ -13,6 +13,8 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@nivo/line": "^0.62.0",
+    "@nivo/tooltip": "^0.62.0",
     "@rails/ujs": "^6.0.3-2",
     "@sentry/browser": "^5.19.0",
     "@types/moment": "^2.13.0",

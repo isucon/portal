@@ -14,6 +14,7 @@ import {ErrorMessage} from "./ErrorMessage";
 import {ContestantNavbar} from "./contestant/ContestantNavbar";
 import {ContestantBenchmarkJobList} from "./contestant/ContestantBenchmarkJobList";
 import {ContestantBenchmarkJobDetail} from "./contestant/ContestantBenchmarkJobDetail";
+import {ContestantDashboard} from "./contestant/ContestantDashboard";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -37,9 +38,7 @@ export class ContestantApp extends React.Component<Props, State> {
       <div className="container mt-5">
         <Switch>
           <Route exact path="/contestant" render={({match}) => {
-            // dashboard
-            return <>
-            </>;
+            return <ContestantDashboard session={this.props.session} client={this.props.client} />;
           }} />
           <Route exact path="/contestant/benchmark_jobs" render={({match}) => {
             return <ContestantBenchmarkJobList session={this.props.session} client={this.props.client} />;

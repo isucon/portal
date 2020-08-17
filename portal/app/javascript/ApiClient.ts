@@ -104,6 +104,12 @@ export class ApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getDashboard() {
+    const klass = isuxportal.proto.services.contestant.DashboardResponse;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/dashboard`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();
