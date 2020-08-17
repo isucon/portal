@@ -1,6 +1,6 @@
 import {isuxportal} from "./pb";
 import React from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import { ResponsiveLine } from "@nivo/line";
 import { BasicTooltip } from "@nivo/tooltip";
 import type { PointTooltipProps, Serie } from "@nivo/line";
@@ -41,7 +41,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams }) => {
             data:
               team.scores?.map((score) => {
                 return {
-                  x: moment((score.markedAt!.seconds as number) * 1000 + (score.markedAt!.nanos as number) / 1000000).format("HH:mm:ss"),
+                  x: dayjs((score.markedAt!.seconds as number) * 1000 + (score.markedAt!.nanos as number) / 1000000).format("HH:mm:ss"),
                   y: score.score as number,
                 };
               }) || [],
