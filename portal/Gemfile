@@ -31,6 +31,7 @@ gem 'octokit'
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails',  '~> 4'
+  gem 'factory_bot'
 end
 
 group :development do
