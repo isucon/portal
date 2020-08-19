@@ -13,6 +13,7 @@ class BenchmarkResult < ApplicationRecord
   validate :validate_benchmark_job_must_not_change
 
   before_validation :set_team_from_benchmark_job
+  before_validation :set_score_zero_when_failed
 
   def errored?
     finished? && (signaled? || !successfully_exited?)
@@ -52,7 +53,7 @@ class BenchmarkResult < ApplicationRecord
     self.update_attributes!(
       finished: pb.finished,
       passed: pb.passed,
-      score: score,
+      score: pb.score == -1 ? (pb.finished && !pb.passed ? 0 : (pb.score_breakdown&.raw || 0) - (pb.score_breakdown&.deduction || 0)) : pb.score,
       score_raw: pb.score_breakdown&.raw,
       score_deduction: pb.score_breakdown&.deduction,
       reason: pb.execution&.reason,
@@ -90,6 +91,12 @@ class BenchmarkResult < ApplicationRecord
 
   private def set_team_from_benchmark_job
     self.team = self.benchmark_job.team
+  end
+
+  private def set_score_zero_when_failed
+    if finished? && !passed?
+      self.score = 0
+    end
   end
 
   private def validate_benchmark_job_must_not_change
