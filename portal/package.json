@@ -13,14 +13,15 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@nivo/line": "^0.62.0",
+    "@nivo/tooltip": "^0.62.0",
     "@rails/ujs": "^6.0.3-2",
     "@sentry/browser": "^5.19.0",
-    "@types/moment": "^2.13.0",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "bulma": "^0.9.0",
-    "moment": "^2.27.0",
+    "dayjs": "^1.8.33",
     "protobufjs": "~6.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

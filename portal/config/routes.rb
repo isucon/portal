@@ -20,6 +20,12 @@ Rails.application.routes.draw do
     resource :user, only: %i(new create)
   end
 
+  scope path: 'contestant', module: 'contestant' do
+    get '/' => 'root#index'
+    get '/benchmark_jobs' => 'root#index'
+    get '/benchmark_jobs/:id' => 'root#index'
+  end
+
   scope path: 'api', module: 'api' do
     # common/me GetCurrentSession: Get /api/session
     resource :session, only: %i(show)
@@ -45,11 +51,22 @@ Rails.application.routes.draw do
       resources :teams, only: %i(index)
     end
 
+    scope path: 'contestant', module: 'contestant' do
+      # contestant/dashboard Dashboard: GET /api/contestant/dashboard
+      resource :dashboard, only: %i(show)
+
+      # contestant/benchmark ListBenchmarkJobs: GET /api/contestant/benchmark_jobs
+      # contestant/benchmark EnqueueBenchmarkJob: POST /api/contestant/benchmark_jobs
+      # contestant/benchmark GetBenchmarkJob: GET /api/contestant/benchmark_jobs/:id
+      resources :benchmark_jobs, only: %i(index create show)
+    end
+
     scope path: 'admin', module: 'admin' do
       # admin/teams ListTeams: GET /api/admin/teams
       # admin/teams GetTeam: GET /api/admin/teams/:id
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id
       resources :teams, only: %i(index show update)
+
       # admin/benchmark ListBenchmarkJobs: GET /api/admin/benchmark_jobs
       # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs
       # admin/benchmark GetBenchmarkJobs: GET /api/admin/benchmark_jobs/:id

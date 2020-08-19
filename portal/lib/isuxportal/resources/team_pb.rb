@@ -15,9 +15,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :hidden, :bool, 6
       optional :withdrawn, :bool, 7
       optional :disqualified, :bool, 9
+      optional :student, :message, 10, "isuxportal.proto.resources.Team.StudentStatus"
       optional :detail, :message, 8, "isuxportal.proto.resources.Team.TeamDetail"
       optional :leader, :message, 16, "isuxportal.proto.resources.Contestant"
       repeated :members, :message, 17, "isuxportal.proto.resources.Contestant"
+    end
+    add_message "isuxportal.proto.resources.Team.StudentStatus" do
+      optional :status, :bool, 1
     end
     add_message "isuxportal.proto.resources.Team.TeamDetail" do
       optional :email_address, :string, 1
@@ -30,6 +34,7 @@ module Isuxportal
   module Proto
     module Resources
       Team = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Team").msgclass
+      Team::StudentStatus = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Team.StudentStatus").msgclass
       Team::TeamDetail = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Team.TeamDetail").msgclass
     end
   end

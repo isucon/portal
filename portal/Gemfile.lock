@@ -81,6 +81,8 @@ GEM
       mini_portile2 (>= 2.2.0)
     erubi (1.9.0)
     event_emitter (0.2.6)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
@@ -273,6 +275,7 @@ DEPENDENCIES
   addressable
   blouson
   discordrb
+  factory_bot
   google-protobuf
   griffin
   griffin-interceptors

@@ -2761,6 +2761,7 @@ $root.isuxportal = (function() {
                  * @property {boolean|null} [hidden] Team hidden
                  * @property {boolean|null} [withdrawn] Team withdrawn
                  * @property {boolean|null} [disqualified] Team disqualified
+                 * @property {isuxportal.proto.resources.Team.IStudentStatus|null} [student] Team student
                  * @property {isuxportal.proto.resources.Team.ITeamDetail|null} [detail] Team detail
                  * @property {isuxportal.proto.resources.IContestant|null} [leader] Team leader
                  * @property {Array.<isuxportal.proto.resources.IContestant>|null} [members] Team members
@@ -2848,6 +2849,14 @@ $root.isuxportal = (function() {
                 Team.prototype.disqualified = false;
 
                 /**
+                 * Team student.
+                 * @member {isuxportal.proto.resources.Team.IStudentStatus|null|undefined} student
+                 * @memberof isuxportal.proto.resources.Team
+                 * @instance
+                 */
+                Team.prototype.student = null;
+
+                /**
                  * Team detail.
                  * @member {isuxportal.proto.resources.Team.ITeamDetail|null|undefined} detail
                  * @memberof isuxportal.proto.resources.Team
@@ -2917,6 +2926,8 @@ $root.isuxportal = (function() {
                         $root.isuxportal.proto.resources.Team.TeamDetail.encode(message.detail, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     if (message.disqualified != null && Object.hasOwnProperty.call(message, "disqualified"))
                         writer.uint32(/* id 9, wireType 0 =*/72).bool(message.disqualified);
+                    if (message.student != null && Object.hasOwnProperty.call(message, "student"))
+                        $root.isuxportal.proto.resources.Team.StudentStatus.encode(message.student, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                     if (message.leader != null && Object.hasOwnProperty.call(message, "leader"))
                         $root.isuxportal.proto.resources.Contestant.encode(message.leader, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     if (message.members != null && message.members.length)
@@ -2986,6 +2997,9 @@ $root.isuxportal = (function() {
                             break;
                         case 9:
                             message.disqualified = reader.bool();
+                            break;
+                        case 10:
+                            message.student = $root.isuxportal.proto.resources.Team.StudentStatus.decode(reader, reader.uint32());
                             break;
                         case 8:
                             message.detail = $root.isuxportal.proto.resources.Team.TeamDetail.decode(reader, reader.uint32());
@@ -3061,6 +3075,11 @@ $root.isuxportal = (function() {
                     if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                         if (typeof message.disqualified !== "boolean")
                             return "disqualified: boolean expected";
+                    if (message.student != null && message.hasOwnProperty("student")) {
+                        var error = $root.isuxportal.proto.resources.Team.StudentStatus.verify(message.student);
+                        if (error)
+                            return "student." + error;
+                    }
                     if (message.detail != null && message.hasOwnProperty("detail")) {
                         var error = $root.isuxportal.proto.resources.Team.TeamDetail.verify(message.detail);
                         if (error)
@@ -3137,6 +3156,11 @@ $root.isuxportal = (function() {
                         message.withdrawn = Boolean(object.withdrawn);
                     if (object.disqualified != null)
                         message.disqualified = Boolean(object.disqualified);
+                    if (object.student != null) {
+                        if (typeof object.student !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Team.student: object expected");
+                        message.student = $root.isuxportal.proto.resources.Team.StudentStatus.fromObject(object.student);
+                    }
                     if (object.detail != null) {
                         if (typeof object.detail !== "object")
                             throw TypeError(".isuxportal.proto.resources.Team.detail: object expected");
@@ -3194,6 +3218,7 @@ $root.isuxportal = (function() {
                         object.withdrawn = false;
                         object.detail = null;
                         object.disqualified = false;
+                        object.student = null;
                         object.leader = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -3226,6 +3251,8 @@ $root.isuxportal = (function() {
                         object.detail = $root.isuxportal.proto.resources.Team.TeamDetail.toObject(message.detail, options);
                     if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                         object.disqualified = message.disqualified;
+                    if (message.student != null && message.hasOwnProperty("student"))
+                        object.student = $root.isuxportal.proto.resources.Team.StudentStatus.toObject(message.student, options);
                     if (message.leader != null && message.hasOwnProperty("leader"))
                         object.leader = $root.isuxportal.proto.resources.Contestant.toObject(message.leader, options);
                     if (message.members && message.members.length) {
@@ -3246,6 +3273,193 @@ $root.isuxportal = (function() {
                 Team.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
+
+                Team.StudentStatus = (function() {
+
+                    /**
+                     * Properties of a StudentStatus.
+                     * @memberof isuxportal.proto.resources.Team
+                     * @interface IStudentStatus
+                     * @property {boolean|null} [status] StudentStatus status
+                     */
+
+                    /**
+                     * Constructs a new StudentStatus.
+                     * @memberof isuxportal.proto.resources.Team
+                     * @classdesc Represents a StudentStatus.
+                     * @implements IStudentStatus
+                     * @constructor
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus=} [properties] Properties to set
+                     */
+                    function StudentStatus(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * StudentStatus status.
+                     * @member {boolean} status
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @instance
+                     */
+                    StudentStatus.prototype.status = false;
+
+                    /**
+                     * Creates a new StudentStatus instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus=} [properties] Properties to set
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus instance
+                     */
+                    StudentStatus.create = function create(properties) {
+                        return new StudentStatus(properties);
+                    };
+
+                    /**
+                     * Encodes the specified StudentStatus message. Does not implicitly {@link isuxportal.proto.resources.Team.StudentStatus.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus} message StudentStatus message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    StudentStatus.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).bool(message.status);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified StudentStatus message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Team.StudentStatus.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.IStudentStatus} message StudentStatus message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    StudentStatus.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a StudentStatus message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    StudentStatus.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Team.StudentStatus();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.status = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a StudentStatus message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    StudentStatus.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a StudentStatus message.
+                     * @function verify
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    StudentStatus.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            if (typeof message.status !== "boolean")
+                                return "status: boolean expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a StudentStatus message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.resources.Team.StudentStatus} StudentStatus
+                     */
+                    StudentStatus.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.resources.Team.StudentStatus)
+                            return object;
+                        var message = new $root.isuxportal.proto.resources.Team.StudentStatus();
+                        if (object.status != null)
+                            message.status = Boolean(object.status);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a StudentStatus message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @static
+                     * @param {isuxportal.proto.resources.Team.StudentStatus} message StudentStatus
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    StudentStatus.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.status = false;
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            object.status = message.status;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this StudentStatus to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.resources.Team.StudentStatus
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    StudentStatus.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return StudentStatus;
+                })();
 
                 Team.TeamDetail = (function() {
 
@@ -7460,6 +7674,3088 @@ $root.isuxportal = (function() {
                 })();
 
                 return audience;
+            })();
+
+            services.contestant = (function() {
+
+                /**
+                 * Namespace contestant.
+                 * @memberof isuxportal.proto.services
+                 * @namespace
+                 */
+                var contestant = {};
+
+                contestant.ListBenchmarkJobsQuery = (function() {
+
+                    /**
+                     * Properties of a ListBenchmarkJobsQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListBenchmarkJobsQuery
+                     */
+
+                    /**
+                     * Constructs a new ListBenchmarkJobsQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListBenchmarkJobsQuery.
+                     * @implements IListBenchmarkJobsQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsQuery=} [properties] Properties to set
+                     */
+                    function ListBenchmarkJobsQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery instance
+                     */
+                    ListBenchmarkJobsQuery.create = function create(properties) {
+                        return new ListBenchmarkJobsQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListBenchmarkJobsQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.ListBenchmarkJobsQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsQuery} message ListBenchmarkJobsQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListBenchmarkJobsQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListBenchmarkJobsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListBenchmarkJobsQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsQuery} message ListBenchmarkJobsQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListBenchmarkJobsQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListBenchmarkJobsQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListBenchmarkJobsQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListBenchmarkJobsQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListBenchmarkJobsQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListBenchmarkJobsQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListBenchmarkJobsQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsQuery} ListBenchmarkJobsQuery
+                     */
+                    ListBenchmarkJobsQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery();
+                    };
+
+                    /**
+                     * Creates a plain object from a ListBenchmarkJobsQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListBenchmarkJobsQuery} message ListBenchmarkJobsQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListBenchmarkJobsQuery.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this ListBenchmarkJobsQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListBenchmarkJobsQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListBenchmarkJobsQuery;
+                })();
+
+                contestant.ListBenchmarkJobsResponse = (function() {
+
+                    /**
+                     * Properties of a ListBenchmarkJobsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListBenchmarkJobsResponse
+                     * @property {Array.<isuxportal.proto.resources.IBenchmarkJob>|null} [jobs] ListBenchmarkJobsResponse jobs
+                     */
+
+                    /**
+                     * Constructs a new ListBenchmarkJobsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListBenchmarkJobsResponse.
+                     * @implements IListBenchmarkJobsResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsResponse=} [properties] Properties to set
+                     */
+                    function ListBenchmarkJobsResponse(properties) {
+                        this.jobs = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ListBenchmarkJobsResponse jobs.
+                     * @member {Array.<isuxportal.proto.resources.IBenchmarkJob>} jobs
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @instance
+                     */
+                    ListBenchmarkJobsResponse.prototype.jobs = $util.emptyArray;
+
+                    /**
+                     * Creates a new ListBenchmarkJobsResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsResponse} ListBenchmarkJobsResponse instance
+                     */
+                    ListBenchmarkJobsResponse.create = function create(properties) {
+                        return new ListBenchmarkJobsResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListBenchmarkJobsResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.ListBenchmarkJobsResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsResponse} message ListBenchmarkJobsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListBenchmarkJobsResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.jobs != null && message.jobs.length)
+                            for (var i = 0; i < message.jobs.length; ++i)
+                                $root.isuxportal.proto.resources.BenchmarkJob.encode(message.jobs[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListBenchmarkJobsResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListBenchmarkJobsResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListBenchmarkJobsResponse} message ListBenchmarkJobsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListBenchmarkJobsResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListBenchmarkJobsResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsResponse} ListBenchmarkJobsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListBenchmarkJobsResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.jobs && message.jobs.length))
+                                    message.jobs = [];
+                                message.jobs.push($root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListBenchmarkJobsResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsResponse} ListBenchmarkJobsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListBenchmarkJobsResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListBenchmarkJobsResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListBenchmarkJobsResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.jobs != null && message.hasOwnProperty("jobs")) {
+                            if (!Array.isArray(message.jobs))
+                                return "jobs: array expected";
+                            for (var i = 0; i < message.jobs.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.BenchmarkJob.verify(message.jobs[i]);
+                                if (error)
+                                    return "jobs." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListBenchmarkJobsResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListBenchmarkJobsResponse} ListBenchmarkJobsResponse
+                     */
+                    ListBenchmarkJobsResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListBenchmarkJobsResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsResponse();
+                        if (object.jobs) {
+                            if (!Array.isArray(object.jobs))
+                                throw TypeError(".isuxportal.proto.services.contestant.ListBenchmarkJobsResponse.jobs: array expected");
+                            message.jobs = [];
+                            for (var i = 0; i < object.jobs.length; ++i) {
+                                if (typeof object.jobs[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.contestant.ListBenchmarkJobsResponse.jobs: object expected");
+                                message.jobs[i] = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.jobs[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a ListBenchmarkJobsResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListBenchmarkJobsResponse} message ListBenchmarkJobsResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListBenchmarkJobsResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.jobs = [];
+                        if (message.jobs && message.jobs.length) {
+                            object.jobs = [];
+                            for (var j = 0; j < message.jobs.length; ++j)
+                                object.jobs[j] = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.jobs[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ListBenchmarkJobsResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListBenchmarkJobsResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListBenchmarkJobsResponse;
+                })();
+
+                contestant.EnqueueBenchmarkJobRequest = (function() {
+
+                    /**
+                     * Properties of an EnqueueBenchmarkJobRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IEnqueueBenchmarkJobRequest
+                     * @property {number|Long|null} [targetId] EnqueueBenchmarkJobRequest targetId
+                     */
+
+                    /**
+                     * Constructs a new EnqueueBenchmarkJobRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents an EnqueueBenchmarkJobRequest.
+                     * @implements IEnqueueBenchmarkJobRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobRequest=} [properties] Properties to set
+                     */
+                    function EnqueueBenchmarkJobRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * EnqueueBenchmarkJobRequest targetId.
+                     * @member {number|Long} targetId
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @instance
+                     */
+                    EnqueueBenchmarkJobRequest.prototype.targetId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Creates a new EnqueueBenchmarkJobRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest} EnqueueBenchmarkJobRequest instance
+                     */
+                    EnqueueBenchmarkJobRequest.create = function create(properties) {
+                        return new EnqueueBenchmarkJobRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified EnqueueBenchmarkJobRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobRequest} message EnqueueBenchmarkJobRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EnqueueBenchmarkJobRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.targetId != null && Object.hasOwnProperty.call(message, "targetId"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.targetId);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified EnqueueBenchmarkJobRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobRequest} message EnqueueBenchmarkJobRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EnqueueBenchmarkJobRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an EnqueueBenchmarkJobRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest} EnqueueBenchmarkJobRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EnqueueBenchmarkJobRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.targetId = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an EnqueueBenchmarkJobRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest} EnqueueBenchmarkJobRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EnqueueBenchmarkJobRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an EnqueueBenchmarkJobRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    EnqueueBenchmarkJobRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.targetId != null && message.hasOwnProperty("targetId"))
+                            if (!$util.isInteger(message.targetId) && !(message.targetId && $util.isInteger(message.targetId.low) && $util.isInteger(message.targetId.high)))
+                                return "targetId: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an EnqueueBenchmarkJobRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest} EnqueueBenchmarkJobRequest
+                     */
+                    EnqueueBenchmarkJobRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest();
+                        if (object.targetId != null)
+                            if ($util.Long)
+                                (message.targetId = $util.Long.fromValue(object.targetId)).unsigned = false;
+                            else if (typeof object.targetId === "string")
+                                message.targetId = parseInt(object.targetId, 10);
+                            else if (typeof object.targetId === "number")
+                                message.targetId = object.targetId;
+                            else if (typeof object.targetId === "object")
+                                message.targetId = new $util.LongBits(object.targetId.low >>> 0, object.targetId.high >>> 0).toNumber();
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from an EnqueueBenchmarkJobRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest} message EnqueueBenchmarkJobRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    EnqueueBenchmarkJobRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.targetId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.targetId = options.longs === String ? "0" : 0;
+                        if (message.targetId != null && message.hasOwnProperty("targetId"))
+                            if (typeof message.targetId === "number")
+                                object.targetId = options.longs === String ? String(message.targetId) : message.targetId;
+                            else
+                                object.targetId = options.longs === String ? $util.Long.prototype.toString.call(message.targetId) : options.longs === Number ? new $util.LongBits(message.targetId.low >>> 0, message.targetId.high >>> 0).toNumber() : message.targetId;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this EnqueueBenchmarkJobRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    EnqueueBenchmarkJobRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return EnqueueBenchmarkJobRequest;
+                })();
+
+                contestant.EnqueueBenchmarkJobResponse = (function() {
+
+                    /**
+                     * Properties of an EnqueueBenchmarkJobResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IEnqueueBenchmarkJobResponse
+                     * @property {isuxportal.proto.resources.IBenchmarkJob|null} [job] EnqueueBenchmarkJobResponse job
+                     */
+
+                    /**
+                     * Constructs a new EnqueueBenchmarkJobResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents an EnqueueBenchmarkJobResponse.
+                     * @implements IEnqueueBenchmarkJobResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobResponse=} [properties] Properties to set
+                     */
+                    function EnqueueBenchmarkJobResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * EnqueueBenchmarkJobResponse job.
+                     * @member {isuxportal.proto.resources.IBenchmarkJob|null|undefined} job
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @instance
+                     */
+                    EnqueueBenchmarkJobResponse.prototype.job = null;
+
+                    /**
+                     * Creates a new EnqueueBenchmarkJobResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse} EnqueueBenchmarkJobResponse instance
+                     */
+                    EnqueueBenchmarkJobResponse.create = function create(properties) {
+                        return new EnqueueBenchmarkJobResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified EnqueueBenchmarkJobResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobResponse} message EnqueueBenchmarkJobResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EnqueueBenchmarkJobResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+                            $root.isuxportal.proto.resources.BenchmarkJob.encode(message.job, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified EnqueueBenchmarkJobResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IEnqueueBenchmarkJobResponse} message EnqueueBenchmarkJobResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    EnqueueBenchmarkJobResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an EnqueueBenchmarkJobResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse} EnqueueBenchmarkJobResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EnqueueBenchmarkJobResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.job = $root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an EnqueueBenchmarkJobResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse} EnqueueBenchmarkJobResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    EnqueueBenchmarkJobResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an EnqueueBenchmarkJobResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    EnqueueBenchmarkJobResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.job != null && message.hasOwnProperty("job")) {
+                            var error = $root.isuxportal.proto.resources.BenchmarkJob.verify(message.job);
+                            if (error)
+                                return "job." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates an EnqueueBenchmarkJobResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse} EnqueueBenchmarkJobResponse
+                     */
+                    EnqueueBenchmarkJobResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse();
+                        if (object.job != null) {
+                            if (typeof object.job !== "object")
+                                throw TypeError(".isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse.job: object expected");
+                            message.job = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.job);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from an EnqueueBenchmarkJobResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse} message EnqueueBenchmarkJobResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    EnqueueBenchmarkJobResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.job = null;
+                        if (message.job != null && message.hasOwnProperty("job"))
+                            object.job = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.job, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this EnqueueBenchmarkJobResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    EnqueueBenchmarkJobResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return EnqueueBenchmarkJobResponse;
+                })();
+
+                contestant.GetBenchmarkJobQuery = (function() {
+
+                    /**
+                     * Properties of a GetBenchmarkJobQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IGetBenchmarkJobQuery
+                     * @property {number|Long|null} [id] GetBenchmarkJobQuery id
+                     */
+
+                    /**
+                     * Constructs a new GetBenchmarkJobQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a GetBenchmarkJobQuery.
+                     * @implements IGetBenchmarkJobQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobQuery=} [properties] Properties to set
+                     */
+                    function GetBenchmarkJobQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetBenchmarkJobQuery id.
+                     * @member {number|Long} id
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @instance
+                     */
+                    GetBenchmarkJobQuery.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Creates a new GetBenchmarkJobQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobQuery} GetBenchmarkJobQuery instance
+                     */
+                    GetBenchmarkJobQuery.create = function create(properties) {
+                        return new GetBenchmarkJobQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetBenchmarkJobQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.GetBenchmarkJobQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobQuery} message GetBenchmarkJobQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetBenchmarkJobQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetBenchmarkJobQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.GetBenchmarkJobQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobQuery} message GetBenchmarkJobQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetBenchmarkJobQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetBenchmarkJobQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobQuery} GetBenchmarkJobQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetBenchmarkJobQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.GetBenchmarkJobQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.id = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetBenchmarkJobQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobQuery} GetBenchmarkJobQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetBenchmarkJobQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetBenchmarkJobQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetBenchmarkJobQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.id != null && message.hasOwnProperty("id"))
+                            if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                                return "id: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetBenchmarkJobQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobQuery} GetBenchmarkJobQuery
+                     */
+                    GetBenchmarkJobQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.GetBenchmarkJobQuery)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.GetBenchmarkJobQuery();
+                        if (object.id != null)
+                            if ($util.Long)
+                                (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                            else if (typeof object.id === "string")
+                                message.id = parseInt(object.id, 10);
+                            else if (typeof object.id === "number")
+                                message.id = object.id;
+                            else if (typeof object.id === "object")
+                                message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetBenchmarkJobQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.GetBenchmarkJobQuery} message GetBenchmarkJobQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetBenchmarkJobQuery.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.id = options.longs === String ? "0" : 0;
+                        if (message.id != null && message.hasOwnProperty("id"))
+                            if (typeof message.id === "number")
+                                object.id = options.longs === String ? String(message.id) : message.id;
+                            else
+                                object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetBenchmarkJobQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetBenchmarkJobQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetBenchmarkJobQuery;
+                })();
+
+                contestant.GetBenchmarkJobResponse = (function() {
+
+                    /**
+                     * Properties of a GetBenchmarkJobResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IGetBenchmarkJobResponse
+                     * @property {isuxportal.proto.resources.IBenchmarkJob|null} [job] GetBenchmarkJobResponse job
+                     */
+
+                    /**
+                     * Constructs a new GetBenchmarkJobResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a GetBenchmarkJobResponse.
+                     * @implements IGetBenchmarkJobResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobResponse=} [properties] Properties to set
+                     */
+                    function GetBenchmarkJobResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetBenchmarkJobResponse job.
+                     * @member {isuxportal.proto.resources.IBenchmarkJob|null|undefined} job
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @instance
+                     */
+                    GetBenchmarkJobResponse.prototype.job = null;
+
+                    /**
+                     * Creates a new GetBenchmarkJobResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobResponse} GetBenchmarkJobResponse instance
+                     */
+                    GetBenchmarkJobResponse.create = function create(properties) {
+                        return new GetBenchmarkJobResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetBenchmarkJobResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.GetBenchmarkJobResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobResponse} message GetBenchmarkJobResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetBenchmarkJobResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+                            $root.isuxportal.proto.resources.BenchmarkJob.encode(message.job, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetBenchmarkJobResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.GetBenchmarkJobResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetBenchmarkJobResponse} message GetBenchmarkJobResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetBenchmarkJobResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetBenchmarkJobResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobResponse} GetBenchmarkJobResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetBenchmarkJobResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.GetBenchmarkJobResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.job = $root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetBenchmarkJobResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobResponse} GetBenchmarkJobResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetBenchmarkJobResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetBenchmarkJobResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetBenchmarkJobResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.job != null && message.hasOwnProperty("job")) {
+                            var error = $root.isuxportal.proto.resources.BenchmarkJob.verify(message.job);
+                            if (error)
+                                return "job." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetBenchmarkJobResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.GetBenchmarkJobResponse} GetBenchmarkJobResponse
+                     */
+                    GetBenchmarkJobResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.GetBenchmarkJobResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.GetBenchmarkJobResponse();
+                        if (object.job != null) {
+                            if (typeof object.job !== "object")
+                                throw TypeError(".isuxportal.proto.services.contestant.GetBenchmarkJobResponse.job: object expected");
+                            message.job = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.job);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetBenchmarkJobResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.GetBenchmarkJobResponse} message GetBenchmarkJobResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetBenchmarkJobResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.job = null;
+                        if (message.job != null && message.hasOwnProperty("job"))
+                            object.job = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.job, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetBenchmarkJobResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.GetBenchmarkJobResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetBenchmarkJobResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetBenchmarkJobResponse;
+                })();
+
+                contestant.ListClarificationsRequest = (function() {
+
+                    /**
+                     * Properties of a ListClarificationsRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListClarificationsRequest
+                     */
+
+                    /**
+                     * Constructs a new ListClarificationsRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListClarificationsRequest.
+                     * @implements IListClarificationsRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest=} [properties] Properties to set
+                     */
+                    function ListClarificationsRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new ListClarificationsRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest instance
+                     */
+                    ListClarificationsRequest.create = function create(properties) {
+                        return new ListClarificationsRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListClarificationsRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListClarificationsRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListClarificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListClarificationsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListClarificationsRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListClarificationsRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListClarificationsRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListClarificationsRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListClarificationsRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListClarificationsRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListClarificationsRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListClarificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     */
+                    ListClarificationsRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListClarificationsRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.ListClarificationsRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a ListClarificationsRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListClarificationsRequest} message ListClarificationsRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListClarificationsRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this ListClarificationsRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListClarificationsRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListClarificationsRequest;
+                })();
+
+                contestant.ListClarificationsResponse = (function() {
+
+                    /**
+                     * Properties of a ListClarificationsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListClarificationsResponse
+                     * @property {Array.<isuxportal.proto.resources.IClarification>|null} [clarifications] ListClarificationsResponse clarifications
+                     */
+
+                    /**
+                     * Constructs a new ListClarificationsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListClarificationsResponse.
+                     * @implements IListClarificationsResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsResponse=} [properties] Properties to set
+                     */
+                    function ListClarificationsResponse(properties) {
+                        this.clarifications = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ListClarificationsResponse clarifications.
+                     * @member {Array.<isuxportal.proto.resources.IClarification>} clarifications
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @instance
+                     */
+                    ListClarificationsResponse.prototype.clarifications = $util.emptyArray;
+
+                    /**
+                     * Creates a new ListClarificationsResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsResponse} ListClarificationsResponse instance
+                     */
+                    ListClarificationsResponse.create = function create(properties) {
+                        return new ListClarificationsResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListClarificationsResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsResponse} message ListClarificationsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListClarificationsResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.clarifications != null && message.clarifications.length)
+                            for (var i = 0; i < message.clarifications.length; ++i)
+                                $root.isuxportal.proto.resources.Clarification.encode(message.clarifications[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListClarificationsResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsResponse} message ListClarificationsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListClarificationsResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListClarificationsResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsResponse} ListClarificationsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListClarificationsResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListClarificationsResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.clarifications && message.clarifications.length))
+                                    message.clarifications = [];
+                                message.clarifications.push($root.isuxportal.proto.resources.Clarification.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListClarificationsResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsResponse} ListClarificationsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListClarificationsResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListClarificationsResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListClarificationsResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.clarifications != null && message.hasOwnProperty("clarifications")) {
+                            if (!Array.isArray(message.clarifications))
+                                return "clarifications: array expected";
+                            for (var i = 0; i < message.clarifications.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.Clarification.verify(message.clarifications[i]);
+                                if (error)
+                                    return "clarifications." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListClarificationsResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsResponse} ListClarificationsResponse
+                     */
+                    ListClarificationsResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListClarificationsResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.ListClarificationsResponse();
+                        if (object.clarifications) {
+                            if (!Array.isArray(object.clarifications))
+                                throw TypeError(".isuxportal.proto.services.contestant.ListClarificationsResponse.clarifications: array expected");
+                            message.clarifications = [];
+                            for (var i = 0; i < object.clarifications.length; ++i) {
+                                if (typeof object.clarifications[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.contestant.ListClarificationsResponse.clarifications: object expected");
+                                message.clarifications[i] = $root.isuxportal.proto.resources.Clarification.fromObject(object.clarifications[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a ListClarificationsResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListClarificationsResponse} message ListClarificationsResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListClarificationsResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.clarifications = [];
+                        if (message.clarifications && message.clarifications.length) {
+                            object.clarifications = [];
+                            for (var j = 0; j < message.clarifications.length; ++j)
+                                object.clarifications[j] = $root.isuxportal.proto.resources.Clarification.toObject(message.clarifications[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ListClarificationsResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListClarificationsResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListClarificationsResponse;
+                })();
+
+                contestant.RequestClarificationRequest = (function() {
+
+                    /**
+                     * Properties of a RequestClarificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IRequestClarificationRequest
+                     * @property {string|null} [question] RequestClarificationRequest question
+                     */
+
+                    /**
+                     * Constructs a new RequestClarificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a RequestClarificationRequest.
+                     * @implements IRequestClarificationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationRequest=} [properties] Properties to set
+                     */
+                    function RequestClarificationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * RequestClarificationRequest question.
+                     * @member {string} question
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @instance
+                     */
+                    RequestClarificationRequest.prototype.question = "";
+
+                    /**
+                     * Creates a new RequestClarificationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationRequest} RequestClarificationRequest instance
+                     */
+                    RequestClarificationRequest.create = function create(properties) {
+                        return new RequestClarificationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified RequestClarificationRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.RequestClarificationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationRequest} message RequestClarificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    RequestClarificationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.question != null && Object.hasOwnProperty.call(message, "question"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.question);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified RequestClarificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.RequestClarificationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationRequest} message RequestClarificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    RequestClarificationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a RequestClarificationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationRequest} RequestClarificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    RequestClarificationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.RequestClarificationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.question = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a RequestClarificationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationRequest} RequestClarificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    RequestClarificationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a RequestClarificationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    RequestClarificationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.question != null && message.hasOwnProperty("question"))
+                            if (!$util.isString(message.question))
+                                return "question: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a RequestClarificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationRequest} RequestClarificationRequest
+                     */
+                    RequestClarificationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.RequestClarificationRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.RequestClarificationRequest();
+                        if (object.question != null)
+                            message.question = String(object.question);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a RequestClarificationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.RequestClarificationRequest} message RequestClarificationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    RequestClarificationRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.question = "";
+                        if (message.question != null && message.hasOwnProperty("question"))
+                            object.question = message.question;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this RequestClarificationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    RequestClarificationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return RequestClarificationRequest;
+                })();
+
+                contestant.RequestClarificationResponse = (function() {
+
+                    /**
+                     * Properties of a RequestClarificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IRequestClarificationResponse
+                     * @property {isuxportal.proto.resources.IClarification|null} [clarification] RequestClarificationResponse clarification
+                     */
+
+                    /**
+                     * Constructs a new RequestClarificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a RequestClarificationResponse.
+                     * @implements IRequestClarificationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationResponse=} [properties] Properties to set
+                     */
+                    function RequestClarificationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * RequestClarificationResponse clarification.
+                     * @member {isuxportal.proto.resources.IClarification|null|undefined} clarification
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @instance
+                     */
+                    RequestClarificationResponse.prototype.clarification = null;
+
+                    /**
+                     * Creates a new RequestClarificationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationResponse} RequestClarificationResponse instance
+                     */
+                    RequestClarificationResponse.create = function create(properties) {
+                        return new RequestClarificationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified RequestClarificationResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.RequestClarificationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationResponse} message RequestClarificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    RequestClarificationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.clarification != null && Object.hasOwnProperty.call(message, "clarification"))
+                            $root.isuxportal.proto.resources.Clarification.encode(message.clarification, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified RequestClarificationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.RequestClarificationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IRequestClarificationResponse} message RequestClarificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    RequestClarificationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a RequestClarificationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationResponse} RequestClarificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    RequestClarificationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.RequestClarificationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.clarification = $root.isuxportal.proto.resources.Clarification.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a RequestClarificationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationResponse} RequestClarificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    RequestClarificationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a RequestClarificationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    RequestClarificationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.clarification != null && message.hasOwnProperty("clarification")) {
+                            var error = $root.isuxportal.proto.resources.Clarification.verify(message.clarification);
+                            if (error)
+                                return "clarification." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a RequestClarificationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.RequestClarificationResponse} RequestClarificationResponse
+                     */
+                    RequestClarificationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.RequestClarificationResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.RequestClarificationResponse();
+                        if (object.clarification != null) {
+                            if (typeof object.clarification !== "object")
+                                throw TypeError(".isuxportal.proto.services.contestant.RequestClarificationResponse.clarification: object expected");
+                            message.clarification = $root.isuxportal.proto.resources.Clarification.fromObject(object.clarification);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a RequestClarificationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.RequestClarificationResponse} message RequestClarificationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    RequestClarificationResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.clarification = null;
+                        if (message.clarification != null && message.hasOwnProperty("clarification"))
+                            object.clarification = $root.isuxportal.proto.resources.Clarification.toObject(message.clarification, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this RequestClarificationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.RequestClarificationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    RequestClarificationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return RequestClarificationResponse;
+                })();
+
+                contestant.DashboardQuery = (function() {
+
+                    /**
+                     * Properties of a DashboardQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IDashboardQuery
+                     */
+
+                    /**
+                     * Constructs a new DashboardQuery.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a DashboardQuery.
+                     * @implements IDashboardQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery=} [properties] Properties to set
+                     */
+                    function DashboardQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new DashboardQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery instance
+                     */
+                    DashboardQuery.create = function create(properties) {
+                        return new DashboardQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DashboardQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery} message DashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardQuery} message DashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DashboardQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.DashboardQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DashboardQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DashboardQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DashboardQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DashboardQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.DashboardQuery} DashboardQuery
+                     */
+                    DashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.DashboardQuery)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.DashboardQuery();
+                    };
+
+                    /**
+                     * Creates a plain object from a DashboardQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.DashboardQuery} message DashboardQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DashboardQuery.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this DashboardQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.DashboardQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DashboardQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DashboardQuery;
+                })();
+
+                contestant.DashboardResponse = (function() {
+
+                    /**
+                     * Properties of a DashboardResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IDashboardResponse
+                     * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
+                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [instances] DashboardResponse instances
+                     * @property {Array.<isuxportal.proto.resources.IBenchmarkJob>|null} [jobs] DashboardResponse jobs
+                     */
+
+                    /**
+                     * Constructs a new DashboardResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a DashboardResponse.
+                     * @implements IDashboardResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IDashboardResponse=} [properties] Properties to set
+                     */
+                    function DashboardResponse(properties) {
+                        this.instances = [];
+                        this.jobs = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * DashboardResponse leaderboard.
+                     * @member {isuxportal.proto.resources.ILeaderboard|null|undefined} leaderboard
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.leaderboard = null;
+
+                    /**
+                     * DashboardResponse instances.
+                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} instances
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.instances = $util.emptyArray;
+
+                    /**
+                     * DashboardResponse jobs.
+                     * @member {Array.<isuxportal.proto.resources.IBenchmarkJob>} jobs
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.jobs = $util.emptyArray;
+
+                    /**
+                     * Creates a new DashboardResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.DashboardResponse} DashboardResponse instance
+                     */
+                    DashboardResponse.create = function create(properties) {
+                        return new DashboardResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified DashboardResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardResponse} message DashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
+                            $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.instances != null && message.instances.length)
+                            for (var i = 0; i < message.instances.length; ++i)
+                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.instances[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        if (message.jobs != null && message.jobs.length)
+                            for (var i = 0; i < message.jobs.length; ++i)
+                                $root.isuxportal.proto.resources.BenchmarkJob.encode(message.jobs[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified DashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.DashboardResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IDashboardResponse} message DashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    DashboardResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.DashboardResponse} DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.DashboardResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
+                                break;
+                            case 2:
+                                if (!(message.instances && message.instances.length))
+                                    message.instances = [];
+                                message.instances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
+                                break;
+                            case 3:
+                                if (!(message.jobs && message.jobs.length))
+                                    message.jobs = [];
+                                message.jobs.push($root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a DashboardResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.DashboardResponse} DashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    DashboardResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a DashboardResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    DashboardResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard")) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.verify(message.leaderboard);
+                            if (error)
+                                return "leaderboard." + error;
+                        }
+                        if (message.instances != null && message.hasOwnProperty("instances")) {
+                            if (!Array.isArray(message.instances))
+                                return "instances: array expected";
+                            for (var i = 0; i < message.instances.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.instances[i]);
+                                if (error)
+                                    return "instances." + error;
+                            }
+                        }
+                        if (message.jobs != null && message.hasOwnProperty("jobs")) {
+                            if (!Array.isArray(message.jobs))
+                                return "jobs: array expected";
+                            for (var i = 0; i < message.jobs.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.BenchmarkJob.verify(message.jobs[i]);
+                                if (error)
+                                    return "jobs." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a DashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.DashboardResponse} DashboardResponse
+                     */
+                    DashboardResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.DashboardResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.DashboardResponse();
+                        if (object.leaderboard != null) {
+                            if (typeof object.leaderboard !== "object")
+                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.leaderboard: object expected");
+                            message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
+                        }
+                        if (object.instances) {
+                            if (!Array.isArray(object.instances))
+                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: array expected");
+                            message.instances = [];
+                            for (var i = 0; i < object.instances.length; ++i) {
+                                if (typeof object.instances[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: object expected");
+                                message.instances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.instances[i]);
+                            }
+                        }
+                        if (object.jobs) {
+                            if (!Array.isArray(object.jobs))
+                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.jobs: array expected");
+                            message.jobs = [];
+                            for (var i = 0; i < object.jobs.length; ++i) {
+                                if (typeof object.jobs[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.jobs: object expected");
+                                message.jobs[i] = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.jobs[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a DashboardResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.DashboardResponse} message DashboardResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    DashboardResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults) {
+                            object.instances = [];
+                            object.jobs = [];
+                        }
+                        if (options.defaults)
+                            object.leaderboard = null;
+                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
+                            object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
+                        if (message.instances && message.instances.length) {
+                            object.instances = [];
+                            for (var j = 0; j < message.instances.length; ++j)
+                                object.instances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.instances[j], options);
+                        }
+                        if (message.jobs && message.jobs.length) {
+                            object.jobs = [];
+                            for (var j = 0; j < message.jobs.length; ++j)
+                                object.jobs[j] = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.jobs[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this DashboardResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    DashboardResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return DashboardResponse;
+                })();
+
+                contestant.ListContestantInstancesRequest = (function() {
+
+                    /**
+                     * Properties of a ListContestantInstancesRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListContestantInstancesRequest
+                     */
+
+                    /**
+                     * Constructs a new ListContestantInstancesRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListContestantInstancesRequest.
+                     * @implements IListContestantInstancesRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesRequest=} [properties] Properties to set
+                     */
+                    function ListContestantInstancesRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new ListContestantInstancesRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesRequest} ListContestantInstancesRequest instance
+                     */
+                    ListContestantInstancesRequest.create = function create(properties) {
+                        return new ListContestantInstancesRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListContestantInstancesRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.ListContestantInstancesRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesRequest} message ListContestantInstancesRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListContestantInstancesRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListContestantInstancesRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListContestantInstancesRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesRequest} message ListContestantInstancesRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListContestantInstancesRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListContestantInstancesRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListContestantInstancesRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListContestantInstancesRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListContestantInstancesRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListContestantInstancesRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListContestantInstancesRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListContestantInstancesRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListContestantInstancesRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     */
+                    ListContestantInstancesRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListContestantInstancesRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.ListContestantInstancesRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a ListContestantInstancesRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListContestantInstancesRequest} message ListContestantInstancesRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListContestantInstancesRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this ListContestantInstancesRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListContestantInstancesRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListContestantInstancesRequest;
+                })();
+
+                contestant.ListContestantInstancesResponse = (function() {
+
+                    /**
+                     * Properties of a ListContestantInstancesResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IListContestantInstancesResponse
+                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] ListContestantInstancesResponse contestantInstances
+                     */
+
+                    /**
+                     * Constructs a new ListContestantInstancesResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a ListContestantInstancesResponse.
+                     * @implements IListContestantInstancesResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesResponse=} [properties] Properties to set
+                     */
+                    function ListContestantInstancesResponse(properties) {
+                        this.contestantInstances = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ListContestantInstancesResponse contestantInstances.
+                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} contestantInstances
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @instance
+                     */
+                    ListContestantInstancesResponse.prototype.contestantInstances = $util.emptyArray;
+
+                    /**
+                     * Creates a new ListContestantInstancesResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesResponse} ListContestantInstancesResponse instance
+                     */
+                    ListContestantInstancesResponse.create = function create(properties) {
+                        return new ListContestantInstancesResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListContestantInstancesResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.ListContestantInstancesResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesResponse} message ListContestantInstancesResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListContestantInstancesResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.contestantInstances != null && message.contestantInstances.length)
+                            for (var i = 0; i < message.contestantInstances.length; ++i)
+                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListContestantInstancesResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListContestantInstancesResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IListContestantInstancesResponse} message ListContestantInstancesResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListContestantInstancesResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListContestantInstancesResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesResponse} ListContestantInstancesResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListContestantInstancesResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListContestantInstancesResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.contestantInstances && message.contestantInstances.length))
+                                    message.contestantInstances = [];
+                                message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListContestantInstancesResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesResponse} ListContestantInstancesResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListContestantInstancesResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListContestantInstancesResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListContestantInstancesResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.contestantInstances != null && message.hasOwnProperty("contestantInstances")) {
+                            if (!Array.isArray(message.contestantInstances))
+                                return "contestantInstances: array expected";
+                            for (var i = 0; i < message.contestantInstances.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.contestantInstances[i]);
+                                if (error)
+                                    return "contestantInstances." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListContestantInstancesResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.ListContestantInstancesResponse} ListContestantInstancesResponse
+                     */
+                    ListContestantInstancesResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListContestantInstancesResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.ListContestantInstancesResponse();
+                        if (object.contestantInstances) {
+                            if (!Array.isArray(object.contestantInstances))
+                                throw TypeError(".isuxportal.proto.services.contestant.ListContestantInstancesResponse.contestantInstances: array expected");
+                            message.contestantInstances = [];
+                            for (var i = 0; i < object.contestantInstances.length; ++i) {
+                                if (typeof object.contestantInstances[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.contestant.ListContestantInstancesResponse.contestantInstances: object expected");
+                                message.contestantInstances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.contestantInstances[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a ListContestantInstancesResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ListContestantInstancesResponse} message ListContestantInstancesResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListContestantInstancesResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.contestantInstances = [];
+                        if (message.contestantInstances && message.contestantInstances.length) {
+                            object.contestantInstances = [];
+                            for (var j = 0; j < message.contestantInstances.length; ++j)
+                                object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ListContestantInstancesResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.ListContestantInstancesResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListContestantInstancesResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListContestantInstancesResponse;
+                })();
+
+                contestant.GetNotificationsRequest = (function() {
+
+                    /**
+                     * Properties of a GetNotificationsRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IGetNotificationsRequest
+                     */
+
+                    /**
+                     * Constructs a new GetNotificationsRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a GetNotificationsRequest.
+                     * @implements IGetNotificationsRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsRequest=} [properties] Properties to set
+                     */
+                    function GetNotificationsRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new GetNotificationsRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsRequest} GetNotificationsRequest instance
+                     */
+                    GetNotificationsRequest.create = function create(properties) {
+                        return new GetNotificationsRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetNotificationsRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.GetNotificationsRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsRequest} message GetNotificationsRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetNotificationsRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetNotificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.GetNotificationsRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsRequest} message GetNotificationsRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetNotificationsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetNotificationsRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsRequest} GetNotificationsRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetNotificationsRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.GetNotificationsRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetNotificationsRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsRequest} GetNotificationsRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetNotificationsRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetNotificationsRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetNotificationsRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetNotificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsRequest} GetNotificationsRequest
+                     */
+                    GetNotificationsRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.GetNotificationsRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.GetNotificationsRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a GetNotificationsRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.GetNotificationsRequest} message GetNotificationsRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetNotificationsRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this GetNotificationsRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetNotificationsRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetNotificationsRequest;
+                })();
+
+                contestant.GetNotificationsResponse = (function() {
+
+                    /**
+                     * Properties of a GetNotificationsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IGetNotificationsResponse
+                     * @property {number|Long|null} [lastAnsweredClarificationId] GetNotificationsResponse lastAnsweredClarificationId
+                     */
+
+                    /**
+                     * Constructs a new GetNotificationsResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a GetNotificationsResponse.
+                     * @implements IGetNotificationsResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsResponse=} [properties] Properties to set
+                     */
+                    function GetNotificationsResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetNotificationsResponse lastAnsweredClarificationId.
+                     * @member {number|Long} lastAnsweredClarificationId
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @instance
+                     */
+                    GetNotificationsResponse.prototype.lastAnsweredClarificationId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Creates a new GetNotificationsResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsResponse} GetNotificationsResponse instance
+                     */
+                    GetNotificationsResponse.create = function create(properties) {
+                        return new GetNotificationsResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetNotificationsResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.GetNotificationsResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsResponse} message GetNotificationsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetNotificationsResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.lastAnsweredClarificationId != null && Object.hasOwnProperty.call(message, "lastAnsweredClarificationId"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.lastAnsweredClarificationId);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetNotificationsResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.GetNotificationsResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IGetNotificationsResponse} message GetNotificationsResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetNotificationsResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetNotificationsResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsResponse} GetNotificationsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetNotificationsResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.GetNotificationsResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.lastAnsweredClarificationId = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetNotificationsResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsResponse} GetNotificationsResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetNotificationsResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetNotificationsResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetNotificationsResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.lastAnsweredClarificationId != null && message.hasOwnProperty("lastAnsweredClarificationId"))
+                            if (!$util.isInteger(message.lastAnsweredClarificationId) && !(message.lastAnsweredClarificationId && $util.isInteger(message.lastAnsweredClarificationId.low) && $util.isInteger(message.lastAnsweredClarificationId.high)))
+                                return "lastAnsweredClarificationId: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetNotificationsResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.GetNotificationsResponse} GetNotificationsResponse
+                     */
+                    GetNotificationsResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.GetNotificationsResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.GetNotificationsResponse();
+                        if (object.lastAnsweredClarificationId != null)
+                            if ($util.Long)
+                                (message.lastAnsweredClarificationId = $util.Long.fromValue(object.lastAnsweredClarificationId)).unsigned = false;
+                            else if (typeof object.lastAnsweredClarificationId === "string")
+                                message.lastAnsweredClarificationId = parseInt(object.lastAnsweredClarificationId, 10);
+                            else if (typeof object.lastAnsweredClarificationId === "number")
+                                message.lastAnsweredClarificationId = object.lastAnsweredClarificationId;
+                            else if (typeof object.lastAnsweredClarificationId === "object")
+                                message.lastAnsweredClarificationId = new $util.LongBits(object.lastAnsweredClarificationId.low >>> 0, object.lastAnsweredClarificationId.high >>> 0).toNumber();
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetNotificationsResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.GetNotificationsResponse} message GetNotificationsResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetNotificationsResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.lastAnsweredClarificationId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.lastAnsweredClarificationId = options.longs === String ? "0" : 0;
+                        if (message.lastAnsweredClarificationId != null && message.hasOwnProperty("lastAnsweredClarificationId"))
+                            if (typeof message.lastAnsweredClarificationId === "number")
+                                object.lastAnsweredClarificationId = options.longs === String ? String(message.lastAnsweredClarificationId) : message.lastAnsweredClarificationId;
+                            else
+                                object.lastAnsweredClarificationId = options.longs === String ? $util.Long.prototype.toString.call(message.lastAnsweredClarificationId) : options.longs === Number ? new $util.LongBits(message.lastAnsweredClarificationId.low >>> 0, message.lastAnsweredClarificationId.high >>> 0).toNumber() : message.lastAnsweredClarificationId;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetNotificationsResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.GetNotificationsResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetNotificationsResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetNotificationsResponse;
+                })();
+
+                return contestant;
             })();
 
             services.registration = (function() {

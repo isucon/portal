@@ -1,3 +1,5 @@
+require 'isuxportal/resources/leaderboard_pb'
+
 module Contest
   class RegistrationClosed < StandardError; end
 
@@ -41,5 +43,73 @@ module Contest
 
   def self.max_teams
     Rails.application.config.x.contest.max_teams || 0
+  end
+
+  def self.leaderboard(admin: false, team: nil)
+    benchmark_results = BenchmarkResult
+      .select(:team_id, :score, :created_at, :marked_at)
+      .where(finished: true)
+      .where('exit_status = 0 AND exit_signal is null') # XXX: adhoc
+      .preload(:team)
+    unless admin
+      benchmark_results = benchmark_results.where('marked_at < ?', Rails.application.config.x.contest.contest_end) if Rails.application.config.x.contest.contest_end
+      benchmark_results = benchmark_results.where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) if Rails.application.config.x.contest.contest_freeze
+    end
+
+    # TODO: include teams w/o score submission
+    teams = benchmark_results.group_by(&:team_id)
+    items = teams.map do |team_id, rs|
+      scores = rs.sort_by(&:marked_at).map do |r|
+        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+          score: r.score,
+          started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
+          marked_at: r.marked_at.to_time,
+        )
+      end
+      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+        team: rs[0].team.to_pb(detail: false, members: false),
+        scores: scores,
+        best_score: scores.max_by(&:score),
+        latest_score: scores[-1],
+      )
+    end
+
+    items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+    items.reverse!
+
+    benchmark_progresses = BenchmarkResult
+      .select(:team_id, :score, :created_at, :marked_at)
+      .joins(:benchmark_job)
+      .where(benchmark_jobs: {status: :running})
+      .where(finished: false)
+      .where('exit_status is null AND exit_signal is null') # XXX: adhoc
+      .preload(:team)
+    unless admin
+      benchmark_progresses = benchmark_progresses.where('marked_at < ?', Rails.application.config.x.contest.contest_end) if Rails.application.config.x.contest.contest_end
+      benchmark_progresses = benchmark_progresses.where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) if Rails.application.config.x.contest.contest_freeze
+    end
+    progresses = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
+      score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
+        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+          score: r.score,
+          started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
+          marked_at: r.marked_at.to_time,
+        )
+      end
+      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+        team: rs[0].team.to_pb(detail: false, members: false),
+        scores: [score],
+        best_score: score,
+        latest_score: score,
+      )
+    end
+
+
+    Isuxportal::Proto::Resources::Leaderboard.new(
+      teams: items,
+      general_teams: items.reject { |_| _.team.student.status },
+      student_teams: items.select { |_| _.team.student.status },
+      progresses: progresses,
+    )
   end
 end

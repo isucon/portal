@@ -8,7 +8,7 @@ require 'isuxportal/resources/contestant_instance_pb'
 require 'isuxportal/resources/benchmark_job_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/contestant/dashboard.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.contestant.DashboardRequest" do
+    add_message "isuxportal.proto.services.contestant.DashboardQuery" do
     end
     add_message "isuxportal.proto.services.contestant.DashboardResponse" do
       optional :leaderboard, :message, 1, "isuxportal.proto.resources.Leaderboard"
@@ -22,7 +22,7 @@ module Isuxportal
   module Proto
     module Services
       module Contestant
-        DashboardRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.DashboardRequest").msgclass
+        DashboardQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.DashboardQuery").msgclass
         DashboardResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.DashboardResponse").msgclass
       end
     end

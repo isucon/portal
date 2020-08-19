@@ -6,7 +6,7 @@ require 'google/protobuf'
 require 'isuxportal/resources/benchmark_job_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/contestant/benchmark.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.contestant.ListBenchmarkJobsRequest" do
+    add_message "isuxportal.proto.services.contestant.ListBenchmarkJobsQuery" do
     end
     add_message "isuxportal.proto.services.contestant.ListBenchmarkJobsResponse" do
       repeated :jobs, :message, 1, "isuxportal.proto.resources.BenchmarkJob"
@@ -30,7 +30,7 @@ module Isuxportal
   module Proto
     module Services
       module Contestant
-        ListBenchmarkJobsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.ListBenchmarkJobsRequest").msgclass
+        ListBenchmarkJobsQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.ListBenchmarkJobsQuery").msgclass
         ListBenchmarkJobsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.ListBenchmarkJobsResponse").msgclass
         EnqueueBenchmarkJobRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.EnqueueBenchmarkJobRequest").msgclass
         EnqueueBenchmarkJobResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.EnqueueBenchmarkJobResponse").msgclass

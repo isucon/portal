@@ -3,6 +3,7 @@ import {isuxportal} from "./pb";
 import React from "react";
 import {Link} from "react-router-dom";
 
+import {BenchmarkJobStatus} from "./BenchmarkJobStatus";
 import {Timestamp} from "./Timestamp";
 
 export interface Props {
@@ -18,7 +19,7 @@ const renderJobSummary = (job: isuxportal.proto.resources.IBenchmarkJob) => {
     <div className="card-content">
       <p><b>ID:</b> {job.id}</p>
       {/* TODO: ContestantInstance */}
-      <p><b>Status:</b> {isuxportal.proto.resources.BenchmarkJob.Status[job.status!]}</p>
+      <p><b>Status:</b> <BenchmarkJobStatus status={job.status!} /></p>
       <p><b>Enqueued At:</b> <Timestamp timestamp={job.createdAt!} /></p>
       <p><b>Updated At:</b> <Timestamp timestamp={job.updatedAt!} /></p>
       <p><b>Started At:</b> {job.startedAt ? <Timestamp timestamp={job.startedAt} /> : 'N/A'}</p>
@@ -58,7 +59,7 @@ const renderJobResult = (job: isuxportal.proto.resources.IBenchmarkJob) => {
   </div>;
 };
 
-const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob) => {
+const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob, admin: boolean) => {
   if (!job.result) return;
   if (!job.result.execution) return;
   const {execution} = job.result;
@@ -68,12 +69,15 @@ const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob) => {
       </header>
       <div className="card-content">
         <p><b>Reason:</b> {execution.reason}</p>
-        <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p>
 
         <h5 className="subtitle is-5">Stdout</h5>
         <pre>{execution.stdout}</pre>
-        <h5 className="subtitle is-5">Stderr</h5>
-        <pre>{execution.stderr}</pre>
+
+        {admin ? <>
+          <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p>
+          <h5 className="subtitle is-5">Stderr</h5>
+          <pre>{execution.stderr}</pre>
+        </> : null}
     </div>
   </div>;
 };
@@ -85,7 +89,7 @@ export const BenchmarkJobDetail: React.FC<Props> = (props: Props) => {
       {renderJobSummary(job)}
       {props.admin ? renderTeam(job.team!) : null}
       {renderJobResult(job)}
-      {renderJobExecution(job)}
+      {renderJobExecution(job, !!props.admin)}
     </section>
   </>;
 };
