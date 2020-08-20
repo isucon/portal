@@ -98,8 +98,8 @@ module Contest
       end
       Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
         team: rs[0].team.to_pb(detail: false, members: false),
-        scores: [score],
-        best_score: score,
+        scores: [],
+        best_score: nil,
         latest_score: score,
       )
     end
