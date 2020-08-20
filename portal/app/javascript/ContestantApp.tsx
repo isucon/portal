@@ -14,6 +14,7 @@ import {ErrorMessage} from "./ErrorMessage";
 import {ContestantNavbar} from "./contestant/ContestantNavbar";
 import {ContestantBenchmarkJobList} from "./contestant/ContestantBenchmarkJobList";
 import {ContestantBenchmarkJobDetail} from "./contestant/ContestantBenchmarkJobDetail";
+import {ContestantClarificationList} from "./contestant/ContestantClarificationList";
 import {ContestantDashboard} from "./contestant/ContestantDashboard";
 
 export interface Props {
@@ -46,6 +47,10 @@ export class ContestantApp extends React.Component<Props, State> {
           <Route path="/contestant/benchmark_jobs/:id" render={({match}) => {
             return <ContestantBenchmarkJobDetail session={this.props.session} client={this.props.client} id={match.params.id} />;
           }} />
+          <Route exact path="/contestant/clarifications" render={({match}) => {
+            return <ContestantClarificationList session={this.props.session} client={this.props.client} />;
+          }} />
+
         </Switch>
       </div>
     </BrowserRouter>;

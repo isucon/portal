@@ -45,6 +45,9 @@ export class ContestantNavbar extends React.Component<Props, State> {
             <Link className="navbar-item" to="/contestant/benchmark_jobs">
               ベンチ実行リスト
             </Link>
+            <Link className="navbar-item" to="/contestant/clarifications">
+              質問/サポート
+            </Link>
           </div>
           <div className="navbar-end">
             <div className="navbar-item has-dropdown is-hoverable">

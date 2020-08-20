@@ -110,6 +110,20 @@ export class ApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listClarifications() {
+    const klass = isuxportal.proto.services.contestant.ListClarificationsResponse;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/clarifications`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+  public async requestClarification(payload: isuxportal.proto.services.contestant.IRequestClarificationRequest) {
+    const responseClass = isuxportal.proto.services.contestant.RequestClarificationResponse;
+    const payloadClass = isuxportal.proto.services.contestant.RequestClarificationRequest;
+    const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/clarifications`, "POST", null, payloadMessage);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();
