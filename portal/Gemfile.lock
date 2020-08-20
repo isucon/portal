@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/discordrb/discordrb
+  revision: b739895505aac8bf6d0cbbda98ade1600e660abb
+  specs:
+    discordrb (3.3.0)
+      discordrb-webhooks (~> 3.3.0)
+      ffi (>= 1.9.24)
+      opus-ruby
+      rest-client (>= 2.0.0)
+      websocket-client-simple (>= 0.3.0)
+    discordrb-webhooks (3.3.0)
+      rest-client (>= 2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,15 +79,6 @@ GEM
     connection_pool (2.2.3)
     crass (1.0.6)
     diff-lcs (1.4.3)
-    discordrb (3.3.0)
-      discordrb-webhooks (~> 3.3.0)
-      ffi (>= 1.9.24)
-      opus-ruby
-      rbnacl (~> 3.4.0)
-      rest-client (>= 2.1.0.rc1)
-      websocket-client-simple (>= 0.3.0)
-    discordrb-webhooks (3.3.0)
-      rest-client (>= 2.1.0.rc1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ds9 (1.4.1)
@@ -191,8 +195,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
-    rbnacl (3.4.0)
-      ffi
     redis (4.2.1)
     redis-actionpack (5.2.0)
       actionpack (>= 5, < 7)
@@ -274,7 +276,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   blouson
-  discordrb
+  discordrb!
   factory_bot
   google-protobuf
   griffin

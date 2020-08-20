@@ -25,7 +25,7 @@ gem 'omniauth-discord'
 
 gem 'addressable'
 
-gem 'discordrb'
+gem 'discordrb', git: 'https://github.com/discordrb/discordrb'
 gem 'octokit'
 
 group :development, :test do
