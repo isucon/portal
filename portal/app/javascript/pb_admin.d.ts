@@ -2380,6 +2380,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse discordServerId */
                     discordServerId?: (string|null);
+
+                    /** GetCurrentSessionResponse contest */
+                    contest?: (isuxportal.proto.resources.IContest|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2399,6 +2402,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse discordServerId. */
                     public discordServerId: string;
+
+                    /** GetCurrentSessionResponse contest. */
+                    public contest?: (isuxportal.proto.resources.IContest|null);
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -5068,85 +5074,85 @@ export namespace isuxportal {
             /** Namespace audience. */
             namespace audience {
 
-                /** Properties of a DashboardRequest. */
-                interface IDashboardRequest {
+                /** Properties of a DashboardQuery. */
+                interface IDashboardQuery {
                 }
 
-                /** Represents a DashboardRequest. */
-                class DashboardRequest implements IDashboardRequest {
+                /** Represents a DashboardQuery. */
+                class DashboardQuery implements IDashboardQuery {
 
                     /**
-                     * Constructs a new DashboardRequest.
+                     * Constructs a new DashboardQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.audience.IDashboardRequest);
+                    constructor(properties?: isuxportal.proto.services.audience.IDashboardQuery);
 
                     /**
-                     * Creates a new DashboardRequest instance using the specified properties.
+                     * Creates a new DashboardQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns DashboardRequest instance
+                     * @returns DashboardQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.audience.IDashboardRequest): isuxportal.proto.services.audience.DashboardRequest;
+                    public static create(properties?: isuxportal.proto.services.audience.IDashboardQuery): isuxportal.proto.services.audience.DashboardQuery;
 
                     /**
-                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
-                     * @param message DashboardRequest message or plain object to encode
+                     * Encodes the specified DashboardQuery message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardQuery.verify|verify} messages.
+                     * @param message DashboardQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.audience.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.audience.IDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
-                     * @param message DashboardRequest message or plain object to encode
+                     * Encodes the specified DashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardQuery.verify|verify} messages.
+                     * @param message DashboardQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.audience.IDashboardRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.IDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * Decodes a DashboardQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns DashboardRequest
+                     * @returns DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.DashboardRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.DashboardQuery;
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a DashboardQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns DashboardRequest
+                     * @returns DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.DashboardRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.DashboardQuery;
 
                     /**
-                     * Verifies a DashboardRequest message.
+                     * Verifies a DashboardQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a DashboardQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns DashboardRequest
+                     * @returns DashboardQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.DashboardRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.DashboardQuery;
 
                     /**
-                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
-                     * @param message DashboardRequest
+                     * Creates a plain object from a DashboardQuery message. Also converts values to other types if specified.
+                     * @param message DashboardQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.audience.DashboardRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.audience.DashboardQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this DashboardRequest to JSON.
+                     * Converts this DashboardQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };

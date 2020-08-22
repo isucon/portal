@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'isuxportal/resources/team_pb'
 require 'isuxportal/resources/contestant_pb'
+require 'isuxportal/resources/contest_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/common/me.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.common.GetCurrentSessionRequest" do
@@ -13,6 +14,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"
       optional :contestant, :message, 2, "isuxportal.proto.resources.Contestant"
       optional :discord_server_id, :string, 3
+      optional :contest, :message, 4, "isuxportal.proto.resources.Contest"
     end
   end
 end

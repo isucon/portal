@@ -6423,6 +6423,7 @@ $root.isuxportal = (function() {
                      * @property {isuxportal.proto.resources.ITeam|null} [team] GetCurrentSessionResponse team
                      * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
                      * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
+                     * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
                      */
 
                     /**
@@ -6465,6 +6466,14 @@ $root.isuxportal = (function() {
                     GetCurrentSessionResponse.prototype.discordServerId = "";
 
                     /**
+                     * GetCurrentSessionResponse contest.
+                     * @member {isuxportal.proto.resources.IContest|null|undefined} contest
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contest = null;
+
+                    /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
@@ -6494,6 +6503,8 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Contestant.encode(message.contestant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                         if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
                             writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
+                        if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
+                            $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                         return writer;
                     };
 
@@ -6536,6 +6547,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 3:
                                 message.discordServerId = reader.string();
+                                break;
+                            case 4:
+                                message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -6585,6 +6599,11 @@ $root.isuxportal = (function() {
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             if (!$util.isString(message.discordServerId))
                                 return "discordServerId: string expected";
+                        if (message.contest != null && message.hasOwnProperty("contest")) {
+                            var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
+                            if (error)
+                                return "contest." + error;
+                        }
                         return null;
                     };
 
@@ -6612,6 +6631,11 @@ $root.isuxportal = (function() {
                         }
                         if (object.discordServerId != null)
                             message.discordServerId = String(object.discordServerId);
+                        if (object.contest != null) {
+                            if (typeof object.contest !== "object")
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contest: object expected");
+                            message.contest = $root.isuxportal.proto.resources.Contest.fromObject(object.contest);
+                        }
                         return message;
                     };
 
@@ -6632,6 +6656,7 @@ $root.isuxportal = (function() {
                             object.team = null;
                             object.contestant = null;
                             object.discordServerId = "";
+                            object.contest = null;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -6639,6 +6664,8 @@ $root.isuxportal = (function() {
                             object.contestant = $root.isuxportal.proto.resources.Contestant.toObject(message.contestant, options);
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             object.discordServerId = message.discordServerId;
+                        if (message.contest != null && message.hasOwnProperty("contest"))
+                            object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
                         return object;
                     };
 
@@ -12498,23 +12525,23 @@ $root.isuxportal = (function() {
                  */
                 var audience = {};
 
-                audience.DashboardRequest = (function() {
+                audience.DashboardQuery = (function() {
 
                     /**
-                     * Properties of a DashboardRequest.
+                     * Properties of a DashboardQuery.
                      * @memberof isuxportal.proto.services.audience
-                     * @interface IDashboardRequest
+                     * @interface IDashboardQuery
                      */
 
                     /**
-                     * Constructs a new DashboardRequest.
+                     * Constructs a new DashboardQuery.
                      * @memberof isuxportal.proto.services.audience
-                     * @classdesc Represents a DashboardRequest.
-                     * @implements IDashboardRequest
+                     * @classdesc Represents a DashboardQuery.
+                     * @implements IDashboardQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.audience.IDashboardRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.audience.IDashboardQuery=} [properties] Properties to set
                      */
-                    function DashboardRequest(properties) {
+                    function DashboardQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -12522,60 +12549,60 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Creates a new DashboardRequest instance using the specified properties.
+                     * Creates a new DashboardQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.audience.IDashboardRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest instance
+                     * @param {isuxportal.proto.services.audience.IDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.DashboardQuery} DashboardQuery instance
                      */
-                    DashboardRequest.create = function create(properties) {
-                        return new DashboardRequest(properties);
+                    DashboardQuery.create = function create(properties) {
+                        return new DashboardQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message. Does not implicitly {@link isuxportal.proto.services.audience.DashboardQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.audience.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encode = function encode(message, writer) {
+                    DashboardQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.DashboardQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.audience.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.audience.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    DashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * Decodes a DashboardQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.audience.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decode = function decode(reader, length) {
+                    DashboardQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.DashboardRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.DashboardQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -12588,74 +12615,74 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a DashboardQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.audience.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decodeDelimited = function decodeDelimited(reader) {
+                    DashboardQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a DashboardRequest message.
+                     * Verifies a DashboardQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    DashboardRequest.verify = function verify(message) {
+                    DashboardQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         return null;
                     };
 
                     /**
-                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a DashboardQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.audience.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.audience.DashboardQuery} DashboardQuery
                      */
-                    DashboardRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.audience.DashboardRequest)
+                    DashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.DashboardQuery)
                             return object;
-                        return new $root.isuxportal.proto.services.audience.DashboardRequest();
+                        return new $root.isuxportal.proto.services.audience.DashboardQuery();
                     };
 
                     /**
-                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a DashboardQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.audience.DashboardRequest} message DashboardRequest
+                     * @param {isuxportal.proto.services.audience.DashboardQuery} message DashboardQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    DashboardRequest.toObject = function toObject() {
+                    DashboardQuery.toObject = function toObject() {
                         return {};
                     };
 
                     /**
-                     * Converts this DashboardRequest to JSON.
+                     * Converts this DashboardQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.audience.DashboardRequest
+                     * @memberof isuxportal.proto.services.audience.DashboardQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    DashboardRequest.prototype.toJSON = function toJSON() {
+                    DashboardQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return DashboardRequest;
+                    return DashboardQuery;
                 })();
 
                 audience.DashboardResponse = (function() {

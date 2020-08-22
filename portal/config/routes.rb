@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   get '/' => 'root#index'
+  get '/teams' => 'root#index'
   get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
   get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
   get '/site/sha' => RevisionPlate::App.new("#{__dir__}/../REVISION")
@@ -48,6 +49,9 @@ Rails.application.routes.draw do
     end
 
     scope path: 'audience', module: 'audience' do
+      # audience/dashboard Dashboard: GET /api/audience/dashboard
+      resource :dashboard, only: %i(show)
+
       # audience/team_list ListTeams: GET /api/audience/teams
       resources :teams, only: %i(index)
     end

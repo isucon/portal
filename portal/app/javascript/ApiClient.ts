@@ -110,6 +110,12 @@ export class ApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getAudienceDashboard() {
+    const klass = isuxportal.proto.services.audience.DashboardResponse;
+    const resp = await this.request(`${this.baseUrl}/api/audience/dashboard`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listClarifications() {
     const klass = isuxportal.proto.services.contestant.ListClarificationsResponse;
     const resp = await this.request(`${this.baseUrl}/api/contestant/clarifications`, "GET", null, null);
