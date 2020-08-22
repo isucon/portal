@@ -38,7 +38,7 @@ export class Navbar extends React.Component<Props, State> {
         </div>
         <div className="navbar-menu is-active">
           <div className="navbar-start">
-            <a className="navbar-item" href="/">
+            <Link className="navbar-item" to="/teams">
               チーム一覧
             </a>
             <a className="navbar-item" href="/terms">

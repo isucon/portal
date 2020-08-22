@@ -13,6 +13,7 @@ import {ErrorMessage} from "./ErrorMessage";
 
 import {Navbar} from "./Navbar";
 import {TeamList} from "./TeamList";
+import {AudienceDashboard} from "./AudienceDashboard";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -37,14 +38,14 @@ export class AudienceApp extends React.Component<Props, State> {
         <Switch>
           <Route exact path="/" render={({match}) => {
             return <>
-              <div className="columns is-centered">
-                <article className="column is-9">
-                  <p className="is-sr-only">ISUCON 告知動画</p>
-                  <div className="i-yt">
-                    <iframe src="https://www.youtube.com/embed/TC4mLW-pQ0U" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen={true}></iframe>
-                  </div>
-                </article>
-              </div>
+              {(this.props.session.contest!.status == isuxportal.proto.resources.Contest.Status.FINISHED || this.props.session.contest!.status == isuxportal.proto.resources.Contest.Status.STARTED) ? 
+                <AudienceDashboard session={this.props.session} client={this.props.client} />
+              : <TeamList session={this.props.session} client={this.props.client} />
+              }
+            </>;
+          }} />
+          <Route exact path="/teams" render={({match}) => {
+            return <>
               <TeamList session={this.props.session} client={this.props.client} />
             </>;
           }} />
