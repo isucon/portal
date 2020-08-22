@@ -33,7 +33,9 @@ export const Clarification: React.FC<Props> = (props: Props) => {
         <div className="level-left">
           <p>
             {clar.team ?
-              (clar.answered ? <span className="tag is-primary mr-1">回答済</span> : <span className="tag is-danger mr-1">未回答</span>)
+              (clar.answered ?
+                (clar.admin ? null : <span className="tag is-primary mr-1">回答済</span>)
+              : <span className="tag is-danger mr-1">未回答</span>)
             : null}
             {!clar.answered ? null :
               (clar.disclosed ? <span className="tag is-primary mr-1">全体公開</span> : <span className="tag is-warning mr-1">個別回答</span>)}
@@ -51,7 +53,8 @@ export const Clarification: React.FC<Props> = (props: Props) => {
               {props.admin ? <Link to={`/admin/teams/${encodeURIComponent(clar.team!.id!.toString())}`}>
                 {clar.team.name} (#{clar.team.id!.toString()})
               </Link> : <>{clar.team.name} (#{clar.team.id!.toString()})</>}
-            </> : <p><span className="tag is-info">運営</span></p>}
+            </> : null}
+            {clar.admin ? <span className="tag is-dark ml-5">運営</span> : null}
           </div>
         </div>
       </div>

@@ -1595,6 +1595,9 @@ export namespace isuxportal {
                 /** Clarification originalQuestion */
                 originalQuestion?: (string|null);
 
+                /** Clarification admin */
+                admin?: (boolean|null);
+
                 /** Clarification team */
                 team?: (isuxportal.proto.resources.ITeam|null);
             }
@@ -1634,6 +1637,9 @@ export namespace isuxportal {
 
                 /** Clarification originalQuestion. */
                 public originalQuestion: string;
+
+                /** Clarification admin. */
+                public admin: boolean;
 
                 /** Clarification team. */
                 public team?: (isuxportal.proto.resources.ITeam|null);

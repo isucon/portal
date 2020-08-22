@@ -36,6 +36,7 @@ class Clarification < ApplicationRecord
       created_at: created_at&.to_time,
       answered_at: answered_at&.to_time,
       team: team ? self.team&.to_pb : nil,
+      admin: admin?,
     )
   end
 end

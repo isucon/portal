@@ -31,6 +31,7 @@ class Api::Admin::ClarificationsController < Api::Admin::ApplicationController
       answer: pb.answer,
       answered_at: Time.zone.now,
       disclosed: pb.team_id == 0,
+      admin: true,
     )
     render protobuf: Isuxportal::Proto::Services::Admin::CreateClarificationResponse.new(
       clarification: @clarification.to_pb(team: true, original_question: true),

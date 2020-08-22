@@ -4274,6 +4274,7 @@ $root.isuxportal = (function() {
                  * @property {google.protobuf.ITimestamp|null} [createdAt] Clarification createdAt
                  * @property {google.protobuf.ITimestamp|null} [answeredAt] Clarification answeredAt
                  * @property {string|null} [originalQuestion] Clarification originalQuestion
+                 * @property {boolean|null} [admin] Clarification admin
                  * @property {isuxportal.proto.resources.ITeam|null} [team] Clarification team
                  */
 
@@ -4365,6 +4366,14 @@ $root.isuxportal = (function() {
                 Clarification.prototype.originalQuestion = "";
 
                 /**
+                 * Clarification admin.
+                 * @member {boolean} admin
+                 * @memberof isuxportal.proto.resources.Clarification
+                 * @instance
+                 */
+                Clarification.prototype.admin = false;
+
+                /**
                  * Clarification team.
                  * @member {isuxportal.proto.resources.ITeam|null|undefined} team
                  * @memberof isuxportal.proto.resources.Clarification
@@ -4414,6 +4423,8 @@ $root.isuxportal = (function() {
                         $root.google.protobuf.Timestamp.encode(message.answeredAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     if (message.originalQuestion != null && Object.hasOwnProperty.call(message, "originalQuestion"))
                         writer.uint32(/* id 9, wireType 2 =*/74).string(message.originalQuestion);
+                    if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                        writer.uint32(/* id 10, wireType 0 =*/80).bool(message.admin);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     return writer;
@@ -4476,6 +4487,9 @@ $root.isuxportal = (function() {
                             break;
                         case 9:
                             message.originalQuestion = reader.string();
+                            break;
+                        case 10:
+                            message.admin = reader.bool();
                             break;
                         case 16:
                             message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
@@ -4546,6 +4560,9 @@ $root.isuxportal = (function() {
                     if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
                         if (!$util.isString(message.originalQuestion))
                             return "originalQuestion: string expected";
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        if (typeof message.admin !== "boolean")
+                            return "admin: boolean expected";
                     if (message.team != null && message.hasOwnProperty("team")) {
                         var error = $root.isuxportal.proto.resources.Team.verify(message.team);
                         if (error)
@@ -4604,6 +4621,8 @@ $root.isuxportal = (function() {
                     }
                     if (object.originalQuestion != null)
                         message.originalQuestion = String(object.originalQuestion);
+                    if (object.admin != null)
+                        message.admin = Boolean(object.admin);
                     if (object.team != null) {
                         if (typeof object.team !== "object")
                             throw TypeError(".isuxportal.proto.resources.Clarification.team: object expected");
@@ -4643,6 +4662,7 @@ $root.isuxportal = (function() {
                         object.createdAt = null;
                         object.answeredAt = null;
                         object.originalQuestion = "";
+                        object.admin = false;
                         object.team = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -4669,6 +4689,8 @@ $root.isuxportal = (function() {
                         object.answeredAt = $root.google.protobuf.Timestamp.toObject(message.answeredAt, options);
                     if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
                         object.originalQuestion = message.originalQuestion;
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        object.admin = message.admin;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     return object;
