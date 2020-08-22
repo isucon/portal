@@ -53,7 +53,7 @@ export class ContestantNavbar extends React.Component<Props, State> {
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">ドキュメント</a>
               <div className="navbar-dropdown">
-                <a className="navbar-item" href="/">
+                <a className="navbar-item" href="/teams">
                   チーム一覧
                 </a>
                 <a className="navbar-item" href="/terms">
