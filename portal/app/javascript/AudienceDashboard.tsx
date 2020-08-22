@@ -28,7 +28,7 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
   React.useEffect(() => {
     // TODO: Retry with backoff
     const timer = setInterval(() => {
-      client.getDashboard().then((db) => setDashboard(db))
+      client.getAudienceDashboard().then((db) => setDashboard(db))
         .catch((e) => setError(e));
     }, 30000);
     return (() => clearInterval(timer));
