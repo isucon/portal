@@ -6,7 +6,7 @@ require 'google/protobuf'
 require 'isuxportal/resources/leaderboard_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/dashboard.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.admin.DashboardRequest" do
+    add_message "isuxportal.proto.services.admin.DashboardQuery" do
     end
     add_message "isuxportal.proto.services.admin.DashboardResponse" do
       optional :leaderboard, :message, 1, "isuxportal.proto.resources.Leaderboard"
@@ -18,7 +18,7 @@ module Isuxportal
   module Proto
     module Services
       module Admin
-        DashboardRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.DashboardRequest").msgclass
+        DashboardQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.DashboardQuery").msgclass
         DashboardResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.DashboardResponse").msgclass
       end
     end

@@ -71,6 +71,9 @@ Rails.application.routes.draw do
     end
 
     scope path: 'admin', module: 'admin' do
+      # admin/dashboard Dashboard: GET /api/admin/dashboard
+      resource :dashboard, only: %i(show)
+
       # admin/teams ListTeams: GET /api/admin/teams
       # admin/teams GetTeam: GET /api/admin/teams/:id
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id

@@ -1,25 +1,25 @@
-import {isuxportal} from "./pb";
-import {ApiError, ApiClient} from "./ApiClient";
+import {isuxportal} from "../pb_admin";
+import {AdminApiClient} from "./AdminApiClient";
 
 import React from "react";
 
-import {ErrorMessage} from "./ErrorMessage";
+import {ErrorMessage} from "../ErrorMessage";
 
-import {ScoreGraph} from "./ScoreGraph";
-import {Leaderboard} from "./Leaderboard";
+import {ScoreGraph} from "../ScoreGraph";
+import {Leaderboard} from "../Leaderboard";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
-  client: ApiClient,
+  client: AdminApiClient,
 }
 
-export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
-  const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
+export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
+  const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.admin.DashboardResponse | null>(null);
   const [ error, setError ] = React.useState<Error | null>(null);
 
   React.useEffect(() => {
     if (!dashboard) {
-      client.getAudienceDashboard().then((db) => setDashboard(db))
+      client.getDashboard().then((db) => setDashboard(db))
         .catch((e) => setError(e));
     }
   }, [dashboard]);
@@ -27,9 +27,9 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
   React.useEffect(() => {
     // TODO: Retry with backoff
     const timer = setInterval(() => {
-      client.getAudienceDashboard().then((db) => setDashboard(db))
+      client.getDashboard().then((db) => setDashboard(db))
         .catch((e) => setError(e));
-    }, 30000);
+    }, 5000);
     return (() => clearInterval(timer));
   }, []);
 

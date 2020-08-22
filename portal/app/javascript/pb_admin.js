@@ -10452,23 +10452,23 @@ $root.isuxportal = (function() {
                     return ListContestantInstancesResponse;
                 })();
 
-                admin.DashboardRequest = (function() {
+                admin.DashboardQuery = (function() {
 
                     /**
-                     * Properties of a DashboardRequest.
+                     * Properties of a DashboardQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface IDashboardRequest
+                     * @interface IDashboardQuery
                      */
 
                     /**
-                     * Constructs a new DashboardRequest.
+                     * Constructs a new DashboardQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a DashboardRequest.
-                     * @implements IDashboardRequest
+                     * @classdesc Represents a DashboardQuery.
+                     * @implements IDashboardQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.IDashboardRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.IDashboardQuery=} [properties] Properties to set
                      */
-                    function DashboardRequest(properties) {
+                    function DashboardQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -10476,60 +10476,60 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Creates a new DashboardRequest instance using the specified properties.
+                     * Creates a new DashboardQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IDashboardRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.DashboardRequest} DashboardRequest instance
+                     * @param {isuxportal.proto.services.admin.IDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.DashboardQuery} DashboardQuery instance
                      */
-                    DashboardRequest.create = function create(properties) {
-                        return new DashboardRequest(properties);
+                    DashboardQuery.create = function create(properties) {
+                        return new DashboardQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message. Does not implicitly {@link isuxportal.proto.services.admin.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message. Does not implicitly {@link isuxportal.proto.services.admin.DashboardQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encode = function encode(message, writer) {
+                    DashboardQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified DashboardRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.DashboardRequest.verify|verify} messages.
+                     * Encodes the specified DashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.DashboardQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IDashboardRequest} message DashboardRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IDashboardQuery} message DashboardQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    DashboardRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    DashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer.
+                     * Decodes a DashboardQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.admin.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decode = function decode(reader, length) {
+                    DashboardQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.DashboardRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.DashboardQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -10542,74 +10542,74 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a DashboardRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a DashboardQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.admin.DashboardQuery} DashboardQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    DashboardRequest.decodeDelimited = function decodeDelimited(reader) {
+                    DashboardQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a DashboardRequest message.
+                     * Verifies a DashboardQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    DashboardRequest.verify = function verify(message) {
+                    DashboardQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         return null;
                     };
 
                     /**
-                     * Creates a DashboardRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a DashboardQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.DashboardRequest} DashboardRequest
+                     * @returns {isuxportal.proto.services.admin.DashboardQuery} DashboardQuery
                      */
-                    DashboardRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.DashboardRequest)
+                    DashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.DashboardQuery)
                             return object;
-                        return new $root.isuxportal.proto.services.admin.DashboardRequest();
+                        return new $root.isuxportal.proto.services.admin.DashboardQuery();
                     };
 
                     /**
-                     * Creates a plain object from a DashboardRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a DashboardQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.DashboardRequest} message DashboardRequest
+                     * @param {isuxportal.proto.services.admin.DashboardQuery} message DashboardQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    DashboardRequest.toObject = function toObject() {
+                    DashboardQuery.toObject = function toObject() {
                         return {};
                     };
 
                     /**
-                     * Converts this DashboardRequest to JSON.
+                     * Converts this DashboardQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.DashboardRequest
+                     * @memberof isuxportal.proto.services.admin.DashboardQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    DashboardRequest.prototype.toJSON = function toJSON() {
+                    DashboardQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return DashboardRequest;
+                    return DashboardQuery;
                 })();
 
                 admin.DashboardResponse = (function() {

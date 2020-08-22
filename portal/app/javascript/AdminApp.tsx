@@ -20,6 +20,7 @@ import {AdminBenchmarkJobList} from "./admin/AdminBenchmarkJobList";
 import {AdminBenchmarkJobDetail } from "./admin/AdminBenchmarkJobDetail";
 import {AdminClarificationList} from "./admin/AdminClarificationList";
 import {AdminClarificationDetail} from "./admin/AdminClarificationDetail";
+import {AdminDashboard} from "./admin/AdminDashboard";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -63,7 +64,7 @@ export class AdminApp extends React.Component<Props, State> {
             <main>
               <Switch>
                 <Route exact path="/admin" render={({match}) => {
-                  return <></>;
+                  return <AdminDashboard session={this.props.session} client={this.state.adminClient} />;
                 }} />
                 <Route exact path="/admin/teams" render={({match}) => {
                   return <AdminTeamList session={this.props.session} client={this.state.adminClient} />;
