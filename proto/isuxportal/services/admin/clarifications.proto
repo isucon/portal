@@ -4,7 +4,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto/services/admin";
 
 import "isuxportal/resources/clarification.proto";
 
-message ListClarificationsRequest {
+message ListClarificationsQuery {
   // optional to filter
   int64 team_id = 1;
 }
@@ -13,7 +13,7 @@ message ListClarificationsResponse {
   repeated isuxportal.proto.resources.Clarification clarifications = 1;
 }
 
-message GetClarificationRequest {
+message GetClarificationQuery {
   int64 id = 1;
 }
 
@@ -34,9 +34,9 @@ message RespondClarificationResponse {
 }
 
 message CreateClarificationRequest {
-  int64 id = 1;
   string answer = 2;
   string question = 3;
+  int64 team_id = 4;
 }
 
 message CreateClarificationResponse {

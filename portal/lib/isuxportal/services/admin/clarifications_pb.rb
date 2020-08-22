@@ -6,13 +6,13 @@ require 'google/protobuf'
 require 'isuxportal/resources/clarification_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/clarifications.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.admin.ListClarificationsRequest" do
+    add_message "isuxportal.proto.services.admin.ListClarificationsQuery" do
       optional :team_id, :int64, 1
     end
     add_message "isuxportal.proto.services.admin.ListClarificationsResponse" do
       repeated :clarifications, :message, 1, "isuxportal.proto.resources.Clarification"
     end
-    add_message "isuxportal.proto.services.admin.GetClarificationRequest" do
+    add_message "isuxportal.proto.services.admin.GetClarificationQuery" do
       optional :id, :int64, 1
     end
     add_message "isuxportal.proto.services.admin.GetClarificationResponse" do
@@ -28,9 +28,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :clarification, :message, 1, "isuxportal.proto.resources.Clarification"
     end
     add_message "isuxportal.proto.services.admin.CreateClarificationRequest" do
-      optional :id, :int64, 1
       optional :answer, :string, 2
       optional :question, :string, 3
+      optional :team_id, :int64, 4
     end
     add_message "isuxportal.proto.services.admin.CreateClarificationResponse" do
       optional :clarification, :message, 1, "isuxportal.proto.resources.Clarification"
@@ -42,9 +42,9 @@ module Isuxportal
   module Proto
     module Services
       module Admin
-        ListClarificationsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListClarificationsRequest").msgclass
+        ListClarificationsQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListClarificationsQuery").msgclass
         ListClarificationsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListClarificationsResponse").msgclass
-        GetClarificationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetClarificationRequest").msgclass
+        GetClarificationQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetClarificationQuery").msgclass
         GetClarificationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.GetClarificationResponse").msgclass
         RespondClarificationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.RespondClarificationRequest").msgclass
         RespondClarificationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.RespondClarificationResponse").msgclass

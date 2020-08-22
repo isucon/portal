@@ -4,7 +4,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto/services/contestant
 
 import "isuxportal/resources/clarification.proto";
 
-message ListClarificationsRequest {
+message ListClarificationsQuery {
 }
 
 message ListClarificationsResponse {

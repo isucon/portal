@@ -1595,6 +1595,9 @@ export namespace isuxportal {
                 /** Clarification originalQuestion */
                 originalQuestion?: (string|null);
 
+                /** Clarification admin */
+                admin?: (boolean|null);
+
                 /** Clarification team */
                 team?: (isuxportal.proto.resources.ITeam|null);
             }
@@ -1634,6 +1637,9 @@ export namespace isuxportal {
 
                 /** Clarification originalQuestion. */
                 public originalQuestion: string;
+
+                /** Clarification admin. */
+                public admin: boolean;
 
                 /** Clarification team. */
                 public team?: (isuxportal.proto.resources.ITeam|null);
@@ -3201,91 +3207,91 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a ListClarificationsRequest. */
-                interface IListClarificationsRequest {
+                /** Properties of a ListClarificationsQuery. */
+                interface IListClarificationsQuery {
 
-                    /** ListClarificationsRequest teamId */
+                    /** ListClarificationsQuery teamId */
                     teamId?: (number|Long|null);
                 }
 
-                /** Represents a ListClarificationsRequest. */
-                class ListClarificationsRequest implements IListClarificationsRequest {
+                /** Represents a ListClarificationsQuery. */
+                class ListClarificationsQuery implements IListClarificationsQuery {
 
                     /**
-                     * Constructs a new ListClarificationsRequest.
+                     * Constructs a new ListClarificationsQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.admin.IListClarificationsRequest);
+                    constructor(properties?: isuxportal.proto.services.admin.IListClarificationsQuery);
 
-                    /** ListClarificationsRequest teamId. */
+                    /** ListClarificationsQuery teamId. */
                     public teamId: (number|Long);
 
                     /**
-                     * Creates a new ListClarificationsRequest instance using the specified properties.
+                     * Creates a new ListClarificationsQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns ListClarificationsRequest instance
+                     * @returns ListClarificationsQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.admin.IListClarificationsRequest): isuxportal.proto.services.admin.ListClarificationsRequest;
+                    public static create(properties?: isuxportal.proto.services.admin.IListClarificationsQuery): isuxportal.proto.services.admin.ListClarificationsQuery;
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsRequest.verify|verify} messages.
-                     * @param message ListClarificationsRequest message or plain object to encode
+                     * Encodes the specified ListClarificationsQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsQuery.verify|verify} messages.
+                     * @param message ListClarificationsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.admin.IListClarificationsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.admin.IListClarificationsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsRequest.verify|verify} messages.
-                     * @param message ListClarificationsRequest message or plain object to encode
+                     * Encodes the specified ListClarificationsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsQuery.verify|verify} messages.
+                     * @param message ListClarificationsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListClarificationsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListClarificationsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListClarificationsRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListClarificationsQuery;
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListClarificationsRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListClarificationsQuery;
 
                     /**
-                     * Verifies a ListClarificationsRequest message.
+                     * Verifies a ListClarificationsQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a ListClarificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListClarificationsQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListClarificationsRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListClarificationsQuery;
 
                     /**
-                     * Creates a plain object from a ListClarificationsRequest message. Also converts values to other types if specified.
-                     * @param message ListClarificationsRequest
+                     * Creates a plain object from a ListClarificationsQuery message. Also converts values to other types if specified.
+                     * @param message ListClarificationsQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.admin.ListClarificationsRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.admin.ListClarificationsQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this ListClarificationsRequest to JSON.
+                     * Converts this ListClarificationsQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
@@ -3381,91 +3387,91 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a GetClarificationRequest. */
-                interface IGetClarificationRequest {
+                /** Properties of a GetClarificationQuery. */
+                interface IGetClarificationQuery {
 
-                    /** GetClarificationRequest id */
+                    /** GetClarificationQuery id */
                     id?: (number|Long|null);
                 }
 
-                /** Represents a GetClarificationRequest. */
-                class GetClarificationRequest implements IGetClarificationRequest {
+                /** Represents a GetClarificationQuery. */
+                class GetClarificationQuery implements IGetClarificationQuery {
 
                     /**
-                     * Constructs a new GetClarificationRequest.
+                     * Constructs a new GetClarificationQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.admin.IGetClarificationRequest);
+                    constructor(properties?: isuxportal.proto.services.admin.IGetClarificationQuery);
 
-                    /** GetClarificationRequest id. */
+                    /** GetClarificationQuery id. */
                     public id: (number|Long);
 
                     /**
-                     * Creates a new GetClarificationRequest instance using the specified properties.
+                     * Creates a new GetClarificationQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns GetClarificationRequest instance
+                     * @returns GetClarificationQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.admin.IGetClarificationRequest): isuxportal.proto.services.admin.GetClarificationRequest;
+                    public static create(properties?: isuxportal.proto.services.admin.IGetClarificationQuery): isuxportal.proto.services.admin.GetClarificationQuery;
 
                     /**
-                     * Encodes the specified GetClarificationRequest message. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationRequest.verify|verify} messages.
-                     * @param message GetClarificationRequest message or plain object to encode
+                     * Encodes the specified GetClarificationQuery message. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationQuery.verify|verify} messages.
+                     * @param message GetClarificationQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.admin.IGetClarificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.admin.IGetClarificationQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified GetClarificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationRequest.verify|verify} messages.
-                     * @param message GetClarificationRequest message or plain object to encode
+                     * Encodes the specified GetClarificationQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationQuery.verify|verify} messages.
+                     * @param message GetClarificationQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetClarificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetClarificationQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a GetClarificationRequest message from the specified reader or buffer.
+                     * Decodes a GetClarificationQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns GetClarificationRequest
+                     * @returns GetClarificationQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetClarificationRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetClarificationQuery;
 
                     /**
-                     * Decodes a GetClarificationRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a GetClarificationQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns GetClarificationRequest
+                     * @returns GetClarificationQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetClarificationRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetClarificationQuery;
 
                     /**
-                     * Verifies a GetClarificationRequest message.
+                     * Verifies a GetClarificationQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a GetClarificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a GetClarificationQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns GetClarificationRequest
+                     * @returns GetClarificationQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetClarificationRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetClarificationQuery;
 
                     /**
-                     * Creates a plain object from a GetClarificationRequest message. Also converts values to other types if specified.
-                     * @param message GetClarificationRequest
+                     * Creates a plain object from a GetClarificationQuery message. Also converts values to other types if specified.
+                     * @param message GetClarificationQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.admin.GetClarificationRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.admin.GetClarificationQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this GetClarificationRequest to JSON.
+                     * Converts this GetClarificationQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
@@ -3762,14 +3768,14 @@ export namespace isuxportal {
                 /** Properties of a CreateClarificationRequest. */
                 interface ICreateClarificationRequest {
 
-                    /** CreateClarificationRequest id */
-                    id?: (number|Long|null);
-
                     /** CreateClarificationRequest answer */
                     answer?: (string|null);
 
                     /** CreateClarificationRequest question */
                     question?: (string|null);
+
+                    /** CreateClarificationRequest teamId */
+                    teamId?: (number|Long|null);
                 }
 
                 /** Represents a CreateClarificationRequest. */
@@ -3781,14 +3787,14 @@ export namespace isuxportal {
                      */
                     constructor(properties?: isuxportal.proto.services.admin.ICreateClarificationRequest);
 
-                    /** CreateClarificationRequest id. */
-                    public id: (number|Long);
-
                     /** CreateClarificationRequest answer. */
                     public answer: string;
 
                     /** CreateClarificationRequest question. */
                     public question: string;
+
+                    /** CreateClarificationRequest teamId. */
+                    public teamId: (number|Long);
 
                     /**
                      * Creates a new CreateClarificationRequest instance using the specified properties.
@@ -6065,85 +6071,85 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
-                /** Properties of a ListClarificationsRequest. */
-                interface IListClarificationsRequest {
+                /** Properties of a ListClarificationsQuery. */
+                interface IListClarificationsQuery {
                 }
 
-                /** Represents a ListClarificationsRequest. */
-                class ListClarificationsRequest implements IListClarificationsRequest {
+                /** Represents a ListClarificationsQuery. */
+                class ListClarificationsQuery implements IListClarificationsQuery {
 
                     /**
-                     * Constructs a new ListClarificationsRequest.
+                     * Constructs a new ListClarificationsQuery.
                      * @param [properties] Properties to set
                      */
-                    constructor(properties?: isuxportal.proto.services.contestant.IListClarificationsRequest);
+                    constructor(properties?: isuxportal.proto.services.contestant.IListClarificationsQuery);
 
                     /**
-                     * Creates a new ListClarificationsRequest instance using the specified properties.
+                     * Creates a new ListClarificationsQuery instance using the specified properties.
                      * @param [properties] Properties to set
-                     * @returns ListClarificationsRequest instance
+                     * @returns ListClarificationsQuery instance
                      */
-                    public static create(properties?: isuxportal.proto.services.contestant.IListClarificationsRequest): isuxportal.proto.services.contestant.ListClarificationsRequest;
+                    public static create(properties?: isuxportal.proto.services.contestant.IListClarificationsQuery): isuxportal.proto.services.contestant.ListClarificationsQuery;
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
-                     * @param message ListClarificationsRequest message or plain object to encode
+                     * Encodes the specified ListClarificationsQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsQuery.verify|verify} messages.
+                     * @param message ListClarificationsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encode(message: isuxportal.proto.services.contestant.IListClarificationsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encode(message: isuxportal.proto.services.contestant.IListClarificationsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
-                     * @param message ListClarificationsRequest message or plain object to encode
+                     * Encodes the specified ListClarificationsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsQuery.verify|verify} messages.
+                     * @param message ListClarificationsQuery message or plain object to encode
                      * @param [writer] Writer to encode to
                      * @returns Writer
                      */
-                    public static encodeDelimited(message: isuxportal.proto.services.contestant.IListClarificationsRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+                    public static encodeDelimited(message: isuxportal.proto.services.contestant.IListClarificationsQuery, writer?: $protobuf.Writer): $protobuf.Writer;
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer.
                      * @param reader Reader or buffer to decode from
                      * @param [length] Message length if known beforehand
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.ListClarificationsRequest;
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.ListClarificationsQuery;
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer, length delimited.
                      * @param reader Reader or buffer to decode from
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.ListClarificationsRequest;
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.ListClarificationsQuery;
 
                     /**
-                     * Verifies a ListClarificationsRequest message.
+                     * Verifies a ListClarificationsQuery message.
                      * @param message Plain object to verify
                      * @returns `null` if valid, otherwise the reason why it is not
                      */
                     public static verify(message: { [k: string]: any }): (string|null);
 
                     /**
-                     * Creates a ListClarificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListClarificationsQuery message from a plain object. Also converts values to their respective internal types.
                      * @param object Plain object
-                     * @returns ListClarificationsRequest
+                     * @returns ListClarificationsQuery
                      */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.ListClarificationsRequest;
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.ListClarificationsQuery;
 
                     /**
-                     * Creates a plain object from a ListClarificationsRequest message. Also converts values to other types if specified.
-                     * @param message ListClarificationsRequest
+                     * Creates a plain object from a ListClarificationsQuery message. Also converts values to other types if specified.
+                     * @param message ListClarificationsQuery
                      * @param [options] Conversion options
                      * @returns Plain object
                      */
-                    public static toObject(message: isuxportal.proto.services.contestant.ListClarificationsRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+                    public static toObject(message: isuxportal.proto.services.contestant.ListClarificationsQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
                     /**
-                     * Converts this ListClarificationsRequest to JSON.
+                     * Converts this ListClarificationsQuery to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };

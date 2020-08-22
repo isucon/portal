@@ -7,6 +7,8 @@ class Team < ApplicationRecord
   has_many :benchmark_jobs
   has_many :benchmark_results
 
+  has_many :clarifications
+
   validates :name, presence: true, uniqueness: true
   validates :email_address, presence: true
   validates :invite_token, presence: true

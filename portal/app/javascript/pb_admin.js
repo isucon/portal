@@ -4274,6 +4274,7 @@ $root.isuxportal = (function() {
                  * @property {google.protobuf.ITimestamp|null} [createdAt] Clarification createdAt
                  * @property {google.protobuf.ITimestamp|null} [answeredAt] Clarification answeredAt
                  * @property {string|null} [originalQuestion] Clarification originalQuestion
+                 * @property {boolean|null} [admin] Clarification admin
                  * @property {isuxportal.proto.resources.ITeam|null} [team] Clarification team
                  */
 
@@ -4365,6 +4366,14 @@ $root.isuxportal = (function() {
                 Clarification.prototype.originalQuestion = "";
 
                 /**
+                 * Clarification admin.
+                 * @member {boolean} admin
+                 * @memberof isuxportal.proto.resources.Clarification
+                 * @instance
+                 */
+                Clarification.prototype.admin = false;
+
+                /**
                  * Clarification team.
                  * @member {isuxportal.proto.resources.ITeam|null|undefined} team
                  * @memberof isuxportal.proto.resources.Clarification
@@ -4414,6 +4423,8 @@ $root.isuxportal = (function() {
                         $root.google.protobuf.Timestamp.encode(message.answeredAt, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     if (message.originalQuestion != null && Object.hasOwnProperty.call(message, "originalQuestion"))
                         writer.uint32(/* id 9, wireType 2 =*/74).string(message.originalQuestion);
+                    if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                        writer.uint32(/* id 10, wireType 0 =*/80).bool(message.admin);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     return writer;
@@ -4476,6 +4487,9 @@ $root.isuxportal = (function() {
                             break;
                         case 9:
                             message.originalQuestion = reader.string();
+                            break;
+                        case 10:
+                            message.admin = reader.bool();
                             break;
                         case 16:
                             message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
@@ -4546,6 +4560,9 @@ $root.isuxportal = (function() {
                     if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
                         if (!$util.isString(message.originalQuestion))
                             return "originalQuestion: string expected";
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        if (typeof message.admin !== "boolean")
+                            return "admin: boolean expected";
                     if (message.team != null && message.hasOwnProperty("team")) {
                         var error = $root.isuxportal.proto.resources.Team.verify(message.team);
                         if (error)
@@ -4604,6 +4621,8 @@ $root.isuxportal = (function() {
                     }
                     if (object.originalQuestion != null)
                         message.originalQuestion = String(object.originalQuestion);
+                    if (object.admin != null)
+                        message.admin = Boolean(object.admin);
                     if (object.team != null) {
                         if (typeof object.team !== "object")
                             throw TypeError(".isuxportal.proto.resources.Clarification.team: object expected");
@@ -4643,6 +4662,7 @@ $root.isuxportal = (function() {
                         object.createdAt = null;
                         object.answeredAt = null;
                         object.originalQuestion = "";
+                        object.admin = false;
                         object.team = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
@@ -4669,6 +4689,8 @@ $root.isuxportal = (function() {
                         object.answeredAt = $root.google.protobuf.Timestamp.toObject(message.answeredAt, options);
                     if (message.originalQuestion != null && message.hasOwnProperty("originalQuestion"))
                         object.originalQuestion = message.originalQuestion;
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        object.admin = message.admin;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     return object;
@@ -8294,24 +8316,24 @@ $root.isuxportal = (function() {
                     return GetBenchmarkJobResponse;
                 })();
 
-                admin.ListClarificationsRequest = (function() {
+                admin.ListClarificationsQuery = (function() {
 
                     /**
-                     * Properties of a ListClarificationsRequest.
+                     * Properties of a ListClarificationsQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface IListClarificationsRequest
-                     * @property {number|Long|null} [teamId] ListClarificationsRequest teamId
+                     * @interface IListClarificationsQuery
+                     * @property {number|Long|null} [teamId] ListClarificationsQuery teamId
                      */
 
                     /**
-                     * Constructs a new ListClarificationsRequest.
+                     * Constructs a new ListClarificationsQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a ListClarificationsRequest.
-                     * @implements IListClarificationsRequest
+                     * @classdesc Represents a ListClarificationsQuery.
+                     * @implements IListClarificationsQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.IListClarificationsRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.IListClarificationsQuery=} [properties] Properties to set
                      */
-                    function ListClarificationsRequest(properties) {
+                    function ListClarificationsQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -8319,35 +8341,35 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * ListClarificationsRequest teamId.
+                     * ListClarificationsQuery teamId.
                      * @member {number|Long} teamId
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @instance
                      */
-                    ListClarificationsRequest.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    ListClarificationsQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * Creates a new ListClarificationsRequest instance using the specified properties.
+                     * Creates a new ListClarificationsQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListClarificationsRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.ListClarificationsRequest} ListClarificationsRequest instance
+                     * @param {isuxportal.proto.services.admin.IListClarificationsQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.ListClarificationsQuery} ListClarificationsQuery instance
                      */
-                    ListClarificationsRequest.create = function create(properties) {
-                        return new ListClarificationsRequest(properties);
+                    ListClarificationsQuery.create = function create(properties) {
+                        return new ListClarificationsQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsRequest.verify|verify} messages.
+                     * Encodes the specified ListClarificationsQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListClarificationsQuery} message ListClarificationsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListClarificationsRequest.encode = function encode(message, writer) {
+                    ListClarificationsQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
@@ -8356,33 +8378,33 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsRequest.verify|verify} messages.
+                     * Encodes the specified ListClarificationsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListClarificationsQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListClarificationsQuery} message ListClarificationsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListClarificationsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListClarificationsQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.admin.ListClarificationsQuery} ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListClarificationsRequest.decode = function decode(reader, length) {
+                    ListClarificationsQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListClarificationsRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListClarificationsQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -8398,30 +8420,30 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.admin.ListClarificationsQuery} ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListClarificationsRequest.decodeDelimited = function decodeDelimited(reader) {
+                    ListClarificationsQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListClarificationsRequest message.
+                     * Verifies a ListClarificationsQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListClarificationsRequest.verify = function verify(message) {
+                    ListClarificationsQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
@@ -8431,17 +8453,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a ListClarificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListClarificationsQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.admin.ListClarificationsQuery} ListClarificationsQuery
                      */
-                    ListClarificationsRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.ListClarificationsRequest)
+                    ListClarificationsQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.ListClarificationsQuery)
                             return object;
-                        var message = new $root.isuxportal.proto.services.admin.ListClarificationsRequest();
+                        var message = new $root.isuxportal.proto.services.admin.ListClarificationsQuery();
                         if (object.teamId != null)
                             if ($util.Long)
                                 (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
@@ -8455,15 +8477,15 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a plain object from a ListClarificationsRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListClarificationsQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ListClarificationsRequest} message ListClarificationsRequest
+                     * @param {isuxportal.proto.services.admin.ListClarificationsQuery} message ListClarificationsQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListClarificationsRequest.toObject = function toObject(message, options) {
+                    ListClarificationsQuery.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -8482,17 +8504,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Converts this ListClarificationsRequest to JSON.
+                     * Converts this ListClarificationsQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListClarificationsRequest.prototype.toJSON = function toJSON() {
+                    ListClarificationsQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return ListClarificationsRequest;
+                    return ListClarificationsQuery;
                 })();
 
                 admin.ListClarificationsResponse = (function() {
@@ -8703,24 +8725,24 @@ $root.isuxportal = (function() {
                     return ListClarificationsResponse;
                 })();
 
-                admin.GetClarificationRequest = (function() {
+                admin.GetClarificationQuery = (function() {
 
                     /**
-                     * Properties of a GetClarificationRequest.
+                     * Properties of a GetClarificationQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface IGetClarificationRequest
-                     * @property {number|Long|null} [id] GetClarificationRequest id
+                     * @interface IGetClarificationQuery
+                     * @property {number|Long|null} [id] GetClarificationQuery id
                      */
 
                     /**
-                     * Constructs a new GetClarificationRequest.
+                     * Constructs a new GetClarificationQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a GetClarificationRequest.
-                     * @implements IGetClarificationRequest
+                     * @classdesc Represents a GetClarificationQuery.
+                     * @implements IGetClarificationQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.IGetClarificationRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.IGetClarificationQuery=} [properties] Properties to set
                      */
-                    function GetClarificationRequest(properties) {
+                    function GetClarificationQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -8728,35 +8750,35 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * GetClarificationRequest id.
+                     * GetClarificationQuery id.
                      * @member {number|Long} id
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @instance
                      */
-                    GetClarificationRequest.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    GetClarificationQuery.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * Creates a new GetClarificationRequest instance using the specified properties.
+                     * Creates a new GetClarificationQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IGetClarificationRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.GetClarificationRequest} GetClarificationRequest instance
+                     * @param {isuxportal.proto.services.admin.IGetClarificationQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.GetClarificationQuery} GetClarificationQuery instance
                      */
-                    GetClarificationRequest.create = function create(properties) {
-                        return new GetClarificationRequest(properties);
+                    GetClarificationQuery.create = function create(properties) {
+                        return new GetClarificationQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified GetClarificationRequest message. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationRequest.verify|verify} messages.
+                     * Encodes the specified GetClarificationQuery message. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IGetClarificationRequest} message GetClarificationRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IGetClarificationQuery} message GetClarificationQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    GetClarificationRequest.encode = function encode(message, writer) {
+                    GetClarificationQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.id != null && Object.hasOwnProperty.call(message, "id"))
@@ -8765,33 +8787,33 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Encodes the specified GetClarificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationRequest.verify|verify} messages.
+                     * Encodes the specified GetClarificationQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetClarificationQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IGetClarificationRequest} message GetClarificationRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IGetClarificationQuery} message GetClarificationQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    GetClarificationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    GetClarificationQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a GetClarificationRequest message from the specified reader or buffer.
+                     * Decodes a GetClarificationQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.GetClarificationRequest} GetClarificationRequest
+                     * @returns {isuxportal.proto.services.admin.GetClarificationQuery} GetClarificationQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    GetClarificationRequest.decode = function decode(reader, length) {
+                    GetClarificationQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.GetClarificationRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.GetClarificationQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -8807,30 +8829,30 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a GetClarificationRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a GetClarificationQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.GetClarificationRequest} GetClarificationRequest
+                     * @returns {isuxportal.proto.services.admin.GetClarificationQuery} GetClarificationQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    GetClarificationRequest.decodeDelimited = function decodeDelimited(reader) {
+                    GetClarificationQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a GetClarificationRequest message.
+                     * Verifies a GetClarificationQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    GetClarificationRequest.verify = function verify(message) {
+                    GetClarificationQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.id != null && message.hasOwnProperty("id"))
@@ -8840,17 +8862,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a GetClarificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a GetClarificationQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.GetClarificationRequest} GetClarificationRequest
+                     * @returns {isuxportal.proto.services.admin.GetClarificationQuery} GetClarificationQuery
                      */
-                    GetClarificationRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.GetClarificationRequest)
+                    GetClarificationQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.GetClarificationQuery)
                             return object;
-                        var message = new $root.isuxportal.proto.services.admin.GetClarificationRequest();
+                        var message = new $root.isuxportal.proto.services.admin.GetClarificationQuery();
                         if (object.id != null)
                             if ($util.Long)
                                 (message.id = $util.Long.fromValue(object.id)).unsigned = false;
@@ -8864,15 +8886,15 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a plain object from a GetClarificationRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a GetClarificationQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.GetClarificationRequest} message GetClarificationRequest
+                     * @param {isuxportal.proto.services.admin.GetClarificationQuery} message GetClarificationQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    GetClarificationRequest.toObject = function toObject(message, options) {
+                    GetClarificationQuery.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -8891,17 +8913,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Converts this GetClarificationRequest to JSON.
+                     * Converts this GetClarificationQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.GetClarificationRequest
+                     * @memberof isuxportal.proto.services.admin.GetClarificationQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    GetClarificationRequest.prototype.toJSON = function toJSON() {
+                    GetClarificationQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return GetClarificationRequest;
+                    return GetClarificationQuery;
                 })();
 
                 admin.GetClarificationResponse = (function() {
@@ -9562,9 +9584,9 @@ $root.isuxportal = (function() {
                      * Properties of a CreateClarificationRequest.
                      * @memberof isuxportal.proto.services.admin
                      * @interface ICreateClarificationRequest
-                     * @property {number|Long|null} [id] CreateClarificationRequest id
                      * @property {string|null} [answer] CreateClarificationRequest answer
                      * @property {string|null} [question] CreateClarificationRequest question
+                     * @property {number|Long|null} [teamId] CreateClarificationRequest teamId
                      */
 
                     /**
@@ -9583,14 +9605,6 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * CreateClarificationRequest id.
-                     * @member {number|Long} id
-                     * @memberof isuxportal.proto.services.admin.CreateClarificationRequest
-                     * @instance
-                     */
-                    CreateClarificationRequest.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-                    /**
                      * CreateClarificationRequest answer.
                      * @member {string} answer
                      * @memberof isuxportal.proto.services.admin.CreateClarificationRequest
@@ -9605,6 +9619,14 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     CreateClarificationRequest.prototype.question = "";
+
+                    /**
+                     * CreateClarificationRequest teamId.
+                     * @member {number|Long} teamId
+                     * @memberof isuxportal.proto.services.admin.CreateClarificationRequest
+                     * @instance
+                     */
+                    CreateClarificationRequest.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * Creates a new CreateClarificationRequest instance using the specified properties.
@@ -9630,12 +9652,12 @@ $root.isuxportal = (function() {
                     CreateClarificationRequest.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
-                        if (message.id != null && Object.hasOwnProperty.call(message, "id"))
-                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
                         if (message.answer != null && Object.hasOwnProperty.call(message, "answer"))
                             writer.uint32(/* id 2, wireType 2 =*/18).string(message.answer);
                         if (message.question != null && Object.hasOwnProperty.call(message, "question"))
                             writer.uint32(/* id 3, wireType 2 =*/26).string(message.question);
+                        if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).int64(message.teamId);
                         return writer;
                     };
 
@@ -9670,14 +9692,14 @@ $root.isuxportal = (function() {
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
-                            case 1:
-                                message.id = reader.int64();
-                                break;
                             case 2:
                                 message.answer = reader.string();
                                 break;
                             case 3:
                                 message.question = reader.string();
+                                break;
+                            case 4:
+                                message.teamId = reader.int64();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -9714,15 +9736,15 @@ $root.isuxportal = (function() {
                     CreateClarificationRequest.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        if (message.id != null && message.hasOwnProperty("id"))
-                            if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
-                                return "id: integer|Long expected";
                         if (message.answer != null && message.hasOwnProperty("answer"))
                             if (!$util.isString(message.answer))
                                 return "answer: string expected";
                         if (message.question != null && message.hasOwnProperty("question"))
                             if (!$util.isString(message.question))
                                 return "question: string expected";
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
+                                return "teamId: integer|Long expected";
                         return null;
                     };
 
@@ -9738,19 +9760,19 @@ $root.isuxportal = (function() {
                         if (object instanceof $root.isuxportal.proto.services.admin.CreateClarificationRequest)
                             return object;
                         var message = new $root.isuxportal.proto.services.admin.CreateClarificationRequest();
-                        if (object.id != null)
-                            if ($util.Long)
-                                (message.id = $util.Long.fromValue(object.id)).unsigned = false;
-                            else if (typeof object.id === "string")
-                                message.id = parseInt(object.id, 10);
-                            else if (typeof object.id === "number")
-                                message.id = object.id;
-                            else if (typeof object.id === "object")
-                                message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
                         if (object.answer != null)
                             message.answer = String(object.answer);
                         if (object.question != null)
                             message.question = String(object.question);
+                        if (object.teamId != null)
+                            if ($util.Long)
+                                (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
+                            else if (typeof object.teamId === "string")
+                                message.teamId = parseInt(object.teamId, 10);
+                            else if (typeof object.teamId === "number")
+                                message.teamId = object.teamId;
+                            else if (typeof object.teamId === "object")
+                                message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
                         return message;
                     };
 
@@ -9768,23 +9790,23 @@ $root.isuxportal = (function() {
                             options = {};
                         var object = {};
                         if (options.defaults) {
-                            if ($util.Long) {
-                                var long = new $util.Long(0, 0, false);
-                                object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.id = options.longs === String ? "0" : 0;
                             object.answer = "";
                             object.question = "";
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.teamId = options.longs === String ? "0" : 0;
                         }
-                        if (message.id != null && message.hasOwnProperty("id"))
-                            if (typeof message.id === "number")
-                                object.id = options.longs === String ? String(message.id) : message.id;
-                            else
-                                object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
                         if (message.answer != null && message.hasOwnProperty("answer"))
                             object.answer = message.answer;
                         if (message.question != null && message.hasOwnProperty("question"))
                             object.question = message.question;
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (typeof message.teamId === "number")
+                                object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
+                            else
+                                object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
                         return object;
                     };
 
@@ -14669,23 +14691,23 @@ $root.isuxportal = (function() {
                     return GetBenchmarkJobResponse;
                 })();
 
-                contestant.ListClarificationsRequest = (function() {
+                contestant.ListClarificationsQuery = (function() {
 
                     /**
-                     * Properties of a ListClarificationsRequest.
+                     * Properties of a ListClarificationsQuery.
                      * @memberof isuxportal.proto.services.contestant
-                     * @interface IListClarificationsRequest
+                     * @interface IListClarificationsQuery
                      */
 
                     /**
-                     * Constructs a new ListClarificationsRequest.
+                     * Constructs a new ListClarificationsQuery.
                      * @memberof isuxportal.proto.services.contestant
-                     * @classdesc Represents a ListClarificationsRequest.
-                     * @implements IListClarificationsRequest
+                     * @classdesc Represents a ListClarificationsQuery.
+                     * @implements IListClarificationsQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsQuery=} [properties] Properties to set
                      */
-                    function ListClarificationsRequest(properties) {
+                    function ListClarificationsQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -14693,60 +14715,60 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * Creates a new ListClarificationsRequest instance using the specified properties.
+                     * Creates a new ListClarificationsQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest instance
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsQuery} ListClarificationsQuery instance
                      */
-                    ListClarificationsRequest.create = function create(properties) {
-                        return new ListClarificationsRequest(properties);
+                    ListClarificationsQuery.create = function create(properties) {
+                        return new ListClarificationsQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
+                     * Encodes the specified ListClarificationsQuery message. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsQuery} message ListClarificationsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListClarificationsRequest.encode = function encode(message, writer) {
+                    ListClarificationsQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         return writer;
                     };
 
                     /**
-                     * Encodes the specified ListClarificationsRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsRequest.verify|verify} messages.
+                     * Encodes the specified ListClarificationsQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.ListClarificationsQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.IListClarificationsRequest} message ListClarificationsRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.contestant.IListClarificationsQuery} message ListClarificationsQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListClarificationsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListClarificationsQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsQuery} ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListClarificationsRequest.decode = function decode(reader, length) {
+                    ListClarificationsQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListClarificationsRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.ListClarificationsQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -14759,74 +14781,74 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListClarificationsRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListClarificationsQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsQuery} ListClarificationsQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListClarificationsRequest.decodeDelimited = function decodeDelimited(reader) {
+                    ListClarificationsQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListClarificationsRequest message.
+                     * Verifies a ListClarificationsQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListClarificationsRequest.verify = function verify(message) {
+                    ListClarificationsQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         return null;
                     };
 
                     /**
-                     * Creates a ListClarificationsRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListClarificationsQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.contestant.ListClarificationsRequest} ListClarificationsRequest
+                     * @returns {isuxportal.proto.services.contestant.ListClarificationsQuery} ListClarificationsQuery
                      */
-                    ListClarificationsRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.contestant.ListClarificationsRequest)
+                    ListClarificationsQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.ListClarificationsQuery)
                             return object;
-                        return new $root.isuxportal.proto.services.contestant.ListClarificationsRequest();
+                        return new $root.isuxportal.proto.services.contestant.ListClarificationsQuery();
                     };
 
                     /**
-                     * Creates a plain object from a ListClarificationsRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListClarificationsQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @static
-                     * @param {isuxportal.proto.services.contestant.ListClarificationsRequest} message ListClarificationsRequest
+                     * @param {isuxportal.proto.services.contestant.ListClarificationsQuery} message ListClarificationsQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListClarificationsRequest.toObject = function toObject() {
+                    ListClarificationsQuery.toObject = function toObject() {
                         return {};
                     };
 
                     /**
-                     * Converts this ListClarificationsRequest to JSON.
+                     * Converts this ListClarificationsQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.contestant.ListClarificationsRequest
+                     * @memberof isuxportal.proto.services.contestant.ListClarificationsQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListClarificationsRequest.prototype.toJSON = function toJSON() {
+                    ListClarificationsQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return ListClarificationsRequest;
+                    return ListClarificationsQuery;
                 })();
 
                 contestant.ListClarificationsResponse = (function() {

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get '/' => 'root#index'
     get '/benchmark_jobs' => 'root#index'
     get '/benchmark_jobs/:id' => 'root#index'
+    get '/clarifications' => 'root#index'
   end
 
   scope path: 'api', module: 'api' do
@@ -59,6 +60,10 @@ Rails.application.routes.draw do
       # contestant/benchmark EnqueueBenchmarkJob: POST /api/contestant/benchmark_jobs
       # contestant/benchmark GetBenchmarkJob: GET /api/contestant/benchmark_jobs/:id
       resources :benchmark_jobs, only: %i(index create show)
+
+      # contestant/clarifications ListClarifications: GET /api/contestant/clarifications
+      # contestant/clarifications RequestClarification: POST /api/contestant/clarifications
+      resources :clarifications, only: %i(index create)
     end
 
     scope path: 'admin', module: 'admin' do
@@ -73,6 +78,11 @@ Rails.application.routes.draw do
       # admin/benchmark CancelBenchmarkJob: DELETE /api/admin/benchmark_jobs/:id
       resources :benchmark_jobs, only: %i(index create show destroy)
 
+      # admin/clarifications ListClarifications: GET /api/admin/clarifications
+      # admin/clarifications GetClarification: GET /api/admin/clarifications/:id
+      # admin/clarifications RespondClarification: PUT /api/admin/clarifications/:id
+      # admin/clarifications CreateClarification: POST /api/admin/clarifications
+      resources :clarifications, only: %i(index show update create)
     end
   end
 
@@ -83,6 +93,8 @@ Rails.application.routes.draw do
     get '/teams/:id/edit' => 'root#index'
     get '/benchmark_jobs' => 'root#index'
     get '/benchmark_jobs/:id' => 'root#index'
+    get '/clarifications' => 'root#index'
+    get '/clarifications/:id' => 'root#index'
 
 
     get 'impersonate' => 'impersonate#index', ad: :impersonate

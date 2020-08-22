@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_16_232646) do
+ActiveRecord::Schema.define(version: 2020_08_22_120054) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 2020_08_16_232646) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["benchmark_job_id"], name: "index_benchmark_results_on_benchmark_job_id", unique: true
     t.index ["team_id"], name: "index_benchmark_results_on_team_id"
+  end
+
+  create_table "clarifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "team_id"
+    t.boolean "disclosed"
+    t.text "question"
+    t.text "answer"
+    t.text "original_question"
+    t.datetime "answered_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "admin"
   end
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
