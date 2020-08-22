@@ -46,7 +46,7 @@ class Team < ApplicationRecord
     self.invite_token ||= SecureRandom.urlsafe_base64(64)
   end
 
-  def to_pb(detail: false, members: true, member_detail: false)
+  def to_pb(detail: false, members: false, member_detail: false)
     Isuxportal::Proto::Resources::Team.new(
       id: id,
       name: name,
