@@ -78,6 +78,9 @@ export const Clarification: React.FC<Props> = (props: Props) => {
           </section>
         </div>
       </div>
+      <p>
+        {props.admin ? <Link to={`/admin/clarifications/${encodeURIComponent(clar.id!.toString())}`} className="button is-small is-info mr-2">回答/編集</Link> : null}
+      </p>
     </div>
   </article>;
 }

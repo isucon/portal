@@ -7,7 +7,7 @@ class Api::Contestant::ClarificationsController < Api::Contestant::ApplicationCo
 
     render protobuf: Isuxportal::Proto::Services::Contestant::ListClarificationsResponse.new(
       clarifications: @clarifications.map do |clarification|
-        clarification.to_pb(team: true, original_question: clarification.team_id == current_team.id)
+        clarification.to_pb(team: true, original_question: !clarification.admin? && clarification.team_id == current_team.id)
       end,
     )
   end

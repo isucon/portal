@@ -19,6 +19,7 @@ import {AdminTeamDetail} from "./admin/AdminTeamDetail";
 import {AdminBenchmarkJobList} from "./admin/AdminBenchmarkJobList";
 import {AdminBenchmarkJobDetail } from "./admin/AdminBenchmarkJobDetail";
 import {AdminClarificationList} from "./admin/AdminClarificationList";
+import {AdminClarificationDetail} from "./admin/AdminClarificationDetail";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -49,7 +50,7 @@ export class AdminApp extends React.Component<Props, State> {
               <ul className="menu-list">
                 <li><NavLink exact to="/admin" activeClassName="is-active">Dashboard</NavLink></li>
                 <li><NavLink to="/admin/benchmark_jobs" activeClassName="is-active">Benchmark Jobs</NavLink></li>
-                <li><NavLink exact to="/admin/clarifications" activeClassName="is-active">Clarifications</NavLink></li>
+                <li><NavLink to="/admin/clarifications" activeClassName="is-active">Clarifications</NavLink></li>
               </ul>
               <p className="menu-label">Registration</p>
               <ul className="menu-list">
@@ -79,6 +80,9 @@ export class AdminApp extends React.Component<Props, State> {
                 }} />
                 <Route exact path="/admin/clarifications" render={({match}) => {
                   return <AdminClarificationList session={this.props.session} client={this.state.adminClient} />;
+                }} />
+                <Route exact path="/admin/clarifications/:id" render={({match}) => {
+                  return <AdminClarificationDetail session={this.props.session} client={this.state.adminClient} id={match.params.id} />;
                 }} />
               </Switch>
             </main>
