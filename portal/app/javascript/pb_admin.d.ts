@@ -2380,6 +2380,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse discordServerId */
                     discordServerId?: (string|null);
+
+                    /** GetCurrentSessionResponse contest */
+                    contest?: (isuxportal.proto.resources.IContest|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2399,6 +2402,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse discordServerId. */
                     public discordServerId: string;
+
+                    /** GetCurrentSessionResponse contest. */
+                    public contest?: (isuxportal.proto.resources.IContest|null);
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.

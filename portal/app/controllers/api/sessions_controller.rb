@@ -6,6 +6,7 @@ class Api::SessionsController < Api::ApplicationController
       contestant: current_contestant&.to_pb(detail: true),
       team: current_team&.to_pb,
       discord_server_id: current_contestant ? Rails.application.config.x.discord.server_id : "",
+      contest: Contest.to_pb,
     )
   end
 end

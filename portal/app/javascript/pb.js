@@ -6423,6 +6423,7 @@ $root.isuxportal = (function() {
                      * @property {isuxportal.proto.resources.ITeam|null} [team] GetCurrentSessionResponse team
                      * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
                      * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
+                     * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
                      */
 
                     /**
@@ -6465,6 +6466,14 @@ $root.isuxportal = (function() {
                     GetCurrentSessionResponse.prototype.discordServerId = "";
 
                     /**
+                     * GetCurrentSessionResponse contest.
+                     * @member {isuxportal.proto.resources.IContest|null|undefined} contest
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contest = null;
+
+                    /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
@@ -6494,6 +6503,8 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Contestant.encode(message.contestant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                         if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
                             writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
+                        if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
+                            $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                         return writer;
                     };
 
@@ -6536,6 +6547,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 3:
                                 message.discordServerId = reader.string();
+                                break;
+                            case 4:
+                                message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -6585,6 +6599,11 @@ $root.isuxportal = (function() {
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             if (!$util.isString(message.discordServerId))
                                 return "discordServerId: string expected";
+                        if (message.contest != null && message.hasOwnProperty("contest")) {
+                            var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
+                            if (error)
+                                return "contest." + error;
+                        }
                         return null;
                     };
 
@@ -6612,6 +6631,11 @@ $root.isuxportal = (function() {
                         }
                         if (object.discordServerId != null)
                             message.discordServerId = String(object.discordServerId);
+                        if (object.contest != null) {
+                            if (typeof object.contest !== "object")
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contest: object expected");
+                            message.contest = $root.isuxportal.proto.resources.Contest.fromObject(object.contest);
+                        }
                         return message;
                     };
 
@@ -6632,6 +6656,7 @@ $root.isuxportal = (function() {
                             object.team = null;
                             object.contestant = null;
                             object.discordServerId = "";
+                            object.contest = null;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -6639,6 +6664,8 @@ $root.isuxportal = (function() {
                             object.contestant = $root.isuxportal.proto.resources.Contestant.toObject(message.contestant, options);
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             object.discordServerId = message.discordServerId;
+                        if (message.contest != null && message.hasOwnProperty("contest"))
+                            object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
                         return object;
                     };
 

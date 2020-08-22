@@ -1,4 +1,5 @@
 require 'isuxportal/resources/leaderboard_pb'
+require 'isuxportal/resources/contest_pb'
 
 module Contest
   class RegistrationClosed < StandardError; end
@@ -33,6 +34,15 @@ module Contest
     freeze && freeze <= now
   end
 
+  def self.contest_end?(now=Time.zone.now)
+    finish = Rails.application.config.x.contest.contest_end
+    if finish
+      finish > now
+    else
+      false
+    end
+  end
+
   def self.max_teams_reached?
     team_count >= max_teams
   end
@@ -43,6 +53,27 @@ module Contest
 
   def self.max_teams
     Rails.application.config.x.contest.max_teams || 0
+  end
+
+  def self.to_pb(now: Time.zone.now)
+    Isuxportal::Proto::Resources::Contest.new(
+      registration_opens_at: Rails.application.config.x.contest.registration_open,
+      registration_closes_at: Rails.application.config.x.contest.registration_close,
+      starts_at: Rails.application.config.x.contest.contest_start,
+      freezes_at: Rails.application.config.x.contest.contest_freeze,
+      ends_at: Rails.application.config.x.contest.contest_end,
+      frozen: Rails.application.config.x.contest.contest_freeze&.yield_self{ |_| now >= _ } || false,
+      status: case
+      when contest_running?
+        Isuxportal::Proto::Resources::Contest::Status::STARTED
+      when contest_end?
+        Isuxportal::Proto::Resources::Contest::Status::FINISHED
+      when registration_open?
+        Isuxportal::Proto::Resources::Contest::Status::REGISTRATION
+      else
+        Isuxportal::Proto::Resources::Contest::Status::STANDBY
+      end,
+    )
   end
 
   def self.leaderboard(admin: false, team: nil)
@@ -110,6 +141,7 @@ module Contest
       general_teams: items.reject { |_| _.team.student.status },
       student_teams: items.select { |_| _.team.student.status },
       progresses: progresses,
+      contest: Contest.to_pb,
     )
   end
 end
