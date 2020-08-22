@@ -70,9 +70,7 @@ export class Registration extends React.Component<Props, State> {
   }
 
   public render() {
-    return <BrowserRouter>
-      <Navbar session={this.props.session} client={this.props.client} />
-      <div className="container mt-5">
+    return <>
         <header>
           <h1 className="title is-1">参加登録</h1>
         </header>
@@ -80,8 +78,7 @@ export class Registration extends React.Component<Props, State> {
           {this.renderError()}
           {this.renderPhase()}
         </main>
-      </div>
-    </BrowserRouter>;
+    </>;
   }
 
   public renderError() {

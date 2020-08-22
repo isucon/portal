@@ -14,6 +14,7 @@ import {ErrorMessage} from "./ErrorMessage";
 import {Navbar} from "./Navbar";
 import {TeamList} from "./TeamList";
 import {AudienceDashboard} from "./AudienceDashboard";
+import {Registration} from "./Registration";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -49,6 +50,12 @@ export class AudienceApp extends React.Component<Props, State> {
               <TeamList session={this.props.session} client={this.props.client} />
             </>;
           }} />
+          <Route exact path="/registration" render={({match}) => {
+            return <>
+              <Registration session={this.props.session} client={this.props.client} />
+            </>;
+          }} />
+
         </Switch>
       </div>
     </BrowserRouter>;

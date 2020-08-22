@@ -40,7 +40,7 @@ export class Navbar extends React.Component<Props, State> {
           <div className="navbar-start">
             <Link className="navbar-item" to="/teams">
               チーム一覧
-            </a>
+            </Link>
             <a className="navbar-item" href="/terms">
               規約
             </a>
@@ -64,16 +64,16 @@ export class Navbar extends React.Component<Props, State> {
   public renderNavbarRegistrationButtons() {
     if (this.props.session.contestant) {
       return (
-        <a className="button is-light" href="/registration">
+        <Link className="button is-light" to="/registration">
           登録確認
-        </a>
+        </Link>
       );
     } else {
       // TODO: What if registration closed?
       return (
-        <a className="button is-light" href="/registration">
+        <Link className="button is-light" to="/registration">
           参加登録
-        </a>
+        </Link>
       );
     }
   }
