@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto.resources;
-option go_package = "github.com/isucon/isucon10-portal/proto/resources";
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resources";
 
 import "isuxportal/resources/team.proto";
 import "google/protobuf/timestamp.proto";

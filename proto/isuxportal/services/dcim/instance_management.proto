@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto.services.dcim;
-option go_package = "github.com/isucon/isucon10-portal/proto/services/dcim";
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/dcim";
 
 import "isuxportal/resources/contestant_instance.proto";
 

@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto.services.audience;
-option go_package = "github.com/isucon/isucon10-portal/proto/services/audience";
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/audience";
 
 import "isuxportal/resources/leaderboard.proto";
 
