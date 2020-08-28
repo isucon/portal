@@ -37,7 +37,7 @@ module Contest
   def self.contest_end?(now=Time.zone.now)
     finish = Rails.application.config.x.contest.contest_end
     if finish
-      finish > now
+      finish <= now
     else
       false
     end
