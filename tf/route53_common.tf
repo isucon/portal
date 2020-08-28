@@ -137,3 +137,44 @@ resource "aws_route53_record" "cname_portal-isucon-net-x-isucon-dev" {
   ttl     = "300"
   records = ["${aws_cloudfront_distribution.isuxportal-prd.domain_name}."]
 }
+
+resource "aws_route53_record" "a_cn-hv-x-isucon-dev-public" {
+  count = 24
+
+  zone_id = aws_route53_zone.public.zone_id
+  name = "isucn${format("%04d", count.index + 1)}.hv.x.isucon.dev"
+  type = "A"
+  ttl = "300"
+  records = ["10.160.0.${140 + count.index + 1}"]
+}
+
+resource "aws_route53_record" "a_cn-hv-x-isucon-dev-private" {
+  count = 24
+
+  zone_id = aws_route53_zone.private.zone_id
+  name = "isucn${format("%04d", count.index + 1)}.hv.x.isucon.dev"
+  type = "A"
+  ttl = "300"
+  records = ["10.160.0.${140 + count.index + 1}"]
+}
+
+
+resource "aws_route53_record" "a_adm-hv-x-isucon-dev-public" {
+  count = 8
+
+  zone_id = aws_route53_zone.public.zone_id
+  name = "isuadm${format("%04d", count.index + 1)}.hv.x.isucon.dev"
+  type = "A"
+  ttl = "300"
+  records = ["10.160.0.${140 + 24 + count.index + 1}"]
+}
+
+resource "aws_route53_record" "a_adm-hv-x-isucon-dev-private" {
+  count = 8
+
+  zone_id = aws_route53_zone.private.zone_id
+  name = "isuadm${format("%04d", count.index + 1)}.hv.x.isucon.dev"
+  type = "A"
+  ttl = "300"
+  records = ["10.160.0.${140 + 24 + count.index + 1}"]
+}
