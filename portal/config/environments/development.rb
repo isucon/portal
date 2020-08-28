@@ -91,7 +91,7 @@ Rails.application.configure do
   config.x.contest.contest_freeze = ENV['ISUXPORTAL_TIMING_CONTEST_FREEZE']&.yield_self { |_| Time.xmlschema(_) }
   config.x.contest.contest_end = ENV['ISUXPORTAL_TIMING_CONTEST_END']&.yield_self { |_| Time.xmlschema(_) }
 
-  config.x.bench_auth.token = ENV['ISUXPORTAL_BENCH_TOKEN'] || ''
+  config.x.bench_auth.token = ENV['ISUXPORTAL_BENCH_TOKEN'] || 'token'
 
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 end
