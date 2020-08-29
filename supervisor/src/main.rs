@@ -9,7 +9,7 @@ fn main() {
         .from_env::<Config>()
         .unwrap();
 
-    let mut args = std::env::args();
+    let mut args = std::env::args().skip(1);
     let command_exec = args.next().expect("must have 1 arguments");
     let command_args = args.collect();
 

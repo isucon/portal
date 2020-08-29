@@ -1,7 +1,4 @@
-use crate::api::isuxportal::proto::services::bench::benchmark_report_client::BenchmarkReportClient;
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
-use crate::api::isuxportal::proto::services::bench::ReportBenchmarkResultRequest;
-use crate::api::isuxportal::proto::services::bench::ReportBenchmarkResultResponse;
 use crate::api::isuxportal::proto::resources::BenchmarkResult;
 use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::config::Config;

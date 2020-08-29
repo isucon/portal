@@ -5,4 +5,10 @@ pub enum Error {
 
     #[error("Final report was not acknowledged")]
     NotAcknowledged,
+
+    #[error(transparent)]
+    DecodeError(#[from] prost::DecodeError),
+
+    #[error(transparent)]
+    IoError(#[from] std::io::Error),
 }
