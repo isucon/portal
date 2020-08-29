@@ -9,7 +9,6 @@ package resources
 import (
 	proto "github.com/golang/protobuf/proto"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
-	resources "github.com/isucon/isucon10-portal/proto.go/resources"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -40,7 +39,7 @@ type BenchmarkResult struct {
 	Execution *BenchmarkResult_Execution `protobuf:"bytes,5,opt,name=execution,proto3" json:"execution,omitempty"`
 	MarkedAt  *timestamp.Timestamp       `protobuf:"bytes,6,opt,name=marked_at,json=markedAt,proto3" json:"marked_at,omitempty"`
 	// TODO: not available in responses
-	SurveyResponse *resources.SurveyResponse `protobuf:"bytes,8,opt,name=survey_response,json=surveyResponse,proto3" json:"survey_response,omitempty"`
+	SurveyResponse *SurveyResponse `protobuf:"bytes,8,opt,name=survey_response,json=surveyResponse,proto3" json:"survey_response,omitempty"`
 }
 
 func (x *BenchmarkResult) Reset() {
@@ -117,7 +116,7 @@ func (x *BenchmarkResult) GetMarkedAt() *timestamp.Timestamp {
 	return nil
 }
 
-func (x *BenchmarkResult) GetSurveyResponse() *resources.SurveyResponse {
+func (x *BenchmarkResult) GetSurveyResponse() *SurveyResponse {
 	if x != nil {
 		return x.SurveyResponse
 	}
@@ -345,7 +344,7 @@ var file_isuxportal_resources_benchmark_result_proto_goTypes = []interface{}{
 	(*BenchmarkResult_ScoreBreakdown)(nil), // 1: isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown
 	(*BenchmarkResult_Execution)(nil),      // 2: isuxportal.proto.resources.BenchmarkResult.Execution
 	(*timestamp.Timestamp)(nil),            // 3: google.protobuf.Timestamp
-	(*resources.SurveyResponse)(nil),       // 4: isuxportal.proto.resources.SurveyResponse
+	(*SurveyResponse)(nil),                 // 4: isuxportal.proto.resources.SurveyResponse
 }
 var file_isuxportal_resources_benchmark_result_proto_depIdxs = []int32{
 	1, // 0: isuxportal.proto.resources.BenchmarkResult.score_breakdown:type_name -> isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown
@@ -364,6 +363,7 @@ func file_isuxportal_resources_benchmark_result_proto_init() {
 	if File_isuxportal_resources_benchmark_result_proto != nil {
 		return
 	}
+	file_isuxportal_resources_survey_response_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_isuxportal_resources_benchmark_result_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BenchmarkResult); i {

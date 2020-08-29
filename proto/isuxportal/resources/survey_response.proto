@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto.resources;
-option go_package = "github.com/isucon/isucon10-portal/proto.go/resources";
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resources";
 
 message SurveyResponse {
   string language = 1;
