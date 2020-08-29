@@ -6,6 +6,10 @@ fn default_instance_name() -> String {
     "default".to_string()
 }
 
+fn default_log_directory() -> String {
+    "/tmp".to_string()
+}
+
 fn default_interval_after_empty_receive() -> u64 {
     5
 }
@@ -15,6 +19,8 @@ pub struct Config {
     pub endpoint_url: String,
     pub token: String,
     pub team_id: Option<i64>,
+    #[serde(default = "default_log_directory")]
+    pub log_directory: String,
     #[serde(default = "default_hard_timeout")]
     pub hard_timeout: u64,
     #[serde(default = "default_instance_name")]
