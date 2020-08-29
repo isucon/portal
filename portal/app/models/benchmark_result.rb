@@ -50,12 +50,13 @@ class BenchmarkResult < ApplicationRecord
 
   # @param [Isuxportal::Proto::Resources::BenchmarkResult] pb
   def update_from_pb!(pb)
+    #Rails.logger.debug "Updating BenchmarkResult(id=#{self.id}) with #{pb.inspect}"
     self.update_attributes!(
       finished: pb.finished,
       passed: pb.passed,
       score: pb.score == -1 ? (pb.finished && !pb.passed ? 0 : (pb.score_breakdown&.raw || 0) - (pb.score_breakdown&.deduction || 0)) : pb.score,
-      score_raw: pb.score_breakdown&.raw,
-      score_deduction: pb.score_breakdown&.deduction,
+      score_raw: pb.score_breakdown&.raw || 0,
+      score_deduction: pb.score_breakdown&.deduction || 0,
       reason: pb.execution&.reason,
       stdout: pb.execution&.stdout,
       stderr: pb.execution&.stderr,
@@ -63,6 +64,7 @@ class BenchmarkResult < ApplicationRecord
       exit_signal: pb.execution&.signaled ? pb.execution&.exit_signal : nil,
       marked_at: pb.marked_at&.yield_self { |_| Time.zone.at(_.seconds, _.nanos / 1000) },
     )
+    #Rails.logger.debug self.inspect
   end
 
   private def validate_finished_and_passed
