@@ -197,10 +197,25 @@ impl Reporter {
                 log::info!("Reporter/outbound_loop/OutboundMessage: Sending {:#?}", report);
 
                 let mut result = report.result;
+
                 if report.execution_only {
-                    let execution = result.execution;
+                    let mut new_execution = result.execution.map(|e| e.clone()).unwrap_or(benchmark_result::Execution {
+                        reason: "".to_string(),
+                        stdout: "".to_string(),
+                        stderr: "".to_string(),
+                        exit_status: -1,
+                        exit_signal: -1,
+                        signaled: false,
+                    });
+
                     result = context.last_result.clone();
-                    result.execution = execution;
+                    if new_execution.reason.len() == 0 {
+                        if let Some(last_execution) = context.last_result.execution.as_ref() {
+                            new_execution.reason = last_execution.reason.clone()
+                        }
+                    }
+
+                    result.execution = Some(new_execution);
                 }
                 let req = ReportBenchmarkResultRequest {
                     job_id: self.job_handle.job_id,
