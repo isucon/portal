@@ -1488,6 +1488,7 @@ $root.isuxportal = (function() {
                  * @property {isuxportal.proto.resources.BenchmarkResult.IScoreBreakdown|null} [scoreBreakdown] BenchmarkResult scoreBreakdown
                  * @property {isuxportal.proto.resources.BenchmarkResult.IExecution|null} [execution] BenchmarkResult execution
                  * @property {google.protobuf.ITimestamp|null} [markedAt] BenchmarkResult markedAt
+                 * @property {isuxportal.proto.resources.ISurveyResponse|null} [surveyResponse] BenchmarkResult surveyResponse
                  */
 
                 /**
@@ -1554,6 +1555,14 @@ $root.isuxportal = (function() {
                 BenchmarkResult.prototype.markedAt = null;
 
                 /**
+                 * BenchmarkResult surveyResponse.
+                 * @member {isuxportal.proto.resources.ISurveyResponse|null|undefined} surveyResponse
+                 * @memberof isuxportal.proto.resources.BenchmarkResult
+                 * @instance
+                 */
+                BenchmarkResult.prototype.surveyResponse = null;
+
+                /**
                  * Creates a new BenchmarkResult instance using the specified properties.
                  * @function create
                  * @memberof isuxportal.proto.resources.BenchmarkResult
@@ -1589,6 +1598,8 @@ $root.isuxportal = (function() {
                         $root.isuxportal.proto.resources.BenchmarkResult.Execution.encode(message.execution, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     if (message.markedAt != null && Object.hasOwnProperty.call(message, "markedAt"))
                         $root.google.protobuf.Timestamp.encode(message.markedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.surveyResponse != null && Object.hasOwnProperty.call(message, "surveyResponse"))
+                        $root.isuxportal.proto.resources.SurveyResponse.encode(message.surveyResponse, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                     return writer;
                 };
 
@@ -1640,6 +1651,9 @@ $root.isuxportal = (function() {
                             break;
                         case 6:
                             message.markedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 8:
+                            message.surveyResponse = $root.isuxportal.proto.resources.SurveyResponse.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -1700,6 +1714,11 @@ $root.isuxportal = (function() {
                         if (error)
                             return "markedAt." + error;
                     }
+                    if (message.surveyResponse != null && message.hasOwnProperty("surveyResponse")) {
+                        var error = $root.isuxportal.proto.resources.SurveyResponse.verify(message.surveyResponse);
+                        if (error)
+                            return "surveyResponse." + error;
+                    }
                     return null;
                 };
 
@@ -1743,6 +1762,11 @@ $root.isuxportal = (function() {
                             throw TypeError(".isuxportal.proto.resources.BenchmarkResult.markedAt: object expected");
                         message.markedAt = $root.google.protobuf.Timestamp.fromObject(object.markedAt);
                     }
+                    if (object.surveyResponse != null) {
+                        if (typeof object.surveyResponse !== "object")
+                            throw TypeError(".isuxportal.proto.resources.BenchmarkResult.surveyResponse: object expected");
+                        message.surveyResponse = $root.isuxportal.proto.resources.SurveyResponse.fromObject(object.surveyResponse);
+                    }
                     return message;
                 };
 
@@ -1770,6 +1794,7 @@ $root.isuxportal = (function() {
                         object.scoreBreakdown = null;
                         object.execution = null;
                         object.markedAt = null;
+                        object.surveyResponse = null;
                     }
                     if (message.finished != null && message.hasOwnProperty("finished"))
                         object.finished = message.finished;
@@ -1786,6 +1811,8 @@ $root.isuxportal = (function() {
                         object.execution = $root.isuxportal.proto.resources.BenchmarkResult.Execution.toObject(message.execution, options);
                     if (message.markedAt != null && message.hasOwnProperty("markedAt"))
                         object.markedAt = $root.google.protobuf.Timestamp.toObject(message.markedAt, options);
+                    if (message.surveyResponse != null && message.hasOwnProperty("surveyResponse"))
+                        object.surveyResponse = $root.isuxportal.proto.resources.SurveyResponse.toObject(message.surveyResponse, options);
                     return object;
                 };
 
@@ -6231,6 +6258,193 @@ $root.isuxportal = (function() {
                 };
 
                 return Staff;
+            })();
+
+            resources.SurveyResponse = (function() {
+
+                /**
+                 * Properties of a SurveyResponse.
+                 * @memberof isuxportal.proto.resources
+                 * @interface ISurveyResponse
+                 * @property {string|null} [language] SurveyResponse language
+                 */
+
+                /**
+                 * Constructs a new SurveyResponse.
+                 * @memberof isuxportal.proto.resources
+                 * @classdesc Represents a SurveyResponse.
+                 * @implements ISurveyResponse
+                 * @constructor
+                 * @param {isuxportal.proto.resources.ISurveyResponse=} [properties] Properties to set
+                 */
+                function SurveyResponse(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * SurveyResponse language.
+                 * @member {string} language
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @instance
+                 */
+                SurveyResponse.prototype.language = "";
+
+                /**
+                 * Creates a new SurveyResponse instance using the specified properties.
+                 * @function create
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {isuxportal.proto.resources.ISurveyResponse=} [properties] Properties to set
+                 * @returns {isuxportal.proto.resources.SurveyResponse} SurveyResponse instance
+                 */
+                SurveyResponse.create = function create(properties) {
+                    return new SurveyResponse(properties);
+                };
+
+                /**
+                 * Encodes the specified SurveyResponse message. Does not implicitly {@link isuxportal.proto.resources.SurveyResponse.verify|verify} messages.
+                 * @function encode
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {isuxportal.proto.resources.ISurveyResponse} message SurveyResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SurveyResponse.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.language != null && Object.hasOwnProperty.call(message, "language"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.language);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified SurveyResponse message, length delimited. Does not implicitly {@link isuxportal.proto.resources.SurveyResponse.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {isuxportal.proto.resources.ISurveyResponse} message SurveyResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                SurveyResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a SurveyResponse message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {isuxportal.proto.resources.SurveyResponse} SurveyResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SurveyResponse.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.SurveyResponse();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.language = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a SurveyResponse message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {isuxportal.proto.resources.SurveyResponse} SurveyResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                SurveyResponse.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a SurveyResponse message.
+                 * @function verify
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                SurveyResponse.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.language != null && message.hasOwnProperty("language"))
+                        if (!$util.isString(message.language))
+                            return "language: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a SurveyResponse message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {isuxportal.proto.resources.SurveyResponse} SurveyResponse
+                 */
+                SurveyResponse.fromObject = function fromObject(object) {
+                    if (object instanceof $root.isuxportal.proto.resources.SurveyResponse)
+                        return object;
+                    var message = new $root.isuxportal.proto.resources.SurveyResponse();
+                    if (object.language != null)
+                        message.language = String(object.language);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a SurveyResponse message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @static
+                 * @param {isuxportal.proto.resources.SurveyResponse} message SurveyResponse
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                SurveyResponse.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults)
+                        object.language = "";
+                    if (message.language != null && message.hasOwnProperty("language"))
+                        object.language = message.language;
+                    return object;
+                };
+
+                /**
+                 * Converts this SurveyResponse to JSON.
+                 * @function toJSON
+                 * @memberof isuxportal.proto.resources.SurveyResponse
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                SurveyResponse.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return SurveyResponse;
             })();
 
             return resources;

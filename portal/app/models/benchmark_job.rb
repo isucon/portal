@@ -56,6 +56,7 @@ class BenchmarkJob < ApplicationRecord
   def submit_result_from_pb!(pb)
     raise InvalidTransition unless running?
 
+    # TODO: SurveyResponse
     ApplicationRecord.transaction do
       result = benchmark_result || build_benchmark_result
       result.update_from_pb!(pb)

@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'google/protobuf/timestamp_pb'
+require 'isuxportal/resources/survey_response_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/resources/benchmark_result.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.resources.BenchmarkResult" do
@@ -13,6 +14,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :score_breakdown, :message, 4, "isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown"
       optional :execution, :message, 5, "isuxportal.proto.resources.BenchmarkResult.Execution"
       optional :marked_at, :message, 6, "google.protobuf.Timestamp"
+      optional :survey_response, :message, 8, "isuxportal.proto.resources.SurveyResponse"
     end
     add_message "isuxportal.proto.resources.BenchmarkResult.ScoreBreakdown" do
       optional :raw, :int64, 1

@@ -3,6 +3,7 @@ package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resources";
 
 import "google/protobuf/timestamp.proto";
+import "isuxportal/resources/survey_response.proto";
 
 message BenchmarkResult {
   bool finished = 1;
@@ -27,10 +28,6 @@ message BenchmarkResult {
 
   google.protobuf.Timestamp marked_at = 6;
 
-  // TODO: split from BenchmarkResult
-  // Survey survey = 8;
-
-  // message Survey {
-  //   string language = 1;
-  // }
+  // TODO: not available in responses
+  SurveyResponse survey_response = 8;
 }

@@ -531,6 +531,9 @@ export namespace isuxportal {
 
                 /** BenchmarkResult markedAt */
                 markedAt?: (google.protobuf.ITimestamp|null);
+
+                /** BenchmarkResult surveyResponse */
+                surveyResponse?: (isuxportal.proto.resources.ISurveyResponse|null);
             }
 
             /** Represents a BenchmarkResult. */
@@ -559,6 +562,9 @@ export namespace isuxportal {
 
                 /** BenchmarkResult markedAt. */
                 public markedAt?: (google.protobuf.ITimestamp|null);
+
+                /** BenchmarkResult surveyResponse. */
+                public surveyResponse?: (isuxportal.proto.resources.ISurveyResponse|null);
 
                 /**
                  * Creates a new BenchmarkResult instance using the specified properties.
@@ -2273,6 +2279,96 @@ export namespace isuxportal {
 
                 /**
                  * Converts this Staff to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SurveyResponse. */
+            interface ISurveyResponse {
+
+                /** SurveyResponse language */
+                language?: (string|null);
+            }
+
+            /** Represents a SurveyResponse. */
+            class SurveyResponse implements ISurveyResponse {
+
+                /**
+                 * Constructs a new SurveyResponse.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.ISurveyResponse);
+
+                /** SurveyResponse language. */
+                public language: string;
+
+                /**
+                 * Creates a new SurveyResponse instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns SurveyResponse instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.ISurveyResponse): isuxportal.proto.resources.SurveyResponse;
+
+                /**
+                 * Encodes the specified SurveyResponse message. Does not implicitly {@link isuxportal.proto.resources.SurveyResponse.verify|verify} messages.
+                 * @param message SurveyResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.ISurveyResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SurveyResponse message, length delimited. Does not implicitly {@link isuxportal.proto.resources.SurveyResponse.verify|verify} messages.
+                 * @param message SurveyResponse message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.ISurveyResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SurveyResponse message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SurveyResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.SurveyResponse;
+
+                /**
+                 * Decodes a SurveyResponse message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SurveyResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.SurveyResponse;
+
+                /**
+                 * Verifies a SurveyResponse message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SurveyResponse message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SurveyResponse
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.SurveyResponse;
+
+                /**
+                 * Creates a plain object from a SurveyResponse message. Also converts values to other types if specified.
+                 * @param message SurveyResponse
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.SurveyResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SurveyResponse to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
