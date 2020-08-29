@@ -1,0 +1,8 @@
+#!/bin/bash
+go build -o /tmp/isuxportal-reporter-testcli github.com/isucon/isucon10-portal/bench-tool.go/testcli
+export ISUXBENCH_TARGET=https://dummy.invalid
+
+export ISUXPORTAL_SUPERVISOR_ENDPOINT_URL=http://localhost:4000
+export ISUXPORTAL_SUPERVISOR_TOKEN=token
+export RUST_LOG=${RUST_LOG:-"info,isuxportal_supervisor=trace"}
+exec cargo run --bin oneshot /tmp/isuxportal-reporter-testcli "$@"
