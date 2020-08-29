@@ -218,6 +218,9 @@ impl Reporter {
 
                     result.execution = Some(new_execution);
                 }
+
+                result.finished = report.completed;
+
                 let req = ReportBenchmarkResultRequest {
                     job_id: self.job_handle.job_id,
                     handle: self.job_handle.handle.clone(),
