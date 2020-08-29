@@ -106,7 +106,7 @@ impl Reporter {
                 tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
             }
             num_requests += 1;
-            let (inner_outbound_txi, inner_outbound_rx) = tokio::sync::mpsc::channel(1);
+            let (inner_outbound_txi, inner_outbound_rx) = tokio::sync::mpsc::channel(6);
             let mut inner_outbound_tx = Some(inner_outbound_txi);
 
             // Need at least single message to start receiving response
@@ -127,6 +127,7 @@ impl Reporter {
             tokio::pin!(inbound_loop);
 
             while !closed {
+                log::trace!("Reporter/outbound_loop: Connection loop");
                 tokio::select! {
                     in_msg = &mut inbound_loop => {
                         // error is considered transient and handled and displayed in inbound_loop
@@ -144,7 +145,7 @@ impl Reporter {
                     },
                 }
             }
-            log::trace!("Reporter/outbound_loop: Loop");
+            log::trace!("Reporter/outbound_loop: Outbound loop continue...");
         }
 
         log::info!("Reporter/outbound_loop: Leaving");
@@ -230,7 +231,9 @@ impl Reporter {
                     context.request_must_retry = Some(req.clone());
                 }
 
+                log::trace!("Reporter/outbound_loop/outbound_process: Enqueue...");
                 inner_outbound_tx.send(req).await.unwrap(); // TODO: unwrap is unsuitable
+                log::trace!("Reporter/outbound_loop/outbound_process: Enqueued");
                 context.last_result = result;
             }
             Some(OutboundMessage::Shutdown) => {
