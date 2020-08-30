@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"fmt"
 	"time"
 	"strconv"
 
@@ -28,6 +29,8 @@ func main() {
 			panic(err)
 		}
 	}
+
+	fmt.Printf("Target: {}", benchrun.GetTargetAddress())
 
 	r, err := benchrun.NewReporter(true)
 	if err != nil {
