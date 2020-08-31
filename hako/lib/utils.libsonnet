@@ -24,7 +24,7 @@
     memory: '1024',
     requires_compatibilities: ['FARGATE'],
     network_mode: 'awsvpc',
-    launch_type: 'FARGATE',
+    // launch_type: 'FARGATE',
     network_configuration: {
       awsvpc_configuration: {
         subnets: $.privateSubnets,
@@ -63,6 +63,29 @@
         'access_logs.s3.bucket': 'isucon10-logs',
         'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
         'idle_timeout.timeout_seconds': '60',
+      },
+      target_group_attributes: {
+        'deregistration_delay.timeout_seconds': '20',
+      },
+    },
+  grpcNlbInternetFacing:: {
+      vpc_id: $.vpcId,
+      type: 'network',
+      scheme: 'internet-facing',
+      listeners: [
+        {
+          port: 443,
+          protocol: 'TLS',
+          certificate_arn: $.acmCertificateWildDev,
+          ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
+        },
+      ],
+      container_name: 'front',
+      container_port: 8000,
+      subnets: $.publicSubnets,
+      security_groups: $.elbSecurityGroups,
+      tags: {
+        Project: 'isucon10',
       },
       target_group_attributes: {
         'deregistration_delay.timeout_seconds': '20',

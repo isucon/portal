@@ -27,6 +27,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       // See config/environments/development.rb
       ISUXPORTAL_ADMIN_ONLY: '1',
       ISUXPORTAL_ADMIN_LOGIN: 'neonlight',
+      ISUXPORTAL_BENCH_TOKEN: 'devtoken', // TODO: change
     },
     secrets: [
       secret('SECRET_KEY_BASE'),
