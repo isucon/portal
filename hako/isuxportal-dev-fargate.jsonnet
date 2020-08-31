@@ -5,7 +5,7 @@ local base = import './isuxportal-dev-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 2,
+    desired_count: 1,
     elb_v2: utils.albInternetFacing,
   },
   additional_containers: {

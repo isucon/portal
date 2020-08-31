@@ -5,11 +5,14 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
 {
   scheduler: {
     task_role_arn: utils.iamRole('Isuxportal'),
+    capacity_provider_strategy: [
+      { capacity_provider: 'FARGATE_SPOT', weight: 1 },
+    ],
   },
   app: {
     image: utils.ecrRepository('isuxportal'),
-    cpu: 512 - 64,
-    memory: 1024 - 128,
+    cpu: 256 - 64,
+    memory: 512 - 128,
     env: {
       RACK_ENV: 'development',
       RAILS_ENV: 'development',

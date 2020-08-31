@@ -5,7 +5,7 @@ local base = import './isuxportal-dev-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 2,
+    desired_count: 1,
   },
   app+: {
     command: ['bundle', 'exec', 'sidekiq', '-t', '5', '-c', '2', '-q', 'default', '-q', 'mailers'],

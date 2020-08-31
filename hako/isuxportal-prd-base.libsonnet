@@ -8,8 +8,10 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
   },
   app: {
     image: utils.ecrRepository('isuxportal'),
-    cpu: 512 - 64,
-    memory: 1024 - 128,
+    //cpu: 512 - 64,
+    //memory: 1024 - 128,
+    cpu: 256 - 64,
+    memory: 512 - 128,
     env: {
       RACK_ENV: 'production',
       RAILS_ENV: 'production',
