@@ -48,7 +48,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
+  config.active_job.queue_adapter = ENV.fetch('DISABLE_SHORYUKEN', '0') == '1' ? :inline : :shoryuken
 
   config.session_store :redis_store, {
     servers: [
