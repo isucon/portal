@@ -41,7 +41,7 @@ export class AdminApp extends React.Component<Props, State> {
 
   public render() {
     return <BrowserRouter>
-      <AdminNavbar session={this.props.session} client={this.props.client} />
+      <AdminNavbar session={this.props.session} client={this.state.adminClient} />
 
       <div className="container mt-5">
         <div className="columns">
