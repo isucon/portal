@@ -6,9 +6,12 @@ local base = import './isuxportal-dev-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
+    env+: {
+      ISUXPORTAL_SHORYUKEN_CONCURRENCY: '5',
+    }
   },
   app+: {
-    command: ['bundle', 'exec', 'sidekiq', '-t', '5', '-c', '2', '-q', 'default', '-q', 'mailers'],
+    command: ['bundle', 'exec', 'shoryuken', 'start', '-R', '-C', '/app/config/shoryuken.yml'],
   },
   additional_containers: {
   },

@@ -13,6 +13,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
     cpu: 256 - 64,
     memory: 512 - 128,
     env: {
+      AWS_REGION: 'ap-northeast-1',
       RACK_ENV: 'production',
       RAILS_ENV: 'production',
       DATABASE_URL: 'mysql2://isuxportal@isuxportal-prd.cluster-cunslsivoetj.ap-northeast-1.rds.amazonaws.com/isuxportal?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci',
@@ -35,6 +36,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_TIMING_CONTEST_FREEZE: '2020-09-12T08:00:00Z',
       ISUXPORTAL_TIMING_CONTEST_END: '2020-09-12T09:00:00Z',
       ISUXPORTAL_BENCH_TOKEN: 'dummy himitsudayo himitsujanaikamo?', // TODO: change
+      ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
     },
     secrets: [
       secret('SECRET_KEY_BASE'),

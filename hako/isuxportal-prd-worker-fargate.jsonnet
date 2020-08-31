@@ -13,7 +13,10 @@ base {
   app+: {
     cpu: 256 - 64,
     memory: 512 - 128,
-    command: ['bundle', 'exec', 'sidekiq', '-t', '5', '-c', '2', '-q', 'default', '-q', 'mailers'],
+    command: ['bundle', 'exec', 'shoryuken', 'start', '-R', '-C', '/app/config/shoryuken.yml'],
+    env+: {
+      ISUXPORTAL_SHORYUKEN_CONCURRENCY: '2',
+    }
   },
   additional_containers: {
   },

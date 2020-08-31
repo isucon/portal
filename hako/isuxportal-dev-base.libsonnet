@@ -4,7 +4,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
 
 {
   scheduler: {
-    task_role_arn: utils.iamRole('Isuxportal'),
+    task_role_arn: utils.iamRole('IsuxportalDev'),
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
@@ -14,6 +14,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
     cpu: 256 - 64,
     memory: 512 - 128,
     env: {
+      AWS_REGION: 'ap-northeast-1',
       RACK_ENV: 'development',
       RAILS_ENV: 'development',
       SENTRY_ENVIRONMENT: 'development',
@@ -28,6 +29,8 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       ISUXPORTAL_ADMIN_ONLY: '1',
       ISUXPORTAL_ADMIN_LOGIN: 'neonlight',
       ISUXPORTAL_BENCH_TOKEN: 'devtoken', // TODO: change
+      ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-dev',
+      DISABLE_SHORYUKEN: '0',
     },
     secrets: [
       secret('SECRET_KEY_BASE'),
