@@ -10,11 +10,13 @@ gem 'griffin'
 gem 'griffin-interceptors'
 gem 'grpc_kit', git: 'https://isucon10-public.s3.dualstack.ap-northeast-1.amazonaws.com/git/6MGgQp9lDmsK6G0CNa0DCOWHkOXID9-1davWxzKzI28/grpc_kit.git', ref: 'blocking-recv-buffer' 
 gem 'google-protobuf'
-gem 'sidekiq'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
 gem 'redis-actionpack' # session store
 gem 'sentry-raven'
+
+gem 'shoryuken'
+gem 'aws-sdk-sqs'
 
 gem 'simpacker'
 

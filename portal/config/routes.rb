@@ -1,5 +1,3 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
   get '/' => 'root#index'
   get '/teams' => 'root#index'
@@ -109,12 +107,8 @@ Rails.application.routes.draw do
     post 'impersonate/github' => 'impersonate#github'
     post 'impersonate/discord' => 'impersonate#discord'
 
-    mount Sidekiq::Web => '/sidekiq', :constraints => Module.new {
-      def self.matches?(request)
-        request.session[:staff]
-      end
-    }
-
     resource :session, only: %i(new create), as: :admin_session
+
+    get 'slacktown' => 'debug#slack'
   end
 end

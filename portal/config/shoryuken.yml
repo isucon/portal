@@ -1,0 +1,4 @@
+concurrency: <%= ENV.fetch('ISUXPORTAL_SHORYUKEN_CONCURRENCY', 15) %>
+# ActiveJob prefixes queue name, the default delimiter is `_`
+queues:
+  - [<%= ENV.fetch('ISUXPORTAL_SHORYUKEN_QUEUE') %>, 1]

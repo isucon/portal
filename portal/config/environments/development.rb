@@ -53,8 +53,9 @@ Rails.application.configure do
       threadsafe: true,
       secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '0') == '1',
     }
-    config.active_job.queue_adapter = ENV.fetch('DISABLE_SIDEKIQ', '0') == '1' ? :inline : :sidekiq
   end
+
+  config.active_job.queue_adapter = :inline
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
