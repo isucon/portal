@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   private def require_contestant
     if !current_contestant
-      return redirect_to new_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true)))
+      return redirect_to new_github_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true)))
     end
   end
 end
