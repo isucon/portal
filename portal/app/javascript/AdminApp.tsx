@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 import {ErrorMessage} from "./ErrorMessage";
-import {Navbar} from "./Navbar";
+import {AdminNavbar} from "./admin/AdminNavbar";
 
 import {AdminTeamList} from "./admin/AdminTeamList";
 import {AdminTeamDetail} from "./admin/AdminTeamDetail";
@@ -41,7 +41,7 @@ export class AdminApp extends React.Component<Props, State> {
 
   public render() {
     return <BrowserRouter>
-      <Navbar session={this.props.session} client={this.props.client} />
+      <AdminNavbar session={this.props.session} client={this.props.client} />
 
       <div className="container mt-5">
         <div className="columns">
