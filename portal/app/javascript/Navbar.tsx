@@ -51,7 +51,7 @@ export class Navbar extends React.Component<Props, State> {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {this.renderNavbarRegistrationButtons()}
+                {this.renderNavbarContestButton()}
                 {this.renderNavbarLoginButtons()}
               </div>
             </div>
@@ -61,20 +61,28 @@ export class Navbar extends React.Component<Props, State> {
     </nav>;
   }
 
-  public renderNavbarRegistrationButtons() {
+  public renderNavbarContestButton() {
     if (this.props.session.contestant) {
-      return (
-        <Link className="button is-light" to="/registration">
-          登録確認
-        </Link>
-      );
+      switch (this.props.session.contest?.status) {
+        case isuxportal.proto.resources.Contest.Status.REGISTRATION:
+        case isuxportal.proto.resources.Contest.Status.STANDBY:
+          return <Link className="button is-light" to="/registration">
+            参加登録/修正
+          </Link>;
+        case isuxportal.proto.resources.Contest.Status.STARTED:
+        case isuxportal.proto.resources.Contest.Status.FINISHED:
+          return <a className="button is-light" href="/contestant">
+            競技参加者向けページ
+          </a>;
+      }
     } else {
-      // TODO: What if registration closed?
-      return (
-        <Link className="button is-light" to="/registration">
+      if (this.props.session.contest?.status === isuxportal.proto.resources.Contest.Status.REGISTRATION) {
+        return <Link className="button is-light" to="/registration">
           参加登録
-        </Link>
-      );
+        </Link>;
+      } else {
+        return null;
+      }
     }
   }
 
