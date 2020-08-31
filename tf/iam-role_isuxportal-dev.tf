@@ -1,11 +1,11 @@
-resource "aws_iam_role" "Isuxportal" {
-  name                 = "Isuxportal"
-  description          = "Isuxportal"
-  assume_role_policy   = data.aws_iam_policy_document.Isuxportal-trust.json
+resource "aws_iam_role" "IsuxportalDev" {
+  name                 = "IsuxportalDev"
+  description          = "IsuxportalDev"
+  assume_role_policy   = data.aws_iam_policy_document.IsuxportalDev-trust.json
   permissions_boundary = aws_iam_policy.IsuAdmin.arn
 }
 
-data "aws_iam_policy_document" "Isuxportal-trust" {
+data "aws_iam_policy_document" "IsuxportalDev-trust" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -18,19 +18,19 @@ data "aws_iam_policy_document" "Isuxportal-trust" {
   }
 }
 
-resource "aws_iam_role_policy_attachment" "Isuxportal-EcsTaskBase" {
-  role       = aws_iam_role.Isuxportal.name
+resource "aws_iam_role_policy_attachment" "IsuxportalDev-EcsTaskBase" {
+  role       = aws_iam_role.IsuxportalDev.name
   policy_arn = aws_iam_policy.EcsTaskBase.arn
 }
 
 
 
-resource "aws_iam_role_policy" "Isuxportal" {
-  role   = aws_iam_role.Isuxportal.name
-  policy = data.aws_iam_policy_document.Isuxportal.json
+resource "aws_iam_role_policy" "IsuxportalDev" {
+  role   = aws_iam_role.IsuxportalDev.name
+  policy = data.aws_iam_policy_document.IsuxportalDev.json
 }
 
-data "aws_iam_policy_document" "Isuxportal" {
+data "aws_iam_policy_document" "IsuxportalDev" {
   statement {
     effect = "Allow"
     actions = [
@@ -46,9 +46,8 @@ data "aws_iam_policy_document" "Isuxportal" {
       "sqs:ListQueues",
     ]
     resources = [
-      aws_sqs_queue.isuxportal-activejob-prd.arn,
-      aws_sqs_queue.isuxportal-activejob-dlq-prd.arn,
+      aws_sqs_queue.isuxportal-activejob-dev.arn,
+      aws_sqs_queue.isuxportal-activejob-dlq-dev.arn,
     ]
   }
 }
-
