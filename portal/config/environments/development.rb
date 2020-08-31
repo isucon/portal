@@ -55,7 +55,7 @@ Rails.application.configure do
     }
   end
 
-  config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = ENV.fetch('DISABLE_SHORYUKEN', '1') == '1' ? :inline : :shoryuken
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
