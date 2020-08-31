@@ -16,15 +16,17 @@ end
 
 Shoryuken.active_job_queue_name_prefixing = false
 
-Shoryuken.configure_client do |config|
-  config.sqs_client = Aws::SQS::Client.new(region: ENV.fetch('AWS_REGION'), logger: Rails.logger)
-end
-Shoryuken.configure_server do |config|
-  config.server_middleware do |chain|
-    chain.add Shoryuken::Middleware::Server::RavenReporter
+if ENV['ISUXPORTAL_SHORYUKEN_QUEUE']
+  Shoryuken.configure_client do |config|
+    config.sqs_client = Aws::SQS::Client.new(region: ENV.fetch('AWS_REGION'), logger: Rails.logger)
   end
+  Shoryuken.configure_server do |config|
+    config.server_middleware do |chain|
+      chain.add Shoryuken::Middleware::Server::RavenReporter
+    end
 
-  config.sqs_client = Aws::SQS::Client.new(region: ENV.fetch('AWS_REGION'), logger: Rails.logger)
-  # see also config/shoryuken.yml
-  config.sqs_client_receive_message_opts = { wait_time_seconds: 20 } if ENV['ISUXPORTAL_SHORYUKEN_QUEUE']
+    config.sqs_client = Aws::SQS::Client.new(region: ENV.fetch('AWS_REGION'), logger: Rails.logger)
+    # see also config/shoryuken.yml
+    config.sqs_client_receive_message_opts = { wait_time_seconds: 20 } 
+  end
 end
