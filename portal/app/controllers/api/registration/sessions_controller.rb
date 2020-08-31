@@ -20,7 +20,9 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     status = case
     when current_contestant
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::JOINED
-    when @team && !@team.joinable?
+    when @team && Contest.registration_invitation_closed?
+      Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED
+    when @team && !@team.joinable? 
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::NOT_JOINABLE
     when !@team && (!Contest.registration_open? || Contest.max_teams_reached?)
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED

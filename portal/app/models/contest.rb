@@ -43,6 +43,15 @@ module Contest
     end
   end
 
+  def self.registration_invitation_closed?(now=Time.zone.now)
+    close = Rails.application.config.x.contest.registration_invitation_close
+    if close
+      close <= now
+    else
+      false
+    end
+  end
+
   def self.max_teams_reached?
     team_count >= max_teams
   end

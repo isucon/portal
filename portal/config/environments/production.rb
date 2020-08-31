@@ -132,6 +132,7 @@ Rails.application.configure do
   config.x.contest.max_teams = 500
   config.x.contest.registration_open = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_OPEN').yield_self { |_| Time.xmlschema(_) }
   config.x.contest.registration_close = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_CLOSE').yield_self { |_| Time.xmlschema(_) }
+  config.x.contest.registration_invitation_close = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE').yield_self { |_| Time.xmlschema(_) }
 
   config.x.contest.contest_start = ENV.fetch('ISUXPORTAL_TIMING_CONTEST_START').yield_self { |_| Time.xmlschema(_) }
   config.x.contest.contest_freeze = ENV.fetch('ISUXPORTAL_TIMING_CONTEST_FREEZE').yield_self { |_| Time.xmlschema(_) }
