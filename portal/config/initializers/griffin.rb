@@ -40,7 +40,9 @@ Griffin::Server.configure do |c|
     Griffin::Interceptors::Server::XRequestIdInterceptor.new,
   ].compact
 
-  c.workers 2
+  c.workers ENV.fetch('GRIFFIN_WORKER_NUM', '1').to_i
+  c.pool_size ENV.fetch('GRIFFIN_POOL_MIN', '10').to_i , ENV.fetch('GRIFFIN_POOL_MAX', '20').to_i 
+  c.connection_size ENV.fetch('GRIFFIN_CONNECTION_MIN', '1').to_i , ENV.fetch('GRIFFIN_CONNECTION_MAX', '8').to_i 
   # TODO: pool_size, connection_size
 
   c.logger Rails.logger
