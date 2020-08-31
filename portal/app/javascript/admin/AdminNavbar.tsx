@@ -1,5 +1,5 @@
 import type {isuxportal} from "../pb_admin";
-import {ApiError, ApiClient} from "../ApiClient";
+import {AdminApiClient} from "./AdminApiClient";
 import * as Rails from "@rails/ujs";
 
 import React from "react";
