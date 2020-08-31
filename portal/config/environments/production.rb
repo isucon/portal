@@ -119,7 +119,8 @@ Rails.application.configure do
   config.x.discord.client_secret = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_SECRET')
   config.x.discord.server_id = ENV.fetch('ISUXPORTAL_DISCORD_SERVER_ID')
   config.x.discord.bot_token = ENV.fetch('ISUXPORTAL_DISCORD_BOT_TOKEN')
-  config.x.discord.contestant_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID')
+  config.x.discord.contestant_role_id = ENV.fetch('ISUXPORTAL_DISCORD_ADMIN_ROLE_ID')
+  config.x.discord.admin_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID')
   config.x.discord.contestant_final_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID')
   config.x.discord.contestant_final_role = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE') == '1'
   config.x.discord.contestant_qualify_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID')

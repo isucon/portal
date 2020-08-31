@@ -81,6 +81,7 @@ Rails.application.configure do
 
   config.x.discord.server_id = ENV['ISUXPORTAL_DISCORD_SERVER_ID'] || '721578039779262486'
   config.x.discord.contestant_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID'] || '721583193270255617'
+  config.x.discord.admin_role_id = ENV['ISUXPORTAL_DISCORD_ADMIN_ROLE_ID'] || '721583068724592640'
   config.x.discord.contestant_final_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID'] || '721584047175761940'
   config.x.discord.contestant_final_role = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE'] == '1'
   config.x.discord.contestant_qualify_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID'] || '721583975230865428'

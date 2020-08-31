@@ -2,8 +2,44 @@
 require_relative '../config/environment'
 $stdout.sync = true
 
+require 'isuxportal/misc/bot/support_pb'
+
 def expected_server_id
   Rails.application.config.x.discord.server_id
+end
+
+def user_is_admin?(user)
+  user.roles.any?{ |_| _.id.to_s == Rails.application.config.x.discord.admin_role_id }
+end
+
+def get_support_comm_info(channel)
+  data = Redis.current.get("isuxportal:support_comm_info:#{channel.id}")&.unpack1('m0')
+  info = data ? Isuxportal::Proto::Misc::Bot::SupportCommInfo.decode(data) : Isuxportal::Proto::Misc::Bot::SupportCommInfo.new(usage: nil)
+  Rails.logger.info "Retrieving #{channel.name} (#{channel.id}) SupportCommInfo: #{info.inspect}"
+  info
+rescue Google::Protobuf::ParseError => e
+  Raven.capture_exception(e, level: :warning)
+  nil
+end
+
+def set_support_comm_info(token, channel, info)
+  Rails.logger.info "Updating #{channel.name} (#{channel.id}) SupportCommInfo to #{info.inspect}"
+  Redis.current.set("isuxportal:support_comm_info:#{channel.id}", [Isuxportal::Proto::Misc::Bot::SupportCommInfo.encode(info)].pack('m0'))
+end
+
+def get_support_com_role(channel)
+  Rails.application.config.x.discord.support_comm_channel_roles[channel.id.to_s]
+end
+
+def discord_log_since(token, channel_id, message_id)
+  messages = []
+  after = message_id
+  while after
+    msgs = JSON.parse(Discordrb::API::Channel.messages(token,channel_id,100,nil,after).body).sort_by { |_| _['id'].to_i }
+    messages.concat(msgs)
+    after =msgs.last&.dig('id')
+  end
+  messages.map { |_| p _; "#{_.dig('author', 'username')}: [#{_['timestamp']}]\n#{_['content']}" }.join("\n\n")
 end
 
 bot = Discordrb::Commands::CommandBot.new token: Rails.application.config.x.discord.bot_token, prefix: '.'
@@ -46,6 +82,114 @@ end
 bot.command(:ping) do |event|
   next unless event.server.id.to_s == expected_server_id
   "Pong, #{event.user.name}"
+end
+
+
+bot.command(:supportOpen, min_args: 1, max_args: 1, usage: 'supportOpen team_id') do |event, team_id|
+  next unless event.server.id.to_s == expected_server_id
+  next "*FORBIDDEN* You're not an admin :lock:" unless user_is_admin?(event.user)
+  role_id = get_support_com_role(event.channel)
+  unless role_id
+    next "**Error** This channel is not designated for support comm. Configured channels are:\n\n```\n#{Rails.application.config.x.discord.support_comm_channel_roles.inspect}```"
+  end
+
+  info = get_support_comm_info(event.channel)
+  if info.usage
+    next "**Error** This channel is currently in use :closed_lock_with_key:"
+  end
+
+  team = Team.find_by(id: team_id)
+  unless team
+    next "**Error** team ID ##{team_id} does not exist."
+  end
+
+  clarification = Clarification.create!(
+    team: team,
+    disclosed: false,
+    original_question: "Discord Support Channel Log\nLog will be posted after channel has closed",
+    question: "Discord Support Channel Log\nLog will be posted after channel has closed",
+    answer: "Support channel has been opened. Check discord for the details\nサポートチャンネルが Discord 上に作成されました。Discordを確認してください。",
+    answered_at: Time.zone.now,
+    admin: true,
+  )
+
+  info.usage = Isuxportal::Proto::Misc::Bot::SupportCommInfo::Usage.new(
+    message_id_since: event.message.id,
+    team_id: team.id,
+    clarification_id: clarification.id,
+  )
+
+  not_found_members = []
+  team.members.each do |member|
+    Rails.logger.info("add_member_role #{member.name} (##{member.id}); discord_id=#{member.discord_id}, role_id=#{role_id}")
+    Discordrb::API::Server.add_member_role(bot.token, expected_server_id, member.discord_id, role_id)
+  rescue RestClient::NotFound
+    Rails.logger.warn("add_member_role #{member.name} (##{member.id}); discord_id=#{member.discord_id}, role_id=#{role_id} => NotFound")
+    not_found_members << member
+  end
+
+  not_found_members_message = not_found_members.map { |_| "- warning: #{_.name} (##{_.id}) was not found" }.join("\n")
+
+  set_support_comm_info(bot.token, event.channel, info)
+  p info
+  next ":telephone: **Support comm opened** for #{team.name} (##{team.id})\nhttps://portal.isucon.net/contestant/clarifications\n#{not_found_members_message}"
+rescue => e
+  Raven.capture_exception(e)
+  Rails.logger.error(e.full_message)
+  next "something went wrong"
+end
+
+bot.command(:support) do |event|
+  next unless event.server.id.to_s == expected_server_id
+  next "**FORBIDDEN** You're not an admin :lock:" unless user_is_admin?(event.user)
+  role_id = get_support_com_role(event.channel)
+  unless role_id
+    next "**Error** This channel is not designated for support comm. Configured channels are:\n\n```\n#{Rails.application.config.x.discord.support_comm_channel_roles.inspect}```"
+  end
+
+  info = get_support_comm_info(event.channel)
+  next "**USAGE**\n.supportOpen team_id\n.supportClose\n\n**STATUS**\n```\n#{info ? info.class.encode_json(info) : "null"}```"
+end
+
+bot.command(:supportClose) do |event|
+  next unless event.server.id.to_s == expected_server_id
+  next "**FORBIDDEN** You're not an admin :lock:" unless user_is_admin?(event.user)
+  role_id = get_support_com_role(event.channel)
+  unless role_id
+    next "**Error** This channel is not designated for support comm. Configured channels are:\n\n```\n#{Rails.application.config.x.discord.support_comm_channel_roles.inspect}```"
+  end
+
+  info = get_support_comm_info(event.channel)
+  unless info.usage
+    next "**Error** This channel is currently not in use :unlock:"
+  end
+
+  team = Team.find_by(id: info.usage.team_id)
+  unless team
+    next "**Error** team ID ##{info.usage.team_id} does not exist."
+  end
+
+  clarification = Clarification.find(info.usage.clarification_id)
+  clarification.answered_at = Time.zone.now
+  clarification.original_question = clarification.question = "Discord Support Channel Log"
+  clarification.answer = discord_log_since(bot.token, event.channel.id, info.usage.message_id_since)
+  clarification.save!
+
+  team.members.each do |member|
+    Rails.logger.info("remove_member_role #{member.name} (##{member.id}); discord_id=#{member.discord_id}, role_id=#{role_id}")
+    Discordrb::API::Server.remove_member_role(bot.token, expected_server_id, member.discord_id, role_id)
+  rescue RestClient::NotFound
+    Rails.logger.warn("remove_member_role #{member.name} (##{member.id}); discord_id=#{member.discord_id}, role_id=#{role_id} => NotFound")
+    next
+  end
+
+  info.usage = nil
+  set_support_comm_info(bot.token, event.channel, info)
+  next ":construction: **Support comm closed**\n*(if you have manually added people to the role, please remove them manually)*"
+rescue => e
+  Raven.capture_exception(e)
+  Rails.logger.error(e.full_message)
+  next "something went wrong"
 end
 
 bot.run
