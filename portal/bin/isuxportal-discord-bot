@@ -87,7 +87,7 @@ end
 
 bot.command(:supportOpen, min_args: 1, max_args: 1, usage: 'supportOpen team_id') do |event, team_id|
   next unless event.server.id.to_s == expected_server_id
-  next "*FORBIDDEN* You're not an admin :lock:" unless user_is_admin?(event.user)
+  next "**FORBIDDEN** You're not an admin :lock:" unless user_is_admin?(event.user)
   role_id = get_support_com_role(event.channel)
   unless role_id
     next "**Error** This channel is not designated for support comm. Configured channels are:\n\n```\n#{Rails.application.config.x.discord.support_comm_channel_roles.inspect}```"

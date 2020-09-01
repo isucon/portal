@@ -8,6 +8,11 @@ class SessionsController < ApplicationController
   end
 
   private def new(provider:)
+    # avoid showing github ogp when pasting a link in Discord
+    if request.env['HTTP_USER_AGENT']&.match?(/Discordbot|Slackbot/i) && !params[:beepbeep]
+      return render plain: 'Beep beep, boop beep?', status: 404
+    end
+
     session.delete(:back_to)
     if params[:back_to]
       uri = Addressable::URI.parse(params[:back_to])
