@@ -7,6 +7,7 @@ message CreateTeamRequest {
   string name = 2; // contestant name
   string email_address = 3;
   bool is_student = 4;
+  bool hidden = 16; // requires bypass token
 }
 
 message CreateTeamResponse {

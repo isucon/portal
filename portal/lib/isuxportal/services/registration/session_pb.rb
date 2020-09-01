@@ -9,6 +9,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.registration.GetRegistrationSessionQuery" do
       optional :team_id, :int64, 1
       optional :invite_token, :string, 2
+      optional :bypass_token, :string, 16
     end
     add_message "isuxportal.proto.services.registration.GetRegistrationSessionResponse" do
       optional :team, :message, 1, "isuxportal.proto.resources.Team"

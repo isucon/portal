@@ -140,6 +140,7 @@ Rails.application.configure do
   config.x.contest.contest_end = ENV.fetch('ISUXPORTAL_TIMING_CONTEST_END').yield_self { |_| Time.xmlschema(_) }
 
   config.x.bench_auth.token = ENV.fetch('ISUXPORTAL_BENCH_TOKEN')
+  config.x.bypass_token.secret = ENV.fetch('ISUXPORTAL_BYPASS_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
 
   config.x.sentry.dsn = ENV.fetch('SENTRY_DSN')
 end

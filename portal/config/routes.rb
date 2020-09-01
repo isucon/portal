@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resource :session, only: %i(destroy) do
     get 'new/github' => 'sessions#github_new'
     get 'new/discord' => 'sessions#discord_new'
+
+    get 'bypass/:token' => 'sessions#assume_bypass_token', as: :assume_bypass_token
   end
   get '/auth/github/callback' => 'sessions#github_callback'
   get '/auth/discord/callback' => 'sessions#discord_callback'
@@ -102,10 +104,13 @@ Rails.application.routes.draw do
     get '/clarifications/:id' => 'root#index'
 
 
-    get 'impersonate' => 'impersonate#index', ad: :impersonate
+    get 'impersonate' => 'impersonate#index', as: :impersonate
     post 'impersonate/contestant' => 'impersonate#contestant'
     post 'impersonate/github' => 'impersonate#github'
     post 'impersonate/discord' => 'impersonate#discord'
+
+    get 'bypass_token' => 'bypass_token#new'
+    post 'bypass_token' => 'bypass_token#create'
 
     resource :session, only: %i(new create), as: :admin_session
 

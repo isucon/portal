@@ -7079,6 +7079,9 @@ export namespace isuxportal {
 
                     /** CreateTeamRequest isStudent */
                     isStudent?: (boolean|null);
+
+                    /** CreateTeamRequest hidden */
+                    hidden?: (boolean|null);
                 }
 
                 /** Represents a CreateTeamRequest. */
@@ -7101,6 +7104,9 @@ export namespace isuxportal {
 
                     /** CreateTeamRequest isStudent. */
                     public isStudent: boolean;
+
+                    /** CreateTeamRequest hidden. */
+                    public hidden: boolean;
 
                     /**
                      * Creates a new CreateTeamRequest instance using the specified properties.
@@ -7463,6 +7469,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionQuery inviteToken */
                     inviteToken?: (string|null);
+
+                    /** GetRegistrationSessionQuery bypassToken */
+                    bypassToken?: (string|null);
                 }
 
                 /** Represents a GetRegistrationSessionQuery. */
@@ -7479,6 +7488,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionQuery inviteToken. */
                     public inviteToken: string;
+
+                    /** GetRegistrationSessionQuery bypassToken. */
+                    public bypassToken: string;
 
                     /**
                      * Creates a new GetRegistrationSessionQuery instance using the specified properties.

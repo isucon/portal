@@ -8,6 +8,7 @@ import "isuxportal/resources/team.proto";
 message GetRegistrationSessionQuery {
   int64 team_id = 1;
   string invite_token = 2;
+  string bypass_token = 16;
 }
 
 message GetRegistrationSessionResponse {
