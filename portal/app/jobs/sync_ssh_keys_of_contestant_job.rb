@@ -6,7 +6,7 @@ class SyncSshKeysOfContestantJob < ApplicationJob
     Rails.logger.info "Syncing SSH keys of GitHub user #{contestant.github_login} (#{contestant.github_id}), contestant_id=#{contestant.id}"
 
     keys = begin
-      octokit.user_keys(contestant.github_id)
+      octokit.user_keys(contestant.github_id.to_i)
     rescue Octokit::Unauthorized => e
       Rails.logger.warn "Syncing SSH keys of contestant_id=#{contestant.id} failed (#{contestant.github_id}, #{contestant.github_login}): #{e.inspect}"
       return
