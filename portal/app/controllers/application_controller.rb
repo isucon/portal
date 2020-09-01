@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method def current_bypass_token
-    @bypass_token = session[:bypass_token].yield_self { |_| BypassToken.verify(_) }.tap do |_|
+    @bypass_token = session[:bypass_token]&.yield_self { |_| BypassToken.verify(_) }.tap do |_|
       session[:bypass_token] = nil unless _
     end
   end
