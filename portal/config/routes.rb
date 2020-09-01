@@ -112,8 +112,10 @@ Rails.application.routes.draw do
     get 'bypass_token' => 'bypass_token#new'
     post 'bypass_token' => 'bypass_token#create'
 
+
     resource :session, only: %i(new create), as: :admin_session
 
     get 'slacktown' => 'debug#slack'
+    get 'sync_all_ssh_key' => 'debug#sync_all_ssh_key'
   end
 end
