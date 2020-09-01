@@ -6,6 +6,10 @@ local base = import './isuxportal-prd-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
+    deployment_configuration: {
+      minimum_healthy_percent: 0,
+      maximum_percent: 100,
+    },
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],

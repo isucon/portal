@@ -6,6 +6,10 @@ local base = import './isuxportal-dev-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
+    deployment_configuration: {
+      minimum_healthy_percent: 0,
+      maximum_percent: 100,
+    },
   },
   app+: {
     command: ['bundle', 'exec', './bin/isuxportal-discord-bot'],
