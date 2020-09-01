@@ -5,6 +5,10 @@ class Api::Registration::ContestantsController < Api::Registration::ApplicationC
   def create
     raise ActiveRecord::RecordNotFound if current_contestant
     raise ActiveRecord::RecordInvalid, "logins are missing" if !github_login || !discord_login
+    if Contest.registration_invitation_closed? && !current_bypass_allowed(:JOIN_TEAM)
+      raise Contest::RegistrationClosed 
+    end
+
     @team = Team.find_by!(id: pb.team_id, invite_token: pb.invite_token)
 
     ApplicationRecord.transaction do

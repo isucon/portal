@@ -9,6 +9,16 @@ class ApplicationController < ActionController::Base
     current_contestant&.team
   end
 
+  helper_method def current_bypass_token
+    @bypass_token = session[:bypass_token].yield_self { |_| BypassToken.verify(_) }.tap do |_|
+      session[:bypass_token] = nil unless _
+    end
+  end
+
+  helper_method def current_bypass_allowed?(usage)
+    current_bypass_token&.usages&.include?(usage)
+  end
+
   helper_method def github_login
     session[:github_login]
   end

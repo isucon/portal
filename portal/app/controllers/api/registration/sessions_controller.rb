@@ -20,11 +20,11 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     status = case
     when current_contestant
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::JOINED
-    when @team && Contest.registration_invitation_closed?
+    when @team && Contest.registration_invitation_closed? && !current_bypass_allowed(:JOIN_TEAM)
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED
-    when @team && !@team.joinable? 
+    when @team && !@team.joinable?
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::NOT_JOINABLE
-    when !@team && (!Contest.registration_open? || Contest.max_teams_reached?)
+    when !@team && (!Contest.registration_open? || Contest.max_teams_reached?) && !current_bypass_allowed(:CREATE_TEAM)
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED
     when github_login.nil? || discord_login.nil?
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::NOT_LOGGED_IN

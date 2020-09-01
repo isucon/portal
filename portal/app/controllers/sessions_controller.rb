@@ -62,4 +62,21 @@ class SessionsController < ApplicationController
       redirect_to session[:back_to] || registration_path
     end
   end
+
+  def assume_bypass_token
+    if BypassToken.verify(params[:token])
+      session[:bypass_token] = params[:token]
+
+      if params[:back_to]
+        uri = Addressable::URI.parse(params[:back_to])
+        if uri && uri.host.nil? && uri.scheme.nil? && uri.path.start_with?('/')
+          return redirect_to uri.to_s
+        end
+      else
+        return redirect_to '/'
+      end
+    else
+      return render status: 404, plain: 'no'
+    end
+  end
 end
