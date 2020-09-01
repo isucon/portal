@@ -23,6 +23,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       RAILS_SERVE_STATIC_FILES: '1',
       RAILS_SERVE_STATIC_FILES_CC: 'public, max-age=31536000',
       ISUXPORTAL_DISCORD_SERVER_ID: '729982721924792320', 
+      ISUXPORTAL_DISCORD_ADMIN_ROLE_ID: '729982721924792329',
       ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID: '729982721924792323',
       ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID: '729982721924792322',
       ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE: '0',
@@ -49,6 +50,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       secret('ISUXPORTAL_DISCORD_BOT_TOKEN'),
       secret('ISUXPORTAL_ADMIN_LOGIN'),
       secret('ISUXPORTAL_ADMIN_PASSWORD'),
+      secret('ISUXPORTAL_BYPASS_SECRET'),
     ],
     mount_points: [
     ],
