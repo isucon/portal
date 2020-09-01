@@ -48,8 +48,6 @@ export class ContestantNavbar extends React.Component<Props, State> {
             <Link className="navbar-item" to="/contestant/clarifications">
               質問/サポート
             </Link>
-          </div>
-          <div className="navbar-end">
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">ドキュメント</a>
               <div className="navbar-dropdown">
@@ -67,9 +65,31 @@ export class ContestantNavbar extends React.Component<Props, State> {
                 </a>
               </div>
             </div>
+          </div>
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <div className="media isux-navbar-contestant">
+                <div className="media-left">
+                  <p className="image">
+                    <img src={this.props.session.contestant!.contestantDetail!.avatarUrl!} height={32} width={32} />
+                  </p>
+                </div>
+                <div className="media-content">
+                  <p className="">{this.props.session.contestant!.name}</p>
+                  <div className="level is-size-7 is-mobile">
+                    <div className="level-left">
+                      {this.props.session.team!.name}
+                    </div>
+                    <div className="level-right">
+                      (チームID: {this.props.session.team!.id})
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="navbar-item">
               <div className="buttons">
-                {this.renderNavbarLoginButtons()}
               </div>
             </div>
           </div>

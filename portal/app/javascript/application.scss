@@ -18,3 +18,49 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     right:0;
   }
 }
+
+.navbar-item .isux-navbar-contestant {
+  .image {
+    display: flex;
+    align-items: center;
+    img {
+      width: 42px;
+      max-height: 42px;
+      height: 100%;
+    }
+  }
+  img {
+    max-height: 100%;
+  }
+  .media-content{
+    // XXX:
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+
+    min-width: 220px;
+    @media screen and (min-width: 1024px) {
+      max-width: 220px;
+    }
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+    .level .level-left, .level .level-right {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .level .level-left {
+      min-width: 0;
+      @media screen and (min-width: 1024px) {
+        max-width: 130px;
+      }
+      white-space: nowrap;
+      word-break: keep-all;
+    }
+    .level .level-right {
+      text-align: right;
+    }
+  }
+}
