@@ -7,7 +7,7 @@ class Api::Registration::TeamsController < Api::Registration::ApplicationControl
     raise ActiveRecord::RecordNotFound, "logins are missing" if !github_login || !discord_login
 
     ApplicationRecord.transaction do
-      if !Contest.registration_open? || Contest.max_teams_reached?
+      if (!Contest.registration_open? || Contest.max_teams_reached?)  && !current_bypass_allowed(:CREATE_TEAM)
         raise Contest::RegistrationClosed 
       end
       @team = Team.new(

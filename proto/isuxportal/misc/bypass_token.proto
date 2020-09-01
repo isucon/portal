@@ -1,0 +1,13 @@
+syntax = "proto3";
+package isuxportal.proto.misc;
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/misc";
+
+message BypassTokenPayload {
+  string filler = 1;
+  int64 expiry = 2;
+  enum Usage {
+    CREATE_TEAM = 0;
+    JOIN_TEAM = 1;
+  }
+  repeated Usage usages = 3;
+}

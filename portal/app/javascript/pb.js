@@ -11040,6 +11040,7 @@ $root.isuxportal = (function() {
                      * @property {string|null} [name] CreateTeamRequest name
                      * @property {string|null} [emailAddress] CreateTeamRequest emailAddress
                      * @property {boolean|null} [isStudent] CreateTeamRequest isStudent
+                     * @property {boolean|null} [hidden] CreateTeamRequest hidden
                      */
 
                     /**
@@ -11090,6 +11091,14 @@ $root.isuxportal = (function() {
                     CreateTeamRequest.prototype.isStudent = false;
 
                     /**
+                     * CreateTeamRequest hidden.
+                     * @member {boolean} hidden
+                     * @memberof isuxportal.proto.services.registration.CreateTeamRequest
+                     * @instance
+                     */
+                    CreateTeamRequest.prototype.hidden = false;
+
+                    /**
                      * Creates a new CreateTeamRequest instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.registration.CreateTeamRequest
@@ -11121,6 +11130,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 3, wireType 2 =*/26).string(message.emailAddress);
                         if (message.isStudent != null && Object.hasOwnProperty.call(message, "isStudent"))
                             writer.uint32(/* id 4, wireType 0 =*/32).bool(message.isStudent);
+                        if (message.hidden != null && Object.hasOwnProperty.call(message, "hidden"))
+                            writer.uint32(/* id 16, wireType 0 =*/128).bool(message.hidden);
                         return writer;
                     };
 
@@ -11166,6 +11177,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 4:
                                 message.isStudent = reader.bool();
+                                break;
+                            case 16:
+                                message.hidden = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -11214,6 +11228,9 @@ $root.isuxportal = (function() {
                         if (message.isStudent != null && message.hasOwnProperty("isStudent"))
                             if (typeof message.isStudent !== "boolean")
                                 return "isStudent: boolean expected";
+                        if (message.hidden != null && message.hasOwnProperty("hidden"))
+                            if (typeof message.hidden !== "boolean")
+                                return "hidden: boolean expected";
                         return null;
                     };
 
@@ -11237,6 +11254,8 @@ $root.isuxportal = (function() {
                             message.emailAddress = String(object.emailAddress);
                         if (object.isStudent != null)
                             message.isStudent = Boolean(object.isStudent);
+                        if (object.hidden != null)
+                            message.hidden = Boolean(object.hidden);
                         return message;
                     };
 
@@ -11258,6 +11277,7 @@ $root.isuxportal = (function() {
                             object.name = "";
                             object.emailAddress = "";
                             object.isStudent = false;
+                            object.hidden = false;
                         }
                         if (message.teamName != null && message.hasOwnProperty("teamName"))
                             object.teamName = message.teamName;
@@ -11267,6 +11287,8 @@ $root.isuxportal = (function() {
                             object.emailAddress = message.emailAddress;
                         if (message.isStudent != null && message.hasOwnProperty("isStudent"))
                             object.isStudent = message.isStudent;
+                        if (message.hidden != null && message.hasOwnProperty("hidden"))
+                            object.hidden = message.hidden;
                         return object;
                     };
 
@@ -11921,6 +11943,7 @@ $root.isuxportal = (function() {
                      * @interface IGetRegistrationSessionQuery
                      * @property {number|Long|null} [teamId] GetRegistrationSessionQuery teamId
                      * @property {string|null} [inviteToken] GetRegistrationSessionQuery inviteToken
+                     * @property {string|null} [bypassToken] GetRegistrationSessionQuery bypassToken
                      */
 
                     /**
@@ -11955,6 +11978,14 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionQuery.prototype.inviteToken = "";
 
                     /**
+                     * GetRegistrationSessionQuery bypassToken.
+                     * @member {string} bypassToken
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionQuery
+                     * @instance
+                     */
+                    GetRegistrationSessionQuery.prototype.bypassToken = "";
+
+                    /**
                      * Creates a new GetRegistrationSessionQuery instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionQuery
@@ -11982,6 +12013,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 1, wireType 0 =*/8).int64(message.teamId);
                         if (message.inviteToken != null && Object.hasOwnProperty.call(message, "inviteToken"))
                             writer.uint32(/* id 2, wireType 2 =*/18).string(message.inviteToken);
+                        if (message.bypassToken != null && Object.hasOwnProperty.call(message, "bypassToken"))
+                            writer.uint32(/* id 16, wireType 2 =*/130).string(message.bypassToken);
                         return writer;
                     };
 
@@ -12021,6 +12054,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 2:
                                 message.inviteToken = reader.string();
+                                break;
+                            case 16:
+                                message.bypassToken = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -12063,6 +12099,9 @@ $root.isuxportal = (function() {
                         if (message.inviteToken != null && message.hasOwnProperty("inviteToken"))
                             if (!$util.isString(message.inviteToken))
                                 return "inviteToken: string expected";
+                        if (message.bypassToken != null && message.hasOwnProperty("bypassToken"))
+                            if (!$util.isString(message.bypassToken))
+                                return "bypassToken: string expected";
                         return null;
                     };
 
@@ -12089,6 +12128,8 @@ $root.isuxportal = (function() {
                                 message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
                         if (object.inviteToken != null)
                             message.inviteToken = String(object.inviteToken);
+                        if (object.bypassToken != null)
+                            message.bypassToken = String(object.bypassToken);
                         return message;
                     };
 
@@ -12112,6 +12153,7 @@ $root.isuxportal = (function() {
                             } else
                                 object.teamId = options.longs === String ? "0" : 0;
                             object.inviteToken = "";
+                            object.bypassToken = "";
                         }
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (typeof message.teamId === "number")
@@ -12120,6 +12162,8 @@ $root.isuxportal = (function() {
                                 object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
                         if (message.inviteToken != null && message.hasOwnProperty("inviteToken"))
                             object.inviteToken = message.inviteToken;
+                        if (message.bypassToken != null && message.hasOwnProperty("bypassToken"))
+                            object.bypassToken = message.bypassToken;
                         return object;
                     };
 

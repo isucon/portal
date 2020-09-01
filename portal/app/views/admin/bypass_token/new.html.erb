@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <h2 class="title is-2">Bypass Token Factory</h2>
+
+  <% if @token %>
+    <div class="columns">
+      <div class="column is-12">
+        <% url = assume_bypass_token_session_url(token: @token) %>
+        <%= link_to url, url %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="columns">
+    <div class="column is-6">
+      <iframe src="https://giphy.com/embed/10aADbYxnJlc9q" width="480" height="361" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/pollution-10aADbYxnJlc9q">via GIPHY</a></p>
+    </div>
+    <div class="column is-6">
+      <%= form_tag bypass_token_path, method: 'POST', remote: false, class: 'form' do %>
+        <div class="field">
+          <label class="label">Expires in</label>
+          <div class="control">
+            <%= number_field_tag :expires_in, 3600*3, placeholder: "expires in (seconds)", class: 'input' %>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Usage</label>
+          <div class="control">
+            <% Isuxportal::Proto::Misc::BypassTokenPayload::Usage.descriptor.to_enum.sort_by(&:last).map do |k,v| %>
+              <label class="checkbox">
+                <%= check_box_tag 'usages[]', k.to_s %>
+                <%= k %>
+              </label>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary" type="submit">Go</button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
