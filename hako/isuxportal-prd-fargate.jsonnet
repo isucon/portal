@@ -7,6 +7,9 @@ base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
     elb_v2: utils.albInternetFacing,
+    capacity_provider_strategy: [
+      { capacity_provider: 'FARGATE_SPOT', weight: 1 },
+    ],
   },
   additional_containers: {
     front: front.container,

@@ -23,6 +23,9 @@
     cpu: '512',
     memory: '1024',
     requires_compatibilities: ['FARGATE'],
+    capacity_provider_strategy: [
+      { capacity_provider: 'FARGATE', weight: 1 },
+    ],
     network_mode: 'awsvpc',
     // launch_type: 'FARGATE',
     network_configuration: {
