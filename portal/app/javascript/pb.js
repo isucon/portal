@@ -7954,6 +7954,7 @@ $root.isuxportal = (function() {
                      * Properties of a ListBenchmarkJobsQuery.
                      * @memberof isuxportal.proto.services.contestant
                      * @interface IListBenchmarkJobsQuery
+                     * @property {number|Long|null} [limit] ListBenchmarkJobsQuery limit
                      */
 
                     /**
@@ -7970,6 +7971,14 @@ $root.isuxportal = (function() {
                                 if (properties[keys[i]] != null)
                                     this[keys[i]] = properties[keys[i]];
                     }
+
+                    /**
+                     * ListBenchmarkJobsQuery limit.
+                     * @member {number|Long} limit
+                     * @memberof isuxportal.proto.services.contestant.ListBenchmarkJobsQuery
+                     * @instance
+                     */
+                    ListBenchmarkJobsQuery.prototype.limit = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
@@ -7995,6 +8004,8 @@ $root.isuxportal = (function() {
                     ListBenchmarkJobsQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
+                        if (message.limit != null && Object.hasOwnProperty.call(message, "limit"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.limit);
                         return writer;
                     };
 
@@ -8029,6 +8040,9 @@ $root.isuxportal = (function() {
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
+                            case 1:
+                                message.limit = reader.int64();
+                                break;
                             default:
                                 reader.skipType(tag & 7);
                                 break;
@@ -8064,6 +8078,9 @@ $root.isuxportal = (function() {
                     ListBenchmarkJobsQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
+                        if (message.limit != null && message.hasOwnProperty("limit"))
+                            if (!$util.isInteger(message.limit) && !(message.limit && $util.isInteger(message.limit.low) && $util.isInteger(message.limit.high)))
+                                return "limit: integer|Long expected";
                         return null;
                     };
 
@@ -8078,7 +8095,17 @@ $root.isuxportal = (function() {
                     ListBenchmarkJobsQuery.fromObject = function fromObject(object) {
                         if (object instanceof $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery)
                             return object;
-                        return new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery();
+                        var message = new $root.isuxportal.proto.services.contestant.ListBenchmarkJobsQuery();
+                        if (object.limit != null)
+                            if ($util.Long)
+                                (message.limit = $util.Long.fromValue(object.limit)).unsigned = false;
+                            else if (typeof object.limit === "string")
+                                message.limit = parseInt(object.limit, 10);
+                            else if (typeof object.limit === "number")
+                                message.limit = object.limit;
+                            else if (typeof object.limit === "object")
+                                message.limit = new $util.LongBits(object.limit.low >>> 0, object.limit.high >>> 0).toNumber();
+                        return message;
                     };
 
                     /**
@@ -8090,8 +8117,22 @@ $root.isuxportal = (function() {
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListBenchmarkJobsQuery.toObject = function toObject() {
-                        return {};
+                    ListBenchmarkJobsQuery.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.limit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.limit = options.longs === String ? "0" : 0;
+                        if (message.limit != null && message.hasOwnProperty("limit"))
+                            if (typeof message.limit === "number")
+                                object.limit = options.longs === String ? String(message.limit) : message.limit;
+                            else
+                                object.limit = options.longs === String ? $util.Long.prototype.toString.call(message.limit) : options.longs === Number ? new $util.LongBits(message.limit.low >>> 0, message.limit.high >>> 0).toNumber() : message.limit;
+                        return object;
                     };
 
                     /**
@@ -10017,7 +10058,6 @@ $root.isuxportal = (function() {
                      * @interface IDashboardResponse
                      * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
                      * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [instances] DashboardResponse instances
-                     * @property {Array.<isuxportal.proto.resources.IBenchmarkJob>|null} [jobs] DashboardResponse jobs
                      */
 
                     /**
@@ -10030,7 +10070,6 @@ $root.isuxportal = (function() {
                      */
                     function DashboardResponse(properties) {
                         this.instances = [];
-                        this.jobs = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -10052,14 +10091,6 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     DashboardResponse.prototype.instances = $util.emptyArray;
-
-                    /**
-                     * DashboardResponse jobs.
-                     * @member {Array.<isuxportal.proto.resources.IBenchmarkJob>} jobs
-                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
-                     * @instance
-                     */
-                    DashboardResponse.prototype.jobs = $util.emptyArray;
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
@@ -10090,9 +10121,6 @@ $root.isuxportal = (function() {
                         if (message.instances != null && message.instances.length)
                             for (var i = 0; i < message.instances.length; ++i)
                                 $root.isuxportal.proto.resources.ContestantInstance.encode(message.instances[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                        if (message.jobs != null && message.jobs.length)
-                            for (var i = 0; i < message.jobs.length; ++i)
-                                $root.isuxportal.proto.resources.BenchmarkJob.encode(message.jobs[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                         return writer;
                     };
 
@@ -10134,11 +10162,6 @@ $root.isuxportal = (function() {
                                 if (!(message.instances && message.instances.length))
                                     message.instances = [];
                                 message.instances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
-                                break;
-                            case 3:
-                                if (!(message.jobs && message.jobs.length))
-                                    message.jobs = [];
-                                message.jobs.push($root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -10189,15 +10212,6 @@ $root.isuxportal = (function() {
                                     return "instances." + error;
                             }
                         }
-                        if (message.jobs != null && message.hasOwnProperty("jobs")) {
-                            if (!Array.isArray(message.jobs))
-                                return "jobs: array expected";
-                            for (var i = 0; i < message.jobs.length; ++i) {
-                                var error = $root.isuxportal.proto.resources.BenchmarkJob.verify(message.jobs[i]);
-                                if (error)
-                                    return "jobs." + error;
-                            }
-                        }
                         return null;
                     };
 
@@ -10228,16 +10242,6 @@ $root.isuxportal = (function() {
                                 message.instances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.instances[i]);
                             }
                         }
-                        if (object.jobs) {
-                            if (!Array.isArray(object.jobs))
-                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.jobs: array expected");
-                            message.jobs = [];
-                            for (var i = 0; i < object.jobs.length; ++i) {
-                                if (typeof object.jobs[i] !== "object")
-                                    throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.jobs: object expected");
-                                message.jobs[i] = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.jobs[i]);
-                            }
-                        }
                         return message;
                     };
 
@@ -10254,10 +10258,8 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.arrays || options.defaults) {
+                        if (options.arrays || options.defaults)
                             object.instances = [];
-                            object.jobs = [];
-                        }
                         if (options.defaults)
                             object.leaderboard = null;
                         if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
@@ -10266,11 +10268,6 @@ $root.isuxportal = (function() {
                             object.instances = [];
                             for (var j = 0; j < message.instances.length; ++j)
                                 object.instances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.instances[j], options);
-                        }
-                        if (message.jobs && message.jobs.length) {
-                            object.jobs = [];
-                            for (var j = 0; j < message.jobs.length; ++j)
-                                object.jobs[j] = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.jobs[j], options);
                         }
                         return object;
                     };

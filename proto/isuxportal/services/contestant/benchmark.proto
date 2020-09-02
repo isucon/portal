@@ -5,6 +5,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 import "isuxportal/resources/benchmark_job.proto";
 
 message ListBenchmarkJobsQuery {
+  int64 limit = 1;
 }
 
 message ListBenchmarkJobsResponse {

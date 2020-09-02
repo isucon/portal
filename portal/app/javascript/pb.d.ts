@@ -3048,6 +3048,9 @@ export namespace isuxportal {
 
                 /** Properties of a ListBenchmarkJobsQuery. */
                 interface IListBenchmarkJobsQuery {
+
+                    /** ListBenchmarkJobsQuery limit */
+                    limit?: (number|Long|null);
                 }
 
                 /** Represents a ListBenchmarkJobsQuery. */
@@ -3058,6 +3061,9 @@ export namespace isuxportal {
                      * @param [properties] Properties to set
                      */
                     constructor(properties?: isuxportal.proto.services.contestant.IListBenchmarkJobsQuery);
+
+                    /** ListBenchmarkJobsQuery limit. */
+                    public limit: (number|Long);
 
                     /**
                      * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
@@ -4026,9 +4032,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse instances */
                     instances?: (isuxportal.proto.resources.IContestantInstance[]|null);
-
-                    /** DashboardResponse jobs */
-                    jobs?: (isuxportal.proto.resources.IBenchmarkJob[]|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4045,9 +4048,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse instances. */
                     public instances: isuxportal.proto.resources.IContestantInstance[];
-
-                    /** DashboardResponse jobs. */
-                    public jobs: isuxportal.proto.resources.IBenchmarkJob[];
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
