@@ -19,6 +19,7 @@ export interface Props {
 
 export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.contestant.DashboardResponse | null>(null);
+  const [ jobs, setJobs ] = React.useState<isuxportal.proto.resources.IBenchmarkJob[] | null>(null);
   const [ error, setError ] = React.useState<Error | null>(null);
 
   React.useEffect(() => {
@@ -27,17 +28,25 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
         .catch((e) => setError(e));
     }
   }, [dashboard]);
+  React.useEffect(() => {
+    if (!jobs) {
+      client.listBenchmarkJobs(5).then((r) => setJobs(r.jobs))
+        .catch((e) => setError(e));
+    }
+  }, [jobs]);
 
   React.useEffect(() => {
     // TODO: Retry with backoff
     const timer = setInterval(() => {
       client.getDashboard().then((db) => setDashboard(db))
         .catch((e) => setError(e));
+      client.listBenchmarkJobs(5).then((r) => setJobs(r.jobs))
+        .catch((e) => setError(e));
     }, 5000);
     return (() => clearInterval(timer));
   }, []);
 
-  if (!dashboard) return <>
+  if (!dashboard || !jobs) return <>
     {error ? <ErrorMessage error={error} /> : null}
     <p>Loading...</p>
   </>;
@@ -67,7 +76,7 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
           <p>
             <Link to="/contestant/benchmark_jobs">Show All</Link>
           </p>
-          <BenchmarkJobList list={dashboard.jobs!} />
+          <BenchmarkJobList list={jobs} />
         </section>
       </div>
     </div>

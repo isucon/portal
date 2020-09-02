@@ -84,9 +84,9 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async listBenchmarkJobs() {
+  public async listBenchmarkJobs(limit?: number) {
     const klass = isuxportal.proto.services.contestant.ListBenchmarkJobsResponse;
-    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs`, "GET", null, null);
+    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs?limit=${limit?.toString() || '0'}`, "GET", null, null);
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 

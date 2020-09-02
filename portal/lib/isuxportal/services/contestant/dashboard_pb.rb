@@ -13,7 +13,6 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.contestant.DashboardResponse" do
       optional :leaderboard, :message, 1, "isuxportal.proto.resources.Leaderboard"
       repeated :instances, :message, 2, "isuxportal.proto.resources.ContestantInstance"
-      repeated :jobs, :message, 3, "isuxportal.proto.resources.BenchmarkJob"
     end
   end
 end
