@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import {ErrorMessage} from "../ErrorMessage";
 
+import {ContestClock} from "../ContestClock";
 import {ScoreGraph} from "../ScoreGraph";
 import {BenchmarkJobList} from "../BenchmarkJobList";
 import {ContestantBenchmarkJobForm} from "./ContestantBenchmarkJobForm";
@@ -43,6 +44,9 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
 
   return <>
     {error ? <ErrorMessage error={error} /> : null}
+    <section className="">
+      <ContestClock contest={session.contest!} />
+    </section>
     <section className="is-fullwidth px-5 py-5">
       <ScoreGraph teams={dashboard?.leaderboard?.teams!} />
     </section>

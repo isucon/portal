@@ -68,16 +68,16 @@ module Contest
     Isuxportal::Proto::Resources::Contest.new(
       registration_opens_at: Rails.application.config.x.contest.registration_open,
       registration_closes_at: Rails.application.config.x.contest.registration_close,
-      starts_at: Rails.application.config.x.contest.contest_start,
-      freezes_at: Rails.application.config.x.contest.contest_freeze,
-      ends_at: Rails.application.config.x.contest.contest_end,
+      starts_at: Rails.application.config.x.contest.contest_start || Time.utc(now.year, now.month, now.day, 0, 0, 0),
+      freezes_at: Rails.application.config.x.contest.contest_freeze || Time.utc(now.year, now.month, now.day, 12, 0, 0),
+      ends_at: Rails.application.config.x.contest.contest_end || Time.utc(now.year, now.month, now.day, 23, 0, 0),
       frozen: Rails.application.config.x.contest.contest_freeze&.yield_self{ |_| now >= _ } || false,
       status: case
-      when contest_running?
+      when contest_running?(now)
         Isuxportal::Proto::Resources::Contest::Status::STARTED
-      when contest_end?
+      when contest_end?(now)
         Isuxportal::Proto::Resources::Contest::Status::FINISHED
-      when registration_open?
+      when registration_open?(now)
         Isuxportal::Proto::Resources::Contest::Status::REGISTRATION
       else
         Isuxportal::Proto::Resources::Contest::Status::STANDBY
