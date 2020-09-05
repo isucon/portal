@@ -14,7 +14,8 @@ impl Process {
         log::trace!("spawning cmd={} {}, stdout_path={}, stderr_path={}, target_address={}", &self.exec, self.args.clone().join(" "), &self.stdout_path, &self.stderr_path, &self.target_address);
 
         use nix::fcntl::{fcntl, OFlag, FdFlag, F_GETFD, F_SETFD, F_GETFL, F_SETFL};
-        let (pipe_i,pipe_o) = nix::unistd::pipe2(OFlag::empty())?;
+
+        let (pipe_i,pipe_o) = nix::unistd::pipe()?;
         let mut fdopts = FdFlag::from_bits(fcntl(pipe_i, F_GETFD)?).unwrap();
         fdopts.set(FdFlag::FD_CLOEXEC, true);
         fcntl(pipe_i, F_SETFD(fdopts)).unwrap();
