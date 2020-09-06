@@ -26,9 +26,9 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, item, pinned, onPin, me }
         </th>
       <th className="has-text-right">{position}</th>
       <td>{item.team!.id}: {item.team!.name}</td>
-      <td className="has-text-right">{item.bestScore!.score}</td>
-      <td className="has-text-right">{item.latestScore!.score}</td>
-      <td><Timestamp timestamp={item.latestScore!.markedAt!} short /></td>
+      <td className="has-text-right">{item.bestScore?.score || 0}</td>
+      <td className="has-text-right">{item.latestScore?.score || 0}</td>
+      <td>{item.latestScore ? <Timestamp timestamp={item.latestScore.markedAt!} short /> : "N/A"}</td>
       <td>{studentStatus}</td>
     </tr>
   );

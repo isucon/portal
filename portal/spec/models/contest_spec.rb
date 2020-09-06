@@ -142,7 +142,7 @@ RSpec.describe Contest, type: :model do
 
       specify 'team scored earlier wins' do
         expect(subject.progresses).to be_empty
-        expect(subject.teams.map { |_| _.team&.id }).to eq([team2.id, team1.id])
+        expect(subject.teams.map { |_| _.team&.id }).to eq([team2.id, team1.id, team3.id])
       end
     end
 

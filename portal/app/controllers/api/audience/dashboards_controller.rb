@@ -5,7 +5,7 @@ class Api::Audience::DashboardsController < Api::Audience::ApplicationController
   def show
     expires_in 10.seconds, public: true, 's-maxage' => '25'
     render protobuf: Isuxportal::Proto::Services::Audience::DashboardResponse.new(
-      leaderboard: Contest.leaderboard(admin: false, team: nil),
+      leaderboard: Contest.leaderboard(admin: false, team: nil), # TODO: disable progresses
     )
   end
 end

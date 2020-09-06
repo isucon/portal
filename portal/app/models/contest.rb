@@ -106,7 +106,6 @@ module Contest
       benchmark_results = benchmark_results.where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) if Rails.application.config.x.contest.contest_freeze
     end
 
-    # TODO: include teams w/o score submission
     teams = benchmark_results.group_by(&:team_id)
     items = teams.map do |team_id, rs|
       scores = rs.sort_by(&:marked_at).map do |r|
@@ -126,6 +125,15 @@ module Contest
 
     items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     items.reverse!
+
+    items.concat(Team.active.order(id: :desc).where.not(id: items.map { |_| _.team.id }).map do |team|
+      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+        team: team.to_pb(detail: false, members: false),
+        scores: [],
+        best_score: nil,
+        latest_score: nil,
+      )
+    end.to_a)
 
     benchmark_progresses = BenchmarkResult
       .select(:team_id, :score, :created_at, :marked_at)
