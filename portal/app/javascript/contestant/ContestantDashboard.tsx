@@ -91,7 +91,7 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
       <div className="column is-7 px-5">
         <section className="py-5">
           <p className="title"> Leaderboard </p>
-          <Leaderboard leaderboard={dashboard?.leaderboard!} />
+          <Leaderboard leaderboard={dashboard?.leaderboard!} teamId={session.team!.id!} />
         </section>
       </div>
       <div className="column is-5 px-5">
