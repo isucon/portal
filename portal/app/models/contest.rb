@@ -29,6 +29,11 @@ module Contest
     end
   end
 
+  def self.contest_started?(now=Time.zone.now)
+    start = Rails.application.config.x.contest.contest_start
+    start && start <= now
+  end
+
   def self.contest_frozen?(now=Time.zone.now)
     freeze = Rails.application.config.x.contest.contest_freeze
     freeze && freeze <= now

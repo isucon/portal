@@ -6,6 +6,7 @@ class Api::ApplicationController < ApplicationController
   module Error
     class NotFound < StandardError; end
     class BadRequest < StandardError; end
+    class Forbidden < StandardError; end
   end
 
   rescue_from Error::NotFound do |err|
@@ -22,6 +23,15 @@ class Api::ApplicationController < ApplicationController
       code: 400,
       name: err.class.name,
       human_message: err.message.presence || "Bad request",
+      human_descriptions: [],
+    )
+  end
+
+  rescue_from Error::Forbidden do |err|
+    render status: 403, protobuf: Isuxportal::Proto::Error.new(
+      code: 403,
+      name: err.class.name,
+      human_message: err.message.presence || "Forbidden",
       human_descriptions: [],
     )
   end

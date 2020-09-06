@@ -51,6 +51,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
   pb :update, Isuxportal::Proto::Services::Registration::UpdateRegistrationRequest
   def update
     raise ActiveRecord::RecordNotFound unless current_contestant
+    raise Api::ApplicationController::Forbidden.new("You cannot update registration details after start") if Contest.contest_started?
 
     ApplicationRecord.transaction do
       current_contestant.update_attributes!(
@@ -71,6 +72,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
   pb :delete, Isuxportal::Proto::Services::Registration::DeleteRegistrationRequest
   def delete
     raise ActiveRecord::RecordNotFound unless current_contestant
+    raise Api::ApplicationController::Forbidden.new("You cannot withdraw after start") if Contest.contest_started?
 
     contestants = []
     was_leader = current_contestant.leader?
