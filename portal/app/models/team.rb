@@ -9,6 +9,8 @@ class Team < ApplicationRecord
 
   has_many :clarifications
 
+  has_one :survey_response
+
   validates :name, presence: true, uniqueness: true
   validates :email_address, presence: true
   validates :invite_token, presence: true

@@ -5,6 +5,7 @@ class BenchmarkJob < ApplicationRecord
   belongs_to :team
 
   has_one :benchmark_result
+  has_one :survey_response
 
   enum(status: Isuxportal::Proto::Resources::BenchmarkJob::Status.descriptor.to_enum.sort_by(&:last).map do |k,v|
     [k.to_s.downcase.to_sym, v]
@@ -69,6 +70,12 @@ class BenchmarkJob < ApplicationRecord
                       end
         self.finished_at = Time.zone.now
         self.save!
+      end
+      if pb.survey_response
+        response = team.survey_response || team.build_survey_response
+        response.benchmark_job_id = self.id
+        response.language = pb.survey_response.language
+        response.save!
       end
     end
   end
