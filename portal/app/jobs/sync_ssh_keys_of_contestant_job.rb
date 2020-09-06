@@ -12,7 +12,7 @@ class SyncSshKeysOfContestantJob < ApplicationJob
     rescue Octokit::NotFound => e
       Rails.logger.warn "Syncing SSH keys of contestant_id=#{contestant.id} failed with GitHub API (#{contestant.github_id}, #{contestant.github_login}): #{e.inspect}"
       begin
-        URI.open("https://github.com/#{contestant.github_login.gsub(/[^a-z0-9]/i, '')}", 'r', &:read).lines.map(&:chomp).reject(&:blank?)
+        URI.open("https://github.com/#{contestant.github_login.gsub(/[^a-z0-9]/i, '')}.keys", 'r', &:read).lines.map(&:chomp).reject(&:blank?)
       rescue OpenURI::HTTPError => e2
         Rails.logger.warn "Syncing SSH keys of contestant_id=#{contestant.id} failed with github.com/*.keys (#{contestant.github_id}, #{contestant.github_login}): #{e2.inspect}"
         raise
