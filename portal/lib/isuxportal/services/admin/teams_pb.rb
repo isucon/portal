@@ -20,6 +20,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :is_student, :bool, 5
       optional :withdrawn, :bool, 6
       optional :disqualified, :bool, 7
+      optional :hidden, :bool, 8
     end
     add_message "isuxportal.proto.services.admin.GetTeamQuery" do
       optional :id, :int64, 1

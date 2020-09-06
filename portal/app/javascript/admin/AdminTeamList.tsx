@@ -81,6 +81,7 @@ export class AdminTeamList extends React.Component<Props, State> {
         {team.isStudent ? <span className="tag is-info">学生チーム</span> : null}
         {team.withdrawn ? <span className="tag is-warning">辞退</span> : null}
         {team.disqualified ? <span className="tag is-danger">失格</span> : null}
+        {team.hidden ? <span className="tag is-black">非表示</span> : null}
       </td>
     </tr>;
   }

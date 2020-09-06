@@ -51,7 +51,7 @@ class BenchmarkResult < ApplicationRecord
   # @param [Isuxportal::Proto::Resources::BenchmarkResult] pb
   def update_from_pb!(pb)
     #Rails.logger.debug "Updating BenchmarkResult(id=#{self.id}) with #{pb.inspect}"
-    self.update_attributes!(
+    self.assign_attributes(
       finished: pb.finished,
       passed: pb.passed,
       score: pb.score == -1 ? (pb.finished && !pb.passed ? 0 : (pb.score_breakdown&.raw || 0) - (pb.score_breakdown&.deduction || 0)) : pb.score,

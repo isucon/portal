@@ -18,6 +18,7 @@ message ListTeamsResponse {
     bool is_student = 5;
     bool withdrawn = 6;
     bool disqualified = 7;
+    bool hidden = 8;
   }
 }
 

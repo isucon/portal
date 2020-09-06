@@ -19,6 +19,7 @@ class Team < ApplicationRecord
   before_validation :generate_student_status
 
   scope :active, -> { where(withdrawn: false, disqualified: false) }
+  scope :visible, -> { where(is_hidden: false) }
 
   def active?
     !withdrawn? && !disqualified?

@@ -11396,6 +11396,7 @@ $root.isuxportal = (function() {
                          * @property {boolean|null} [isStudent] TeamListItem isStudent
                          * @property {boolean|null} [withdrawn] TeamListItem withdrawn
                          * @property {boolean|null} [disqualified] TeamListItem disqualified
+                         * @property {boolean|null} [hidden] TeamListItem hidden
                          */
 
                         /**
@@ -11471,6 +11472,14 @@ $root.isuxportal = (function() {
                         TeamListItem.prototype.disqualified = false;
 
                         /**
+                         * TeamListItem hidden.
+                         * @member {boolean} hidden
+                         * @memberof isuxportal.proto.services.admin.ListTeamsResponse.TeamListItem
+                         * @instance
+                         */
+                        TeamListItem.prototype.hidden = false;
+
+                        /**
                          * Creates a new TeamListItem instance using the specified properties.
                          * @function create
                          * @memberof isuxportal.proto.services.admin.ListTeamsResponse.TeamListItem
@@ -11509,6 +11518,8 @@ $root.isuxportal = (function() {
                                 writer.uint32(/* id 6, wireType 0 =*/48).bool(message.withdrawn);
                             if (message.disqualified != null && Object.hasOwnProperty.call(message, "disqualified"))
                                 writer.uint32(/* id 7, wireType 0 =*/56).bool(message.disqualified);
+                            if (message.hidden != null && Object.hasOwnProperty.call(message, "hidden"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.hidden);
                             return writer;
                         };
 
@@ -11565,6 +11576,9 @@ $root.isuxportal = (function() {
                                     break;
                                 case 7:
                                     message.disqualified = reader.bool();
+                                    break;
+                                case 8:
+                                    message.hidden = reader.bool();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -11626,6 +11640,9 @@ $root.isuxportal = (function() {
                             if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                                 if (typeof message.disqualified !== "boolean")
                                     return "disqualified: boolean expected";
+                            if (message.hidden != null && message.hasOwnProperty("hidden"))
+                                if (typeof message.hidden !== "boolean")
+                                    return "hidden: boolean expected";
                             return null;
                         };
 
@@ -11667,6 +11684,8 @@ $root.isuxportal = (function() {
                                 message.withdrawn = Boolean(object.withdrawn);
                             if (object.disqualified != null)
                                 message.disqualified = Boolean(object.disqualified);
+                            if (object.hidden != null)
+                                message.hidden = Boolean(object.hidden);
                             return message;
                         };
 
@@ -11696,6 +11715,7 @@ $root.isuxportal = (function() {
                                 object.isStudent = false;
                                 object.withdrawn = false;
                                 object.disqualified = false;
+                                object.hidden = false;
                             }
                             if (message.teamId != null && message.hasOwnProperty("teamId"))
                                 if (typeof message.teamId === "number")
@@ -11717,6 +11737,8 @@ $root.isuxportal = (function() {
                                 object.withdrawn = message.withdrawn;
                             if (message.disqualified != null && message.hasOwnProperty("disqualified"))
                                 object.disqualified = message.disqualified;
+                            if (message.hidden != null && message.hasOwnProperty("hidden"))
+                                object.hidden = message.hidden;
                             return object;
                         };
 

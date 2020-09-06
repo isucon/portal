@@ -155,6 +155,9 @@ module Contest
     end
 
 
+    items.reject! { |_| !admin && _.team.hidden && team&.id != _.team.id }
+    items.reject! { |_| _.team.disqualified || _.team.withdrawn }
+
     Isuxportal::Proto::Resources::Leaderboard.new(
       teams: items,
       general_teams: items.reject { |_| _.team.student.status },

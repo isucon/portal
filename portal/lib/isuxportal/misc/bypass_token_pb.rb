@@ -13,6 +13,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_enum "isuxportal.proto.misc.BypassTokenPayload.Usage" do
       value :CREATE_TEAM, 0
       value :JOIN_TEAM, 1
+      value :HIDDEN_TEAM, 2
     end
   end
 end

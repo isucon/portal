@@ -76,6 +76,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
             {this.teamIsStudent() ? <span className="tag is-info">学生チーム</span> : null}
             {this.state.team.withdrawn ? <span className="tag is-warning">辞退</span> : null}
             {this.state.team.disqualified ? <span className="tag is-danger">失格</span> : null}
+            {this.state.team.hidden ? <span className="tag is-black">非表示</span> : null}
           </p>
 
           <p>ID: {this.state.team.id}</p>

@@ -9,6 +9,7 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
         name: team.name,
         member_names: team.members.map(&:name),
         final_participation: team.final_participation,
+        hidden: team.is_hidden?,
         is_student: team.student?,
         withdrawn: team.withdrawn?,
         disqualified: team.disqualified?,

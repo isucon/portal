@@ -4612,6 +4612,9 @@ export namespace isuxportal {
 
                         /** TeamListItem disqualified */
                         disqualified?: (boolean|null);
+
+                        /** TeamListItem hidden */
+                        hidden?: (boolean|null);
                     }
 
                     /** Represents a TeamListItem. */
@@ -4643,6 +4646,9 @@ export namespace isuxportal {
 
                         /** TeamListItem disqualified. */
                         public disqualified: boolean;
+
+                        /** TeamListItem hidden. */
+                        public hidden: boolean;
 
                         /**
                          * Creates a new TeamListItem instance using the specified properties.

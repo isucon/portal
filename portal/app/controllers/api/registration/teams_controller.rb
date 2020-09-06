@@ -14,6 +14,7 @@ class Api::Registration::TeamsController < Api::Registration::ApplicationControl
         name: pb.team_name,
         email_address: pb.email_address,
       )
+      @team.is_hidden = true if current_bypass_allowed?(:HIDDEN_TEAM)
       @contestant = Contestant.new(
         name: pb.name,
         student: pb.is_student,

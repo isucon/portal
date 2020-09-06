@@ -8,6 +8,7 @@ message BypassTokenPayload {
   enum Usage {
     CREATE_TEAM = 0;
     JOIN_TEAM = 1;
+    HIDDEN_TEAM = 2;
   }
   repeated Usage usages = 3;
 }

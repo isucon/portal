@@ -80,6 +80,15 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
           <div className="field">
             <div className="control">
               <label className="checkbox">
+                <input type="checkbox" name="team.hidden" ref={register} />
+                  Hidden
+              </label>
+            </div>
+          </div>
+
+          <div className="field">
+            <div className="control">
+              <label className="checkbox">
                 <input type="checkbox" name="team.finalParticipation" ref={register} />
                 Final Participation
               </label>

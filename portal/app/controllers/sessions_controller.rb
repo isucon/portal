@@ -81,6 +81,7 @@ class SessionsController < ApplicationController
         return redirect_to '/'
       end
     else
+      session[:bypass_token] = nil
       return render status: 404, plain: 'no'
     end
   end
