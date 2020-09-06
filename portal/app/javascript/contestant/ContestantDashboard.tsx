@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import {ErrorMessage} from "../ErrorMessage";
+import {ReloadButton} from "../ReloadButton";
 
 import {ContestClock} from "../ContestClock";
 import {ScoreGraph} from "../ScoreGraph";
@@ -18,31 +19,51 @@ export interface Props {
 }
 
 export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
+  const [ requestingDashboard, setRequestingDashboard ] = React.useState(false);
+  const [ requestingJobs, setRequestingJobs ] = React.useState(false);
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.contestant.DashboardResponse | null>(null);
   const [ jobs, setJobs ] = React.useState<isuxportal.proto.resources.IBenchmarkJob[] | null>(null);
   const [ error, setError ] = React.useState<Error | null>(null);
 
+  const refreshDashboard = () => {
+    if (requestingDashboard) return;
+    setRequestingDashboard(true);
+    return client.getDashboard().then((db) => {
+      setDashboard(db);
+      setError(null);
+      setRequestingDashboard(false);
+    }).catch((e) => {
+      setError(e);
+      setRequestingDashboard(false);
+    });
+  };
+  const refreshJobs = () => {
+    if (requestingJobs) return;
+    setRequestingJobs(true);
+    return client.listBenchmarkJobs(5).then((r) => {
+      setJobs(r.jobs);
+      setError(null);
+      setRequestingJobs(false);
+    }).catch((e) => {
+      setError(e);
+      setRequestingJobs(false);
+    });
+  };
+  const refreshAll = () => {
+    refreshDashboard();
+    refreshJobs();
+  }
+
   React.useEffect(() => {
-    if (!dashboard) {
-      client.getDashboard().then((db) => setDashboard(db))
-        .catch((e) => setError(e));
-    }
+    if (!dashboard) refreshDashboard();
   }, [dashboard]);
   React.useEffect(() => {
-    if (!jobs) {
-      client.listBenchmarkJobs(5).then((r) => setJobs(r.jobs))
-        .catch((e) => setError(e));
-    }
+    if (!jobs) refreshJobs();
   }, [jobs]);
 
   React.useEffect(() => {
     // TODO: Retry with backoff
-    const timer = setInterval(() => {
-      client.getDashboard().then((db) => setDashboard(db))
-        .catch((e) => setError(e));
-      client.listBenchmarkJobs(5).then((r) => setJobs(r.jobs))
-        .catch((e) => setError(e));
-    }, 5000);
+    const timer = setInterval(() => refreshAll(), 5000);
     return (() => clearInterval(timer));
   }, []);
 
@@ -54,7 +75,14 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
   return <>
     {error ? <ErrorMessage error={error} /> : null}
     <section className="">
-      <ContestClock contest={session.contest!} />
+      <div className="level">
+        <div className="level-left">
+          <ContestClock contest={session.contest!} />
+        </div>
+        <div className="level-right">
+          <ReloadButton requesting={requestingDashboard || requestingJobs} onClick={refreshAll} />
+        </div>
+      </div>
     </section>
     <section className="is-fullwidth px-5 py-5">
       <ScoreGraph teams={dashboard?.leaderboard?.teams!} />

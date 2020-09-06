@@ -4,6 +4,7 @@ import {AdminApiClient} from "./AdminApiClient";
 import React from "react";
 
 import {ErrorMessage} from "../ErrorMessage";
+import {ReloadButton} from "../ReloadButton";
 
 import {ContestClock} from "../ContestClock";
 import {ScoreGraph} from "../ScoreGraph";
@@ -15,22 +16,29 @@ export interface Props {
 }
 
 export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
+  const [ requesting, setRequesting ] = React.useState(false);
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.admin.DashboardResponse | null>(null);
   const [ error, setError ] = React.useState<Error | null>(null);
 
+  const refresh = () => {
+    if (requesting) return;
+    setRequesting(true);
+    client.getDashboard().then((db) => {
+      setDashboard(db);
+    setError(null);
+      setRequesting(false);
+    }).catch((e) => {
+      setError(e);
+      setRequesting(false);
+    });
+  };
   React.useEffect(() => {
-    if (!dashboard) {
-      client.getDashboard().then((db) => setDashboard(db))
-        .catch((e) => setError(e));
-    }
+    if (!dashboard) refresh();
   }, [dashboard]);
 
   React.useEffect(() => {
     // TODO: Retry with backoff
-    const timer = setInterval(() => {
-      client.getDashboard().then((db) => setDashboard(db))
-        .catch((e) => setError(e));
-    }, 5000);
+    const timer = setInterval(() => refresh(), 5000);
     return (() => clearInterval(timer));
   }, []);
 
@@ -42,7 +50,14 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
   return <>
     {error ? <ErrorMessage error={error} /> : null}
     <section className="">
-      <ContestClock contest={session.contest!} />
+      <div className="level">
+        <div className="level-left">
+          <ContestClock contest={session.contest!} />
+        </div>
+        <div className="level-right">
+          <ReloadButton requesting={requesting} onClick={refresh} />
+        </div>
+      </div>
     </section>
     <section className="is-fullwidth px-5 py-5">
       <ScoreGraph teams={dashboard?.leaderboard?.teams!} />
