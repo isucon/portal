@@ -52,6 +52,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
   def update
     raise ActiveRecord::RecordNotFound unless current_contestant
     raise Api::ApplicationController::Forbidden.new("You cannot update registration details after start") if Contest.contest_started?
+    raise Api::ApplicationController::Forbidden.new("You cannot update at this moment") if Contest.registration_update_closed?
 
     ApplicationRecord.transaction do
       current_contestant.update_attributes!(
@@ -73,6 +74,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
   def delete
     raise ActiveRecord::RecordNotFound unless current_contestant
     raise Api::ApplicationController::Forbidden.new("You cannot withdraw after start") if Contest.contest_started?
+    raise Api::ApplicationController::Forbidden.new("You cannot withdraw at this moment") if Contest.registration_update_closed?
 
     contestants = []
     was_leader = current_contestant.leader?

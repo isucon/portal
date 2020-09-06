@@ -19,6 +19,11 @@ module Contest
     end
   end
 
+  def self.registration_update_closed?(now=Time.zone.now)
+    close = Rails.application.config.x.contest.registration_update_close
+    close && close <= now
+  end
+
   def self.contest_running?(now=Time.zone.now)
     start = Rails.application.config.x.contest.contest_start
     finish = Rails.application.config.x.contest.contest_end
