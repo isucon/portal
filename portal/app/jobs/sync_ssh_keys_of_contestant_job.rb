@@ -25,15 +25,17 @@ class SyncSshKeysOfContestantJob < ApplicationJob
     existing_keys = contestant.ssh_public_keys.to_a
     removed_keys = existing_keys.dup
 
-    keys.each do |public_key|
-      existing_key = existing_keys.find { |_| _.public_key == public_key }
-      if existing_key
-        removed_keys.delete(existing_key)
-      else
-        contestant.ssh_public_keys.create!(public_key: public_key)
+    ApplicationRecord.transaction do
+      keys.each do |public_key|
+        existing_key = existing_keys.find { |_| _.public_key == public_key }
+        if existing_key
+          removed_keys.delete(existing_key)
+        else
+          contestant.ssh_public_keys.create!(public_key: public_key)
+        end
       end
+      removed_keys.each(&:destroy!)
     end
-    removed_keys.each(&:destroy!)
   end
 
   private def octokit
