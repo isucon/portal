@@ -104,6 +104,7 @@ Rails.application.configure do
 
   config.x.bench_auth.token = ENV['ISUXPORTAL_BENCH_TOKEN'] || 'token'
   config.x.bypass_token.secret = (ENV['ISUXPORTAL_BYPASS_SECRET'] || '5AQQyz/7oFnJYrxnq/HiLKYmh7QrdIrpCDpKlfvkYAg=').unpack1('m0') #dummy
+  config.x.ssh_key_api.secret = (ENV['ISUXPORTAL_SSH_KEY_API_SECRET'] || 'himitsudayo')
 
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 end

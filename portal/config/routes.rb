@@ -91,6 +91,8 @@ Rails.application.routes.draw do
       # admin/clarifications CreateClarification: POST /api/admin/clarifications
       resources :clarifications, only: %i(index show update create)
     end
+
+    get 'ssh_public_keys/:team_id/:signature' => 'ssh_public_keys#index'
   end
 
   scope path: 'admin', module: 'admin' do
