@@ -8,14 +8,14 @@ module Isuxportal
   module Proto
     module Services
       module Dcim
-        module InstanceManagementService
+        module InstanceManagement
           class Service
 
             include GRPC::GenericService
 
             self.marshal_class_method = :encode
             self.unmarshal_class_method = :decode
-            self.service_name = 'isuxportal.proto.services.dcim.InstanceManagementService'
+            self.service_name = 'isuxportal.proto.services.dcim.InstanceManagement'
 
             rpc :InformInstanceStateUpdate, Isuxportal::Proto::Services::Dcim::InformInstanceStateUpdateRequest, Isuxportal::Proto::Services::Dcim::InformInstanceStateUpdateResponse
           end

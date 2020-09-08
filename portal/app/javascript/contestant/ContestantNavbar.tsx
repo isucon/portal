@@ -42,6 +42,9 @@ export class ContestantNavbar extends React.Component<Props, State> {
             <Link className="navbar-item" to="/contestant">
               ダッシュボード
             </Link>
+            <Link className="navbar-item" to="/contestant/contestant_instances">
+              サーバーリスト
+            </Link>
             <Link className="navbar-item" to="/contestant/benchmark_jobs">
               ベンチ実行リスト
             </Link>

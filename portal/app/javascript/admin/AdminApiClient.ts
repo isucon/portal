@@ -90,6 +90,13 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listContestantInstances(teamId?: number | null) {
+    const klass = isuxportal.proto.services.admin.ListContestantInstancesResponse;
+    const resp = await this.request(`${this.baseUrl}/api/admin/contestant_instances?team_id=${teamId ? teamId.toString() : ''}`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+
   public request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     return this.apiClient.request(path, method, query, payload);
   }     

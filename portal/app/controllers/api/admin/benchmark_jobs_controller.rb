@@ -28,7 +28,7 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
     @team = Team.find(pb.team_id)
     @benchmark_job = BenchmarkJob.create!(
       team_id: @team.id,
-      # target_id: 0, # TODO: ContestantInstance
+      target: ContestantInstance.find(pb.target_id),
     )
     render protobuf: Isuxportal::Proto::Services::Admin::EnqueueBenchmarkJobResponse.new(
       job: @benchmark_job.to_pb(admin: true, team: true, detail: true)

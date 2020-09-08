@@ -22,7 +22,7 @@ class BenchmarkQueueService < Isuxportal::Proto::Services::Bench::BenchmarkQueue
             job_handle: Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobResponse::JobHandle.new(
               job_id: job.id,
               handle: job.handle,
-              target_ipv4_address: "", # TODO:
+              target_ipv4_address: job.target.public_ipv4_address, # TODO:
               description_human: "", # TODO: 
             ),
           )

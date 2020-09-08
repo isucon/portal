@@ -11,5 +11,4 @@ message DashboardQuery {
 
 message DashboardResponse {
   isuxportal.proto.resources.Leaderboard leaderboard = 1;
-  repeated isuxportal.proto.resources.ContestantInstance instances = 2;
 }

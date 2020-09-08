@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get '/benchmark_jobs' => 'root#index'
     get '/benchmark_jobs/:id' => 'root#index'
     get '/clarifications' => 'root#index'
+    get '/contestant_instances' => 'root#index'
   end
 
   scope path: 'api', module: 'api' do
@@ -90,6 +91,15 @@ Rails.application.routes.draw do
       # admin/clarifications RespondClarification: PUT /api/admin/clarifications/:id
       # admin/clarifications CreateClarification: POST /api/admin/clarifications
       resources :clarifications, only: %i(index show update create)
+
+      # admin/clarifications ListClarifications: GET /api/admin/clarifications
+      # admin/clarifications GetClarification: GET /api/admin/clarifications/:id
+      # admin/clarifications RespondClarification: PUT /api/admin/clarifications/:id
+      # admin/clarifications CreateClarification: POST /api/admin/clarifications
+      resources :clarifications, only: %i(index show update create)
+
+      # admin/contestant_instances ListContestantInstances: GET /api/admin/contestant_instances
+      resources :contestant_instances, only: %i(index)
     end
 
     get 'ssh_public_keys/:team_id/:signature' => 'ssh_public_keys#index'
@@ -104,6 +114,7 @@ Rails.application.routes.draw do
     get '/benchmark_jobs/:id' => 'root#index'
     get '/clarifications' => 'root#index'
     get '/clarifications/:id' => 'root#index'
+    get '/contestant_instances' => 'root#index'
 
 
     get 'impersonate' => 'impersonate#index', as: :impersonate

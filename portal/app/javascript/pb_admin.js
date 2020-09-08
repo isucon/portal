@@ -2372,6 +2372,7 @@ $root.isuxportal = (function() {
                  * Properties of a ContestantInstance.
                  * @memberof isuxportal.proto.resources
                  * @interface IContestantInstance
+                 * @property {number|Long|null} [id] ContestantInstance id
                  * @property {string|null} [cloudId] ContestantInstance cloudId
                  * @property {number|Long|null} [teamId] ContestantInstance teamId
                  * @property {number|Long|null} [number] ContestantInstance number
@@ -2395,6 +2396,14 @@ $root.isuxportal = (function() {
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
+
+                /**
+                 * ContestantInstance id.
+                 * @member {number|Long} id
+                 * @memberof isuxportal.proto.resources.ContestantInstance
+                 * @instance
+                 */
+                ContestantInstance.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                 /**
                  * ContestantInstance cloudId.
@@ -2488,6 +2497,8 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 5, wireType 2 =*/42).string(message.privateIpv4Address);
                     if (message.status != null && Object.hasOwnProperty.call(message, "status"))
                         writer.uint32(/* id 6, wireType 0 =*/48).int32(message.status);
+                    if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int64(message.id);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     return writer;
@@ -2524,6 +2535,9 @@ $root.isuxportal = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
+                        case 7:
+                            message.id = reader.int64();
+                            break;
                         case 1:
                             message.cloudId = reader.string();
                             break;
@@ -2580,6 +2594,9 @@ $root.isuxportal = (function() {
                 ContestantInstance.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                            return "id: integer|Long expected";
                     if (message.cloudId != null && message.hasOwnProperty("cloudId"))
                         if (!$util.isString(message.cloudId))
                             return "cloudId: string expected";
@@ -2627,6 +2644,15 @@ $root.isuxportal = (function() {
                     if (object instanceof $root.isuxportal.proto.resources.ContestantInstance)
                         return object;
                     var message = new $root.isuxportal.proto.resources.ContestantInstance();
+                    if (object.id != null)
+                        if ($util.Long)
+                            (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                        else if (typeof object.id === "string")
+                            message.id = parseInt(object.id, 10);
+                        else if (typeof object.id === "number")
+                            message.id = object.id;
+                        else if (typeof object.id === "object")
+                            message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
                     if (object.cloudId != null)
                         message.cloudId = String(object.cloudId);
                     if (object.teamId != null)
@@ -2713,6 +2739,11 @@ $root.isuxportal = (function() {
                         object.publicIpv4Address = "";
                         object.privateIpv4Address = "";
                         object.status = options.enums === String ? "UNKNOWN" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.id = options.longs === String ? "0" : 0;
                         object.team = null;
                     }
                     if (message.cloudId != null && message.hasOwnProperty("cloudId"))
@@ -2733,6 +2764,11 @@ $root.isuxportal = (function() {
                         object.privateIpv4Address = message.privateIpv4Address;
                     if (message.status != null && message.hasOwnProperty("status"))
                         object.status = options.enums === String ? $root.isuxportal.proto.resources.ContestantInstance.Status[message.status] : message.status;
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (typeof message.id === "number")
+                            object.id = options.longs === String ? String(message.id) : message.id;
+                        else
+                            object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     return object;
@@ -6638,6 +6674,7 @@ $root.isuxportal = (function() {
                      * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
                      * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
                      * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
+                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] GetCurrentSessionResponse contestantInstances
                      */
 
                     /**
@@ -6649,6 +6686,7 @@ $root.isuxportal = (function() {
                      * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse=} [properties] Properties to set
                      */
                     function GetCurrentSessionResponse(properties) {
+                        this.contestantInstances = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -6688,6 +6726,14 @@ $root.isuxportal = (function() {
                     GetCurrentSessionResponse.prototype.contest = null;
 
                     /**
+                     * GetCurrentSessionResponse contestantInstances.
+                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} contestantInstances
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contestantInstances = $util.emptyArray;
+
+                    /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
@@ -6719,6 +6765,9 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
                         if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
                             $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        if (message.contestantInstances != null && message.contestantInstances.length)
+                            for (var i = 0; i < message.contestantInstances.length; ++i)
+                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                         return writer;
                     };
 
@@ -6764,6 +6813,11 @@ $root.isuxportal = (function() {
                                 break;
                             case 4:
                                 message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
+                                break;
+                            case 5:
+                                if (!(message.contestantInstances && message.contestantInstances.length))
+                                    message.contestantInstances = [];
+                                message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -6818,6 +6872,15 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "contest." + error;
                         }
+                        if (message.contestantInstances != null && message.hasOwnProperty("contestantInstances")) {
+                            if (!Array.isArray(message.contestantInstances))
+                                return "contestantInstances: array expected";
+                            for (var i = 0; i < message.contestantInstances.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.contestantInstances[i]);
+                                if (error)
+                                    return "contestantInstances." + error;
+                            }
+                        }
                         return null;
                     };
 
@@ -6850,6 +6913,16 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contest: object expected");
                             message.contest = $root.isuxportal.proto.resources.Contest.fromObject(object.contest);
                         }
+                        if (object.contestantInstances) {
+                            if (!Array.isArray(object.contestantInstances))
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: array expected");
+                            message.contestantInstances = [];
+                            for (var i = 0; i < object.contestantInstances.length; ++i) {
+                                if (typeof object.contestantInstances[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: object expected");
+                                message.contestantInstances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.contestantInstances[i]);
+                            }
+                        }
                         return message;
                     };
 
@@ -6866,6 +6939,8 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
+                        if (options.arrays || options.defaults)
+                            object.contestantInstances = [];
                         if (options.defaults) {
                             object.team = null;
                             object.contestant = null;
@@ -6880,6 +6955,11 @@ $root.isuxportal = (function() {
                             object.discordServerId = message.discordServerId;
                         if (message.contest != null && message.hasOwnProperty("contest"))
                             object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
+                        if (message.contestantInstances && message.contestantInstances.length) {
+                            object.contestantInstances = [];
+                            for (var j = 0; j < message.contestantInstances.length; ++j)
+                                object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
+                        }
                         return object;
                     };
 
@@ -10257,24 +10337,24 @@ $root.isuxportal = (function() {
                     return CreateClarificationResponse;
                 })();
 
-                admin.ListContestantInstancesRequest = (function() {
+                admin.ListContestantInstancesQuery = (function() {
 
                     /**
-                     * Properties of a ListContestantInstancesRequest.
+                     * Properties of a ListContestantInstancesQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @interface IListContestantInstancesRequest
-                     * @property {number|Long|null} [teamId] ListContestantInstancesRequest teamId
+                     * @interface IListContestantInstancesQuery
+                     * @property {number|Long|null} [teamId] ListContestantInstancesQuery teamId
                      */
 
                     /**
-                     * Constructs a new ListContestantInstancesRequest.
+                     * Constructs a new ListContestantInstancesQuery.
                      * @memberof isuxportal.proto.services.admin
-                     * @classdesc Represents a ListContestantInstancesRequest.
-                     * @implements IListContestantInstancesRequest
+                     * @classdesc Represents a ListContestantInstancesQuery.
+                     * @implements IListContestantInstancesQuery
                      * @constructor
-                     * @param {isuxportal.proto.services.admin.IListContestantInstancesRequest=} [properties] Properties to set
+                     * @param {isuxportal.proto.services.admin.IListContestantInstancesQuery=} [properties] Properties to set
                      */
-                    function ListContestantInstancesRequest(properties) {
+                    function ListContestantInstancesQuery(properties) {
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -10282,35 +10362,35 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * ListContestantInstancesRequest teamId.
+                     * ListContestantInstancesQuery teamId.
                      * @member {number|Long} teamId
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @instance
                      */
-                    ListContestantInstancesRequest.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+                    ListContestantInstancesQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * Creates a new ListContestantInstancesRequest instance using the specified properties.
+                     * Creates a new ListContestantInstancesQuery instance using the specified properties.
                      * @function create
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListContestantInstancesRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesRequest} ListContestantInstancesRequest instance
+                     * @param {isuxportal.proto.services.admin.IListContestantInstancesQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesQuery} ListContestantInstancesQuery instance
                      */
-                    ListContestantInstancesRequest.create = function create(properties) {
-                        return new ListContestantInstancesRequest(properties);
+                    ListContestantInstancesQuery.create = function create(properties) {
+                        return new ListContestantInstancesQuery(properties);
                     };
 
                     /**
-                     * Encodes the specified ListContestantInstancesRequest message. Does not implicitly {@link isuxportal.proto.services.admin.ListContestantInstancesRequest.verify|verify} messages.
+                     * Encodes the specified ListContestantInstancesQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListContestantInstancesQuery.verify|verify} messages.
                      * @function encode
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListContestantInstancesRequest} message ListContestantInstancesRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListContestantInstancesQuery} message ListContestantInstancesQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListContestantInstancesRequest.encode = function encode(message, writer) {
+                    ListContestantInstancesQuery.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
                         if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
@@ -10319,33 +10399,33 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Encodes the specified ListContestantInstancesRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListContestantInstancesRequest.verify|verify} messages.
+                     * Encodes the specified ListContestantInstancesQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListContestantInstancesQuery.verify|verify} messages.
                      * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.IListContestantInstancesRequest} message ListContestantInstancesRequest message or plain object to encode
+                     * @param {isuxportal.proto.services.admin.IListContestantInstancesQuery} message ListContestantInstancesQuery message or plain object to encode
                      * @param {$protobuf.Writer} [writer] Writer to encode to
                      * @returns {$protobuf.Writer} Writer
                      */
-                    ListContestantInstancesRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    ListContestantInstancesQuery.encodeDelimited = function encodeDelimited(message, writer) {
                         return this.encode(message, writer).ldelim();
                     };
 
                     /**
-                     * Decodes a ListContestantInstancesRequest message from the specified reader or buffer.
+                     * Decodes a ListContestantInstancesQuery message from the specified reader or buffer.
                      * @function decode
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
                      * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesQuery} ListContestantInstancesQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListContestantInstancesRequest.decode = function decode(reader, length) {
+                    ListContestantInstancesQuery.decode = function decode(reader, length) {
                         if (!(reader instanceof $Reader))
                             reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListContestantInstancesRequest();
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListContestantInstancesQuery();
                         while (reader.pos < end) {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
@@ -10361,30 +10441,30 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Decodes a ListContestantInstancesRequest message from the specified reader or buffer, length delimited.
+                     * Decodes a ListContestantInstancesQuery message from the specified reader or buffer, length delimited.
                      * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
                      * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesQuery} ListContestantInstancesQuery
                      * @throws {Error} If the payload is not a reader or valid buffer
                      * @throws {$protobuf.util.ProtocolError} If required fields are missing
                      */
-                    ListContestantInstancesRequest.decodeDelimited = function decodeDelimited(reader) {
+                    ListContestantInstancesQuery.decodeDelimited = function decodeDelimited(reader) {
                         if (!(reader instanceof $Reader))
                             reader = new $Reader(reader);
                         return this.decode(reader, reader.uint32());
                     };
 
                     /**
-                     * Verifies a ListContestantInstancesRequest message.
+                     * Verifies a ListContestantInstancesQuery message.
                      * @function verify
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
                      * @param {Object.<string,*>} message Plain object to verify
                      * @returns {string|null} `null` if valid, otherwise the reason why it is not
                      */
-                    ListContestantInstancesRequest.verify = function verify(message) {
+                    ListContestantInstancesQuery.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
@@ -10394,17 +10474,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a ListContestantInstancesRequest message from a plain object. Also converts values to their respective internal types.
+                     * Creates a ListContestantInstancesQuery message from a plain object. Also converts values to their respective internal types.
                      * @function fromObject
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
                      * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesRequest} ListContestantInstancesRequest
+                     * @returns {isuxportal.proto.services.admin.ListContestantInstancesQuery} ListContestantInstancesQuery
                      */
-                    ListContestantInstancesRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.admin.ListContestantInstancesRequest)
+                    ListContestantInstancesQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.ListContestantInstancesQuery)
                             return object;
-                        var message = new $root.isuxportal.proto.services.admin.ListContestantInstancesRequest();
+                        var message = new $root.isuxportal.proto.services.admin.ListContestantInstancesQuery();
                         if (object.teamId != null)
                             if ($util.Long)
                                 (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
@@ -10418,15 +10498,15 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Creates a plain object from a ListContestantInstancesRequest message. Also converts values to other types if specified.
+                     * Creates a plain object from a ListContestantInstancesQuery message. Also converts values to other types if specified.
                      * @function toObject
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @static
-                     * @param {isuxportal.proto.services.admin.ListContestantInstancesRequest} message ListContestantInstancesRequest
+                     * @param {isuxportal.proto.services.admin.ListContestantInstancesQuery} message ListContestantInstancesQuery
                      * @param {$protobuf.IConversionOptions} [options] Conversion options
                      * @returns {Object.<string,*>} Plain object
                      */
-                    ListContestantInstancesRequest.toObject = function toObject(message, options) {
+                    ListContestantInstancesQuery.toObject = function toObject(message, options) {
                         if (!options)
                             options = {};
                         var object = {};
@@ -10445,17 +10525,17 @@ $root.isuxportal = (function() {
                     };
 
                     /**
-                     * Converts this ListContestantInstancesRequest to JSON.
+                     * Converts this ListContestantInstancesQuery to JSON.
                      * @function toJSON
-                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesRequest
+                     * @memberof isuxportal.proto.services.admin.ListContestantInstancesQuery
                      * @instance
                      * @returns {Object.<string,*>} JSON object
                      */
-                    ListContestantInstancesRequest.prototype.toJSON = function toJSON() {
+                    ListContestantInstancesQuery.prototype.toJSON = function toJSON() {
                         return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                     };
 
-                    return ListContestantInstancesRequest;
+                    return ListContestantInstancesQuery;
                 })();
 
                 admin.ListContestantInstancesResponse = (function() {
@@ -15909,7 +15989,6 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.contestant
                      * @interface IDashboardResponse
                      * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
-                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [instances] DashboardResponse instances
                      */
 
                     /**
@@ -15921,7 +16000,6 @@ $root.isuxportal = (function() {
                      * @param {isuxportal.proto.services.contestant.IDashboardResponse=} [properties] Properties to set
                      */
                     function DashboardResponse(properties) {
-                        this.instances = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -15935,14 +16013,6 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     DashboardResponse.prototype.leaderboard = null;
-
-                    /**
-                     * DashboardResponse instances.
-                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} instances
-                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
-                     * @instance
-                     */
-                    DashboardResponse.prototype.instances = $util.emptyArray;
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
@@ -15970,9 +16040,6 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
                             $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                        if (message.instances != null && message.instances.length)
-                            for (var i = 0; i < message.instances.length; ++i)
-                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.instances[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                         return writer;
                     };
 
@@ -16009,11 +16076,6 @@ $root.isuxportal = (function() {
                             switch (tag >>> 3) {
                             case 1:
                                 message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
-                                break;
-                            case 2:
-                                if (!(message.instances && message.instances.length))
-                                    message.instances = [];
-                                message.instances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -16055,15 +16117,6 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "leaderboard." + error;
                         }
-                        if (message.instances != null && message.hasOwnProperty("instances")) {
-                            if (!Array.isArray(message.instances))
-                                return "instances: array expected";
-                            for (var i = 0; i < message.instances.length; ++i) {
-                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.instances[i]);
-                                if (error)
-                                    return "instances." + error;
-                            }
-                        }
                         return null;
                     };
 
@@ -16084,16 +16137,6 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.leaderboard: object expected");
                             message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
                         }
-                        if (object.instances) {
-                            if (!Array.isArray(object.instances))
-                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: array expected");
-                            message.instances = [];
-                            for (var i = 0; i < object.instances.length; ++i) {
-                                if (typeof object.instances[i] !== "object")
-                                    throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: object expected");
-                                message.instances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.instances[i]);
-                            }
-                        }
                         return message;
                     };
 
@@ -16110,17 +16153,10 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.arrays || options.defaults)
-                            object.instances = [];
                         if (options.defaults)
                             object.leaderboard = null;
                         if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
                             object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
-                        if (message.instances && message.instances.length) {
-                            object.instances = [];
-                            for (var j = 0; j < message.instances.length; ++j)
-                                object.instances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.instances[j], options);
-                        }
                         return object;
                     };
 

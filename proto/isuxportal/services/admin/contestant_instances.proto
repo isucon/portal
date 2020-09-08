@@ -4,7 +4,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 
 import "isuxportal/resources/contestant_instance.proto";
 
-message ListContestantInstancesRequest {
+message ListContestantInstancesQuery {
   // optional filter by team_id
   int64 team_id = 1;
 }

@@ -859,6 +859,9 @@ export namespace isuxportal {
             /** Properties of a ContestantInstance. */
             interface IContestantInstance {
 
+                /** ContestantInstance id */
+                id?: (number|Long|null);
+
                 /** ContestantInstance cloudId */
                 cloudId?: (string|null);
 
@@ -889,6 +892,9 @@ export namespace isuxportal {
                  * @param [properties] Properties to set
                  */
                 constructor(properties?: isuxportal.proto.resources.IContestantInstance);
+
+                /** ContestantInstance id. */
+                public id: (number|Long);
 
                 /** ContestantInstance cloudId. */
                 public cloudId: string;
@@ -2479,6 +2485,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contest */
                     contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances */
+                    contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2501,6 +2510,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contest. */
                     public contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances. */
+                    public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -4029,9 +4041,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard */
                     leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
-
-                    /** DashboardResponse instances */
-                    instances?: (isuxportal.proto.resources.IContestantInstance[]|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4045,9 +4054,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard. */
                     public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
-
-                    /** DashboardResponse instances. */
-                    public instances: isuxportal.proto.resources.IContestantInstance[];
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.

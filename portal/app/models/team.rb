@@ -6,8 +6,8 @@ class Team < ApplicationRecord
 
   has_many :benchmark_jobs
   has_many :benchmark_results
-
   has_many :clarifications
+  has_many :contestant_instances
 
   has_one :survey_response
 

@@ -4,7 +4,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 
 import "isuxportal/resources/contestant_instance.proto";
 
-service InstanceManagementService {
+service InstanceManagement {
   rpc InformInstanceStateUpdate(InformInstanceStateUpdateRequest) returns (InformInstanceStateUpdateResponse);
 }
 

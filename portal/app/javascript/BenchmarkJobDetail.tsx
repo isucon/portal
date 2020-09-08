@@ -11,14 +11,14 @@ export interface Props {
   admin?: boolean,
 }
 
-const renderJobSummary = (job: isuxportal.proto.resources.IBenchmarkJob) => {
+const renderJobSummary = (job: isuxportal.proto.resources.IBenchmarkJob, admin: boolean) => {
   return <div className="card mt-5">
     <header className="card-header">
       <h4 className="is-4 card-header-title">Summary</h4>
     </header>
     <div className="card-content">
       <p><b>ID:</b> {job.id}</p>
-      {/* TODO: ContestantInstance */}
+      <p><b>Target:</b> #{job.target!.number}: {job.target!.publicIpv4Address} {admin ? `(#${job.target!.id}, ${job.target!.cloudId})` : null}</p>
       <p><b>Status:</b> <BenchmarkJobStatus status={job.status!} /></p>
       <p><b>Enqueued At:</b> <Timestamp timestamp={job.createdAt!} /></p>
       <p><b>Updated At:</b> <Timestamp timestamp={job.updatedAt!} /></p>
@@ -86,7 +86,7 @@ export const BenchmarkJobDetail: React.FC<Props> = (props: Props) => {
   const {job} = props;
   return <>
     <section>
-      {renderJobSummary(job)}
+      {renderJobSummary(job, !!props.admin)}
       {props.admin ? renderTeam(job.team!) : null}
       {renderJobResult(job)}
       {renderJobExecution(job, !!props.admin)}

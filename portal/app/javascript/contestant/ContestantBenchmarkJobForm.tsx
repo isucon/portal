@@ -19,14 +19,17 @@ export const ContestantBenchmarkJobForm: React.FC<Props>  = (props: Props) => {
   const { register, handleSubmit, watch, setValue, errors } = useForm<{
     targetId: string,
   }>({
-    defaultValues: {},
+    defaultValues: {
+      targetId: window.localStorage.getItem('isuxportal-last-target-id') || '',
+    },
   });
   const onSubmit = handleSubmit(async (data) => {
     try {
       setRequesting(true);
       const resp = await props.client.enqueueBenchmarkJob({
-        targetId: data.targetId ? parseInt(data.targetId, 10) : 0, // TODO: ContestantInstance
+        targetId: data.targetId ? parseInt(data.targetId, 10) : 0,
       });
+      window.localStorage.setItem('isuxportal-last-target-id', data.targetId);
       setRedirect(<Redirect push={true} to={{
         pathname: `/contestant/benchmark_jobs/${encodeURIComponent(resp.job!.id!.toString())}`,
       }} />);
@@ -40,16 +43,21 @@ export const ContestantBenchmarkJobForm: React.FC<Props>  = (props: Props) => {
     {redirect}
     <div className="card-content">
       <form onSubmit={onSubmit}>
-        <div className="columns">
-          <div className="column is-3 field has-addons">
-            <div className="control">
-              <input className="input" type="text" name="targetId" id="ContestantBenchmarkJobForm-targetId" ref={register} placeholder="Target ID" />
-            </div>
-            <div className="control">
-              <button className="button is-link" type="submit" disabled={requesting}>Enqueue</button>
+        <div className="field has-addons">
+          <div className="control is-expanded">
+            <div className="select is-fullwidth">
+              <select name="targetId" ref={register}>
+                {(props.session.contestantInstances || []).map((ci) => {
+                  return <option key={ci.id!.toString()} value={ci.id!.toString()}>{ci.number}: {ci.publicIpv4Address}</option>;
+                })}
+              </select>
             </div>
           </div>
+          <div className="control">
+            <button className="button is-primary" type="submit" disabled={requesting}>Enqueue</button>
+          </div>
         </div>
+        <p className="is-size-7">ベンチ対象サーバーを選択して Enqueue してください。最終計測には最後に利用したサーバーが利用されます。</p>
         {error ? <ErrorMessage error={error} /> : null}
       </form>
     </div>
