@@ -8,17 +8,46 @@ const NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT = 25;
 interface TeamItemProps {
   position: number;
   item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+  changed: boolean,
   pinned: boolean,
   onPin: (teamId: string, flag: boolean) => void,
   me: boolean,
+  lastPosition?: number,
 }
 
-const TeamItem: React.FC<TeamItemProps> = ({ position, item, pinned, onPin, me }) => {
+const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, item, pinned, onPin, me }) => {
+  const [animationClassName, setAnimationClassName] = React.useState<string | null>(null);
+  const [animationEpoch, setAnimationEpoch] = React.useState<number>(0);
+
   const studentStatus = item.team!.student?.status && (
     <span className="tag is-info is-pulled-right">学生</span>
   );
+  const classNames = [];
+  if (pinned || me) classNames.push("isux-leaderboard-pinned");
+  if (animationClassName) classNames.push(animationClassName);
+
+  React.useEffect(() => {
+    if (!lastPosition) return
+    if (!changed) return
+    const set = lastPosition && lastPosition != position;
+    if (lastPosition > position) {
+      setAnimationClassName("isux-leaderboard-change-up");
+    } else if (lastPosition < position){
+      setAnimationClassName("isux-leaderboard-change-down");
+    }
+    if (!set) return;
+    setAnimationEpoch(animationEpoch + 1);
+  }, [lastPosition, position]);
+
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setAnimationClassName(null);
+    }, 2000);
+    return () => { window.clearTimeout(timer) };
+  }, [animationEpoch]);
+
   return (
-    <tr className={(pinned || me) ? "isux-leaderboard-pinned" : ""}>
+    <tr className={classNames.join(" ")}>
       <th className="has-text-centered">
         {pinned ?
           <button className="button is-small is-dark" onClick={() => onPin(item.team!.id!.toString(), false)} >Pin</button>
@@ -57,10 +86,30 @@ const savePins = (pins: Map<string, boolean>) => {
   window.localStorage.setItem('isuxportal-dashboard-pins', JSON.stringify(Array.from(pins.keys())));
 };
 
-export const Leaderboard: React.FC<Props> = ({ leaderboard, teamId }) => {
+
+const usePrevious = function<T>(value: T) {
+  const ref = React.useRef<T>();
+  React.useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
+
+export const Leaderboard: React.FC<Props> = (props: Props) => {
+  const { leaderboard, teamId } = props;
   const [expanded, setExpanded] = React.useState(false);
   const [pins, setPins] = React.useState(loadPins)
   const [mode, setMode] = React.useState<Mode>("all");
+
+  const prevProps = usePrevious(props);
+  const prevLeaderboard = prevProps?.leaderboard;
+  const prevRanks = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
+    return [t.team!.id, idx+1];
+  }));
+  const prevScores = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
+    return [t.team!.id, t.latestScore?.score!];
+  }));
 
   const onPin = (teamId: string, flag: boolean) => {
     if (flag) {
@@ -72,7 +121,7 @@ export const Leaderboard: React.FC<Props> = ({ leaderboard, teamId }) => {
     setPins(new Map(pins));
   };
 
-  type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, pinned: boolean, me: boolean};
+  type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, pinned: boolean, me: boolean, lastPosition?: number, lastScore?: number | Long};
   const teams = leaderboard.teams!.filter(({ team }) => {
                   switch (mode) {
                     case "all":
@@ -87,10 +136,10 @@ export const Leaderboard: React.FC<Props> = ({ leaderboard, teamId }) => {
                 }).map((item, idx): TeamStanding => {
                   const pinned = pins.has(item.team!.id!.toString());
                   const me = item.team!.id === teamId;
-                  return {position: idx + 1,  item, pinned, me}
+                  return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item, pinned, me}
                 });
-  const renderTeam = (key: string, {item, pinned, me, position}: TeamStanding) => {
-    return <TeamItem item={item} position={position} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={onPin} me={me} />;
+  const renderTeam = (key: string, {item, pinned, me, position, lastPosition, lastScore}: TeamStanding) => {
+    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={onPin} me={me} />;
   };
   const teamMe = teams.filter((v) => v.me);
   return (
