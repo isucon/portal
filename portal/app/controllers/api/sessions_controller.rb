@@ -7,7 +7,7 @@ class Api::SessionsController < Api::ApplicationController
       team: current_team&.to_pb,
       discord_server_id: current_contestant ? Rails.application.config.x.discord.server_id : "",
       contest: Contest.to_pb,
-      contestant_instances: (Contest.contest_running? ? current_team&.contestant_instances.order(number: :asc).map(&:to_pb) : nil) || [],
+      contestant_instances: (Contest.contest_running? ? current_team&.contestant_instances&.order(number: :asc)&.map(&:to_pb) : nil) || [],
     )
   end
 end
