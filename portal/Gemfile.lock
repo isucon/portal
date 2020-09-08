@@ -108,6 +108,8 @@ GEM
     event_emitter (0.2.6)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
+    faker (2.13.0)
+      i18n (>= 1.6, < 2)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
@@ -297,6 +299,7 @@ DEPENDENCIES
   blouson
   discordrb!
   factory_bot
+  faker
   google-protobuf
   griffin
   griffin-interceptors
