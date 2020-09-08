@@ -37,7 +37,6 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_TIMING_CONTEST_START: '2020-09-12T01:00:00Z',
       ISUXPORTAL_TIMING_CONTEST_FREEZE: '2020-09-12T08:00:00Z',
       ISUXPORTAL_TIMING_CONTEST_END: '2020-09-12T09:00:00Z',
-      ISUXPORTAL_BENCH_TOKEN: 'dummy himitsudayo himitsujanaikamo?', // TODO: change
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
     },
     secrets: [
@@ -53,6 +52,8 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       secret('ISUXPORTAL_ADMIN_PASSWORD'),
       secret('ISUXPORTAL_BYPASS_SECRET'),
       secret('ISUXPORTAL_SSH_KEY_API_SECRET'),
+      secret('ISUXPORTAL_BENCH_TOKEN'),
+      secret('ISUXPORTAL_DCIM_TOKEN'),
     ],
     mount_points: [
     ],

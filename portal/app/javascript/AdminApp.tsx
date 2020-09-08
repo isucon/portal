@@ -20,6 +20,7 @@ import {AdminBenchmarkJobList} from "./admin/AdminBenchmarkJobList";
 import {AdminBenchmarkJobDetail } from "./admin/AdminBenchmarkJobDetail";
 import {AdminClarificationList} from "./admin/AdminClarificationList";
 import {AdminClarificationDetail} from "./admin/AdminClarificationDetail";
+import {AdminContestantInstanceList} from "./admin/AdminContestantInstanceList";
 import {AdminDashboard} from "./admin/AdminDashboard";
 
 export interface Props {
@@ -53,6 +54,11 @@ export class AdminApp extends React.Component<Props, State> {
                 <li><NavLink to="/admin/benchmark_jobs" activeClassName="is-active">Benchmark Jobs</NavLink></li>
                 <li><NavLink to="/admin/clarifications" activeClassName="is-active">Clarifications</NavLink></li>
               </ul>
+              <p className="menu-label">DCIM</p>
+              <ul className="menu-list">
+                <li><NavLink to="/admin/contestant_instances" activeClassName="is-active">Contestant Instances</NavLink></li>
+              </ul>
+
               <p className="menu-label">Registration</p>
               <ul className="menu-list">
                 <li><NavLink to="/admin/teams" activeClassName="is-active">Teams</NavLink></li>
@@ -85,6 +91,11 @@ export class AdminApp extends React.Component<Props, State> {
                 <Route exact path="/admin/clarifications/:id" render={({match}) => {
                   return <AdminClarificationDetail session={this.props.session} client={this.state.adminClient} id={match.params.id} />;
                 }} />
+                <Route exact path="/admin/contestant_instances" render={({match, location}) => {
+                  const query = new URLSearchParams(location.search);
+                  return <AdminContestantInstanceList session={this.props.session} client={this.state.adminClient} teamId={query.get("team_id")} />;
+                }} />
+
               </Switch>
             </main>
           </div>

@@ -9,7 +9,7 @@ require 'griffin/interceptors/server/rails_exception_interceptor'
 require 'griffin/interceptors/server/clear_connection_interceptor'
 
 health_checker = Grpc::Health::Checker.new
-health_checker.add_status(ENV['GRPC_APPLICATION_ID'], Grpc::Health::V1::HealthCheckResponse::ServingStatus::SERVING)
+health_checker.add_status('isuxportal', Grpc::Health::V1::HealthCheckResponse::ServingStatus::SERVING)
 
 if Rails.env.development? && ARGV[0] && ARGV[0].include?('Griffin::Server')
   Rails.application.runner do
@@ -29,6 +29,7 @@ Griffin::Server.configure do |c|
     health_checker,
     BenchmarkReportService,
     BenchmarkQueueService,
+    InstanceManagementService,
   ]
 
   c.interceptors [

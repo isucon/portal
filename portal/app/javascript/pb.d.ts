@@ -2479,6 +2479,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contest */
                     contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances */
+                    contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2501,6 +2504,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contest. */
                     public contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances. */
+                    public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.

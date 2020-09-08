@@ -6,7 +6,7 @@ require 'google/protobuf'
 require 'isuxportal/resources/contestant_instance_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/contestant_instances.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.services.admin.ListContestantInstancesRequest" do
+    add_message "isuxportal.proto.services.admin.ListContestantInstancesQuery" do
       optional :team_id, :int64, 1
     end
     add_message "isuxportal.proto.services.admin.ListContestantInstancesResponse" do
@@ -19,7 +19,7 @@ module Isuxportal
   module Proto
     module Services
       module Admin
-        ListContestantInstancesRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListContestantInstancesRequest").msgclass
+        ListContestantInstancesQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListContestantInstancesQuery").msgclass
         ListContestantInstancesResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.admin.ListContestantInstancesResponse").msgclass
       end
     end
