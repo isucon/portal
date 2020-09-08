@@ -2372,6 +2372,7 @@ $root.isuxportal = (function() {
                  * Properties of a ContestantInstance.
                  * @memberof isuxportal.proto.resources
                  * @interface IContestantInstance
+                 * @property {number|Long|null} [id] ContestantInstance id
                  * @property {string|null} [cloudId] ContestantInstance cloudId
                  * @property {number|Long|null} [teamId] ContestantInstance teamId
                  * @property {number|Long|null} [number] ContestantInstance number
@@ -2395,6 +2396,14 @@ $root.isuxportal = (function() {
                             if (properties[keys[i]] != null)
                                 this[keys[i]] = properties[keys[i]];
                 }
+
+                /**
+                 * ContestantInstance id.
+                 * @member {number|Long} id
+                 * @memberof isuxportal.proto.resources.ContestantInstance
+                 * @instance
+                 */
+                ContestantInstance.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                 /**
                  * ContestantInstance cloudId.
@@ -2488,6 +2497,8 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 5, wireType 2 =*/42).string(message.privateIpv4Address);
                     if (message.status != null && Object.hasOwnProperty.call(message, "status"))
                         writer.uint32(/* id 6, wireType 0 =*/48).int32(message.status);
+                    if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                        writer.uint32(/* id 7, wireType 0 =*/56).int64(message.id);
                     if (message.team != null && Object.hasOwnProperty.call(message, "team"))
                         $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                     return writer;
@@ -2524,6 +2535,9 @@ $root.isuxportal = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
+                        case 7:
+                            message.id = reader.int64();
+                            break;
                         case 1:
                             message.cloudId = reader.string();
                             break;
@@ -2580,6 +2594,9 @@ $root.isuxportal = (function() {
                 ContestantInstance.verify = function verify(message) {
                     if (typeof message !== "object" || message === null)
                         return "object expected";
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                            return "id: integer|Long expected";
                     if (message.cloudId != null && message.hasOwnProperty("cloudId"))
                         if (!$util.isString(message.cloudId))
                             return "cloudId: string expected";
@@ -2627,6 +2644,15 @@ $root.isuxportal = (function() {
                     if (object instanceof $root.isuxportal.proto.resources.ContestantInstance)
                         return object;
                     var message = new $root.isuxportal.proto.resources.ContestantInstance();
+                    if (object.id != null)
+                        if ($util.Long)
+                            (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                        else if (typeof object.id === "string")
+                            message.id = parseInt(object.id, 10);
+                        else if (typeof object.id === "number")
+                            message.id = object.id;
+                        else if (typeof object.id === "object")
+                            message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
                     if (object.cloudId != null)
                         message.cloudId = String(object.cloudId);
                     if (object.teamId != null)
@@ -2713,6 +2739,11 @@ $root.isuxportal = (function() {
                         object.publicIpv4Address = "";
                         object.privateIpv4Address = "";
                         object.status = options.enums === String ? "UNKNOWN" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.id = options.longs === String ? "0" : 0;
                         object.team = null;
                     }
                     if (message.cloudId != null && message.hasOwnProperty("cloudId"))
@@ -2733,6 +2764,11 @@ $root.isuxportal = (function() {
                         object.privateIpv4Address = message.privateIpv4Address;
                     if (message.status != null && message.hasOwnProperty("status"))
                         object.status = options.enums === String ? $root.isuxportal.proto.resources.ContestantInstance.Status[message.status] : message.status;
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (typeof message.id === "number")
+                            object.id = options.longs === String ? String(message.id) : message.id;
+                        else
+                            object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
                     if (message.team != null && message.hasOwnProperty("team"))
                         object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
                     return object;

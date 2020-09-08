@@ -859,6 +859,9 @@ export namespace isuxportal {
             /** Properties of a ContestantInstance. */
             interface IContestantInstance {
 
+                /** ContestantInstance id */
+                id?: (number|Long|null);
+
                 /** ContestantInstance cloudId */
                 cloudId?: (string|null);
 
@@ -889,6 +892,9 @@ export namespace isuxportal {
                  * @param [properties] Properties to set
                  */
                 constructor(properties?: isuxportal.proto.resources.IContestantInstance);
+
+                /** ContestantInstance id. */
+                public id: (number|Long);
 
                 /** ContestantInstance cloudId. */
                 public cloudId: string;

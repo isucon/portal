@@ -15,6 +15,7 @@ class ContestantInstance < ApplicationRecord
 
   def to_pb(team: false)
     Isuxportal::Proto::Resources::ContestantInstance.new(
+      id: id,
       cloud_id: cloud_id,
       team_id: team_id,
       status: status_before_type_cast,

@@ -115,6 +115,7 @@ export class AdminContestantInstanceList extends React.Component<Props, State> {
     return <table className="table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Cloud ID</th>
           <th>Team</th>
           <th>Number</th>
@@ -130,9 +131,10 @@ export class AdminContestantInstanceList extends React.Component<Props, State> {
   }
 
   renderContestantInstance(ci: isuxportal.proto.resources.IContestantInstance, i: number) {
-    const id = ci.cloudId!.toString();
+    const id = ci.id!.toString();
     return <tr key={id}>
       <td>{id}</td>
+      <td>{ci.cloudId}</td>
       <td><Link to={`/admin/teams/${ci.team!.id!.toString()}`}>{ci.team!.name} (#{ci.team!.id})</Link></td>
       <td>{ci.number}</td>
       <td>{ci.privateIpv4Address}</td>
