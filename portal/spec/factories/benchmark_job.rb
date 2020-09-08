@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :benchmark_job do
     team
-    # TODO: ContestantInstance
+    target { build(:contestant_instance, team: team) }
     status { :pending }
 
     transient do

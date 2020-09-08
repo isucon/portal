@@ -3,6 +3,8 @@ require 'isuxportal/resources/contestant_instance_pb'
 class ContestantInstance < ApplicationRecord
   belongs_to :team
 
+  has_many :benchmark_jobs, inverse_of: :target
+
   validates :cloud_id, presence: true
   validates :number, presence: true
   validates :private_ipv4_address, presence: true

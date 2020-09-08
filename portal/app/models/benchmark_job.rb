@@ -3,6 +3,7 @@ require 'isuxportal/resources/benchmark_job_pb'
 class BenchmarkJob < ApplicationRecord
   class InvalidTransition < StandardError; end
   belongs_to :team
+  belongs_to :target, class_name: 'ContestantInstance'
 
   has_one :benchmark_result
   has_one :survey_response
@@ -28,7 +29,7 @@ class BenchmarkJob < ApplicationRecord
     Isuxportal::Proto::Resources::BenchmarkJob.new(
       id: id,
       team_id: team_id,
-      target_id: 0, # TODO: ContestantInstance
+      target_id: target_id,
       status: status_before_type_cast,
       score: score,
       instance_name: admin ? self.instance_name : '',
@@ -37,7 +38,7 @@ class BenchmarkJob < ApplicationRecord
       started_at: started_at&.to_time,
       finished_at: finished_at&.to_time,
       team: team ? self.team.to_pb : nil,
-      target: detail ? nil : nil, # TODO: ContestantInstance
+      target: detail ? target&.to_pb : nil,
       result: detail ? benchmark_result&.to_pb(admin: admin) : nil,
     )
   end
