@@ -1,7 +1,7 @@
 import {isuxportal} from "./pb";
 import React from "react";
 import dayjs from "dayjs";
-import { ResponsiveLine } from "@nivo/line";
+import { ResponsiveLineCanvas } from "@nivo/line";
 import { BasicTooltip } from "@nivo/tooltip";
 import type { PointTooltipProps, Serie } from "@nivo/line";
 
@@ -53,7 +53,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams }) => {
 
   return (
     <div className="is-fullwidth" style={{ height: 480 }}>
-      <ResponsiveLine
+      <ResponsiveLineCanvas
         data={series}
         margin={{ top: 10, right: 100, bottom: 55, left: 55 }}
         xScale={{
@@ -86,7 +86,6 @@ export const ScoreGraph: React.FC<Props> = ({ teams }) => {
         pointColor={{ theme: "background" }}
         pointBorderWidth={1}
         pointBorderColor={{ from: "serieColor" }}
-        useMesh={true}
         tooltip={ToolTip}
         legends={[
           {
