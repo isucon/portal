@@ -92,3 +92,29 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     }
   }
 }
+
+.isux-scoregraph {
+  text-align: center;
+  width: 100%;
+
+  .uplot {
+    text-align: center;
+    width: 100%;
+
+    .u-wrap {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  table.u-legend {
+    font-size: 0.6em;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .u-series > * {
+      padding: 0;
+    }
+  }
+}
