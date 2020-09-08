@@ -1,4 +1,6 @@
 class Api::SshPublicKeysController < Api::ApplicationController
+  skip_before_action :require_staff_when_always_required
+
   def index
     return render(plain: '400', status: 400) if params[:team_id].blank? || params[:signature].blank?
     team_id = params[:team_id].to_i
