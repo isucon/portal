@@ -5,7 +5,6 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
   def show
     render protobuf: Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
       leaderboard: Contest.leaderboard(admin: false, team: current_team), # TODO: disable progresses
-      instances: [], # TODO: ContestantInstance,
     )
   end
 end

@@ -15989,7 +15989,6 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.contestant
                      * @interface IDashboardResponse
                      * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
-                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [instances] DashboardResponse instances
                      */
 
                     /**
@@ -16001,7 +16000,6 @@ $root.isuxportal = (function() {
                      * @param {isuxportal.proto.services.contestant.IDashboardResponse=} [properties] Properties to set
                      */
                     function DashboardResponse(properties) {
-                        this.instances = [];
                         if (properties)
                             for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                 if (properties[keys[i]] != null)
@@ -16015,14 +16013,6 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     DashboardResponse.prototype.leaderboard = null;
-
-                    /**
-                     * DashboardResponse instances.
-                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} instances
-                     * @memberof isuxportal.proto.services.contestant.DashboardResponse
-                     * @instance
-                     */
-                    DashboardResponse.prototype.instances = $util.emptyArray;
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
@@ -16050,9 +16040,6 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
                             $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                        if (message.instances != null && message.instances.length)
-                            for (var i = 0; i < message.instances.length; ++i)
-                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.instances[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                         return writer;
                     };
 
@@ -16089,11 +16076,6 @@ $root.isuxportal = (function() {
                             switch (tag >>> 3) {
                             case 1:
                                 message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
-                                break;
-                            case 2:
-                                if (!(message.instances && message.instances.length))
-                                    message.instances = [];
-                                message.instances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -16135,15 +16117,6 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "leaderboard." + error;
                         }
-                        if (message.instances != null && message.hasOwnProperty("instances")) {
-                            if (!Array.isArray(message.instances))
-                                return "instances: array expected";
-                            for (var i = 0; i < message.instances.length; ++i) {
-                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.instances[i]);
-                                if (error)
-                                    return "instances." + error;
-                            }
-                        }
                         return null;
                     };
 
@@ -16164,16 +16137,6 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.leaderboard: object expected");
                             message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
                         }
-                        if (object.instances) {
-                            if (!Array.isArray(object.instances))
-                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: array expected");
-                            message.instances = [];
-                            for (var i = 0; i < object.instances.length; ++i) {
-                                if (typeof object.instances[i] !== "object")
-                                    throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.instances: object expected");
-                                message.instances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.instances[i]);
-                            }
-                        }
                         return message;
                     };
 
@@ -16190,17 +16153,10 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.arrays || options.defaults)
-                            object.instances = [];
                         if (options.defaults)
                             object.leaderboard = null;
                         if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
                             object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
-                        if (message.instances && message.instances.length) {
-                            object.instances = [];
-                            for (var j = 0; j < message.instances.length; ++j)
-                                object.instances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.instances[j], options);
-                        }
                         return object;
                     };
 

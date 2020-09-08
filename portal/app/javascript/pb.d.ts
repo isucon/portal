@@ -4041,9 +4041,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard */
                     leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
-
-                    /** DashboardResponse instances */
-                    instances?: (isuxportal.proto.resources.IContestantInstance[]|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4057,9 +4054,6 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard. */
                     public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
-
-                    /** DashboardResponse instances. */
-                    public instances: isuxportal.proto.resources.IContestantInstance[];
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
