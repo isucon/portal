@@ -66,8 +66,8 @@ def generate_score(team)
       instance_name: team.contestant_instances.first.private_ipv4_address,
       started_at: CONTEST_STARTS_AT + t,
       finished_at: CONTEST_STARTS_AT + t + 60,
-      created_at: CONTEST_STARTS_AT + t,
-      updated_at: CONTEST_STARTS_AT + t + 60,
+      #created_at: CONTEST_STARTS_AT + t,
+      #updated_at: CONTEST_STARTS_AT + t + 60,
     )
     job.benchmark_result = BenchmarkResult.new(
       team_id: team.id,
@@ -78,8 +78,6 @@ def generate_score(team)
       passed: passed,
       exit_status: 0,
       marked_at: job.finished_at,
-      created_at: job.finished_at,
-      updated_at: job.finished_at,
     )
     job.save!
   end
