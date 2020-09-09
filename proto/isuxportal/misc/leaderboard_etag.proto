@@ -1,0 +1,15 @@
+syntax = "proto3";
+package isuxportal.proto.misc;
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/misc";
+
+import "google/protobuf/timestamp.proto";
+
+message LeaderboardEtag {
+  bool admin = 1;
+  int64 team_id = 2;
+  int64 team_count = 3;
+  google.protobuf.Timestamp team_last_updated = 4;
+  int64 latest_result_id = 5;
+  int64 latest_progress_id = 6;
+  bool has_progress = 7;
+}

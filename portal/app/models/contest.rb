@@ -1,5 +1,6 @@
 require 'isuxportal/resources/leaderboard_pb'
 require 'isuxportal/resources/contest_pb'
+require 'isuxportal/misc/leaderboard_etag_pb'
 
 module Contest
   class RegistrationClosed < StandardError; end
@@ -93,6 +94,47 @@ module Contest
       else
         Isuxportal::Proto::Resources::Contest::Status::STANDBY
       end,
+    )
+  end
+
+  def self.leaderboard_etag(admin: false, team: nil, progresses: false)
+    teams = Team.count
+    team_last_updated = Team.pluck(:updated_at).max
+
+    latest_result = BenchmarkResult
+      .where(finished: true)
+      .where('exit_status = 0 AND exit_signal is null') # XXX: adhoc
+      .order(id: :desc, marked_at: :desc)
+      .limit(1)
+    unless admin
+      latest_result = latest_result.marked_before_contest_ended
+      latest_result = latest_result.visible_not_frozen(team)
+    end
+
+    if progresses
+      latest_progress = BenchmarkResult
+        .joins(:benchmark_job)
+        .where(benchmark_jobs: {status: :running})
+        .where(finished: false)
+        .where('exit_status is null AND exit_signal is null') # XXX: adhoc
+        .order(id: :desc, marked_at: :desc)
+        .limit(1)
+      unless admin
+        latest_progress = latest_progress.marked_before_contest_ended
+        latest_progress = latest_progress.visible_not_frozen(team)
+      end
+    end
+
+    Isuxportal::Proto::Misc::LeaderboardEtag.encode(
+      Isuxportal::Proto::Misc::LeaderboardEtag.new(
+        admin: admin,
+        team_id: team&.id || 0,
+        team_count: team_count,
+        team_last_updated: team_last_updated&.to_time,
+        latest_result_id: latest_result.pluck(:id)[0] || 0,
+        latest_progress_id: latest_progress&.pluck(:id)&.first || 0,
+        has_progress: progresses,
+      )
     )
   end
 
