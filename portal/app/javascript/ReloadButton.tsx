@@ -7,6 +7,6 @@ export interface Props {
 
 export const ReloadButton: React.FC<Props> = ({ requesting, onClick }) => {
   return <button className="button is-light is-small" disabled={requesting} onClick={onClick}>
-    Reload
+    <span className="material-icons">refresh</span>
   </button>;
 };

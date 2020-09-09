@@ -51,7 +51,7 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
   return (
     <tr className={classNames.join(" ")}>
       <th className="has-text-centered">
-        {me ? null : <button className={`button is-small is-${pinned ? "dark" : "light"}`}onClick={() => onPin(item.team!.id!.toString(), !pinned)} >Pin</button>}
+        {me ? null : <button className={`button is-small is-${pinned ? "dark" : "light"}`}onClick={() => onPin(item.team!.id!.toString(), !pinned)} ><span className="material-icons">push_pin</span></button>}
       </th>
       <th className="has-text-right">{position}</th>
       <td>{item.team!.id}: {item.team!.name}</td>
