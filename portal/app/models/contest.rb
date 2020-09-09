@@ -96,11 +96,10 @@ module Contest
     )
   end
 
-  def self.leaderboard(admin: false, team: nil)
+  def self.leaderboard(admin: false, team: nil, progresses: false)
     benchmark_results = BenchmarkResult
       .select(:team_id, :score, :created_at, :marked_at)
       .successfully_finished
-      .order(id: :asc)
       .preload(:team)
     unless admin
       benchmark_results = benchmark_results.marked_before_contest_ended
@@ -136,33 +135,34 @@ module Contest
       )
     end.to_a)
 
-    benchmark_progresses = BenchmarkResult
-      .select(:team_id, :score, :created_at, :marked_at)
-      .joins(:benchmark_job)
-      .where(benchmark_jobs: {status: :running})
-      .where(finished: false)
-      .where('exit_status is null AND exit_signal is null') # XXX: adhoc
-      .preload(:team)
-    unless admin
-      benchmark_progresses = benchmark_progresses.where('marked_at < ?', Rails.application.config.x.contest.contest_end) if Rails.application.config.x.contest.contest_end
-      benchmark_progresses = benchmark_progresses.where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) if Rails.application.config.x.contest.contest_freeze
-    end
-    progresses = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
-      score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
-        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
-          score: r.score,
-          started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
-          marked_at: r.marked_at.to_time,
+    if progresses
+      benchmark_progresses = BenchmarkResult
+        .select(:team_id, :score, :created_at, :marked_at)
+        .joins(:benchmark_job)
+        .where(benchmark_jobs: {status: :running})
+        .where(finished: false)
+        .where('exit_status is null AND exit_signal is null') # XXX: adhoc
+        .preload(:team)
+      unless admin
+        benchmark_progresses = benchmark_progresses.marked_before_contest_ended
+        benchmark_progresses = benchmark_progresses.visible_not_frozen(team)
+      end
+      progresses_items = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
+        score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
+          Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+            score: r.score,
+            started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
+            marked_at: r.marked_at.to_time,
+          )
+        end
+        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+          team: rs[0].team.to_pb(detail: false, members: false),
+          scores: [],
+          best_score: nil,
+          latest_score: score,
         )
       end
-      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
-        team: rs[0].team.to_pb(detail: false, members: false),
-        scores: [],
-        best_score: nil,
-        latest_score: score,
-      )
     end
-
 
     items.reject! { |_| !admin && _.team.hidden && team&.id != _.team.id }
     items.reject! { |_| _.team.disqualified || _.team.withdrawn }
@@ -171,7 +171,7 @@ module Contest
       teams: items,
       general_teams: items.reject { |_| _.team.student.status },
       student_teams: items.select { |_| _.team.student.status },
-      progresses: progresses,
+      progresses: progresses_items || [],
       contest: Contest.to_pb,
     )
   end

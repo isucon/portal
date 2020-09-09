@@ -14,7 +14,7 @@ RSpec.describe Contest, type: :model do
       allow(Rails.application.config.x.contest).to receive(:contest_end).and_return(now + 120)
     end
 
-    subject { Contest.leaderboard() }
+    subject { Contest.leaderboard(progresses: true) }
 
     describe "simple ranking" do
       before do
@@ -163,7 +163,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when admin" do
-        subject { Contest.leaderboard(admin: true, team: nil) }
+        subject { Contest.leaderboard(admin: true, team: nil, progresses: true) }
 
         it "should include all results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team2.id, team1.id, team3.id])
@@ -192,7 +192,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when anonymous" do
-        subject { Contest.leaderboard(admin: false, team: nil) }
+        subject { Contest.leaderboard(admin: false, team: nil, progresses: true) }
 
         it "should not include any post-freeze results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id, team1.id, team2.id])
@@ -217,7 +217,7 @@ RSpec.describe Contest, type: :model do
 
 
       context "when team" do
-        subject { Contest.leaderboard(admin: false, team: team1) }
+        subject { Contest.leaderboard(admin: false, team: team1, progresses: true) }
 
         it "should not include post-freeze results of other teams" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team1.id, team3.id, team2.id])
@@ -265,7 +265,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when admin" do
-        subject { Contest.leaderboard(admin: true, team: nil) }
+        subject { Contest.leaderboard(admin: true, team: nil, progresses: true) }
 
         it "should include all results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id,team2.id,team1.id])
@@ -297,7 +297,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when anonymous" do
-        subject { Contest.leaderboard(admin: false, team: nil) }
+        subject { Contest.leaderboard(admin: false, team: nil, progresses: true) }
 
         it "should not include post-freeze/close results of any teams" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id, team1.id, team2.id])
@@ -322,7 +322,7 @@ RSpec.describe Contest, type: :model do
 
 
       context "when team" do
-        subject { Contest.leaderboard(admin: false, team: team1) }
+        subject { Contest.leaderboard(admin: false, team: team1, progresses: true) }
 
         it "should not include post-freeze results of any teams, including theirselves" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team1.id, team3.id, team2.id])
