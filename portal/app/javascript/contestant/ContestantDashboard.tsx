@@ -84,7 +84,7 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
         </div>
       </div>
     </section>
-    <section className="is-fullwidth px-5 py-5">
+    <section className="is-fullwidth px-5 py-5 is-hidden-touch">
       <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} />
     </section>
     <div className="columns">
