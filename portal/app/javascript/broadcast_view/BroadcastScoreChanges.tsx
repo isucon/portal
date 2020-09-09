@@ -10,16 +10,19 @@ interface ChangeItemProps {
   position: number,
   lastPosition: number,
   lastScore: number,
+  lastBestScore: number,
   item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
 }
 
 type ChangeDirection = "up" | "down" | undefined;
 
-const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastScore, item }) => {
+const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastScore, lastBestScore, item }) => {
   const score = item.latestScore!.score as number;
+  const bestScore = (item.bestScore?.score as number) || 0;
   if (lastScore === null || lastScore === undefined ||
+      lastBestScore === null || lastBestScore === undefined ||
       lastPosition === null || lastPosition === undefined ||
-      position === lastPosition || score === lastScore) {
+      ((position === lastPosition || score === lastScore) && lastBestScore >= bestScore)) {
     return <></>;
   }
 
@@ -34,6 +37,8 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
     direction = "up";
   } else if (position > lastPosition) {
     direction = "down";
+  } else if (lastBestScore < bestScore) {
+    direction = "up";
   }
   classNames.push(`isux-broadcast-scorechanges-item--${direction}`);
 
@@ -68,26 +73,30 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
 };
 
   const onLeaderboardUpdate = (leaderboard: isuxportal.proto.resources.ILeaderboard, prevLeaderboard: isuxportal.proto.resources.ILeaderboard | null | undefined, limit: number, key: string) => {
-    type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, lastPosition?: number, lastScore?: number | Long};
+    type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, lastPosition?: number, lastScore?: number | Long, lastBestScore?: number | Long};
 
     const prevRanks = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
       return [t.team!.id, idx+1];
     }));
-    const prevScores = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
-      return [t.team!.id, t.latestScore?.score!];
+    const prevTeams = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
+      return [t.team!.id, t];
     }));
+
 
     //console.log(prevRanks);
     //console.log(prevScores);
 
     const teams = leaderboard.teams!.map((item, idx): TeamStanding => {
-                    return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item};
+                    const prev = prevTeams.get(item.team!.id);
+                    const lastScore = prev?.latestScore?.score!;
+                    const lastBestScore = prev?.bestScore?.score!;
+                    return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore, lastBestScore, item};
                   })
                   .filter((team) => team.item.latestScore && team.lastScore !== undefined)
-                  .filter((team) => team.lastPosition != team.position && team.lastScore != team.item.latestScore!.score!);
+                  .filter((team) => (team.lastPosition != team.position && team.lastScore != team.item.latestScore!.score!) || (team.lastBestScore && team.item.bestScore && team.lastBestScore < team.item.bestScore.score!));
 
-    const renderTeam = (key: string, {item, position, lastPosition, lastScore}: TeamStanding) => {
-      return <ChangeItem item={item} position={position} lastPosition={lastPosition!} lastScore={lastScore! as number} key={`${key}-${item.team!.id!.toString()}`} />;
+    const renderTeam = (key: string, {item, position, lastPosition, lastScore, lastBestScore}: TeamStanding) => {
+      return <ChangeItem item={item} position={position} lastPosition={lastPosition!} lastScore={lastScore! as number} lastBestScore={lastBestScore! as number} key={`${key}-${item.team!.id!.toString()}`} />;
     };
 
     const pages = [];
