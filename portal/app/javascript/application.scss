@@ -142,6 +142,7 @@ $isuBlack: #313844;
   padding: 2vw 3vw;
   border-radius: 2.5vw;
 
+  // 300x90
   min-width: 0;
   height: 30vw;
 
@@ -162,6 +163,82 @@ $isuBlack: #313844;
       line-height: 21vw;
       font-weight: 900;
       font-family: 'Noto Sans JP', sans-serif;
+    }
+  }
+}
+
+.isux-broadcast-leaderboard {
+  padding: 5px;
+
+  .isux-broadcast-leaderboard-item {
+    height: 8vw;
+
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    margin-bottom: 0 !important;
+
+    font-size: 3.6vw;
+
+    & > .column {
+      height: 8vw;
+      display: flex;
+      align-items: center;
+      p {
+        width: 100%;
+      }
+    }
+
+    .isux-broadcast-leaderboard-item-position {
+      background: rgba(lighten($isuBlack, 10%), 0.93);
+      flex: none;
+      width: 12%;
+      p {
+        color: white;
+        font-size: 3.5vw;
+        font-weight: 900;
+        text-align: center;
+      }
+    }
+    .isux-broadcast-leaderboard-item-team {
+      background: rgba($isuBlack, 0.93);
+      color: white;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 55%;
+      p {
+        width: 100%;
+        margin-left: 2vw;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .isux-broadcast-leaderboard-item-student {
+      background: rgba($isuBlack, 0.93);
+      color: white;
+      flex: none;
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .material-icons {
+        font-size: 4.8vw;
+        line-height: 1;
+      }
+    }
+    .isux-broadcast-leaderboard-item-score {
+      background: rgba(255, 255, 255, 0.93);
+      text-align: right;
+      font-weight: 600;
+      font-size: 3.5vw;
+      flex: none;
+      width: 20%;
+      p {
+        text-align: right;
+        margin-right: 2vw;
+      }
     }
   }
 }
