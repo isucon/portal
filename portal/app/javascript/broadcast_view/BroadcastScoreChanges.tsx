@@ -1,6 +1,7 @@
 import type { isuxportal } from "../pb";
 import { ApiClient } from "../ApiClient";
 import React from "react";
+import ReactDOM from "react-dom";
 
 import {Timestamp} from "../Timestamp";
 import {ErrorMessage} from "../ErrorMessage";
@@ -62,13 +63,8 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
   );
 };
 
-  const onDashboardUpdate = (dashboard: isuxportal.proto.services.audience.DashboardResponse, prevDashboard: isuxportal.proto.services.audience.DashboardResponse | null, limit: number) => {
+  const onLeaderboardUpdate = (leaderboard: isuxportal.proto.resources.ILeaderboard, prevLeaderboard: isuxportal.proto.resources.ILeaderboard | null | undefined, limit: number) => {
     type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, lastPosition?: number, lastScore?: number | Long};
-
-    if (!dashboard) throw new Error("[BUG] onDashboardUpdate needs a dashboard");
-
-    const leaderboard = dashboard.leaderboard!;
-    const prevLeaderboard = prevDashboard?.leaderboard;
 
     const prevRanks = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
       return [t.team!.id, idx+1];
@@ -77,10 +73,13 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
       return [t.team!.id, t.latestScore?.score!];
     }));
 
+    console.log(prevRanks);
+    console.log(prevScores);
+
     const teams = leaderboard.teams!.map((item, idx): TeamStanding => {
                     return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item};
                   })
-                  .filter((team) => !!team.item.latestScore && team.lastScore !== undefined)
+                  .filter((team) => team.item.latestScore && team.lastScore !== undefined)
                   .filter((team) => team.lastPosition != team.position && team.lastScore != team.item.latestScore!.score!);
 
     const renderTeam = (key: string, {item, position, lastPosition, lastScore}: TeamStanding) => {
@@ -90,6 +89,7 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
     const pages = [];
     for (let i = 0; i < teams.length; i += limit) {
       const page = teams.slice(i, i + limit).map((item) => renderTeam("change", item));
+      console.log(page);
       pages.push(page);
     };
     return pages;
@@ -100,49 +100,72 @@ interface Props {
   limit: number,
   showDummy?: boolean,
   bottom?: boolean,
+  leaderboard?: isuxportal.proto.resources.ILeaderboard,
 }
 
 export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
-  const { client, limit } = props;
+  const { client } = props;
 
   const [ error, setError ] = React.useState<Error | null>(null);
   const [ requesting, setRequesting ] = React.useState(false);
-  const [ prevDashboard, setPrevDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
-
-  const [ changeItemPages, setChangeItemPages ] = React.useState<JSX.Element[][]>([]);
-
 
   const refresh = () => {
     if (requesting) return;
     setRequesting(true);
     client.getAudienceDashboard().then((db) => {
-      setPrevDashboard(dashboard);
-      setDashboard(db);
-      setChangeItemPages([...changeItemPages, ...onDashboardUpdate(db, prevDashboard, limit)]);
-      setError(null);
-      setRequesting(false);
+      ReactDOM.unstable_batchedUpdates(() => {
+        const prev = dashboard;
+        setDashboard(db);
+        setError(null);
+        setRequesting(false);
+      })
     }).catch((e) => {
-      setError(e);
-      setRequesting(false);
+      ReactDOM.unstable_batchedUpdates(() => {
+        setError(e);
+        setRequesting(false);
+      });
     });
   };
+
   React.useEffect(() => {
     if (!dashboard) refresh();
-  }, [dashboard]);
+  }, []);
   React.useEffect(() => {
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 10000);
     return (() => clearInterval(timer));
   }, []);
 
+  return <>
+    {error ? <ErrorMessage error={error} /> : null}
+    <BroadcastScoreChangesInner {...props} leaderboard={dashboard?.leaderboard!} />
+  </>;
+}
+
+const usePrevious = function<T>(value: T) {
+  const ref = React.useRef<T>();
+  React.useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
+
+const BroadcastScoreChangesInner: React.FC<Props> = (props: Props) => {
+  const prevProps = usePrevious(props);
+  const prevLeaderboard = prevProps?.leaderboard;
+
+  const [ changeItemPages, setChangeItemPages ] = React.useState<JSX.Element[][]>([]);
   React.useEffect(() => {
     const timer = setTimeout(() => setChangeItemPages(changeItemPages.slice(1,undefined)), 4000);
     return (() => clearTimeout(timer));
   }, [changeItemPages]);
 
-  if (error) return <ErrorMessage error={error} />;
-
+  React.useEffect(() => {
+    if(!props.leaderboard) return;
+    setChangeItemPages([...changeItemPages, ...onLeaderboardUpdate(props.leaderboard, prevLeaderboard, props.limit)]);
+  }, [props.leaderboard, prevLeaderboard]);
 
   const dummies = props.showDummy ? [
       <ChangeItem item={{latestScore: {score: 10000}, team: {id: 424242, name: 'あいうあいうあいう', student: {status: true}}}} lastScore={50000} lastPosition={123} position={523} key="dummy1" />,

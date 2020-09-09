@@ -66,6 +66,7 @@ interface Props {
   limit: number,
   mode?: string,
   bottom?: boolean,
+  leaderboard?: isuxportal.proto.resources.ILeaderboard,
 }
 
 export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
@@ -73,13 +74,11 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
 
   const [ error, setError ] = React.useState<Error | null>(null);
   const [ requesting, setRequesting ] = React.useState(false);
-  const [ prevDashboard, setPrevDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
   const refresh = () => {
     if (requesting) return;
     setRequesting(true);
     client.getAudienceDashboard().then((db) => {
-      setPrevDashboard(dashboard);
       setDashboard(db);
     setError(null);
       setRequesting(false);
@@ -97,11 +96,27 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
     return (() => clearInterval(timer));
   }, []);
 
-  if (error) return <ErrorMessage error={error} />;
-  if (!dashboard) return <p>Loading</p>;
+  return <>
+    {error ? <ErrorMessage error={error} /> : null}
+    <BroadcastLeaderboardInner {...props} leaderboard={dashboard?.leaderboard!} />
+  </>;
+};
 
-  const leaderboard = dashboard.leaderboard!;
-  const prevLeaderboard = prevDashboard?.leaderboard;
+const usePrevious = function<T>(value: T) {
+  const ref = React.useRef<T>();
+  React.useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};
+
+
+const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
+  const { leaderboard, mode, limit } = props;
+  const prevProps = usePrevious(props);
+  const prevLeaderboard = prevProps?.leaderboard;
+
+  if (!leaderboard) return <p>Loading</p>;
 
   const prevRanks = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
     return [t.team!.id, idx+1];
