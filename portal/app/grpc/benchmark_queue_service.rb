@@ -3,7 +3,7 @@ require 'isuxportal/services/bench/receiving_services_pb'
 
 class BenchmarkQueueService < Isuxportal::Proto::Services::Bench::BenchmarkQueue::Service
   def receive_benchmark_job(request, _call)
-    unless request.token == Rails.application.config.x.bench_auth.token
+    unless Rack::Utils.secure_compare(request.token, Rails.application.config.x.bench_auth.token)
       raise GRPC::Unauthenticated.new("Unauthenticated")
     end
 
