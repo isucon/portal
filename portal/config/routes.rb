@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   get '/teams' => 'root#index'
   get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
   get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
+
+  get '/broadcast_view/leaderboard' => 'broadcast_view#index'
+  get '/broadcast_view/score_changes' => 'broadcast_view#index'
+  get '/broadcast_view/clock' => 'broadcast_view#index'
+
   get '/site/sha' => RevisionPlate::App.new("#{__dir__}/../REVISION")
 
 
