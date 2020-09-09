@@ -169,6 +169,14 @@ $isuBlue: #3990cc;
   }
 }
 
+.isux-broadcast-bottomflex {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 99vh;
+  justify-content: flex-end;
+}
+
 .isux-broadcast-leaderboard {
   padding: 5px;
 

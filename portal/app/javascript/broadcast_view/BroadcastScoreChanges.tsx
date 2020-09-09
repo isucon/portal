@@ -98,7 +98,8 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
 interface Props {
   client: ApiClient,
   limit: number,
-  showDummy?: bool,
+  showDummy?: boolean,
+  bottom?: boolean,
 }
 
 export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
@@ -150,7 +151,7 @@ export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
   ] : [];
 
   return (
-    <div className="isux-broadcast-scorechanges">
+    <div className={`isux-broadcast-scorechanges ${props.bottom ? "isux-broadcast-bottomflex" : ""}`}>
       {dummies}
       {changeItemPages[0]}
     </div>

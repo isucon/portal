@@ -65,6 +65,7 @@ interface Props {
   client: ApiClient,
   limit: number,
   mode?: string,
+  bottom?: boolean,
 }
 
 export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
@@ -128,7 +129,7 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
     return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} />;
   };
   return (
-    <div className="isux-broadcast-leaderboard">
+    <div className={`isux-broadcast-leaderboard ${props.bottom ? "isux-broadcast-bottomflex" : ""}`}>
       {teams.slice(0, limit || undefined).map((v) => renderTeam("standings", v))}
     </div>
   );

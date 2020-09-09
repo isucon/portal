@@ -40,13 +40,13 @@ export class BroadcastViewApp extends React.Component<Props, State> {
         <Route exact path="/broadcast_view/leaderboard" render={({match, location}) => {
           const params = new URLSearchParams(location.search);
           return <>
-            <BroadcastLeaderboard client={this.props.client} limit={parseInt(params.get('limit') || '15', 10)} mode={(params.get('mode') || 'all')} />
+            <BroadcastLeaderboard client={this.props.client} limit={parseInt(params.get('limit') || '15', 10)} mode={(params.get('mode') || 'all')}  bottom={params.get('bottom') === '1'} />
           </>;
         }} />
         <Route exact path="/broadcast_view/score_changes" render={({match, location}) => {
           const params = new URLSearchParams(location.search);
           return <>
-            <BroadcastScoreChanges client={this.props.client} limit={parseInt(params.get('limit') || '15', 10)} showDummy={params.get('dummy') === '1'}/>
+            <BroadcastScoreChanges client={this.props.client} limit={parseInt(params.get('limit') || '15', 10)} showDummy={params.get('dummy') === '1'} bottom={params.get('bottom') === '1'} />
           </>;
         }} />
       </Switch>
