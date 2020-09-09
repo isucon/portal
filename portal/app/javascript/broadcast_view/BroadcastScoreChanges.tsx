@@ -17,7 +17,11 @@ type ChangeDirection = "up" | "down" | undefined;
 
 const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastScore, item }) => {
   const score = item.latestScore!.score as number;
-  if (!lastScore || !lastPosition || position == lastPosition || score == lastScore) return <></>;
+  if (lastScore === null || lastScore === undefined ||
+      lastPosition === null || lastPosition === undefined ||
+      position === lastPosition || score === lastScore) {
+    return <></>;
+  }
 
   const studentStatus = item.team!.student?.status && (
     <span className="material-icons">school</span>
@@ -63,7 +67,7 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
   );
 };
 
-  const onLeaderboardUpdate = (leaderboard: isuxportal.proto.resources.ILeaderboard, prevLeaderboard: isuxportal.proto.resources.ILeaderboard | null | undefined, limit: number) => {
+  const onLeaderboardUpdate = (leaderboard: isuxportal.proto.resources.ILeaderboard, prevLeaderboard: isuxportal.proto.resources.ILeaderboard | null | undefined, limit: number, key: string) => {
     type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, lastPosition?: number, lastScore?: number | Long};
 
     const prevRanks = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
@@ -73,8 +77,8 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
       return [t.team!.id, t.latestScore?.score!];
     }));
 
-    console.log(prevRanks);
-    console.log(prevScores);
+    //console.log(prevRanks);
+    //console.log(prevScores);
 
     const teams = leaderboard.teams!.map((item, idx): TeamStanding => {
                     return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item};
@@ -88,7 +92,7 @@ const ChangeItem: React.FC<ChangeItemProps> = ({ position, lastPosition, lastSco
 
     const pages = [];
     for (let i = 0; i < teams.length; i += limit) {
-      const page = teams.slice(i, i + limit).map((item) => renderTeam("change", item));
+      const page = teams.slice(i, i + limit).map((item) => renderTeam(key, item));
       console.log(page);
       pages.push(page);
     };
@@ -157,15 +161,31 @@ const BroadcastScoreChangesInner: React.FC<Props> = (props: Props) => {
   const prevLeaderboard = prevProps?.leaderboard;
 
   const [ changeItemPages, setChangeItemPages ] = React.useState<JSX.Element[][]>([]);
-  React.useEffect(() => {
-    const timer = setTimeout(() => setChangeItemPages(changeItemPages.slice(1,undefined)), 4000);
-    return (() => clearTimeout(timer));
-  }, [changeItemPages]);
+  const [ newChangeItemPages, setNewChangeItemPages ] = React.useState<JSX.Element[][] | null>(null);
 
   React.useEffect(() => {
     if(!props.leaderboard) return;
-    setChangeItemPages([...changeItemPages, ...onLeaderboardUpdate(props.leaderboard, prevLeaderboard, props.limit)]);
-  }, [props.leaderboard, prevLeaderboard]);
+    //console.log("setNewChangeItemPages (onLeaderboardUpdate)", changeItemPages);
+    setNewChangeItemPages(onLeaderboardUpdate(props.leaderboard, prevLeaderboard, props.limit, `${props.leaderboard?.generatedAt?.seconds}/${props.leaderboard?.generatedAt?.nanos}`));
+    //console.log("setNewChangeItemPages (onLeaderboardUpdate) done", changeItemPages);
+  }, [`${props.leaderboard?.generatedAt?.seconds}/${props.leaderboard?.generatedAt?.nanos}`]);
+
+  React.useEffect(() => {
+    if (newChangeItemPages) {
+      setChangeItemPages([...changeItemPages, ...newChangeItemPages]);
+      setNewChangeItemPages(null);
+    }
+    const timer = setTimeout(() => {
+      //console.log("setChangeItemPages (timeout)", changeItemPages);
+      setChangeItemPages(changeItemPages.slice(1,undefined));
+    }, 4000);
+    return (() => {
+      //console.log("setChangeItemPages (clearTimeout)", changeItemPages);
+      clearTimeout(timer);
+    });
+  }, [setChangeItemPages, changeItemPages, newChangeItemPages]);
+
+  console.log("render", changeItemPages);
 
   const dummies = props.showDummy ? [
       <ChangeItem item={{latestScore: {score: 10000}, team: {id: 424242, name: 'あいうあいうあいう', student: {status: true}}}} lastScore={50000} lastPosition={123} position={523} key="dummy1" />,
