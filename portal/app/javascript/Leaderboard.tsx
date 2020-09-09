@@ -23,12 +23,13 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
     <span className="tag is-info is-pulled-right">学生</span>
   );
   const classNames = [];
-  if (pinned || me) classNames.push("isux-leaderboard-pinned");
+  if (pinned) classNames.push("isux-leaderboard-pinned");
+  if (me) classNames.push("isux-leaderboard-me");
   if (animationClassName) classNames.push(animationClassName);
 
   React.useEffect(() => {
-    if (!lastPosition) return
-    if (!changed) return
+    if (!lastPosition) return;
+    if (!changed) return;
     const set = lastPosition && lastPosition != position;
     if (lastPosition > position) {
       setAnimationClassName("isux-leaderboard-change-up");
@@ -49,10 +50,8 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
   return (
     <tr className={classNames.join(" ")}>
       <th className="has-text-centered">
-        {pinned ?
-          <button className="button is-small is-dark" onClick={() => onPin(item.team!.id!.toString(), false)} >Pin</button>
-        : <button className="button is-small is-light" onClick={() => onPin(item.team!.id!.toString(), true)} >Pin</button>}
-        </th>
+        {me ? null : <button className={`button is-small is-${pinned ? "dark" : "light"}`}onClick={() => onPin(item.team!.id!.toString(), !pinned)} >Pin</button>}
+      </th>
       <th className="has-text-right">{position}</th>
       <td>{item.team!.id}: {item.team!.name}</td>
       <td className="has-text-right">{item.bestScore?.score || 0}</td>

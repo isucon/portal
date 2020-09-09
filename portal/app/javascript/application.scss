@@ -22,6 +22,9 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
 .isux-leaderboard-pinned {
   background-color: #eee;
 }
+.isux-leaderboard-me {
+  background-color: #fffcc7;
+}
 
 .isux-leaderboard-change-up {
   animation: isux-leaderboard-change-up 1s;
