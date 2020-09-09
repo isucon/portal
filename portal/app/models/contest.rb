@@ -99,12 +99,12 @@ module Contest
   def self.leaderboard(admin: false, team: nil)
     benchmark_results = BenchmarkResult
       .select(:team_id, :score, :created_at, :marked_at)
-      .where(finished: true)
-      .where('exit_status = 0 AND exit_signal is null') # XXX: adhoc
+      .successfully_finished
+      .order(id: :asc)
       .preload(:team)
     unless admin
-      benchmark_results = benchmark_results.where('marked_at < ?', Rails.application.config.x.contest.contest_end) if Rails.application.config.x.contest.contest_end
-      benchmark_results = benchmark_results.where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) if Rails.application.config.x.contest.contest_freeze
+      benchmark_results = benchmark_results.marked_before_contest_ended
+      benchmark_results = benchmark_results.visible_not_frozen(team)
     end
 
     teams = benchmark_results.group_by(&:team_id)

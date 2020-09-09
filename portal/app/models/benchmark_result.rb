@@ -15,6 +15,22 @@ class BenchmarkResult < ApplicationRecord
   before_validation :set_team_from_benchmark_job
   before_validation :set_score_zero_when_failed
 
+  scope :successfully_finished, -> { where(finished: true).where('exit_status = 0 and exit_signal is null') }
+  scope :marked_before_contest_ended, -> {
+    if Rails.application.config.x.contest.contest_end
+      where('marked_at < ?', Rails.application.config.x.contest.contest_end) 
+    else
+      where('1=1')
+    end
+  }
+  scope :visible_not_frozen, -> (team) {
+    if Rails.application.config.x.contest.contest_freeze
+      where('(benchmark_results.team_id = ? OR benchmark_results.marked_at < ?)', team&.id, Rails.application.config.x.contest.contest_freeze) 
+    else
+      where('1=1')
+    end
+  }
+
   def errored?
     finished? && (signaled? || !successfully_exited?)
   end
