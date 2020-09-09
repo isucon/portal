@@ -5,8 +5,6 @@ import React from "react";
 import {Timestamp} from "../Timestamp";
 import {ErrorMessage} from "../ErrorMessage";
 
-const NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT = 25;
-
 interface TeamItemProps {
   position: number,
   lastPosition?: number,
@@ -125,7 +123,7 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
                   }
                 }).map((item, idx): TeamStanding => {
                   return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item};
-                });
+                }).filter((team) => !!team.item.latestScore);
   const renderTeam = (key: string, {item, position, lastPosition, lastScore}: TeamStanding) => {
     return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} />;
   };
