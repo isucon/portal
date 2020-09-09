@@ -220,6 +220,7 @@ module Contest
       student_teams: items.select { |_| _.team.student.status },
       progresses: progresses_items || [],
       contest: Contest.to_pb,
+      generated_at: Time.now.to_time,
     )
   end
 end

@@ -1879,6 +1879,9 @@ export namespace isuxportal {
                 /** Leaderboard progresses */
                 progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
 
+                /** Leaderboard generatedAt */
+                generatedAt?: (google.protobuf.ITimestamp|null);
+
                 /** Leaderboard contest */
                 contest?: (isuxportal.proto.resources.IContest|null);
             }
@@ -1903,6 +1906,9 @@ export namespace isuxportal {
 
                 /** Leaderboard progresses. */
                 public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard generatedAt. */
+                public generatedAt?: (google.protobuf.ITimestamp|null);
 
                 /** Leaderboard contest. */
                 public contest?: (isuxportal.proto.resources.IContest|null);
