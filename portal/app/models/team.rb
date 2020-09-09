@@ -1,15 +1,15 @@
 require 'isuxportal/resources/team_pb'
 
 class Team < ApplicationRecord
-  has_many :members, class_name: 'Contestant'
+  has_many :members, class_name: 'Contestant', dependent: :destroy
   has_one :leader, class_name: 'Contestant'
 
-  has_many :benchmark_jobs
-  has_many :benchmark_results
-  has_many :clarifications
-  has_many :contestant_instances
+  has_many :benchmark_jobs, dependent: :destroy
+  has_many :benchmark_results, dependent: :destroy
+  has_many :clarifications, dependent: :destroy
+  has_many :contestant_instances, dependent: :destroy
 
-  has_one :survey_response
+  has_one :survey_response, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :email_address, presence: true
