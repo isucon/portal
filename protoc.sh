@@ -2,7 +2,7 @@
 cd "$(dirname $0)"
 (
   mkdir -p tmp/protoc-go
-  protoc -I=proto --go_out=tmp/protoc-go proto/**/*.proto
+  protoc -I=proto --go_out=tmp/protoc-go --go-grpc_out=tmp/protoc-go proto/**/*.proto
   rm -rf proto.go
   mv tmp/protoc-go/github.com/isucon/isucon10-portal/proto.go ./
   rm -rf tmp/protoc-go
