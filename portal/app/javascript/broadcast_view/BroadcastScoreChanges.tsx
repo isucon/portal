@@ -197,9 +197,9 @@ const BroadcastScoreChangesInner: React.FC<Props> = (props: Props) => {
   console.log("render", changeItemPages);
 
   const dummies = props.showDummy ? [
-      <ChangeItem item={{latestScore: {score: 10000}, team: {id: 424242, name: 'あいうあいうあいう', student: {status: true}}}} lastScore={50000} lastPosition={123} position={523} key="dummy1" />,
-      <ChangeItem item={{latestScore: {score: 20000}, team: {id: 424243, name: 'なにぬなにぬなにぬ'}}} lastScore={10000} lastPosition={542} position={142} key="dummy2" />,
-      <ChangeItem item={{latestScore: {score: 87654321}, team: {id: 400000, name: 'railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。'}}} lastScore={12345678} lastPosition={542} position={142} key="dummy3" />,
+      <ChangeItem item={{latestScore: {score: 10000}, team: {id: 424242, name: 'あいうあいうあいう', student: {status: true}}}} lastBestScore={10000000} lastScore={50000} lastPosition={123} position={523} key="dummy1" />,
+      <ChangeItem item={{latestScore: {score: 20000}, team: {id: 424243, name: 'なにぬなにぬなにぬ'}}} lastBestScore={10000000} lastScore={10000} lastPosition={542} position={142} key="dummy2" />,
+      <ChangeItem item={{latestScore: {score: 87654321}, team: {id: 400000, name: 'railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。'}}} lastBestScore={10000000} lastScore={12345678} lastPosition={542} position={142} key="dummy3" />,
   ] : [];
 
   return (
