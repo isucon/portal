@@ -24,6 +24,8 @@ class Api::Contestant::BenchmarkJobsController < Api::Contestant::ApplicationCon
 
   pb :create, Isuxportal::Proto::Services::Contestant::EnqueueBenchmarkJobRequest
   def create
+    raise Api::ApplicationController::Errors::Forbidden.new("contest is not running") unless Contest.contest_running?
+
     @benchmark_job = BenchmarkJob.create!(
       team: current_team,
       target: ContestantInstance.find_by!(team: current_team, id: pb.target_id),
