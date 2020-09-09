@@ -4,7 +4,6 @@ use crate::api::isuxportal::proto::services::bench::benchmark_report_client::Ben
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
 use crate::api::isuxportal::proto::services::bench::ReportBenchmarkResultRequest;
 use crate::api::isuxportal::proto::services::bench::ReportBenchmarkResultResponse;
-use crate::config::Config;
 use crate::error::Error;
 
 #[derive(Debug)]
@@ -57,19 +56,19 @@ impl Context {
 
 #[derive(Clone)]
 pub struct ReporterInbox {
-    outbound_tx: tokio::sync::mpsc::Sender<OutboundMessage>,
+    outbound_tx: tokio::sync::mpsc::UnboundedSender<OutboundMessage>,
 }
 
 impl ReporterInbox {
     pub async fn send(&mut self, report: Report) {
         log::trace!("ReporterInbox#send: {:?}", report);
-        self.outbound_tx.send(OutboundMessage::Report(report)).await.unwrap();
+        self.outbound_tx.send(OutboundMessage::Report(report)).unwrap();
         log::trace!("ReporterInbox#send: done");
     }
 
     pub async fn close(&mut self) {
         log::trace!("ReporterInbox#close");
-        if let Err(e) = self.outbound_tx.send(OutboundMessage::Shutdown).await {
+        if let Err(e) = self.outbound_tx.send(OutboundMessage::Shutdown) {
             log::warn!("ReporterInbox#close: {:?}", e);
         }
         log::trace!("ReporterInbox#close: done");
@@ -88,14 +87,14 @@ impl Reporter {
 
     pub fn start(self) -> (ReporterInbox, impl std::future::Future<Output = Result<(), Error>>) {
         log::info!("Reporter/start: Starting");
-        let (outbound_tx, outbound_rx) = tokio::sync::mpsc::channel(4);
+        let (outbound_tx, outbound_rx) = tokio::sync::mpsc::unbounded_channel();
         let inbox = ReporterInbox { outbound_tx };
 
         (inbox, self.outbound_loop(outbound_rx))
     }
 
 
-    async fn outbound_loop(self, mut rx: tokio::sync::mpsc::Receiver<OutboundMessage>) -> Result<(), Error> {
+    async fn outbound_loop(self, mut rx: tokio::sync::mpsc::UnboundedReceiver<OutboundMessage>) -> Result<(), Error> {
         log::trace!("Reporter/outbound_loop: Starting");
         let mut client = BenchmarkReportClient::new(self.channel.clone());
         let mut context = Context::new();
@@ -106,7 +105,7 @@ impl Reporter {
                 tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
             }
             num_requests += 1;
-            let (inner_outbound_txi, inner_outbound_rx) = tokio::sync::mpsc::channel(6);
+            let (inner_outbound_txi, inner_outbound_rx) = tokio::sync::mpsc::unbounded_channel();
             let mut inner_outbound_tx = Some(inner_outbound_txi);
 
             // Need at least single message to start receiving response
@@ -192,7 +191,7 @@ impl Reporter {
         }
     }
 
-    async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::Sender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
+    async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
         match ob_msg {
             Some(OutboundMessage::Report(report)) => {
                 log::trace!("Reporter/outbound_loop/OutboundMessage: Sending {:?}", report);
@@ -235,7 +234,7 @@ impl Reporter {
                 }
 
                 log::trace!("Reporter/outbound_loop/outbound_process: Enqueue...");
-                inner_outbound_tx.send(req).await.unwrap(); // TODO: unwrap is unsuitable
+                inner_outbound_tx.send(req).unwrap(); // TODO: unwrap is unsuitable
                 log::trace!("Reporter/outbound_loop/outbound_process: Enqueued");
                 context.last_result = result;
             }
@@ -257,10 +256,10 @@ impl Reporter {
             }
 
             log::warn!("Reporter/retry_last_report: Retrying request (attempt={:?}) {:?}", num_attempt, orig_request);
-            let (mut outgoing_tx, outgoing_rx) = tokio::sync::mpsc::channel(1); // oneshot is not a stream
+            let (mut outgoing_tx, outgoing_rx) = tokio::sync::mpsc::unbounded_channel(); // oneshot is not a stream
             let mut request = orig_request.clone();
             request.nonce = 0;
-            outgoing_tx.send(request).await.unwrap();
+            outgoing_tx.send(request).unwrap();
             drop(outgoing_tx);
 
             let mut client = BenchmarkReportClient::new(self.channel.clone());
