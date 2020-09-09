@@ -91,6 +91,16 @@ GENERAL_TEAMS.times do
   teams << generate_team_and_members(student: true)
 end
 
-teams.each do |team|
-  generate_score(team)
+require 'thread'
+q = Queue.new
+teams.each do |t|
+  q << t
 end
+q.close
+4.times.map do
+  Thread.new do
+    while t = q.pop
+      generate_score(t)
+    end
+  end
+end.each(&:join)
