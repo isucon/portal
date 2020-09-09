@@ -12,4 +12,6 @@ message LeaderboardEtag {
   int64 latest_result_id = 5;
   int64 latest_progress_id = 6;
   bool has_progress = 7;
+  google.protobuf.Timestamp latest_result_at = 8;
+  google.protobuf.Timestamp latest_progress_at = 9;
 }

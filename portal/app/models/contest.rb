@@ -104,7 +104,7 @@ module Contest
     latest_result = BenchmarkResult
       .where(finished: true)
       .where('exit_status = 0 AND exit_signal is null') # XXX: adhoc
-      .order(id: :desc, marked_at: :desc)
+      .order(updated_at: :desc)
       .limit(1)
     unless admin
       latest_result = latest_result.marked_before_contest_ended
@@ -117,7 +117,7 @@ module Contest
         .where(benchmark_jobs: {status: :running})
         .where(finished: false)
         .where('exit_status is null AND exit_signal is null') # XXX: adhoc
-        .order(id: :desc, marked_at: :desc)
+        .order(updated_at: :desc)
         .limit(1)
       unless admin
         latest_progress = latest_progress.marked_before_contest_ended
@@ -125,14 +125,19 @@ module Contest
       end
     end
 
+    latest_result_id, latest_result_at = latest_result.pluck(:id, :marked_at)[0]
+    latest_progress_id, latest_progress_at = latest_progress&.pluck(:id, :marked_at)&.first
+
     Isuxportal::Proto::Misc::LeaderboardEtag.encode(
       Isuxportal::Proto::Misc::LeaderboardEtag.new(
         admin: admin,
         team_id: team&.id || 0,
-        team_count: team_count,
+        team_count: teams,
         team_last_updated: team_last_updated&.to_time,
-        latest_result_id: latest_result.pluck(:id)[0] || 0,
-        latest_progress_id: latest_progress&.pluck(:id)&.first || 0,
+        latest_result_id: latest_result_id  || 0,
+        latest_result_at: latest_result_at&.to_time,
+        latest_progress_id: latest_progress_id || 0,
+        latest_progress_at: latest_progress_at&.to_time,
         has_progress: progresses,
       )
     )
