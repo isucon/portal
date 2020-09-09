@@ -4,12 +4,15 @@ import dayjs from "dayjs";
 
 import uPlot from "uplot";
 
+import {COLORS} from "./ScoreGraphColors";
+
 interface Props {
   teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[],
   contest: isuxportal.proto.resources.IContest,
+  width?: number,
 }
 
-export const ScoreGraph: React.FC<Props> = ({ teams, contest }) => {
+export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
   const elem = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -18,12 +21,12 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest }) => {
     const rect = elem.current.getBoundingClientRect()
 
     const opts: uPlot.Options = {
-      width: 1200,
+      width: width || 1100,
       height: 600,
       scales: {
         x: {
           auto: false,
-          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number)+1],
+          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number)+3600],
         },
         pt: {
           auto: true,
@@ -36,7 +39,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest }) => {
         ...teams.map((item) => {
           return {
             label: item.team!.name!,
-            stroke: 'red',
+            stroke: COLORS[(item.team!.id! as number) % COLORS.length],
             scale: 'pt',
           }
         })
@@ -45,6 +48,8 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest }) => {
         {},
         {
           label: 'Score',
+          scale: 'pt',
+          show: true,
         },
       ],
     };
