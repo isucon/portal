@@ -21,8 +21,8 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
     const rect = elem.current.getBoundingClientRect()
 
     const opts: uPlot.Options = {
-      width: width || 1100,
-      height: 600,
+      width: width || 950,
+      height: 500,
       scales: {
         x: {
           auto: false,
