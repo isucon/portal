@@ -2,6 +2,7 @@ import type { isuxportal } from "./pb";
 import React from "react";
 
 import {Timestamp} from "./Timestamp";
+import type {TeamPinsMap, TeamPins} from "./TeamPins";
 
 const NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT = 25;
 
@@ -65,26 +66,11 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
 type Mode = "all" | "general" | "students";
 
 interface Props {
+  teamPins: TeamPinsMap,
+  onPin: (teamId: string, flag: boolean) => void,
   leaderboard: isuxportal.proto.resources.ILeaderboard;
   teamId?: number | Long,
 }
-
-const loadPins = () => {
-  const map: Map<string, boolean> = new Map();
-  const item = window.localStorage.getItem('isuxportal-dashboard-pins');
-  if (item) {
-    const teamIds: string[] = JSON.parse(item);
-    for (const id of teamIds) {
-      map.set(id, true);
-    }
-  }
-  return map;
-};
-
-const savePins = (pins: Map<string, boolean>) => {
-  window.localStorage.setItem('isuxportal-dashboard-pins', JSON.stringify(Array.from(pins.keys())));
-};
-
 
 const usePrevious = function<T>(value: T) {
   const ref = React.useRef<T>();
@@ -98,7 +84,7 @@ const usePrevious = function<T>(value: T) {
 export const Leaderboard: React.FC<Props> = (props: Props) => {
   const { leaderboard, teamId } = props;
   const [expanded, setExpanded] = React.useState(false);
-  const [pins, setPins] = React.useState(loadPins)
+  const pins = props.teamPins;
   const [mode, setMode] = React.useState<Mode>("all");
 
   const prevProps = usePrevious(props);
@@ -109,16 +95,6 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
   const prevScores = new Map((prevLeaderboard?.teams || []).map((t, idx) => {
     return [t.team!.id, t.latestScore?.score!];
   }));
-
-  const onPin = (teamId: string, flag: boolean) => {
-    if (flag) {
-      pins.set(teamId, true);
-    } else {
-      pins.delete(teamId);
-    }
-    savePins(pins);
-    setPins(new Map(pins));
-  };
 
   type TeamStanding = {position: number, item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, pinned: boolean, me: boolean, lastPosition?: number, lastScore?: number | Long};
   const teams = leaderboard.teams!.filter(({ team }) => {
@@ -138,7 +114,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
                   return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item, pinned, me}
                 });
   const renderTeam = (key: string, {item, pinned, me, position, lastPosition, lastScore}: TeamStanding) => {
-    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={onPin} me={me} />;
+    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={props.onPin} me={me} />;
   };
   const teamMe = teams.filter((v) => v.me);
   return (
