@@ -13,8 +13,8 @@ fn main() {
     let command_exec = args.next().expect("must have 1 arguments");
     let command_args = args.collect();
 
-    log::info!("Config: {:#?}", config);
-    log::info!("Command: {:#?}, {:#?}", command_exec, command_args);
+    log::info!("Config: {:?}", config);
+    log::info!("Command: {:?}, {:?}", command_exec, command_args);
 
     run(config, command_exec, command_args);
 }
@@ -45,22 +45,22 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                 team_id: config.team_id.unwrap_or(0),
             },
         );
-        log::debug!("ReceiveBenchmarkJob(Request): {:#?}", job_req);
+        log::info!("ReceiveBenchmarkJob(Request): {:?}", job_req);
 
         match queue_client.receive_benchmark_job(job_req).await {
             Ok(resp) => {
-                log::info!("ReceiveBenchmarkJob(Response): {:#?}", resp);
+                log::info!("ReceiveBenchmarkJob(Response): {:?}", resp);
                 let job_resp = resp.into_inner();
                 match job_resp.job_handle {
                     Some(job) => {
-                        log::info!("job {:#?}", job);
+                        log::trace!("job {:?}", job);
                         let worker = Worker::new(job, &config, command_exec.clone(), command_args.clone());
                         match worker.perform(channel.clone()).await {
                             Ok(_) => {
                                 log::info!("OK");
                             }
                             Err(err) => {
-                                log::error!("Err {:#?}", err);
+                                log::error!("Err {:?}", err);
                             }
                         }
                     },
@@ -70,7 +70,7 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                 }
             }
             Err(err) => {
-                log::error!("ReceiveBenchmarkJob(Error): {:#?}", err);
+                log::error!("ReceiveBenchmarkJob(Error): {:?}", err);
                 tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0)).await;
             }
         }

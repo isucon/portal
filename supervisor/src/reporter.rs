@@ -70,7 +70,7 @@ impl ReporterInbox {
     pub async fn close(&mut self) {
         log::trace!("ReporterInbox#close");
         if let Err(e) = self.outbound_tx.send(OutboundMessage::Shutdown).await {
-            log::warn!("ReporterInbox#close: {:#?}", e);
+            log::warn!("ReporterInbox#close: {:?}", e);
         }
         log::trace!("ReporterInbox#close: done");
     }
@@ -165,7 +165,7 @@ impl Reporter {
             let in_msg = rx.message().await;
             match in_msg {
                 Ok(Some(res)) => {
-                    log::info!("Reporter/inbound_loop/response: {:#?}", res);
+                    log::info!("Reporter/inbound_loop/response: {:?}", res);
                     last_acked_nonce = res.acked_nonce;
                 },
                 Ok(None) => {
@@ -173,7 +173,7 @@ impl Reporter {
                     break;
                 },
                 Err(err) => {
-                    log::error!("Reporter/inbound_loop/error: ERR {:#?}", err);
+                    log::error!("Reporter/inbound_loop/error: ERR {:?}", err);
                     return Err(err);
                 },
             }
@@ -195,7 +195,7 @@ impl Reporter {
     async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::Sender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
         match ob_msg {
             Some(OutboundMessage::Report(report)) => {
-                log::info!("Reporter/outbound_loop/OutboundMessage: Sending {:#?}", report);
+                log::trace!("Reporter/outbound_loop/OutboundMessage: Sending {:?}", report);
 
                 let mut result = report.result;
 
@@ -228,7 +228,7 @@ impl Reporter {
                     result: Some(result.clone()),
                 };
 
-                log::info!("Reporter/outbound_loop/ReportBenchmarkResultRequest: rep.completed={:#?} rep.execution_only={:#?} req={:#?}", report.completed, report.execution_only, req);
+                log::info!("Reporter/outbound_loop/ReportBenchmarkResultRequest: rep.completed={:?} rep.execution_only={:?} req={:?}", report.completed, report.execution_only, get_report_request_for_log(req.clone()));
 
                 if result.finished || report.completed {
                     context.request_must_retry = Some(req.clone());
@@ -256,7 +256,7 @@ impl Reporter {
                 tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
             }
 
-            log::warn!("Reporter/retry_last_report: Retrying request (attempt={:#?}) {:#?}", num_attempt, orig_request);
+            log::warn!("Reporter/retry_last_report: Retrying request (attempt={:?}) {:?}", num_attempt, orig_request);
             let (mut outgoing_tx, outgoing_rx) = tokio::sync::mpsc::channel(1); // oneshot is not a stream
             let mut request = orig_request.clone();
             request.nonce = 0;
@@ -276,7 +276,7 @@ impl Reporter {
             let in_msg = inbound_rx.message().await;
             match in_msg {
                 Ok(Some(res)) => {
-                    log::info!("Reporter/retry_last_report/response: {:#?}", res);
+                    log::info!("Reporter/retry_last_report/response: {:?}", res);
                     if res.acked_nonce == 0 {
                         log::info!("Reporter/retry_last_report/response: OK");
                         return Ok(());
@@ -290,11 +290,25 @@ impl Reporter {
                     break;
                 },
                 Err(err) => {
-                    log::error!("Reporter/retry_last_report/response: ERR {:#?}", err);
+                    log::error!("Reporter/retry_last_report/response: ERR {:?}", err);
                     last_error = Some(Error::RequestFailure(err));
                 },
             }
         }
         Err(last_error.unwrap())
     }
+}
+
+fn get_report_request_for_log(mut orig: ReportBenchmarkResultRequest) -> ReportBenchmarkResultRequest {
+    if let Some(res) = orig.result {
+        let mut res2 = res.clone();
+        if let Some(exec) = res.execution {
+            let mut exec2 = exec.clone();
+            exec2.stdout = "[REDUCTED]".to_string();
+            exec2.stderr = "[REDUCTED]".to_string();
+            res2.execution = Some(exec2);
+        }
+        orig.result = Some(res2);
+    }
+    return orig;
 }

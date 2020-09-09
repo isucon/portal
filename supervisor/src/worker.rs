@@ -44,7 +44,7 @@ impl Worker {
 	pub async fn perform(&self, channel: tonic::transport::Channel) -> Result<(), Box<dyn std::error::Error>> {
         use crate::process::Message;
 
-        log::info!("Performing job: {:#?}", self.job_handle);
+        log::info!("Performing job: {:?}", self.job_handle);
 
         let (mut reporter, reporter_task) = Reporter::new(channel.clone(), self.job_handle.clone()).start();
         tokio::pin!(reporter_task);
@@ -74,11 +74,11 @@ impl Worker {
                         log::trace!("Data finished");
                     },
                     Some(Message::ProcessExit(exit_status)) => {
-                        log::info!("Child exit status: {:#?}", exit_status);
+                        log::info!("Child exit status: {:?}", exit_status);
                         process_exit_status = Some(exit_status);
                     },
                     Some(Message::Error(e)) => {
-                        log::error!("Error: {:#?}", e);
+                        log::error!("Error: {:?}", e);
                         error = Some(e);
                         do_shutdown = true;
                     },
@@ -92,7 +92,7 @@ impl Worker {
                             panic!(Error::UnexpectedReporterShutdown);
                         }
                         Err(e) => {
-                            log::error!("Reporter was errored: {:#?}", e);
+                            log::error!("Reporter was errored: {:?}", e);
                             error = Some(e);
                             do_shutdown = true;
                         }
@@ -109,13 +109,13 @@ impl Worker {
 
         let stdout = read_log(self.stdout_path()).await
             .unwrap_or_else(|e| {
-                log::error!("Cannot read stdout: {:#?}", e);
+                log::error!("Cannot read stdout: {:?}", e);
                 error = Some(e);
                 "".to_string()
             });
         let stderr = read_log(self.stderr_path()).await
             .unwrap_or_else(|e| {
-                log::error!("Cannot read stderr: {:#?}", e);
+                log::error!("Cannot read stderr: {:?}", e);
                 error = Some(e);
                 "".to_string()
             });
