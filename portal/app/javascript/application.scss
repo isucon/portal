@@ -134,3 +134,34 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     cursor: pointer;
   }
 }
+
+$isuBlack: #313844;
+
+.isux-broadcast-clock {
+  background-color: $isuBlack;
+  padding: 2vw 3vw;
+  border-radius: 2.5vw;
+
+  min-width: 0;
+  height: 30vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  & > .columns {
+    width: 100%;
+  }
+
+  .isux-broadcast-clock-text {
+    text-align: center;
+    font-size: 21vw;
+    p {
+      color: white;
+      line-height: 21vw;
+      font-weight: 900;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+  }
+}

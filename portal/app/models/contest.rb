@@ -76,7 +76,7 @@ module Contest
   end
 
   def self.to_pb(now: Time.zone.now)
-    auto_contest_epoch = now.utc.hour/8
+    auto_contest_epoch = now.utc.hour/8*8
     Isuxportal::Proto::Resources::Contest.new(
       registration_opens_at: Rails.application.config.x.contest.registration_open,
       registration_closes_at: Rails.application.config.x.contest.registration_close,
