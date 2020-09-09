@@ -13,6 +13,7 @@ import {Timestamp} from "../Timestamp";
 import {BenchmarkJobStatus} from "../BenchmarkJobStatus";
 
 import {AdminBenchmarkJobForm} from "./AdminBenchmarkJobForm";
+import ReactPaginate from "react-paginate";
 
 type ListFilterProps = {
   teamId: string | null,
@@ -69,14 +70,19 @@ export interface Props {
 export interface State {
   list: isuxportal.proto.services.admin.ListBenchmarkJobsResponse | null,
   error: Error | null,
+  pageCount: number,
+  currentPage: number,
 }
 
+const ItemCountPerPage = 15;
 export class AdminBenchmarkJobList extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       list: null,
       error: null,
+      pageCount: 0,
+      currentPage: 0,
     };
   }
 
@@ -94,7 +100,8 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
         this.props.teamId ? parseInt(this.props.teamId, 10) : null,
         this.props.incompleteOnly,
       );
-      this.setState({list});
+      const pageCount = Math.ceil(list.jobs.length / ItemCountPerPage);
+      this.setState({list, pageCount});
     } catch (error) {
       this.setState({error});
     }
@@ -108,10 +115,12 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
             <h1 className="title is-1">Benchmark Jobs</h1>
           </header>
           <main>
+            {this.state.currentPage}
             {this.renderForm()}
             {this.renderFilter()}
             {this.renderError()}
             {this.renderList()}
+            {this.renderPaginate()}
           </main>
         </Route>
       </Switch>
@@ -131,8 +140,36 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
     return <ListFilter teamId={this.props.teamId} incompleteOnly={this.props.incompleteOnly} />;
   }
 
+  renderPaginate() {
+    const handlePageClick = (selectedItem: {selected: number}) => {
+      this.setState({currentPage: selectedItem.selected});
+    }
+
+    return <ReactPaginate
+      previousLabel='previous'
+      nextLabel='next'
+      breakLabel='...'
+      breakClassName='pagination-ellipsis'
+      pageCount={this.state.pageCount}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={5}
+      onPageChange={handlePageClick}
+      containerClassName='pagination'
+      pageClassName='pagination-list'
+      pageLinkClassName='pagination-link'
+      activeClassName='is-current'
+      disabledClassName='is-dark'
+      nextClassName='pagination-next'
+      previousClassName='pagination-previous'
+      // subContainerClassName={'pages pagination'}
+    />;
+  }
+
   renderList() {
     if (!this.state.list) return <p>Loading...</p>;
+    const itemIndexBegin = this.state.currentPage * ItemCountPerPage;
+    const itemIndexEnd = (this.state.currentPage + 1) * ItemCountPerPage;
+    console.log(itemIndexBegin, itemIndexEnd);
     return <table className="table">
       <thead>
         <tr>
@@ -146,7 +183,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
         </tr>
       </thead>
       <tbody>
-        {this.state.list.jobs!.map((job,i) => this.renderJob(job, i))}
+        {this.state.list.jobs!.slice(itemIndexBegin, itemIndexEnd).map((job,i) => this.renderJob(job, i))}
       </tbody>
     </table>;
   }
@@ -165,6 +202,5 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       </td>
     </tr>;
   }
+
 }
-
-
