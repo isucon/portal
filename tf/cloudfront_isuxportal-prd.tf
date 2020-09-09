@@ -75,7 +75,7 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
     target_origin_id = "portal-prd"
     forwarded_values {
       query_string = true
-      headers      = ["Host", "Accept", "X-Csrf-Token"]
+      headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
       cookies {
         forward           = "whitelist"
         whitelisted_names = ["__Host-isuxportal_sess"]
