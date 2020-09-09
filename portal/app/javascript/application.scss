@@ -211,7 +211,8 @@ $isuBlue: #3990cc;
         text-align: center;
       }
       &.isux-leaderboard-change-up p, &.isux-leaderboard-change-down p {
-        color: $isuBlack;
+        color: white;
+        font-weight: 900;
       }
     }
     .isux-broadcast-leaderboard-item-team {
