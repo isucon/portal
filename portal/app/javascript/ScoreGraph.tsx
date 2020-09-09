@@ -1,15 +1,19 @@
 import type {isuxportal} from "./pb";
+
 import React from "react";
 import dayjs from "dayjs";
 
 import uPlot from "uplot";
 
+import type {TeamPinsMap, TeamPins} from "./TeamPins";
 import {COLORS} from "./ScoreGraphColors";
 
 interface Props {
   teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[],
   contest: isuxportal.proto.resources.IContest,
   width?: number,
+  teamPins: TeamPinsMap,
+  teamId?: number | Long,
 }
 
 const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
@@ -27,21 +31,26 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
   return [numTeams, numScores, latestTimestamp];
 }
 
-export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
+export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
+  const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
+
   const elem = React.useRef<HTMLDivElement>(null);
-  const [data, setData] = React.useState<number[][]>([]);
+  const [data, setData] = React.useState<Array<Array<number|null>>>([]);
   const [chart, setChart] = React.useState<uPlot|null>(null);
 
   const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
   //console.log("render", cacheKey);
+  
+  const targetTeams = showPinnedOnly ? teams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId) : teams;
 
   React.useEffect(() => {
     //console.log("ScoreGraph: setData", cacheKey);
-    const timestamps: number[] = [...new Set(teams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number)))].sort((a,b) => a - b);
-    const newData = [timestamps];
+    const timestamps: number[] = [...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number)))].sort((a,b) => a - b);
+    const newData:Array<Array<number|null>> = [timestamps];
 
-    teams.forEach((item, idx) => {
+    targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
+      const lastTs = scores.length > 0 ? scores[scores.length-1]?.markedAt!.seconds : 0;
       const series = [];
       let tsPtr = 0;
       let scorePtr = -1;
@@ -59,11 +68,15 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
           }
         }
 
+        //if (lastTs && lastTs < ts) {
+        //  series.push(null);
+        //} else {
         if (scorePtr >= 0) {
           series.push(scores[scorePtr].score! as number);
         } else {
           series.push(0);
         }
+        //}
 
         tsPtr++;
       }
@@ -93,7 +106,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
         {
           scale: 'x',
         },
-        ...teams.map((item) => {
+        ...targetTeams.map((item) => {
           return {
             label: item.team!.name!,
             stroke: COLORS[(item.team!.id! as number) % COLORS.length],
@@ -115,7 +128,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
     const newChart = new uPlot(opts, data, elem.current);
     setChart(newChart);
     return (() => newChart.destroy());
-  }, [setChart, elem.current, teams.length]);
+  }, [setChart, elem.current, showPinnedOnly ? teamPins : null]);
 
   React.useEffect(() => {
     if (!chart || !data) return;
@@ -123,5 +136,22 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width }) => {
     chart.setData(data);
   }, [chart, cacheKey]);
 
-  return <div className="isux-scoregraph" ref={elem} />;
+  const classNames = ["isux-scoregraph"];
+  if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
+
+  return <section>
+    <div className="level">
+      <div className="level-left">
+        <h5 className="title is-5">Timeline</h5>
+      </div>
+
+      <div className="level-right">
+        <label>
+          <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
+          Show pinned only
+        </label>
+      </div>
+    </div>
+    <div className={classNames.join(" ")} ref={elem} />
+  </section>;
 };

@@ -65,7 +65,7 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
       </div>
     </section>
     <section className="is-fullwidth px-5 py-5 is-hidden-touch">
-      <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} />
+      <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} teamPins={teamPinsMap} />
     </section>
     <div className="columns">
       <div className="column is-12">
