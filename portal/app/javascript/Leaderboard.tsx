@@ -13,9 +13,10 @@ interface TeamItemProps {
   pinned: boolean,
   onPin: (teamId: string, flag: boolean) => void,
   me: boolean,
-  itemType: "pinned" | "standings" | "me",
+  itemType: ItemType,
   lastPosition?: number,
 }
+type ItemType = "pinned" | "standings" | "me";
 
 const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, item, pinned, onPin, me, itemType }) => {
   const [animationClassName, setAnimationClassName] = React.useState<string | null>(null);
@@ -115,7 +116,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
                   return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item, pinned, me}
                 });
   const renderTeam = (key: string, {item, pinned, me, position, lastPosition, lastScore}: TeamStanding) => {
-    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={props.onPin} me={me} itemType={key} />;
+    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={props.onPin} me={me} itemType={key as ItemType} />;
   };
   const teamMe = teams.filter((v) => v.me);
   return (
