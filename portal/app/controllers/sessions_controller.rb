@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       )
       session[:contestant_id] = contestant.id
       SyncSshKeysOfContestantJob.perform_later(contestant, auth['credentials']['token'])
-      redirect_to session[:back_to] || registration_path # TODO:
+      redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
     else
       redirect_to session[:back_to] || registration_path
     end
@@ -62,7 +62,7 @@ class SessionsController < ApplicationController
         discord_tag: tag,
       )
       session[:contestant_id] = contestant.id
-      redirect_to session[:back_to] || registration_path # TODO:
+      redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
     else
       redirect_to session[:back_to] || registration_path
     end
