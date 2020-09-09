@@ -13,10 +13,11 @@ interface TeamItemProps {
   pinned: boolean,
   onPin: (teamId: string, flag: boolean) => void,
   me: boolean,
+  itemType: "pinned" | "standings" | "me",
   lastPosition?: number,
 }
 
-const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, item, pinned, onPin, me }) => {
+const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, item, pinned, onPin, me, itemType }) => {
   const [animationClassName, setAnimationClassName] = React.useState<string | null>(null);
   const [animationEpoch, setAnimationEpoch] = React.useState<number>(0);
 
@@ -24,7 +25,7 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
     <span className="tag is-info is-pulled-right">学生</span>
   );
   const classNames = [];
-  if (pinned) classNames.push("isux-leaderboard-pinned");
+  if (pinned && itemType == "pinned") classNames.push("isux-leaderboard-pinned");
   if (me) classNames.push("isux-leaderboard-me");
   if (animationClassName) classNames.push(animationClassName);
 
@@ -51,7 +52,7 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
   return (
     <tr className={classNames.join(" ")}>
       <th className="has-text-centered">
-        {me ? null : <button className={`button is-small is-${pinned ? "dark" : "light"}`}onClick={() => onPin(item.team!.id!.toString(), !pinned)} >Pin</button>}
+        {me ? null : <div className={`isux-pin-button is-small has-text-${pinned ? "dark" : "light"}`}onClick={() => onPin(item.team!.id!.toString(), !pinned)} ><span className="material-icons">push_pin</span></div>}
       </th>
       <th className="has-text-right">{position}</th>
       <td>{item.team!.id}: {item.team!.name}</td>
@@ -114,7 +115,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
                   return {position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore: prevScores.get(item.team!.id!), item, pinned, me}
                 });
   const renderTeam = (key: string, {item, pinned, me, position, lastPosition, lastScore}: TeamStanding) => {
-    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={props.onPin} me={me} />;
+    return <TeamItem item={item} position={position} lastPosition={lastPosition} changed={lastScore != item.latestScore?.score!} key={`${key}-${item.team!.id!.toString()}`} pinned={pinned} onPin={props.onPin} me={me} itemType={key} />;
   };
   const teamMe = teams.filter((v) => v.me);
   return (
@@ -138,7 +139,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
           </li>
         </ul>
       </div>
-      <table className="table is-hoverable is-fullwidth">
+      <table className="table is-hoverable is-fullwidth isux-leaderboard">
         <thead>
           <tr className="has-background-light">
             <th></th>

@@ -126,3 +126,11 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     display: flex;
   }
 }
+
+.isux-leaderboard {
+  .isux-pin-button {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+  }
+}
