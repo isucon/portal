@@ -55,19 +55,19 @@ def generate_score(team)
   score_start = 1000 + 100 * rand
   coef = score_goal / ((CONTEST_ENDS_AT - CONTEST_STARTS_AT) ** 2 + score_start)
   resolution.times do |i|
-    t = CONTEST_STARTS_AT + i * time_span
+    t = time_span * (i + rand)
     passed = rand > 0.1
-    score_raw = passed ? (coef * ((i * time_span) ** 2) + score_start + rand*1000).to_i : 0
+    score_raw = passed ? (coef * (t ** 2) + score_start + rand*1000).to_i : 0
     deduction = passed ? [0, rand * 1000 - 2000].max : 0
     job = BenchmarkJob.new(
       team_id: team.id,
       status: Isuxportal::Proto::Resources::BenchmarkJob::Status::FINISHED,
       target: team.contestant_instances.first,
       instance_name: team.contestant_instances.first.private_ipv4_address,
-      started_at: t,
-      finished_at: t + 60,
-      created_at: t,
-      updated_at: t + 60,
+      started_at: CONTEST_STARTS_AT + t,
+      finished_at: CONTEST_STARTS_AT + t + 60,
+      created_at: CONTEST_STARTS_AT + t,
+      updated_at: CONTEST_STARTS_AT + t + 60,
     )
     job.benchmark_result = BenchmarkResult.new(
       team_id: team.id,
