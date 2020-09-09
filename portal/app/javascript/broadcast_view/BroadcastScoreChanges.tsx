@@ -137,7 +137,7 @@ export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
   }, []);
   React.useEffect(() => {
     // TODO: Retry with backoff
-    const timer = setInterval(() => refresh(), 10000);
+    const timer = setInterval(() => refresh(), 2500);
     return (() => clearInterval(timer));
   }, []);
 
