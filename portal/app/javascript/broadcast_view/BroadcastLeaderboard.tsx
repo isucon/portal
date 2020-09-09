@@ -25,9 +25,9 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
     if (!changed) return;
     const set = lastPosition && lastPosition != position;
     if (lastPosition > position) {
-      setAnimationClassName("isux-leaderboard-change-up");
+      setAnimationClassName("isux-broadcast-leaderboard-change-up");
     } else if (lastPosition < position){
-      setAnimationClassName("isux-leaderboard-change-down");
+      setAnimationClassName("isux-broadcast-leaderboard-change-down");
     }
     if (!set) return;
     setAnimationEpoch(animationEpoch + 1);
@@ -36,7 +36,7 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
   React.useEffect(() => {
     const timer = window.setTimeout(() => {
       setAnimationClassName(null);
-    }, 2000);
+    }, 4000);
     return () => { window.clearTimeout(timer) };
   }, [animationEpoch]);
 
