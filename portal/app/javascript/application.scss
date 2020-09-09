@@ -22,6 +22,9 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
 .isux-leaderboard-pinned {
   background-color: #eee;
 }
+.isux-leaderboard-me {
+  background-color: #fffcc7;
+}
 
 .isux-leaderboard-change-up {
   animation: isux-leaderboard-change-up 1s;
@@ -90,5 +93,36 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     .level .level-right {
       text-align: right;
     }
+  }
+}
+
+.isux-scoregraph {
+  text-align: center;
+  width: 100%;
+
+  .uplot {
+    text-align: center;
+    width: 100%;
+
+    .u-wrap {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  table.u-legend {
+    font-size: 0.6em;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .u-series > * {
+      padding: 0;
+    }
+
+    display: none;
+  }
+
+  &.isux-scoregraph-pinnedonly table.u-legend {
+    display: flex;
   }
 }

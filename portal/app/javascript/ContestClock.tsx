@@ -37,7 +37,9 @@ export const ContestClock: React.FC<Props> = ({contest}) => {
         <p><progress className="progress is-small" max={100} value={100-((untilEnd/duration)*100)}></progress></p>
       </div>
       <div className="column is-4">
-        <p>残時間: {digits(remaining.hours())}:{digits(remaining.minutes())}:{digits(remaining.seconds())}</p>
+        {untilEnd > 0 ? 
+          <p>残時間: {digits(remaining.hours())}:{digits(remaining.minutes())}:{digits(remaining.seconds())}</p>
+        : <p>残時間: 終了</p>}
       </div>
     </div>
   </div>

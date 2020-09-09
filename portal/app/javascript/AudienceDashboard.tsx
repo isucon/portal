@@ -1,5 +1,6 @@
 import {isuxportal} from "./pb";
 import {ApiError, ApiClient} from "./ApiClient";
+import {TeamPinsMap, TeamPins} from "./TeamPins";
 
 import React from "react";
 
@@ -19,6 +20,10 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
   const [ requesting, setRequesting ] = React.useState(false);
   const [ dashboard, setDashboard ] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
   const [ error, setError ] = React.useState<Error | null>(null);
+
+  const [ teamPins, setTeamPins ] = React.useState(new TeamPins());
+  const [ teamPinsMap, setTeamPinsMap ] = React.useState(teamPins.all());
+  teamPins.onChange = setTeamPinsMap;
 
   const refresh = () => {
     if (requesting) return;
@@ -59,14 +64,14 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
         </div>
       </div>
     </section>
-    <section className="is-fullwidth px-5 py-5">
-      <ScoreGraph teams={dashboard?.leaderboard?.teams!} />
+    <section className="is-fullwidth px-5 py-5 is-hidden-touch">
+      <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!}  teamPins={teamPinsMap} />
     </section>
     <div className="columns">
       <div className="column is-12">
         <section className="py-5">
           <p className="title"> Leaderboard </p>
-          <Leaderboard leaderboard={dashboard?.leaderboard!} />
+          <Leaderboard leaderboard={dashboard?.leaderboard!} teamPins={teamPinsMap} onPin={teamPins.set} />
         </section>
       </div>
     </div>

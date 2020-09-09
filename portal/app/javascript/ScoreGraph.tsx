@@ -1,108 +1,157 @@
-import {isuxportal} from "./pb";
+import type {isuxportal} from "./pb";
+
 import React from "react";
 import dayjs from "dayjs";
-import { ResponsiveLineCanvas } from "@nivo/line";
-import { BasicTooltip } from "@nivo/tooltip";
-import type { PointTooltipProps, Serie } from "@nivo/line";
 
-const ToolTip = React.memo<PointTooltipProps>(({ point }) => (
-  <BasicTooltip
-    id={
-      <div>
-        <p>
-          <strong>Team:</strong> {point.serieId}
-        </p>
-        <p>
-          <strong>Score:</strong> {point.data.yFormatted}
-        </p>
-        <p>
-          <strong>Marked At:</strong> {point.data.xFormatted}
-        </p>
-      </div>
-    }
-    enableChip={false}
-    color={point.serieColor}
-  />
-));
+import uPlot from "uplot";
+
+import type {TeamPinsMap, TeamPins} from "./TeamPins";
+import {COLORS} from "./ScoreGraphColors";
 
 interface Props {
   teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[],
+  contest: isuxportal.proto.resources.IContest,
+  width?: number,
+  teamPins: TeamPinsMap,
+  teamId?: number | Long,
 }
 
-export const ScoreGraph: React.FC<Props> = ({ teams }) => {
-  const [series, setSeries] = React.useState<Serie[]>([]);
+const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+  let numTeams = teams.length;
+  let numScores = teams.map((item) => (item.scores || []).length).reduce((a,b) => a+b, 0);
+
+  let latestTimestamp = 0;
+  teams.forEach((item) => {
+    (item.scores || []).forEach((score) => {
+      const ts = score.markedAt!.seconds! as number;
+      if (latestTimestamp < ts) latestTimestamp = ts;
+    });
+  });
+
+  return [numTeams, numScores, latestTimestamp];
+}
+
+export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
+  const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
+
+  const elem = React.useRef<HTMLDivElement>(null);
+  const [data, setData] = React.useState<Array<Array<number|null>>>([]);
+  const [chart, setChart] = React.useState<uPlot|null>(null);
+
+  const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
+  //console.log("render", cacheKey);
+  
+  const targetTeams = showPinnedOnly ? teams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId) : teams;
 
   React.useEffect(() => {
-    if (teams) {
-      setSeries(
-        teams.map((team) => {
-          return {
-            id: team.team?.name || "",
-            data:
-              team.scores?.map((score) => {
-                return {
-                  x: dayjs((score.markedAt!.seconds as number) * 1000 + (score.markedAt!.nanos as number) / 1000000).format("HH:mm:ss"),
-                  y: score.score as number,
-                };
-              }) || [],
-          };
-        })
-      );
-    }
-  }, [teams]);
+    //console.log("ScoreGraph: setData", cacheKey);
+    const timestamps: number[] = [...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number)))].sort((a,b) => a - b);
+    const newData:Array<Array<number|null>> = [timestamps];
 
-  return (
-    <div className="is-fullwidth" style={{ height: 480 }}>
-      <ResponsiveLineCanvas
-        data={series}
-        margin={{ top: 10, right: 100, bottom: 55, left: 55 }}
-        xScale={{
-          type: "time",
-          format: "%H:%M:%S",
-          useUTC: false,
-          precision: "second",
-        }}
-        xFormat="time:%H:%M:%S"
-        yScale={{ type: "linear" }}
-        axisBottom={{
-          format: "%H:%M:%S",
-          legend: "Time",
-          legendOffset: 50,
-          legendPosition: "middle",
-        }}
-        axisLeft={{
-          orient: "left",
-          tickSize: 5,
-          tickRotation: 0,
-          legend: "Score",
-          legendOffset: -50,
-          legendPosition: "middle",
-        }}
-        enableGridX={true}
-        enableGridY={true}
-        colors={{ scheme: "category10" }}
-        lineWidth={1}
-        pointSize={3}
-        pointColor={{ theme: "background" }}
-        pointBorderWidth={1}
-        pointBorderColor={{ from: "serieColor" }}
-        tooltip={ToolTip}
-        legends={[
-          {
-            anchor: "bottom-right",
-            direction: "column",
-            justify: false,
-            translateX: 100,
-            translateY: 0,
-            itemsSpacing: 5,
-            itemWidth: 80,
-            itemHeight: 12,
-            itemOpacity: 0.75,
-            symbolSize: 12,
-            symbolShape: "circle",
-          },
-        ]}
-      />
+    targetTeams.forEach((item, idx) => {
+      const scores = item.scores || [];
+      const lastTs = scores.length > 0 ? scores[scores.length-1]?.markedAt!.seconds : 0;
+      const series = [];
+      let tsPtr = 0;
+      let scorePtr = -1;
+      while (tsPtr < timestamps.length) {
+        const ts = timestamps[tsPtr];
+
+        const score = scores[scorePtr];
+        const scoreNext = scores[scorePtr+1];
+
+        //console.log({team: item.team!.id!, tsPtr: tsPtr, scorePtr: scorePtr, now: ts, cur: scores[scorePtr]?.markedAt?.seconds!, next: scoreNext?.markedAt?.seconds! });
+
+        if (!score || (score && ts >= score.markedAt!.seconds!)) {
+          if (scoreNext && ts >= scoreNext.markedAt!.seconds!) {
+            scorePtr++;
+          }
+        }
+
+        //if (lastTs && lastTs < ts) {
+        //  series.push(null);
+        //} else {
+        if (scorePtr >= 0) {
+          series.push(scores[scorePtr].score! as number);
+        } else {
+          series.push(0);
+        }
+        //}
+
+        tsPtr++;
+      }
+      newData.push(series);
+    });
+
+    setData(newData);
+  }, [setData, cacheKey]);
+
+  React.useEffect(() => {
+    if (!elem.current) return;
+    //console.log("ScoreGraph: setChart");
+
+    const opts: uPlot.Options = {
+      width: width || 950,
+      height: 500,
+      scales: {
+        x: {
+          auto: false,
+          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number)+3600],
+        },
+        pt: {
+          auto: true,
+        }
+      },
+      series: [
+        {
+          scale: 'x',
+        },
+        ...targetTeams.map((item) => {
+          return {
+            label: item.team!.name!,
+            stroke: COLORS[(item.team!.id! as number) % COLORS.length],
+            scale: 'pt',
+          }
+        })
+      ],
+      axes: [
+        {},
+        {
+          label: 'Score',
+          scale: 'pt',
+          show: true,
+        },
+      ],
+    };
+    //console.log(data);
+
+    const newChart = new uPlot(opts, data, elem.current);
+    setChart(newChart);
+    return (() => newChart.destroy());
+  }, [setChart, elem.current, showPinnedOnly ? teamPins : null]);
+
+  React.useEffect(() => {
+    if (!chart || !data) return;
+    //console.log("ScoreGraph: chart.setData");
+    chart.setData(data);
+  }, [chart, cacheKey]);
+
+  const classNames = ["isux-scoregraph"];
+  if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
+
+  return <section>
+    <div className="level">
+      <div className="level-left">
+        <h5 className="title is-5">Timeline</h5>
+      </div>
+
+      <div className="level-right">
+        <label>
+          <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
+          Show pinned only
+        </label>
+      </div>
     </div>
-  );
+    <div className={classNames.join(" ")} ref={elem} />
+  </section>;
 };
