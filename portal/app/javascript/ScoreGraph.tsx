@@ -1,24 +1,24 @@
-import type {isuxportal} from "./pb";
+import type { isuxportal } from "./pb";
 
 import React from "react";
 import dayjs from "dayjs";
 
 import uPlot from "uplot";
 
-import type {TeamPinsMap, TeamPins} from "./TeamPins";
-import {COLORS} from "./ScoreGraphColors";
+import type { TeamPinsMap, TeamPins } from "./TeamPins";
+import { COLORS } from "./ScoreGraphColors";
 
 interface Props {
-  teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[],
-  contest: isuxportal.proto.resources.IContest,
-  width?: number,
-  teamPins: TeamPinsMap,
-  teamId?: number | Long,
+  teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+  contest: isuxportal.proto.resources.IContest;
+  width?: number;
+  teamPins: TeamPinsMap;
+  teamId?: number | Long;
 }
 
 const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
   let numTeams = teams.length;
-  let numScores = teams.map((item) => (item.scores || []).length).reduce((a,b) => a+b, 0);
+  let numScores = teams.map((item) => (item.scores || []).length).reduce((a, b) => a + b, 0);
 
   let latestTimestamp = 0;
   teams.forEach((item) => {
@@ -29,28 +29,32 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
   });
 
   return [numTeams, numScores, latestTimestamp];
-}
+};
 
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
 
   const elem = React.useRef<HTMLDivElement>(null);
-  const [data, setData] = React.useState<Array<Array<number|null>>>([]);
-  const [chart, setChart] = React.useState<uPlot|null>(null);
+  const [data, setData] = React.useState<Array<Array<number | null>>>([]);
+  const [chart, setChart] = React.useState<uPlot | null>(null);
 
   const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
   //console.log("render", cacheKey);
-  
-  const targetTeams = showPinnedOnly ? teams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId) : teams;
+
+  const targetTeams = showPinnedOnly
+    ? teams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId)
+    : teams;
 
   React.useEffect(() => {
     //console.log("ScoreGraph: setData", cacheKey);
-    const timestamps: number[] = [...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number)))].sort((a,b) => a - b);
-    const newData:Array<Array<number|null>> = [timestamps];
+    const timestamps: number[] = [
+      ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
+    ].sort((a, b) => a - b);
+    const newData: Array<Array<number | null>> = [timestamps];
 
     targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
-      const lastTs = scores.length > 0 ? scores[scores.length-1]?.markedAt!.seconds : 0;
+      const lastTs = scores.length > 0 ? scores[scores.length - 1]?.markedAt!.seconds : 0;
       const series = [];
       let tsPtr = 0;
       let scorePtr = -1;
@@ -58,7 +62,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         const ts = timestamps[tsPtr];
 
         const score = scores[scorePtr];
-        const scoreNext = scores[scorePtr+1];
+        const scoreNext = scores[scorePtr + 1];
 
         //console.log({team: item.team!.id!, tsPtr: tsPtr, scorePtr: scorePtr, now: ts, cur: scores[scorePtr]?.markedAt?.seconds!, next: scoreNext?.markedAt?.seconds! });
 
@@ -96,29 +100,29 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
       scales: {
         x: {
           auto: false,
-          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number)+3600],
+          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number) + 3600],
         },
         pt: {
           auto: true,
-        }
+        },
       },
       series: [
         {
-          scale: 'x',
+          scale: "x",
         },
         ...targetTeams.map((item) => {
           return {
             label: item.team!.name!,
             stroke: COLORS[(item.team!.id! as number) % COLORS.length],
-            scale: 'pt',
-          }
-        })
+            scale: "pt",
+          };
+        }),
       ],
       axes: [
         {},
         {
-          label: 'Score',
-          scale: 'pt',
+          label: "Score",
+          scale: "pt",
           show: true,
         },
       ],
@@ -127,7 +131,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
     const newChart = new uPlot(opts, data, elem.current);
     setChart(newChart);
-    return (() => newChart.destroy());
+    return () => newChart.destroy();
   }, [setChart, elem.current, showPinnedOnly ? teamPins : null]);
 
   React.useEffect(() => {
@@ -139,19 +143,21 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
 
-  return <section>
-    <div className="level">
-      <div className="level-left">
-        <h5 className="title is-5">Timeline</h5>
-      </div>
+  return (
+    <section>
+      <div className="level">
+        <div className="level-left">
+          <h5 className="title is-5">Timeline</h5>
+        </div>
 
-      <div className="level-right">
-        <label>
-          <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
-          Show pinned only
-        </label>
+        <div className="level-right">
+          <label>
+            <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
+            Show pinned only
+          </label>
+        </div>
       </div>
-    </div>
-    <div className={classNames.join(" ")} ref={elem} />
-  </section>;
+      <div className={classNames.join(" ")} ref={elem} />
+    </section>
+  );
 };

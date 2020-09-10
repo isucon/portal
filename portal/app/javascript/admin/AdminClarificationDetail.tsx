@@ -1,28 +1,28 @@
-import type {isuxportal} from "../pb_admin";
-import {ApiError, ApiClient} from "../ApiClient";
-import {AdminApiClient } from "./AdminApiClient";
+import type { isuxportal } from "../pb_admin";
+import { ApiError, ApiClient } from "../ApiClient";
+import { AdminApiClient } from "./AdminApiClient";
 
 import React from "react";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import {Clarification} from "../Clarification";
-import {ErrorMessage} from "../ErrorMessage";
+import { Clarification } from "../Clarification";
+import { ErrorMessage } from "../ErrorMessage";
 
 interface FormProps {
-  session: isuxportal.proto.services.common.GetCurrentSessionResponse,
-  client: AdminApiClient,
-  clarification: isuxportal.proto.resources.IClarification,
-  onSubmit: (clar: isuxportal.proto.resources.IClarification) => any,
+  session: isuxportal.proto.services.common.GetCurrentSessionResponse;
+  client: AdminApiClient;
+  clarification: isuxportal.proto.resources.IClarification;
+  onSubmit: (clar: isuxportal.proto.resources.IClarification) => any;
 }
 
 const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
   const { reset, register, handleSubmit, watch, setValue, errors } = useForm<{
-    answer: string,
-    question: string,
-    disclose: boolean,
+    answer: string;
+    question: string;
+    disclose: boolean;
   }>({
     shouldUnregister: false,
     defaultValues: {
@@ -51,51 +51,72 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
     }
   });
 
-  return <div className="card mt-5">
-    <div className="card-header">
-      <h4 className="is-4 card-header-title">Response</h4>
+  return (
+    <div className="card mt-5">
+      <div className="card-header">
+        <h4 className="is-4 card-header-title">Response</h4>
+      </div>
+      <div className="card-content">
+        <form onSubmit={onSubmit}>
+          <div className="columns">
+            <div className="column field is-6">
+              <label className="label" htmlFor="AdminClarificationDetail-question">
+                Question
+              </label>
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  name="question"
+                  id="AdminClarificationDetail-question"
+                  ref={register}
+                  placeholder=""
+                  autoFocus
+                />
+              </div>
+            </div>
+            <div className="column field is-6">
+              <div className="control">
+                <label className="label" htmlFor="AdminClarificationDetail-answer">
+                  Answer
+                </label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    name="answer"
+                    id="AdminClarificationDetail-answer"
+                    ref={register}
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <label className="checkbox">
+                <input type="checkbox" name="disclose" ref={register} />
+                Disclose (Visible to all teams)
+              </label>
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <button className="button is-primary" type="submit" disabled={requesting}>
+                Respond
+              </button>
+            </div>
+          </div>
+          {error ? <ErrorMessage error={error} /> : null}
+        </form>
+      </div>
     </div>
-    <div className="card-content">
-      <form onSubmit={onSubmit}>
-        <div className="columns">
-          <div className="column field is-6">
-            <label className="label" htmlFor="AdminClarificationDetail-question">Question</label>
-            <div className="control">
-              <textarea className="textarea" name="question" id="AdminClarificationDetail-question" ref={register} placeholder="" autoFocus />
-            </div>
-          </div>
-          <div className="column field is-6">
-            <div className="control">
-            <label className="label" htmlFor="AdminClarificationDetail-answer">Answer</label>
-            <div className="control">
-              <textarea className="textarea" name="answer" id="AdminClarificationDetail-answer" ref={register} placeholder="" />
-            </div>
-            </div>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control">
-            <label className="checkbox">
-              <input type="checkbox" name="disclose" ref={register} />
-              Disclose (Visible to all teams)
-            </label>
-          </div>
-        </div>
-        <div className="field">
-          <div className="control">
-            <button className="button is-primary" type="submit" disabled={requesting}>Respond</button>
-          </div>
-        </div>
-        {error ? <ErrorMessage error={error} /> : null}
-      </form>
-    </div>
-  </div>;
+  );
 };
 
 export interface Props {
-  session: isuxportal.proto.services.common.GetCurrentSessionResponse,
-  client: AdminApiClient,
-  id: string,
+  session: isuxportal.proto.services.common.GetCurrentSessionResponse;
+  client: AdminApiClient;
+  id: string;
 }
 
 export const AdminClarificationDetail: React.FC<Props> = (props: Props) => {
@@ -103,7 +124,8 @@ export const AdminClarificationDetail: React.FC<Props> = (props: Props) => {
   const [clar, setClar] = React.useState<isuxportal.proto.resources.IClarification | null>(null);
 
   React.useEffect(() => {
-    props.client.getClarification(parseInt(props.id, 10))
+    props.client
+      .getClarification(parseInt(props.id, 10))
       .then((resp) => setClar(resp.clarification!))
       .catch((e) => setError(e));
   }, []);
@@ -111,9 +133,13 @@ export const AdminClarificationDetail: React.FC<Props> = (props: Props) => {
     setClar(clar);
   };
 
-  return <>
-    {error ? <ErrorMessage error={error} /> : null}
-    {clar ? <Clarification clarification={clar} admin={true} /> : <p>Loading..</p>}
-    {clar ?  <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} clarification={clar} /> : null}
-  </>;
-}
+  return (
+    <>
+      {error ? <ErrorMessage error={error} /> : null}
+      {clar ? <Clarification clarification={clar} admin={true} /> : <p>Loading..</p>}
+      {clar ? (
+        <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} clarification={clar} />
+      ) : null}
+    </>
+  );
+};

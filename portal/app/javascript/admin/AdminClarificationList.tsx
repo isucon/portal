@@ -1,27 +1,27 @@
-import type {isuxportal} from "../pb_admin";
-import {ApiError, ApiClient} from "../ApiClient";
-import {AdminApiClient } from "./AdminApiClient";
+import type { isuxportal } from "../pb_admin";
+import { ApiError, ApiClient } from "../ApiClient";
+import { AdminApiClient } from "./AdminApiClient";
 
 import React from "react";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import {Clarification} from "../Clarification";
-import {ErrorMessage} from "../ErrorMessage";
+import { Clarification } from "../Clarification";
+import { ErrorMessage } from "../ErrorMessage";
 
 interface FormProps {
-  session: isuxportal.proto.services.common.GetCurrentSessionResponse,
-  client: AdminApiClient,
-  onSubmit: (clar: isuxportal.proto.resources.IClarification) => any,
+  session: isuxportal.proto.services.common.GetCurrentSessionResponse;
+  client: AdminApiClient;
+  onSubmit: (clar: isuxportal.proto.resources.IClarification) => any;
 }
 
 const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
   const { reset, register, handleSubmit, watch, setValue, errors } = useForm<{
-    answer: string,
-    question: string,
-    teamId: string,
+    answer: string;
+    question: string;
+    teamId: string;
   }>({
     shouldUnregister: false,
     defaultValues: {
@@ -49,48 +49,78 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
     }
   });
 
-  return <div className="card mt-5">
-    <div className="card-header">
-      <h4 className="is-4 card-header-title">Create a clarification</h4>
+  return (
+    <div className="card mt-5">
+      <div className="card-header">
+        <h4 className="is-4 card-header-title">Create a clarification</h4>
+      </div>
+      <div className="card-content">
+        <form onSubmit={onSubmit}>
+          <div className="columns">
+            <div className="column field is-6">
+              <label className="label" htmlFor="AdminClarificationListForm-question">
+                Question
+              </label>
+              <div className="control">
+                <textarea
+                  className="textarea"
+                  name="question"
+                  id="AdminClarificationListForm-question"
+                  ref={register}
+                  placeholder=""
+                  autoFocus
+                />
+              </div>
+            </div>
+            <div className="column field is-6">
+              <div className="control">
+                <label className="label" htmlFor="AdminClarificationListForm-answer">
+                  Answer
+                </label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    name="answer"
+                    id="AdminClarificationListForm-answer"
+                    ref={register}
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label" htmlFor="AdminClarificationListForm-teamId">
+              Team ID
+            </label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                id="AdminClarificationListForm-teamId"
+                name="teamId"
+                ref={register}
+                placeholder="optional; disclosed to the all teams if not set"
+              />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <button className="button is-primary" type="submit" disabled={requesting}>
+                Send
+              </button>
+            </div>
+          </div>
+          {error ? <ErrorMessage error={error} /> : null}
+        </form>
+      </div>
     </div>
-    <div className="card-content">
-      <form onSubmit={onSubmit}>
-        <div className="columns">
-          <div className="column field is-6">
-            <label className="label" htmlFor="AdminClarificationListForm-question">Question</label>
-            <div className="control">
-              <textarea className="textarea" name="question" id="AdminClarificationListForm-question" ref={register} placeholder="" autoFocus />
-            </div>
-          </div>
-          <div className="column field is-6">
-            <div className="control">
-            <label className="label" htmlFor="AdminClarificationListForm-answer">Answer</label>
-            <div className="control">
-              <textarea className="textarea" name="answer" id="AdminClarificationListForm-answer" ref={register} placeholder="" />
-            </div>
-            </div>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label" htmlFor="AdminClarificationListForm-teamId">Team ID</label>
-          <div className="control">
-            <input className="input" type="text" id="AdminClarificationListForm-teamId" name="teamId" ref={register} placeholder="optional; disclosed to the all teams if not set" />
-          </div>
-        </div>
-        <div className="field">
-          <div className="control">
-            <button className="button is-primary" type="submit" disabled={requesting}>Send</button>
-          </div>
-        </div>
-        {error ? <ErrorMessage error={error} /> : null}
-      </form>
-    </div>
-  </div>;
+  );
 };
 
 export interface Props {
-  session: isuxportal.proto.services.common.GetCurrentSessionResponse,
-  client: AdminApiClient,
+  session: isuxportal.proto.services.common.GetCurrentSessionResponse;
+  client: AdminApiClient;
 }
 
 export const AdminClarificationList: React.FC<Props> = (props: Props) => {
@@ -98,7 +128,8 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
   const [list, setList] = React.useState<isuxportal.proto.resources.IClarification[] | null>(null);
 
   React.useEffect(() => {
-    props.client.listClarifications()
+    props.client
+      .listClarifications()
       .then((resp) => setList(resp.clarifications))
       .catch((e) => setError(e));
   }, []);
@@ -113,9 +144,11 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
     });
   };
 
-  return <>
-    <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} />
-    {error ? <ErrorMessage error={error} /> : null}
-    {list ? renderList() : <p>Loading..</p>}
-  </>;
-}
+  return (
+    <>
+      <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} />
+      {error ? <ErrorMessage error={error} /> : null}
+      {list ? renderList() : <p>Loading..</p>}
+    </>
+  );
+};

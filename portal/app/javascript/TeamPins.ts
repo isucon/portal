@@ -2,7 +2,7 @@ export type TeamPinsMap = Map<string, boolean>;
 
 const loadPins = () => {
   const map: TeamPinsMap = new Map();
-  const item = window.localStorage.getItem('isuxportal-dashboard-pins');
+  const item = window.localStorage.getItem("isuxportal-dashboard-pins");
   if (item) {
     const teamIds: string[] = JSON.parse(item);
     for (const id of teamIds) {
@@ -13,7 +13,7 @@ const loadPins = () => {
 };
 
 const savePins = (pins: TeamPinsMap) => {
-  window.localStorage.setItem('isuxportal-dashboard-pins', JSON.stringify(Array.from(pins.keys())));
+  window.localStorage.setItem("isuxportal-dashboard-pins", JSON.stringify(Array.from(pins.keys())));
 };
 
 export class TeamPins {
@@ -33,7 +33,7 @@ export class TeamPins {
     }
     savePins(this.pins);
     if (this.onChange) this.onChange(this.all());
-  };
+  }
 
   public all(): TeamPinsMap {
     return new Map(this.pins);

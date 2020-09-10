@@ -1,4 +1,4 @@
-import {isuxportal} from "./pb";
+import { isuxportal } from "./pb";
 import * as Rails from "@rails/ujs";
 
 export class ApiError extends Error {
@@ -16,7 +16,6 @@ export class ApiError extends Error {
     this.localError = localError;
     this.remoteError = remoteError;
   }
-
 }
 
 export class ApiClient {
@@ -24,13 +23,13 @@ export class ApiClient {
 
   constructor(baseUrl?: string) {
     if (!baseUrl) {
-      const metaBaseUrl= document.querySelector('meta[name="isux:api-base-url"]') as HTMLMetaElement;
+      const metaBaseUrl = document.querySelector('meta[name="isux:api-base-url"]') as HTMLMetaElement;
       if (!metaBaseUrl) {
         throw new Error("undeterminable base url");
       }
       baseUrl = metaBaseUrl.content;
     }
-    this.baseUrl = baseUrl.replace(/\/$/, '');
+    this.baseUrl = baseUrl.replace(/\/$/, "");
   }
 
   public async listTeams() {
@@ -86,7 +85,12 @@ export class ApiClient {
 
   public async listBenchmarkJobs(limit?: number) {
     const klass = isuxportal.proto.services.contestant.ListBenchmarkJobsResponse;
-    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs?limit=${limit?.toString() || '0'}`, "GET", null, null);
+    const resp = await this.request(
+      `${this.baseUrl}/api/contestant/benchmark_jobs?limit=${limit?.toString() || "0"}`,
+      "GET",
+      null,
+      null
+    );
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
@@ -100,7 +104,12 @@ export class ApiClient {
 
   public async getBenchmarkJob(id: number) {
     const klass = isuxportal.proto.services.contestant.GetBenchmarkJobResponse;
-    const resp = await this.request(`${this.baseUrl}/api/contestant/benchmark_jobs/${encodeURIComponent(id.toString())}`, "GET", null, null);
+    const resp = await this.request(
+      `${this.baseUrl}/api/contestant/benchmark_jobs/${encodeURIComponent(id.toString())}`,
+      "GET",
+      null,
+      null
+    );
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
@@ -131,12 +140,12 @@ export class ApiClient {
   }
 
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
-    let url = path[0] == '/' ? `${this.baseUrl}${path}` : path;
+    let url = path[0] == "/" ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();
     const opts: RequestInit = { method: method, headers: headers };
     if (query) {
       const queryParams = [];
-      for (const [k,v] of Object.entries(query)) {
+      for (const [k, v] of Object.entries(query)) {
         const snakeK = k.replace(/([A-Z])/g, (c) => `_${c.toLowerCase()}`);
         queryParams.push(`${snakeK}=${encodeURIComponent(v as string)}`);
       }
@@ -150,10 +159,13 @@ export class ApiClient {
     }
     const resp = await fetch(url, opts);
     if (!resp.ok) {
-      const contentType = resp.headers.get('Content-Type');
-      
+      const contentType = resp.headers.get("Content-Type");
+
       let err;
-      if (contentType && contentType.match(/^application\/vnd\.google\.protobuf(; proto=isuxportal\.proto\.Error|; charset=.*)?$/)) {
+      if (
+        contentType &&
+        contentType.match(/^application\/vnd\.google\.protobuf(; proto=isuxportal\.proto\.Error|; charset=.*)?$/)
+      ) {
         const pbError = isuxportal.proto.Error.decode(new Uint8Array(await resp.arrayBuffer()));
         err = new ApiError(new Error(`${path} returned error ${resp.status}`), pbError);
       } else {
