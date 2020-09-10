@@ -1,0 +1,41 @@
+name: supervisor
+on: 
+  push:
+    paths:
+      - 'supervisor/**'
+      - '.github/workflows/supervisor.yml'
+    branches:
+      - master
+
+jobs:
+  build:
+    name: supervisor-build
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: supervisor
+    steps:
+      - uses: actions/checkout@master
+      - run: 'echo $GITHUB_SHA > REVISION'
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            supervisor/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          # https://github.com/actions-rs/cargo/issues/6
+          args: --release --manifest-path supervisor/Cargo.toml
+      - uses: actions/upload-artifact@v2
+        with:
+          name: isuxportal-supervisor-ubuntu1804-amd64
+          path: supervisor/target/release/isuxportal-supervisor

@@ -67,6 +67,8 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
+  config.x.public_url_host = ENV.fetch('DEFAULT_URL_HOST', 'localhost:3000')
+
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
@@ -80,6 +82,7 @@ Rails.application.configure do
   config.x.discord.bot_token = ENV['ISUXPORTAL_DISCORD_BOT_TOKEN']
 
   config.x.discord.server_id = ENV['ISUXPORTAL_DISCORD_SERVER_ID'] || '721578039779262486'
+  config.x.discord.channel_id = ENV['ISUXPORTAL_DISCORD_CHANNEL_ID'] || '729697803982602286'
   config.x.discord.contestant_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID'] || '721583193270255617'
   config.x.discord.admin_role_id = ENV['ISUXPORTAL_DISCORD_ADMIN_ROLE_ID'] || '721583068724592640'
   config.x.discord.contestant_final_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID'] || '721584047175761940'
@@ -106,6 +109,8 @@ Rails.application.configure do
   config.x.bypass_token.secret = (ENV['ISUXPORTAL_BYPASS_SECRET'] || '5AQQyz/7oFnJYrxnq/HiLKYmh7QrdIrpCDpKlfvkYAg=').unpack1('m0') #dummy
   config.x.ssh_key_api.secret = (ENV['ISUXPORTAL_SSH_KEY_API_SECRET'] || 'himitsudayo')
   config.x.dcim.token = (ENV['ISUXPORTAL_DCIM_TOKEN'] || 'himitsudayo')
+
+  config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
 
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 end

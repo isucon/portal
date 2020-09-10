@@ -54,7 +54,7 @@ class BenchmarkResult < ApplicationRecord
       ),
       execution: finished ? Isuxportal::Proto::Resources::BenchmarkResult::Execution.new(
         reason: reason,
-        stdout: admin ? stdout : "",
+        stdout: stdout,
         stderr: admin ? stderr : "",
         exit_status: admin ? (exit_status || -1) : -2,
         exit_signal: admin ? (exit_signal || -1) : -2,

@@ -5169,6 +5169,7 @@ $root.isuxportal = (function() {
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [generalTeams] Leaderboard generalTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [studentTeams] Leaderboard studentTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [progresses] Leaderboard progresses
+                 * @property {google.protobuf.ITimestamp|null} [generatedAt] Leaderboard generatedAt
                  * @property {isuxportal.proto.resources.IContest|null} [contest] Leaderboard contest
                  */
 
@@ -5224,6 +5225,14 @@ $root.isuxportal = (function() {
                 Leaderboard.prototype.progresses = $util.emptyArray;
 
                 /**
+                 * Leaderboard generatedAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} generatedAt
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.generatedAt = null;
+
+                /**
                  * Leaderboard contest.
                  * @member {isuxportal.proto.resources.IContest|null|undefined} contest
                  * @memberof isuxportal.proto.resources.Leaderboard
@@ -5269,6 +5278,8 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.progresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                     if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
                         $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.generatedAt != null && Object.hasOwnProperty.call(message, "generatedAt"))
+                        $root.google.protobuf.Timestamp.encode(message.generatedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                     return writer;
                 };
 
@@ -5322,6 +5333,9 @@ $root.isuxportal = (function() {
                             if (!(message.progresses && message.progresses.length))
                                 message.progresses = [];
                             message.progresses.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 6:
+                            message.generatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
                         case 5:
                             message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
@@ -5397,6 +5411,11 @@ $root.isuxportal = (function() {
                                 return "progresses." + error;
                         }
                     }
+                    if (message.generatedAt != null && message.hasOwnProperty("generatedAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.generatedAt);
+                        if (error)
+                            return "generatedAt." + error;
+                    }
                     if (message.contest != null && message.hasOwnProperty("contest")) {
                         var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
                         if (error)
@@ -5457,6 +5476,11 @@ $root.isuxportal = (function() {
                             message.progresses[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.progresses[i]);
                         }
                     }
+                    if (object.generatedAt != null) {
+                        if (typeof object.generatedAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.generatedAt: object expected");
+                        message.generatedAt = $root.google.protobuf.Timestamp.fromObject(object.generatedAt);
+                    }
                     if (object.contest != null) {
                         if (typeof object.contest !== "object")
                             throw TypeError(".isuxportal.proto.resources.Leaderboard.contest: object expected");
@@ -5484,8 +5508,10 @@ $root.isuxportal = (function() {
                         object.studentTeams = [];
                         object.progresses = [];
                     }
-                    if (options.defaults)
+                    if (options.defaults) {
                         object.contest = null;
+                        object.generatedAt = null;
+                    }
                     if (message.teams && message.teams.length) {
                         object.teams = [];
                         for (var j = 0; j < message.teams.length; ++j)
@@ -5508,6 +5534,8 @@ $root.isuxportal = (function() {
                     }
                     if (message.contest != null && message.hasOwnProperty("contest"))
                         object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
+                    if (message.generatedAt != null && message.hasOwnProperty("generatedAt"))
+                        object.generatedAt = $root.google.protobuf.Timestamp.toObject(message.generatedAt, options);
                     return object;
                 };
 
@@ -10950,6 +10978,8 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.admin
                      * @interface IDashboardResponse
                      * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
+                     * @property {google.protobuf.ITimestamp|null} [earliestUnansweredClarificationAt] DashboardResponse earliestUnansweredClarificationAt
+                     * @property {number|Long|null} [unansweredClarificationCount] DashboardResponse unansweredClarificationCount
                      */
 
                     /**
@@ -10974,6 +11004,22 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     DashboardResponse.prototype.leaderboard = null;
+
+                    /**
+                     * DashboardResponse earliestUnansweredClarificationAt.
+                     * @member {google.protobuf.ITimestamp|null|undefined} earliestUnansweredClarificationAt
+                     * @memberof isuxportal.proto.services.admin.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.earliestUnansweredClarificationAt = null;
+
+                    /**
+                     * DashboardResponse unansweredClarificationCount.
+                     * @member {number|Long} unansweredClarificationCount
+                     * @memberof isuxportal.proto.services.admin.DashboardResponse
+                     * @instance
+                     */
+                    DashboardResponse.prototype.unansweredClarificationCount = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
@@ -11001,6 +11047,10 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
                             $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.earliestUnansweredClarificationAt != null && Object.hasOwnProperty.call(message, "earliestUnansweredClarificationAt"))
+                            $root.google.protobuf.Timestamp.encode(message.earliestUnansweredClarificationAt, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        if (message.unansweredClarificationCount != null && Object.hasOwnProperty.call(message, "unansweredClarificationCount"))
+                            writer.uint32(/* id 3, wireType 0 =*/24).int64(message.unansweredClarificationCount);
                         return writer;
                     };
 
@@ -11037,6 +11087,12 @@ $root.isuxportal = (function() {
                             switch (tag >>> 3) {
                             case 1:
                                 message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
+                                break;
+                            case 2:
+                                message.earliestUnansweredClarificationAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                                break;
+                            case 3:
+                                message.unansweredClarificationCount = reader.int64();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -11078,6 +11134,14 @@ $root.isuxportal = (function() {
                             if (error)
                                 return "leaderboard." + error;
                         }
+                        if (message.earliestUnansweredClarificationAt != null && message.hasOwnProperty("earliestUnansweredClarificationAt")) {
+                            var error = $root.google.protobuf.Timestamp.verify(message.earliestUnansweredClarificationAt);
+                            if (error)
+                                return "earliestUnansweredClarificationAt." + error;
+                        }
+                        if (message.unansweredClarificationCount != null && message.hasOwnProperty("unansweredClarificationCount"))
+                            if (!$util.isInteger(message.unansweredClarificationCount) && !(message.unansweredClarificationCount && $util.isInteger(message.unansweredClarificationCount.low) && $util.isInteger(message.unansweredClarificationCount.high)))
+                                return "unansweredClarificationCount: integer|Long expected";
                         return null;
                     };
 
@@ -11098,6 +11162,20 @@ $root.isuxportal = (function() {
                                 throw TypeError(".isuxportal.proto.services.admin.DashboardResponse.leaderboard: object expected");
                             message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
                         }
+                        if (object.earliestUnansweredClarificationAt != null) {
+                            if (typeof object.earliestUnansweredClarificationAt !== "object")
+                                throw TypeError(".isuxportal.proto.services.admin.DashboardResponse.earliestUnansweredClarificationAt: object expected");
+                            message.earliestUnansweredClarificationAt = $root.google.protobuf.Timestamp.fromObject(object.earliestUnansweredClarificationAt);
+                        }
+                        if (object.unansweredClarificationCount != null)
+                            if ($util.Long)
+                                (message.unansweredClarificationCount = $util.Long.fromValue(object.unansweredClarificationCount)).unsigned = false;
+                            else if (typeof object.unansweredClarificationCount === "string")
+                                message.unansweredClarificationCount = parseInt(object.unansweredClarificationCount, 10);
+                            else if (typeof object.unansweredClarificationCount === "number")
+                                message.unansweredClarificationCount = object.unansweredClarificationCount;
+                            else if (typeof object.unansweredClarificationCount === "object")
+                                message.unansweredClarificationCount = new $util.LongBits(object.unansweredClarificationCount.low >>> 0, object.unansweredClarificationCount.high >>> 0).toNumber();
                         return message;
                     };
 
@@ -11114,10 +11192,24 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.defaults)
+                        if (options.defaults) {
                             object.leaderboard = null;
+                            object.earliestUnansweredClarificationAt = null;
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.unansweredClarificationCount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.unansweredClarificationCount = options.longs === String ? "0" : 0;
+                        }
                         if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
                             object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
+                        if (message.earliestUnansweredClarificationAt != null && message.hasOwnProperty("earliestUnansweredClarificationAt"))
+                            object.earliestUnansweredClarificationAt = $root.google.protobuf.Timestamp.toObject(message.earliestUnansweredClarificationAt, options);
+                        if (message.unansweredClarificationCount != null && message.hasOwnProperty("unansweredClarificationCount"))
+                            if (typeof message.unansweredClarificationCount === "number")
+                                object.unansweredClarificationCount = options.longs === String ? String(message.unansweredClarificationCount) : message.unansweredClarificationCount;
+                            else
+                                object.unansweredClarificationCount = options.longs === String ? $util.Long.prototype.toString.call(message.unansweredClarificationCount) : options.longs === Number ? new $util.LongBits(message.unansweredClarificationCount.low >>> 0, message.unansweredClarificationCount.high >>> 0).toNumber() : message.unansweredClarificationCount;
                         return object;
                     };
 

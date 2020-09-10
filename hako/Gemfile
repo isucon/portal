@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
-gem 'hako', git: 'https://github.com/eagletmt/hako'
+gem 'hako', git: 'https://github.com/sorah/hako', ref: 'tlsnlb'
 gem 'isux_hako_deployment', path: File.join(__dir__, 'deployment')
 gem 'hako-github_status', git: 'https://github.com/sorah/hako-github_status'

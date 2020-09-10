@@ -30,7 +30,8 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Target: {}", benchrun.GetTargetAddress())
+	fmt.Printf("[stdout] Target: %v\n", benchrun.GetTargetAddress())
+	fmt.Fprintf(os.Stderr, "[stderr] Target: %v\n", benchrun.GetTargetAddress())
 
 	r, err := benchrun.NewReporter(true)
 	if err != nil {

@@ -19,10 +19,10 @@ class BenchmarkJob < ApplicationRecord
   before_validation :generate_handle
 
   # scope :joins_score, -> { left_outer_joins(:benchmark_result).select('benchmark_jobs.*, benchmark_results.score as score') }
-  scope :joins_score, -> { eager_load(:benchmark_result) }
+  scope :joins_score, -> { left_outer_joins(:benchmark_result).select(BenchmarkJob.column_names, 'benchmark_results.score as score', '1 as score_loaded') }
 
   def score
-    read_attribute(:score) || benchmark_result&.score
+    read_attribute(:score_loaded) == 1 ? read_attribute(:score) : benchmark_result&.score
   end
 
   def to_pb(admin: false, team: false, detail: false)
@@ -62,6 +62,7 @@ class BenchmarkJob < ApplicationRecord
     ApplicationRecord.transaction do
       result = benchmark_result || build_benchmark_result
       result.update_from_pb!(pb)
+      self.started_at ||= Time.zone.now
       if result.finished?
         self.status = case
                       when result.errored?
@@ -70,14 +71,20 @@ class BenchmarkJob < ApplicationRecord
                         :finished
                       end
         self.finished_at = Time.zone.now
-        self.save!
       end
+      self.save!
+      result.save!
+
       if pb.survey_response
         response = team.survey_response || team.build_survey_response
         response.benchmark_job_id = self.id
         response.language = pb.survey_response.language
         response.save!
       end
+    end
+
+    if self.finished?
+      BenchmarkCompletionJob.perform_later(self)
     end
   end
 

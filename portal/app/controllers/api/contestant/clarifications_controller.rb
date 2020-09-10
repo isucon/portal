@@ -19,6 +19,7 @@ class Api::Contestant::ClarificationsController < Api::Contestant::ApplicationCo
       original_question: pb.question,
       question: pb.question,
     )
+    ClarificationAcceptanceJob.perform_later(@clarification)
     render protobuf: Isuxportal::Proto::Services::Contestant::RequestClarificationResponse.new(
       clarification: @clarification.to_pb(team: true, original_question: true),
     )

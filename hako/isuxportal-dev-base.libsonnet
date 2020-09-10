@@ -24,6 +24,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       RAILS_LOG_TO_STDOUT: '1',
       RAILS_SERVE_STATIC_FILES: '1',
       RAILS_SERVE_STATIC_FILES_CC: 'public, max-age=31536000',
+      DEFAULT_URL_HOST: 'portal-dev.x.isucon.dev',
       ISUXPORTAL_DEV_REDIS: '1',
       // See config/environments/development.rb
       ISUXPORTAL_ADMIN_ONLY: '1',

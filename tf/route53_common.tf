@@ -124,6 +124,11 @@ resource "aws_route53_record" "cname_portal-dev-x-isucon-dev" {
   records = ["hako-isuxportal-dev-fargate-480405202.ap-northeast-1.elb.amazonaws.com."]
 }
 
+
+data "aws_lb" "hako-isuxportal-dev-grpc-fargate" {
+  name = "hako-isuxportal-dev-grpc-fargate"
+}
+
 resource "aws_route53_record" "cname_portal-grpc-dev-x-isucon-dev" {
   for_each = {
     for k in [
@@ -135,7 +140,7 @@ resource "aws_route53_record" "cname_portal-grpc-dev-x-isucon-dev" {
   name    = "portal-grpc-dev.x.isucon.dev"
   type    = "CNAME"
   ttl     = "300"
-  records = ["hako-isuxportal-dev-grpc-fargate-f02ab27884639be6.elb.ap-northeast-1.amazonaws.com."]
+  records = [data.aws_lb.hako-isuxportal-dev-grpc-fargate.dns_name]
 }
 
 resource "aws_route53_record" "cname_portal-isucon-net-x-isucon-dev" {

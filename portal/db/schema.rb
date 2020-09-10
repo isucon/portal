@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_024527) do
+ActiveRecord::Schema.define(version: 2020_09_10_030613) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.integer "status", default: 0, null: false
     t.string "instance_name"
     t.string "handle"
-    t.datetime "started_at"
-    t.datetime "finished_at"
+    t.datetime "started_at", precision: 6
+    t.datetime "finished_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "target_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.integer "score_deduction", default: 0, null: false
     t.boolean "finished", null: false
     t.boolean "passed"
-    t.datetime "marked_at", null: false
+    t.datetime "marked_at", precision: 6, null: false
     t.text "reason"
     t.text "stdout"
     t.text "stderr"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["benchmark_job_id"], name: "index_benchmark_results_on_benchmark_job_id", unique: true
+    t.index ["finished", "exit_status", "exit_signal", "marked_at", "team_id"], name: "idx_leaderboard"
     t.index ["team_id"], name: "index_benchmark_results_on_team_id"
+    t.index ["updated_at"], name: "index_benchmark_results_on_updated_at"
   end
 
   create_table "clarifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -58,10 +60,12 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.text "question"
     t.text "answer"
     t.text "original_question"
-    t.datetime "answered_at"
+    t.datetime "answered_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin"
+    t.boolean "admin", default: false, null: false
+    t.index ["disclosed", "created_at"], name: "index_clarifications_on_disclosed_and_created_at"
+    t.index ["team_id", "created_at"], name: "index_clarifications_on_team_id_and_created_at"
   end
 
   create_table "contestant_instances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -92,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.string "discord_tag", null: false
     t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
     t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
+    t.index ["team_id"], name: "index_contestants_on_team_id"
   end
 
   create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -108,6 +113,8 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.string "language"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["benchmark_job_id"], name: "index_survey_responses_on_benchmark_job_id"
+    t.index ["team_id"], name: "index_survey_responses_on_team_id"
   end
 
   create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -122,6 +129,7 @@ ActiveRecord::Schema.define(version: 2020_09_08_024527) do
     t.boolean "withdrawn", default: false, null: false
     t.boolean "disqualified", default: false, null: false
     t.boolean "student", null: false
+    t.index ["withdrawn", "disqualified", "final_participation"], name: "idx_active_final"
   end
 
 end

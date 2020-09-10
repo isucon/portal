@@ -3,11 +3,14 @@ package isuxportal.proto.services.admin;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/admin";
 
 import "isuxportal/resources/leaderboard.proto";
+import "google/protobuf/timestamp.proto";
 
 message DashboardQuery {
 }
 
 message DashboardResponse {
   isuxportal.proto.resources.Leaderboard leaderboard = 1;
+  google.protobuf.Timestamp earliest_unanswered_clarification_at = 2;
+  int64 unanswered_clarification_count = 3;
 }
 

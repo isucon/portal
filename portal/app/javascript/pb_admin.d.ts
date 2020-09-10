@@ -1879,6 +1879,9 @@ export namespace isuxportal {
                 /** Leaderboard progresses */
                 progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
 
+                /** Leaderboard generatedAt */
+                generatedAt?: (google.protobuf.ITimestamp|null);
+
                 /** Leaderboard contest */
                 contest?: (isuxportal.proto.resources.IContest|null);
             }
@@ -1903,6 +1906,9 @@ export namespace isuxportal {
 
                 /** Leaderboard progresses. */
                 public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard generatedAt. */
+                public generatedAt?: (google.protobuf.ITimestamp|null);
 
                 /** Leaderboard contest. */
                 public contest?: (isuxportal.proto.resources.IContest|null);
@@ -4346,6 +4352,12 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard */
                     leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+
+                    /** DashboardResponse earliestUnansweredClarificationAt */
+                    earliestUnansweredClarificationAt?: (google.protobuf.ITimestamp|null);
+
+                    /** DashboardResponse unansweredClarificationCount */
+                    unansweredClarificationCount?: (number|Long|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4359,6 +4371,12 @@ export namespace isuxportal {
 
                     /** DashboardResponse leaderboard. */
                     public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+
+                    /** DashboardResponse earliestUnansweredClarificationAt. */
+                    public earliestUnansweredClarificationAt?: (google.protobuf.ITimestamp|null);
+
+                    /** DashboardResponse unansweredClarificationCount. */
+                    public unansweredClarificationCount: (number|Long);
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.

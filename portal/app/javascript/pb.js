@@ -5169,6 +5169,7 @@ $root.isuxportal = (function() {
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [generalTeams] Leaderboard generalTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [studentTeams] Leaderboard studentTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [progresses] Leaderboard progresses
+                 * @property {google.protobuf.ITimestamp|null} [generatedAt] Leaderboard generatedAt
                  * @property {isuxportal.proto.resources.IContest|null} [contest] Leaderboard contest
                  */
 
@@ -5224,6 +5225,14 @@ $root.isuxportal = (function() {
                 Leaderboard.prototype.progresses = $util.emptyArray;
 
                 /**
+                 * Leaderboard generatedAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} generatedAt
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.generatedAt = null;
+
+                /**
                  * Leaderboard contest.
                  * @member {isuxportal.proto.resources.IContest|null|undefined} contest
                  * @memberof isuxportal.proto.resources.Leaderboard
@@ -5269,6 +5278,8 @@ $root.isuxportal = (function() {
                             $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.progresses[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                     if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
                         $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.generatedAt != null && Object.hasOwnProperty.call(message, "generatedAt"))
+                        $root.google.protobuf.Timestamp.encode(message.generatedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                     return writer;
                 };
 
@@ -5322,6 +5333,9 @@ $root.isuxportal = (function() {
                             if (!(message.progresses && message.progresses.length))
                                 message.progresses = [];
                             message.progresses.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 6:
+                            message.generatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                             break;
                         case 5:
                             message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
@@ -5397,6 +5411,11 @@ $root.isuxportal = (function() {
                                 return "progresses." + error;
                         }
                     }
+                    if (message.generatedAt != null && message.hasOwnProperty("generatedAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.generatedAt);
+                        if (error)
+                            return "generatedAt." + error;
+                    }
                     if (message.contest != null && message.hasOwnProperty("contest")) {
                         var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
                         if (error)
@@ -5457,6 +5476,11 @@ $root.isuxportal = (function() {
                             message.progresses[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.progresses[i]);
                         }
                     }
+                    if (object.generatedAt != null) {
+                        if (typeof object.generatedAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.generatedAt: object expected");
+                        message.generatedAt = $root.google.protobuf.Timestamp.fromObject(object.generatedAt);
+                    }
                     if (object.contest != null) {
                         if (typeof object.contest !== "object")
                             throw TypeError(".isuxportal.proto.resources.Leaderboard.contest: object expected");
@@ -5484,8 +5508,10 @@ $root.isuxportal = (function() {
                         object.studentTeams = [];
                         object.progresses = [];
                     }
-                    if (options.defaults)
+                    if (options.defaults) {
                         object.contest = null;
+                        object.generatedAt = null;
+                    }
                     if (message.teams && message.teams.length) {
                         object.teams = [];
                         for (var j = 0; j < message.teams.length; ++j)
@@ -5508,6 +5534,8 @@ $root.isuxportal = (function() {
                     }
                     if (message.contest != null && message.hasOwnProperty("contest"))
                         object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
+                    if (message.generatedAt != null && message.hasOwnProperty("generatedAt"))
+                        object.generatedAt = $root.google.protobuf.Timestamp.toObject(message.generatedAt, options);
                     return object;
                 };
 

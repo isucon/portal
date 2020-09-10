@@ -14,6 +14,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :latest_result_id, :int64, 5
       optional :latest_progress_id, :int64, 6
       optional :has_progress, :bool, 7
+      optional :latest_result_at, :message, 8, "google.protobuf.Timestamp"
+      optional :latest_progress_at, :message, 9, "google.protobuf.Timestamp"
     end
   end
 end

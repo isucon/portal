@@ -5,6 +5,7 @@ import {TeamPinsMap, TeamPins} from "../TeamPins";
 import React from "react";
 
 import {ErrorMessage} from "../ErrorMessage";
+import {TimeDuration} from "../TimeDuration";
 import {ReloadButton} from "../ReloadButton";
 
 import {ContestClock} from "../ContestClock";
@@ -67,7 +68,24 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
     <section className="is-fullwidth px-5 py-5 is-hidden-touch">
       <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} teamPins={teamPinsMap} />
     </section>
-    <div className="columns">
+    <section className="mt-3">
+      <div className="level">
+        <div className="level-item has-text-centered">
+          <div>
+            <p className="heading">Unanswered clars</p>
+            <p className="title">{dashboard.unansweredClarificationCount}</p>
+          </div>
+        </div>
+        <div className="level-item has-text-centered">
+          <div>
+            <p className="heading">Longest waiting clar</p>
+              <p className="title">{dashboard.earliestUnansweredClarificationAt ? <TimeDuration a={dashboard.earliestUnansweredClarificationAt} /> : "--:--:--"}</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <div className="columns mt-3">
       <div className="column is-12">
         <section className="py-5">
           <p className="title"> Leaderboard </p>

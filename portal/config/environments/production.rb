@@ -110,6 +110,8 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  config.x.public_url_host = ENV.fetch('DEFAULT_URL_HOST')
+
   config.x.slack.webhook_url = ENV.fetch('ISUXPORTAL_SLACK_WEBHOOK_URL')
 
   config.x.github.client_id = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_ID')
@@ -118,6 +120,7 @@ Rails.application.configure do
   config.x.discord.client_id = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_ID')
   config.x.discord.client_secret = ENV.fetch('ISUXPORTAL_DISCORD_CLIENT_SECRET')
   config.x.discord.server_id = ENV.fetch('ISUXPORTAL_DISCORD_SERVER_ID')
+  config.x.discord.channel_id = ENV.fetch('ISUXPORTAL_DISCORD_CHANNEL_ID')
   config.x.discord.bot_token = ENV.fetch('ISUXPORTAL_DISCORD_BOT_TOKEN')
   config.x.discord.contestant_role_id = ENV.fetch('ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID')
   config.x.discord.admin_role_id = ENV.fetch('ISUXPORTAL_DISCORD_ADMIN_ROLE_ID')
@@ -144,6 +147,8 @@ Rails.application.configure do
   config.x.bypass_token.secret = ENV.fetch('ISUXPORTAL_BYPASS_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
   config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
+
+  config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
 
   config.x.sentry.dsn = ENV.fetch('SENTRY_DSN')
 end
