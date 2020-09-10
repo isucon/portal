@@ -26,7 +26,8 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          # https://github.com/actions-rs/cargo/issues/6
+          args: --release --manifest-path supervisor/Cargo.toml
       - uses: actions/upload-artifact@v2
         with:
           name: isuxportal-supervisor-ubuntu1804-amd64
