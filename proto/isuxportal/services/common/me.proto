@@ -7,8 +7,7 @@ import "isuxportal/resources/contestant.proto";
 import "isuxportal/resources/contestant_instance.proto";
 import "isuxportal/resources/contest.proto";
 
-message GetCurrentSessionRequest {
-}
+message GetCurrentSessionRequest {}
 
 message GetCurrentSessionResponse {
   isuxportal.proto.resources.Team team = 1;
@@ -17,5 +16,6 @@ message GetCurrentSessionResponse {
 
   isuxportal.proto.resources.Contest contest = 4;
 
-  repeated isuxportal.proto.resources.ContestantInstance contestant_instances = 5;
+  repeated isuxportal.proto.resources.ContestantInstance contestant_instances =
+      5;
 }

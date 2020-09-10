@@ -9,5 +9,4 @@ message JoinTeamRequest {
   bool is_student = 4;
 }
 
-message JoinTeamResponse {
-}
+message JoinTeamResponse {}

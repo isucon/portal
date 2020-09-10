@@ -3,7 +3,8 @@ package isuxportal.proto.services.bench;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/bench";
 
 service BenchmarkQueue {
-  rpc ReceiveBenchmarkJob(ReceiveBenchmarkJobRequest) returns (ReceiveBenchmarkJobResponse);
+  rpc ReceiveBenchmarkJob(ReceiveBenchmarkJobRequest)
+      returns (ReceiveBenchmarkJobResponse);
 }
 
 message ReceiveBenchmarkJobRequest {

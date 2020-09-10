@@ -4,16 +4,13 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 
 import "isuxportal/resources/clarification.proto";
 
-message ListClarificationsQuery {
-}
+message ListClarificationsQuery {}
 
 message ListClarificationsResponse {
   repeated isuxportal.proto.resources.Clarification clarifications = 1;
 }
 
-message RequestClarificationRequest {
-  string question = 1;
-}
+message RequestClarificationRequest { string question = 1; }
 
 message RequestClarificationResponse {
   isuxportal.proto.resources.Clarification clarification = 1;

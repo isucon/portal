@@ -4,11 +4,8 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 
 import "isuxportal/resources/leaderboard.proto";
 
-message DashboardQuery {
-}
+message DashboardQuery {}
 
 message DashboardResponse {
   isuxportal.proto.resources.Leaderboard leaderboard = 1;
 }
-
-

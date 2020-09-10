@@ -1,4 +1,3 @@
 syntax = "proto3";
 package isuxportal.proto.services.bench;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/bench";
-

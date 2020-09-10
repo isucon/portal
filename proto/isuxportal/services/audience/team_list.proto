@@ -2,8 +2,7 @@ syntax = "proto3";
 package isuxportal.proto.services.audience;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/audience";
 
-message ListTeamsRequest {
-}
+message ListTeamsRequest {}
 
 message ListTeamsResponse {
   repeated TeamListItem teams = 1;

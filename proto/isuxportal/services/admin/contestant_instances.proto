@@ -10,5 +10,6 @@ message ListContestantInstancesQuery {
 }
 
 message ListContestantInstancesResponse {
-  repeated isuxportal.proto.resources.ContestantInstance contestant_instances = 1;
+  repeated isuxportal.proto.resources.ContestantInstance contestant_instances =
+      1;
 }

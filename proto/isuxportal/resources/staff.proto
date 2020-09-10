@@ -3,6 +3,6 @@ package isuxportal.proto.resources;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resources";
 
 message Staff {
- int64 id = 1;
- string github_login = 2;
+  int64 id = 1;
+  string github_login = 2;
 }

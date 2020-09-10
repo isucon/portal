@@ -4,9 +4,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 
 import "isuxportal/resources/benchmark_job.proto";
 
-message ListBenchmarkJobsQuery {
-  int64 limit = 1;
-}
+message ListBenchmarkJobsQuery { int64 limit = 1; }
 
 message ListBenchmarkJobsResponse {
   repeated isuxportal.proto.resources.BenchmarkJob jobs = 1;
@@ -22,9 +20,7 @@ message EnqueueBenchmarkJobResponse {
 }
 
 // Query parameter
-message GetBenchmarkJobQuery {
-  int64 id = 1;
-}
+message GetBenchmarkJobQuery { int64 id = 1; }
 
 message GetBenchmarkJobResponse {
   isuxportal.proto.resources.BenchmarkJob job = 1;

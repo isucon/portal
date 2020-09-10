@@ -14,9 +14,7 @@ message Team {
   bool withdrawn = 7;
   bool disqualified = 9;
 
-  message StudentStatus {
-    bool status = 1;
-  }
+  message StudentStatus { bool status = 1; }
   StudentStatus student = 10;
 
   message TeamDetail {

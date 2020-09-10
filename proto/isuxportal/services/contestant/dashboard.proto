@@ -6,8 +6,7 @@ import "isuxportal/resources/leaderboard.proto";
 import "isuxportal/resources/contestant_instance.proto";
 import "isuxportal/resources/benchmark_job.proto";
 
-message DashboardQuery {
-}
+message DashboardQuery {}
 
 message DashboardResponse {
   isuxportal.proto.resources.Leaderboard leaderboard = 1;

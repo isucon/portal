@@ -13,9 +13,7 @@ message ListClarificationsResponse {
   repeated isuxportal.proto.resources.Clarification clarifications = 1;
 }
 
-message GetClarificationQuery {
-  int64 id = 1;
-}
+message GetClarificationQuery { int64 id = 1; }
 
 message GetClarificationResponse {
   isuxportal.proto.resources.Clarification clarification = 1;

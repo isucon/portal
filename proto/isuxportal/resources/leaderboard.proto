@@ -23,6 +23,6 @@ message Leaderboard {
   repeated LeaderboardItem student_teams = 3;
   repeated LeaderboardItem progresses = 4;
   google.protobuf.Timestamp generated_at = 6;
-  
+
   Contest contest = 5;
 }

@@ -5,8 +5,7 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 import "isuxportal/resources/team.proto";
 import "isuxportal/resources/contestant.proto";
 
-message ListTeamsQuery {
-}
+message ListTeamsQuery {}
 
 message ListTeamsResponse {
   repeated TeamListItem teams = 1;
@@ -22,17 +21,11 @@ message ListTeamsResponse {
   }
 }
 
-message GetTeamQuery {
-  int64 id = 1;
-}
+message GetTeamQuery { int64 id = 1; }
 
-message GetTeamResponse {
-  isuxportal.proto.resources.Team team = 1;
-}
+message GetTeamResponse { isuxportal.proto.resources.Team team = 1; }
 
-message UpdateTeamQuery {
-  int64 id = 1;
-}
+message UpdateTeamQuery { int64 id = 1; }
 
 message UpdateTeamRequest {
   isuxportal.proto.resources.Team team = 1;
@@ -40,5 +33,4 @@ message UpdateTeamRequest {
   repeated isuxportal.proto.resources.Contestant contestants = 2;
 }
 
-message UpdateTeamResponse {
-}
+message UpdateTeamResponse {}

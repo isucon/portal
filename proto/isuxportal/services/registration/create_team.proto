@@ -10,7 +10,4 @@ message CreateTeamRequest {
   bool hidden = 16; // requires bypass token
 }
 
-message CreateTeamResponse {
-  int64 team_id = 1;
-}
-
+message CreateTeamResponse { int64 team_id = 1; }

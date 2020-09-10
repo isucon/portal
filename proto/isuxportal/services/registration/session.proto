@@ -30,7 +30,6 @@ message GetRegistrationSessionResponse {
   string discord_server_id = 8;
 }
 
-
 message UpdateRegistrationRequest {
   string team_name = 1;
   string name = 2; // contestant name
@@ -38,13 +37,8 @@ message UpdateRegistrationRequest {
   bool is_student = 4;
 }
 
-message UpdateRegistrationResponse {
-}
+message UpdateRegistrationResponse {}
 
+message DeleteRegistrationRequest {}
 
-message DeleteRegistrationRequest {
-}
-
-message DeleteRegistrationResponse {
-}
-
+message DeleteRegistrationResponse {}
