@@ -69,7 +69,6 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
         disclose: data.disclose,
       });
       props.onSubmit(resp.clarification!);
-      e!.target.reset();
       setRequesting(false);
     } catch (e) {
       setError(e);
