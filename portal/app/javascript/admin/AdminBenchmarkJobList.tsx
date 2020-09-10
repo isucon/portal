@@ -87,20 +87,21 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.updateList();
+    this.updateList(0);
   }
 
   public componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevProps !== this.props) this.updateList();
   }
 
-  async updateList() {
+  async updateList(page?: number) {
     try {
       const list = await this.props.client.listBenchmarkJobs(
         this.props.teamId ? parseInt(this.props.teamId, 10) : null,
         this.props.incompleteOnly,
+        page,
       );
-      const pageCount = Math.ceil(list.jobs.length / ItemCountPerPage);
+      const pageCount = list.maxPage as number;
       this.setState({list, pageCount});
     } catch (error) {
       this.setState({error});
@@ -142,6 +143,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
   renderPaginate() {
     const handlePageClick = (selectedItem: {selected: number}) => {
       this.setState({currentPage: selectedItem.selected});
+      this.updateList(selectedItem.selected);
     }
 
     return <ReactPaginate
@@ -182,7 +184,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
         </tr>
       </thead>
       <tbody>
-        {this.state.list.jobs!.slice(itemIndexBegin, itemIndexEnd).map((job,i) => this.renderJob(job, i))}
+        {this.state.list.jobs!.map((job,i) => this.renderJob(job, i))}
       </tbody>
     </table>;
   }

@@ -30,9 +30,9 @@ export class AdminApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async listBenchmarkJobs(teamId?: number | null, incompleteOnly?: boolean) {
+  public async listBenchmarkJobs(teamId?: number | null, incompleteOnly?: boolean, page?: number) {
     const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
-    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs?team_id=${teamId ? teamId.toString() : ''}&incomplete_only=${incompleteOnly ? '1' : '0'}`, "GET", null, null);
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs?team_id=${teamId ? teamId.toString() : ''}&incomplete_only=${incompleteOnly ? '1' : '0'}&page=${page}`, "GET", null, null);
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 

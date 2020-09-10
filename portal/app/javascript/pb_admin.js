@@ -7220,6 +7220,7 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.admin
                      * @interface IListBenchmarkJobsResponse
                      * @property {Array.<isuxportal.proto.resources.IBenchmarkJob>|null} [jobs] ListBenchmarkJobsResponse jobs
+                     * @property {number|Long|null} [maxPage] ListBenchmarkJobsResponse maxPage
                      */
 
                     /**
@@ -7245,6 +7246,14 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     ListBenchmarkJobsResponse.prototype.jobs = $util.emptyArray;
+
+                    /**
+                     * ListBenchmarkJobsResponse maxPage.
+                     * @member {number|Long} maxPage
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsResponse
+                     * @instance
+                     */
+                    ListBenchmarkJobsResponse.prototype.maxPage = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
                      * Creates a new ListBenchmarkJobsResponse instance using the specified properties.
@@ -7273,6 +7282,8 @@ $root.isuxportal = (function() {
                         if (message.jobs != null && message.jobs.length)
                             for (var i = 0; i < message.jobs.length; ++i)
                                 $root.isuxportal.proto.resources.BenchmarkJob.encode(message.jobs[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.maxPage != null && Object.hasOwnProperty.call(message, "maxPage"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).int64(message.maxPage);
                         return writer;
                     };
 
@@ -7311,6 +7322,9 @@ $root.isuxportal = (function() {
                                 if (!(message.jobs && message.jobs.length))
                                     message.jobs = [];
                                 message.jobs.push($root.isuxportal.proto.resources.BenchmarkJob.decode(reader, reader.uint32()));
+                                break;
+                            case 2:
+                                message.maxPage = reader.int64();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -7356,6 +7370,9 @@ $root.isuxportal = (function() {
                                     return "jobs." + error;
                             }
                         }
+                        if (message.maxPage != null && message.hasOwnProperty("maxPage"))
+                            if (!$util.isInteger(message.maxPage) && !(message.maxPage && $util.isInteger(message.maxPage.low) && $util.isInteger(message.maxPage.high)))
+                                return "maxPage: integer|Long expected";
                         return null;
                     };
 
@@ -7381,6 +7398,15 @@ $root.isuxportal = (function() {
                                 message.jobs[i] = $root.isuxportal.proto.resources.BenchmarkJob.fromObject(object.jobs[i]);
                             }
                         }
+                        if (object.maxPage != null)
+                            if ($util.Long)
+                                (message.maxPage = $util.Long.fromValue(object.maxPage)).unsigned = false;
+                            else if (typeof object.maxPage === "string")
+                                message.maxPage = parseInt(object.maxPage, 10);
+                            else if (typeof object.maxPage === "number")
+                                message.maxPage = object.maxPage;
+                            else if (typeof object.maxPage === "object")
+                                message.maxPage = new $util.LongBits(object.maxPage.low >>> 0, object.maxPage.high >>> 0).toNumber();
                         return message;
                     };
 
@@ -7399,11 +7425,22 @@ $root.isuxportal = (function() {
                         var object = {};
                         if (options.arrays || options.defaults)
                             object.jobs = [];
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.maxPage = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.maxPage = options.longs === String ? "0" : 0;
                         if (message.jobs && message.jobs.length) {
                             object.jobs = [];
                             for (var j = 0; j < message.jobs.length; ++j)
                                 object.jobs[j] = $root.isuxportal.proto.resources.BenchmarkJob.toObject(message.jobs[j], options);
                         }
+                        if (message.maxPage != null && message.hasOwnProperty("maxPage"))
+                            if (typeof message.maxPage === "number")
+                                object.maxPage = options.longs === String ? String(message.maxPage) : message.maxPage;
+                            else
+                                object.maxPage = options.longs === String ? $util.Long.prototype.toString.call(message.maxPage) : options.longs === Number ? new $util.LongBits(message.maxPage.low >>> 0, message.maxPage.high >>> 0).toNumber() : message.maxPage;
                         return object;
                     };
 
