@@ -2696,6 +2696,9 @@ export namespace isuxportal {
 
                     /** ListBenchmarkJobsResponse jobs */
                     jobs?: (isuxportal.proto.resources.IBenchmarkJob[]|null);
+
+                    /** ListBenchmarkJobsResponse maxPage */
+                    maxPage?: (number|Long|null);
                 }
 
                 /** Represents a ListBenchmarkJobsResponse. */
@@ -2709,6 +2712,9 @@ export namespace isuxportal {
 
                     /** ListBenchmarkJobsResponse jobs. */
                     public jobs: isuxportal.proto.resources.IBenchmarkJob[];
+
+                    /** ListBenchmarkJobsResponse maxPage. */
+                    public maxPage: (number|Long);
 
                     /**
                      * Creates a new ListBenchmarkJobsResponse instance using the specified properties.

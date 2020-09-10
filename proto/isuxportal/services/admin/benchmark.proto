@@ -15,6 +15,7 @@ message ListBenchmarkJobsQuery {
 
 message ListBenchmarkJobsResponse {
   repeated isuxportal.proto.resources.BenchmarkJob jobs = 1;
+  int64 max_page = 2;
 }
 
 message EnqueueBenchmarkJobRequest {

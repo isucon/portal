@@ -1,16 +1,26 @@
 require 'isuxportal/services/admin/benchmark_pb'
 
 class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
+  JOBS_PER_PAGE = 15
+
   pb :index, Isuxportal::Proto::Services::Admin::ListBenchmarkJobsQuery
   def index
     @benchmark_jobs = BenchmarkJob.all.order(id: :desc).includes(:team).joins_score
     @benchmark_jobs = @benchmark_jobs.where(team_id: params[:team_id]) if params[:team_id].present?
     @benchmark_jobs = @benchmark_jobs.where.not(status: %i(errored cancelled finished)) if params[:incomplete_only] == '1'
 
+    max_page = (@benchmark_jobs.count / JOBS_PER_PAGE.to_f).ceil
+
+    if params[:page] && params[:page].to_i >= 0
+      offset = params[:page].to_i * JOBS_PER_PAGE
+      @benchmark_jobs = @benchmark_jobs.limit(JOBS_PER_PAGE).offset(offset)
+    end
+
     render protobuf: Isuxportal::Proto::Services::Admin::ListBenchmarkJobsResponse.new(
       jobs: @benchmark_jobs.map do |job|
         job.to_pb(admin: true, team: true)
       end,
+      max_page: max_page,
     )
   end
 

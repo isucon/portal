@@ -12,6 +12,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "isuxportal.proto.services.admin.ListBenchmarkJobsResponse" do
       repeated :jobs, :message, 1, "isuxportal.proto.resources.BenchmarkJob"
+      optional :max_page, :int64, 2
     end
     add_message "isuxportal.proto.services.admin.EnqueueBenchmarkJobRequest" do
       optional :team_id, :int64, 1

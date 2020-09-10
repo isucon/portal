@@ -139,6 +139,22 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
   }
 }
 
+.pagination {
+  .pagination-nextprevious-disabled {
+    background-color: #dbdbdb;
+    border-color: #dbdbdb;
+    box-shadow: none;
+    color: #7a7a7a;
+    opacity: .5;
+  }
+
+  .pagination-nextprevious-disabled a {
+    color: gray;
+  }
+
+  width: fit-content;
+}
+
 .isux-broadcast-clock {
   background-color: $isuBlack;
   padding: 2vw 3vw;
