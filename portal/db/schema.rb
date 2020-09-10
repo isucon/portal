@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_024644) do
+ActiveRecord::Schema.define(version: 2020_09_10_030613) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2020_09_10_024644) do
     t.integer "status", default: 0, null: false
     t.string "instance_name"
     t.string "handle"
-    t.datetime "started_at"
-    t.datetime "finished_at"
+    t.datetime "started_at", precision: 6
+    t.datetime "finished_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "target_id"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_024644) do
     t.integer "score_deduction", default: 0, null: false
     t.boolean "finished", null: false
     t.boolean "passed"
-    t.datetime "marked_at", null: false
+    t.datetime "marked_at", precision: 6, null: false
     t.text "reason"
     t.text "stdout"
     t.text "stderr"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_024644) do
     t.text "question"
     t.text "answer"
     t.text "original_question"
-    t.datetime "answered_at"
+    t.datetime "answered_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "admin", default: false, null: false
