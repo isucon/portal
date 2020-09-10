@@ -54,12 +54,14 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
     <tr className={classNames.join(" ")}>
       <th className="has-text-centered">
         {me ? null : (
-          <div
-            className={`isux-pin-button is-small has-text-${pinned ? "dark" : "light"}`}
+          <i
+            className={`isux-pin-button is-small ${
+              pinned ? "material-icons has-text-danger" : "material-icons-outlined has-text-grey-light"
+            }`}
             onClick={() => onPin(item.team!.id!.toString(), !pinned)}
           >
-            <span className="material-icons">push_pin</span>
-          </div>
+            push_pin
+          </i>
         )}
       </th>
       <th className="has-text-right">{position}</th>
