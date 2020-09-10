@@ -1,4 +1,6 @@
 class Admin::DebugController < Admin::ApplicationController
+  skip_before_action :require_staff, only: %i(long_running_check)
+
   def slack
     SlackWebhookJob.perform_later(text: "test test test")
     render plain: 'slacktown'
@@ -21,5 +23,10 @@ class Admin::DebugController < Admin::ApplicationController
       end
     end
     render plain: result.join("\n")
+  end
+
+  def long_running_check
+    LongRunningCheckJob.perform_later
+    render plain: 'enqueud'
   end
 end
