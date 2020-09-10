@@ -104,12 +104,12 @@ export const Clarification: React.FC<Props> = (props: Props) => {
               </div>
             ) : null}
             <section>
-              <pre>{showOriginalQuestion ? clar.originalQuestion : clar.question}</pre>
+              <pre className="isux-clarification-pre">{showOriginalQuestion ? clar.originalQuestion : clar.question}</pre>
             </section>
           </div>
           <div className="column is-6">
             <h5 className="is-5">回答</h5>
-            <section>{clar.answered ? <pre>{clar.answer}</pre> : <p>N/A</p>}</section>
+            <section>{clar.answered ? <pre className="isux-clarification-pre">{clar.answer}</pre> : <p>N/A</p>}</section>
           </div>
         </div>
         <p>
