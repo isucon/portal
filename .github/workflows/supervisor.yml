@@ -1,0 +1,29 @@
+name: supervisor
+on: 
+  push:
+    paths:
+      - 'supervisor/**'
+      - '.github/workflows/supervisor.yml'
+    branches:
+      - master
+
+jobs:
+  build:
+    name: supervisor-build
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: supervisor
+    steps:
+      - uses: actions/checkout@master
+      - run: 'echo $GITHUB_SHA > REVISION'
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: isuxportal-supervisor-ubuntu1804-amd64
+          path: target/release/isuxportal-supervisor
