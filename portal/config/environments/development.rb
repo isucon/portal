@@ -82,6 +82,7 @@ Rails.application.configure do
   config.x.discord.bot_token = ENV['ISUXPORTAL_DISCORD_BOT_TOKEN']
 
   config.x.discord.server_id = ENV['ISUXPORTAL_DISCORD_SERVER_ID'] || '721578039779262486'
+  config.x.discord.channel_id = ENV['ISUXPORTAL_DISCORD_CHANNEL_ID'] || '729697803982602286'
   config.x.discord.contestant_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID'] || '721583193270255617'
   config.x.discord.admin_role_id = ENV['ISUXPORTAL_DISCORD_ADMIN_ROLE_ID'] || '721583068724592640'
   config.x.discord.contestant_final_role_id = ENV['ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID'] || '721584047175761940'

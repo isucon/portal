@@ -33,6 +33,7 @@ class Api::Admin::ClarificationsController < Api::Admin::ApplicationController
       disclosed: pb.team_id == 0,
       admin: true,
     )
+    ClarificationResponseJob.perform_later(@clarification, false)
     render protobuf: Isuxportal::Proto::Services::Admin::CreateClarificationResponse.new(
       clarification: @clarification.to_pb(team: true, original_question: true),
     )
@@ -42,12 +43,14 @@ class Api::Admin::ClarificationsController < Api::Admin::ApplicationController
   def update
     raise Api::ApplicationController::Error::BadRequest.new("id must match") if params[:id]&.to_i != pb.id
     @clarification = Clarification.find(params[:id])
+    was_answered = @clarification.answered?
     @clarification.answered = true
     @clarification.update_attributes!(
       disclosed: pb.disclose,
       answer: pb.answer,
       question: pb.question.presence || @clarification.original_question,
     )
+    ClarificationResponseJob.perform_later(@clarification, was_answered)
     render protobuf: Isuxportal::Proto::Services::Admin::RespondClarificationResponse.new(
       clarification: @clarification.to_pb(team: true, original_question: true),
     )
