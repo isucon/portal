@@ -20,6 +20,13 @@ class BenchmarkJob < ApplicationRecord
 
   # scope :joins_score, -> { left_outer_joins(:benchmark_result).select('benchmark_jobs.*, benchmark_results.score as score') }
   scope :joins_score, -> { left_outer_joins(:benchmark_result).select(BenchmarkJob.column_names, 'benchmark_results.score as score', '1 as score_loaded') }
+  scope :created_before_contest_ended, -> {
+    if Rails.application.config.x.contest.contest_end
+      where('benchmark_jobs.created_at < ?', Rails.application.config.x.contest.contest_end) 
+    else
+      where('1=1')
+    end
+  }
 
   scope :active, -> { where.not(status: %i(cancelled errored finished)) }
 
