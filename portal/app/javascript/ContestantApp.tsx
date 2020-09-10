@@ -17,6 +17,7 @@ import {ContestantBenchmarkJobDetail} from "./contestant/ContestantBenchmarkJobD
 import {ContestantClarificationList} from "./contestant/ContestantClarificationList";
 import {ContestantContestantInstanceList} from "./contestant/ContestantContestantInstanceList";
 import {ContestantDashboard} from "./contestant/ContestantDashboard";
+import {ContestantDiscordPage} from "./contestant/ContestantDiscordPage";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse,
@@ -54,7 +55,9 @@ export class ContestantApp extends React.Component<Props, State> {
           <Route exact path="/contestant/contestant_instances" render={({match}) => {
             return <ContestantContestantInstanceList session={this.props.session} client={this.props.client} />;
           }} />
-
+          <Route exact path="/contestant/discord" render={({match}) => {
+            return <ContestantDiscordPage session={this.props.session} client={this.props.client} />;
+          }} />
         </Switch>
       </div>
     </BrowserRouter>;

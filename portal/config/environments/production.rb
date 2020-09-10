@@ -148,5 +148,7 @@ Rails.application.configure do
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
   config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
+  config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
+
   config.x.sentry.dsn = ENV.fetch('SENTRY_DSN')
 end

@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
   get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
 
+  get('/docs', to: redirect(Rails.application.config.x.docs_url), constraints: Module.new {
+    def self.matches?(_request)
+      Contest.contest_running?
+    end
+  })
+
   get '/broadcast_view/leaderboard' => 'broadcast_view#index'
   get '/broadcast_view/score_changes' => 'broadcast_view#index'
   get '/broadcast_view/clock' => 'broadcast_view#index'
@@ -32,6 +38,7 @@ Rails.application.routes.draw do
     get '/benchmark_jobs/:id' => 'root#index'
     get '/clarifications' => 'root#index'
     get '/contestant_instances' => 'root#index'
+    get '/discord' => 'root#index'
   end
 
   scope path: 'api', module: 'api' do
