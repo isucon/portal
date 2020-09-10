@@ -22,7 +22,7 @@ class MaintainDiscordContestantRolesJob < ApplicationJob
       Rails.logger.info Discordrb::API::Server.update_member(discord_token, server_id, contestant.discord_id, nick: nick)
     end
   rescue RestClient::NotFound => e
-    Rails.logger.warn "contestant_id=#{@contestant&.id} force_discord_id=#{@force_discord_id}, #{e.inspect}"
+    Rails.logger.warn "NotFound: #{@contestant&.name.inspect} (#{@contestant&.team&.name.inspect}), team_id=#{@contestant&.team_id}, contestant_id=#{@contestant&.id}, force_discord_id=#{@force_discord_id}, #{e.inspect}"
   end
 
   private def basic_role
