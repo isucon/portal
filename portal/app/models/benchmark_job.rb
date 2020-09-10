@@ -62,6 +62,7 @@ class BenchmarkJob < ApplicationRecord
     ApplicationRecord.transaction do
       result = benchmark_result || build_benchmark_result
       result.update_from_pb!(pb)
+      self.started_at ||= Time.zone.now
       if result.finished?
         self.status = case
                       when result.errored?
@@ -70,8 +71,9 @@ class BenchmarkJob < ApplicationRecord
                         :finished
                       end
         self.finished_at = Time.zone.now
-        self.save!
       end
+      self.save!
+      result.save!
 
       if pb.survey_response
         response = team.survey_response || team.build_survey_response
