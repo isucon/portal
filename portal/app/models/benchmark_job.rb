@@ -72,12 +72,17 @@ class BenchmarkJob < ApplicationRecord
         self.finished_at = Time.zone.now
         self.save!
       end
+
       if pb.survey_response
         response = team.survey_response || team.build_survey_response
         response.benchmark_job_id = self.id
         response.language = pb.survey_response.language
         response.save!
       end
+    end
+
+    if self.finished?
+      BenchmarkCompletionJob.perform_later(self)
     end
   end
 

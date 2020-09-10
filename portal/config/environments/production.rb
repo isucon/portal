@@ -110,6 +110,8 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  config.x.public_url_host = ENV.fetch('DEFAULT_URL_HOST')
+
   config.x.slack.webhook_url = ENV.fetch('ISUXPORTAL_SLACK_WEBHOOK_URL')
 
   config.x.github.client_id = ENV.fetch('ISUXPORTAL_GITHUB_CLIENT_ID')
