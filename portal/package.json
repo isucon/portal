@@ -1,10 +1,15 @@
 {
   "private": true,
+  "scripts": {
+    "watch": "webpack --progress --watch",
+    "format": "prettier --write  app/javascript/**/*.{ts,tsx,scss}"
+  },
   "devDependencies": {
     "@types/react-paginate": "^6.2.1",
     "css-loader": "^3.6.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
+    "prettier": "^2.1.1",
     "sass-loader": "^9.0.1",
     "terser-webpack-plugin": "^3.0.6",
     "ts-loader": "^7.0.5",
