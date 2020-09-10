@@ -11,6 +11,9 @@ class Clarification < ApplicationRecord
   scope :answered_for_team, ->(team) { answered.where(team: team) }
   scope :visible_for_team, ->(team) { where(team: team).or(Clarification.disclosed) }
 
+  scope :unanswered, -> { where(answered_at: nil) }
+  scope :requested, -> { where(admin: false) }
+
   def answered?
     !!answered_at
   end
