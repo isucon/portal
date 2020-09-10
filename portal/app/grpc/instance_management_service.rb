@@ -15,7 +15,7 @@ class InstanceManagementService < Isuxportal::Proto::Services::Dcim::InstanceMan
     )
 
     Isuxportal::Proto::Services::Dcim::InformInstanceStateUpdateResponse.new()
-  rescue ActiveRecord::RecordInvalid => e.message
+  rescue ActiveRecord::RecordInvalid => e
     raise GRPC::InvalidArgument.new(e.message)
   end
 end
