@@ -14,6 +14,8 @@ module ActiveJob
           else
             ""
           end
+        else
+          ""
         end
       end
     end

@@ -21,6 +21,8 @@ class BenchmarkJob < ApplicationRecord
   # scope :joins_score, -> { left_outer_joins(:benchmark_result).select('benchmark_jobs.*, benchmark_results.score as score') }
   scope :joins_score, -> { left_outer_joins(:benchmark_result).select(BenchmarkJob.column_names, 'benchmark_results.score as score', '1 as score_loaded') }
 
+  scope :active, -> { where.not(status: %i(cancelled errored finished)) }
+
   def score
     read_attribute(:score_loaded) == 1 ? read_attribute(:score) : benchmark_result&.score
   end
