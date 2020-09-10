@@ -9,7 +9,7 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
     @benchmark_jobs = @benchmark_jobs.where(team_id: params[:team_id]) if params[:team_id].present?
     @benchmark_jobs = @benchmark_jobs.where.not(status: %i(errored cancelled finished)) if params[:incomplete_only] == '1'
 
-    max_page = (@benchmark_jobs.count / JOBS_PER_PAGE.to_f).ceil
+    max_page = (@benchmark_jobs.count(:id) / JOBS_PER_PAGE.to_f).ceil
 
     if params[:page] && params[:page].to_i >= 0
       offset = params[:page].to_i * JOBS_PER_PAGE
