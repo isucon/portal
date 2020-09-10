@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_223727) do
+ActiveRecord::Schema.define(version: 2020_09_10_024644) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2020_09_09_223727) do
     t.datetime "answered_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin"
+    t.boolean "admin", default: false, null: false
     t.index ["disclosed", "created_at"], name: "index_clarifications_on_disclosed_and_created_at"
     t.index ["team_id", "created_at"], name: "index_clarifications_on_team_id_and_created_at"
   end
