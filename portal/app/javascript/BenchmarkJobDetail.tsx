@@ -48,13 +48,13 @@ const renderJobResult = (job: isuxportal.proto.resources.IBenchmarkJob) => {
     </header>
     <div className="card-content">
       <p>
-        {result.finished ? <span className="tag is-info">Finished</span> : <span className="tag is-info">In progress</span>}
+        {result.finished ? <span className="tag is-info">Finished</span> : <span className="tag is-warning">In progress</span>}
         {result.finished ?
-          (result.passed ? <span className="tag is-info">Passed</span> : <span className="tag is-info">Failed</span>) : null}
+          (result.passed ? <span className="tag is-success ml-2">Passed</span> : <span className="tag is-danger ml-2">Failed</span>) : null}
       </p>
       <p><b>Marked At:</b> <Timestamp timestamp={result.markedAt!} /></p>
       <p><b>Score:</b> {result.score}</p>
-      {result.scoreBreakdown ? <p>+ {result.scoreBreakdown.raw} - {result.scoreBreakdown.deduction}</p> : null}
+        {result.scoreBreakdown ? <p><b>Score Breakdown:</b> base={result.scoreBreakdown.raw}, deduction={result.scoreBreakdown.deduction}</p> : null}
     </div>
   </div>;
 };
@@ -64,20 +64,22 @@ const renderJobExecution = (job: isuxportal.proto.resources.IBenchmarkJob, admin
   if (!job.result.execution) return;
   const {execution} = job.result;
   return <div className="card mt-5">
-      <header className="card-header">
-        <h4 className="is-4 card-header-title">Conclusion</h4>
-      </header>
-      <div className="card-content">
-        <p><b>Reason:</b> {execution.reason}</p>
+    <header className="card-header">
+      <h4 className="is-4 card-header-title">Conclusion</h4>
+    </header>
+    <div className="card-content">
+      <p><b>Reason:</b> {execution.reason}</p>
+      {admin ?  <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p> : null}
 
+      <div className="mt-3">
         <h5 className="subtitle is-5">Stdout</h5>
         <pre>{execution.stdout}</pre>
 
         {admin ? <>
-          <p><b>Exit status:</b> {execution.exitStatus} {execution.signaled ? <span>(Signaled: {execution.exitSignal})</span> : null}</p>
           <h5 className="subtitle is-5">Stderr</h5>
           <pre>{execution.stderr}</pre>
         </> : null}
+      </div>
     </div>
   </div>;
 };
