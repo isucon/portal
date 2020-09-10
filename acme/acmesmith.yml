@@ -1,0 +1,9 @@
+directory: https://acme-v02.api.letsencrypt.org/directory
+storage:
+  type: s3
+  region: 'ap-northeast-1'
+  bucket: 'isucon10-misc'
+  prefix: 'acme'
+  pkcs12_passphrase: notsecret
+challenge_responders:
+  - manual_dns: {}
