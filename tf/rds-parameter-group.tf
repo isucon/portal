@@ -33,6 +33,12 @@ resource "aws_db_parameter_group" "aurora57" {
     value        = "0"
   }
 
+  parameter {
+    apply_method = "immediate"
+    name         = "max_connections"
+    value        = "2000"
+  }
+
   tags = {
     Project = "isucon10"
   }
