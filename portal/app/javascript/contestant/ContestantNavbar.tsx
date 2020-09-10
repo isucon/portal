@@ -10,6 +10,8 @@ import { ErrorMessage } from "../ErrorMessage";
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
+
+  unreadNotificationExists: boolean,
 }
 
 export interface State {}
@@ -32,19 +34,26 @@ export class ContestantNavbar extends React.Component<Props, State> {
           <div className="navbar-menu is-active">
             <div className="navbar-start">
               <Link className="navbar-item" to="/contestant">
+                <span className="material-icons" aria-hidden={true}>leaderboard</span>
                 ダッシュボード
               </Link>
               <Link className="navbar-item" to="/contestant/contestant_instances">
+                <span className="material-icons" aria-hidden={true}>memory</span>
                 サーバーリスト
               </Link>
               <Link className="navbar-item" to="/contestant/benchmark_jobs">
-                ベンチ実行リスト
+                <span className="material-icons" aria-hidden={true}>local_fire_department</span>
+                ベンチマーク
               </Link>
               <Link className="navbar-item" to="/contestant/clarifications">
+                <span className="material-icons" aria-hidden={!this.props.unreadNotificationExists} aria-label={this.props.unreadNotificationExists ? "未読あり" : ""}>{this.props.unreadNotificationExists ? "mark_email_unread" : "email"}</span>
                 質問/サポート
               </Link>
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">ドキュメント</a>
+                <a className="navbar-link">
+                  <span className="material-icons" aria-hidden={true}>sticky_note_2</span>
+                  ドキュメント
+                </a>
                 <div className="navbar-dropdown">
                   <a className="navbar-item" href="/teams">
                     チーム一覧

@@ -81,6 +81,9 @@ Rails.application.routes.draw do
       # contestant/clarifications ListClarifications: GET /api/contestant/clarifications
       # contestant/clarifications RequestClarification: POST /api/contestant/clarifications
       resources :clarifications, only: %i(index create)
+
+      # contestant/notifications ListNotifications: GET /api/contestant/notifications
+      resources :notifications, only: %i(index)
     end
 
     scope path: 'admin', module: 'admin' do

@@ -139,6 +139,12 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listNotifications(after?: number) {
+    const klass = isuxportal.proto.services.contestant.ListNotificationsResponse;
+    const resp = await this.request(`${this.baseUrl}/api/contestant/notifications?after=${after ? encodeURIComponent(after.toString()) : ''}`, "GET", null, null);
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == "/" ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();

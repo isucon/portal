@@ -14,23 +14,73 @@ import { ContestantContestantInstanceList } from "./contestant/ContestantContest
 import { ContestantDashboard } from "./contestant/ContestantDashboard";
 import { ContestantDiscordPage } from "./contestant/ContestantDiscordPage";
 
+import { ContestantNotificationsObserver } from "./contestant/ContestantNotificationsObserver";
+
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
 }
 
-export interface State {}
+export interface State {
+  notificationObserver: ContestantNotificationsObserver;
+  lastAnsweredClarificationIdObserved: boolean,
+  lastAnsweredClarificationId?: number,
+  lastClarificationIdSeen?: number,
+}
 
 export class ContestantApp extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {};
+
+    const notificationObserver = new ContestantNotificationsObserver(this.props.client);
+    notificationObserver.onLastAnsweredClarificationIdChange = this.onLastAnsweredClarificationIdChange.bind(this);
+    notificationObserver.onNewNotifications = this.onNewNotifications.bind(this);
+
+    this.state = {
+      notificationObserver,
+      lastAnsweredClarificationIdObserved: false,
+      lastClarificationIdSeen: this.getLastClarificationIdSeen(),
+    };
+  }
+
+  getLastClarificationIdSeen() {
+    const str = window.localStorage.getItem('isuxportal-contestantLastClarificationIdSeen');
+    if (!str) return undefined;
+    return parseInt(str, 10);
+  }
+
+  componentDidMount() {
+    this.state.notificationObserver.start();
+  }
+
+  componentWillUnmount() {
+    this.state.notificationObserver.shutdown();
+  }
+
+  onLastAnsweredClarificationIdChange(id?: number) {
+    this.setState({
+      lastAnsweredClarificationIdObserved: true,
+      lastAnsweredClarificationId: id,
+      lastClarificationIdSeen: this.getLastClarificationIdSeen(),
+    });
+  }
+
+  onLastClarificationIdSeenChange(id?: number) {
+    if (id) {
+      window.localStorage.setItem('isuxportal-contestantLastClarificationIdSeen', id.toString());
+    } else {
+      window.localStorage.removeItem('isuxportal-contestantLastClarificationIdSeen');
+    }
+    this.setState({lastClarificationIdSeen: id});
+  }
+
+  onNewNotifications(notifications: isuxportal.proto.resources.INotification[]) {
   }
 
   public render() {
     return (
       <BrowserRouter>
-        <ContestantNavbar session={this.props.session} client={this.props.client} />
+        <ContestantNavbar session={this.props.session} client={this.props.client} unreadNotificationExists={this.state.lastAnsweredClarificationIdObserved && this.state.lastClarificationIdSeen !== this.state.lastAnsweredClarificationId} />
 
         <div className="container mt-5">
           <Switch>
@@ -64,7 +114,7 @@ export class ContestantApp extends React.Component<Props, State> {
               exact
               path="/contestant/clarifications"
               render={({ match }) => {
-                return <ContestantClarificationList session={this.props.session} client={this.props.client} />;
+                return <ContestantClarificationList session={this.props.session} client={this.props.client} onLastClarificationIdSeenChange={this.onLastClarificationIdSeenChange.bind(this)} />;
               }}
             />
             <Route

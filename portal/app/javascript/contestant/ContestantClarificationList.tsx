@@ -80,6 +80,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
+  onLastClarificationIdSeenChange: (id?: number) => any,
 }
 
 export const ContestantClarificationList: React.FC<Props> = (props: Props) => {
@@ -95,6 +96,12 @@ export const ContestantClarificationList: React.FC<Props> = (props: Props) => {
   const onClarSubmit = (clar: isuxportal.proto.resources.IClarification) => {
     setList(list ? [clar, ...list] : [clar]);
   };
+
+  React.useEffect(() => {
+    if (!list) return;
+    const clar = list.find((clar) => clar.answered);
+    props.onLastClarificationIdSeenChange(clar?.id! as number ?? undefined);
+  }, [list]);
 
   const renderList = () => {
     if (!list) return null;
