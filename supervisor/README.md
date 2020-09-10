@@ -6,6 +6,8 @@
 cargo build --release --bin isuxportal-supervisor
 ```
 
+or download an artifact of release build binary for Ubuntu 18.04 on GitHub Actions: https://github.com/isucon/isucon10-portal/actions?query=workflow%3Asupervisor
+
 ## example systemd unit
 
 ```systemd
