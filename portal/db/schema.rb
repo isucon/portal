@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_030613) do
+ActiveRecord::Schema.define(version: 2020_09_10_172858) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 2020_09_10_030613) do
     t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
     t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
     t.index ["team_id"], name: "index_contestants_on_team_id"
+  end
+
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "contestant_id", null: false
+    t.boolean "read", default: false, null: false
+    t.text "encoded_message", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contestant_id", "id"], name: "index_notifications_on_contestant_id_and_id"
+    t.index ["contestant_id", "read", "id"], name: "index_notifications_on_contestant_id_and_read_and_id"
   end
 
   create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
