@@ -115,7 +115,6 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
             <h1 className="title is-1">Benchmark Jobs</h1>
           </header>
           <main>
-            {this.state.currentPage}
             {this.renderForm()}
             {this.renderFilter()}
             {this.renderError()}
@@ -149,16 +148,16 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       previousLabel='previous'
       nextLabel='next'
       breakLabel='...'
-      breakClassName='pagination-ellipsis'
+      breakClassName='pagination-list pagination-ellipsis'
       pageCount={this.state.pageCount}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       onPageChange={handlePageClick}
-      containerClassName='pagination'
+      containerClassName='pagination is-centered'
       pageClassName='pagination-list'
       pageLinkClassName='pagination-link'
-      activeClassName='is-current'
-      disabledClassName='is-dark'
+      activeLinkClassName='is-current'
+      disabledClassName='pagination-nextprevious-disabled'
       nextClassName='pagination-next'
       previousClassName='pagination-previous'
       // subContainerClassName={'pages pagination'}

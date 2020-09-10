@@ -134,3 +134,19 @@ body.isux-session-guest .isux-visibility-guest { display: block !important; }
     cursor: pointer;
   }
 }
+
+.pagination {
+  .pagination-nextprevious-disabled {
+    background-color: #dbdbdb;
+    border-color: #dbdbdb;
+    box-shadow: none;
+    color: #7a7a7a;
+    opacity: .5;
+  }
+
+  .pagination-nextprevious-disabled a {
+    color: gray;
+  }
+
+  width: fit-content;
+}
