@@ -13,7 +13,12 @@ const loadPins = () => {
 };
 
 const savePins = (pins: TeamPinsMap) => {
-  window.localStorage.setItem("isuxportal-dashboard-pins", JSON.stringify(Array.from(pins.keys())));
+  const data = JSON.stringify(Array.from(pins.keys()));
+  try {
+    window.localStorage.setItem("isuxportal-dashboard-pins", data);
+  } catch(e) {
+    console.warn(e);
+  }
 };
 
 export class TeamPins {

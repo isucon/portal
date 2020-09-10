@@ -66,10 +66,14 @@ export class ContestantApp extends React.Component<Props, State> {
   }
 
   onLastClarificationIdSeenChange(id?: number) {
-    if (id) {
-      window.localStorage.setItem('isuxportal-contestantLastClarificationIdSeen', id.toString());
-    } else {
-      window.localStorage.removeItem('isuxportal-contestantLastClarificationIdSeen');
+    try {
+      if (id) {
+        window.localStorage.setItem('isuxportal-contestantLastClarificationIdSeen', id.toString());
+      } else {
+        window.localStorage.removeItem('isuxportal-contestantLastClarificationIdSeen');
+      }
+    } catch(e) {
+      console.warn(e);
     }
     this.setState({lastClarificationIdSeen: id});
   }
