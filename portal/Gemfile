@@ -14,6 +14,7 @@ gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
 gem 'redis-actionpack' # session store
 gem 'sentry-raven'
+gem 'active_record_mysql_xverify'
 
 gem 'shoryuken'
 gem 'aws-sdk-sqs'
