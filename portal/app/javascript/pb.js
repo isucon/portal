@@ -7695,6 +7695,7 @@ $root.isuxportal = (function() {
                      * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
                      * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
                      * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] GetCurrentSessionResponse contestantInstances
+                     * @property {Uint8Array|null} [pushVapidKey] GetCurrentSessionResponse pushVapidKey
                      */
 
                     /**
@@ -7754,6 +7755,14 @@ $root.isuxportal = (function() {
                     GetCurrentSessionResponse.prototype.contestantInstances = $util.emptyArray;
 
                     /**
+                     * GetCurrentSessionResponse pushVapidKey.
+                     * @member {Uint8Array} pushVapidKey
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.pushVapidKey = $util.newBuffer([]);
+
+                    /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
@@ -7788,6 +7797,8 @@ $root.isuxportal = (function() {
                         if (message.contestantInstances != null && message.contestantInstances.length)
                             for (var i = 0; i < message.contestantInstances.length; ++i)
                                 $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        if (message.pushVapidKey != null && Object.hasOwnProperty.call(message, "pushVapidKey"))
+                            writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.pushVapidKey);
                         return writer;
                     };
 
@@ -7838,6 +7849,9 @@ $root.isuxportal = (function() {
                                 if (!(message.contestantInstances && message.contestantInstances.length))
                                     message.contestantInstances = [];
                                 message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
+                                break;
+                            case 6:
+                                message.pushVapidKey = reader.bytes();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -7901,6 +7915,9 @@ $root.isuxportal = (function() {
                                     return "contestantInstances." + error;
                             }
                         }
+                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
+                            if (!(message.pushVapidKey && typeof message.pushVapidKey.length === "number" || $util.isString(message.pushVapidKey)))
+                                return "pushVapidKey: buffer expected";
                         return null;
                     };
 
@@ -7943,6 +7960,11 @@ $root.isuxportal = (function() {
                                 message.contestantInstances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.contestantInstances[i]);
                             }
                         }
+                        if (object.pushVapidKey != null)
+                            if (typeof object.pushVapidKey === "string")
+                                $util.base64.decode(object.pushVapidKey, message.pushVapidKey = $util.newBuffer($util.base64.length(object.pushVapidKey)), 0);
+                            else if (object.pushVapidKey.length)
+                                message.pushVapidKey = object.pushVapidKey;
                         return message;
                     };
 
@@ -7966,6 +7988,13 @@ $root.isuxportal = (function() {
                             object.contestant = null;
                             object.discordServerId = "";
                             object.contest = null;
+                            if (options.bytes === String)
+                                object.pushVapidKey = "";
+                            else {
+                                object.pushVapidKey = [];
+                                if (options.bytes !== Array)
+                                    object.pushVapidKey = $util.newBuffer(object.pushVapidKey);
+                            }
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -7980,6 +8009,8 @@ $root.isuxportal = (function() {
                             for (var j = 0; j < message.contestantInstances.length; ++j)
                                 object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
                         }
+                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
+                            object.pushVapidKey = options.bytes === String ? $util.base64.encode(message.pushVapidKey, 0, message.pushVapidKey.length) : options.bytes === Array ? Array.prototype.slice.call(message.pushVapidKey) : message.pushVapidKey;
                         return object;
                     };
 

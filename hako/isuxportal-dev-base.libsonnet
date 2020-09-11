@@ -43,6 +43,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       secret('ISUXPORTAL_DISCORD_CLIENT_SECRET'),
       secret('ISUXPORTAL_DISCORD_BOT_TOKEN'),
       secret('ISUXPORTAL_ADMIN_PASSWORD'),
+      secret('ISUXPORTAL_VAPID_PRIVATE_KEY'),
     ],
     mount_points: [
     ],

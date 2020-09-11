@@ -129,6 +129,7 @@ GEM
     grpc-tools (1.30.2)
     hashie (4.1.0)
     hiredis (0.6.3)
+    hkdf (0.3.0)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -281,6 +282,9 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    webpush (1.0.0)
+      hkdf (~> 0.2)
+      jwt (~> 2.0)
     websocket (1.2.8)
     websocket-client-simple (0.3.0)
       event_emitter
@@ -321,6 +325,7 @@ DEPENDENCIES
   sentry-raven
   shoryuken
   simpacker
+  webpush
 
 BUNDLED WITH
    2.1.4

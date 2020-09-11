@@ -30,6 +30,7 @@ gem 'addressable'
 
 gem 'discordrb', git: 'https://github.com/discordrb/discordrb'
 gem 'octokit'
+gem 'webpush'
 
 group :development, :test do
   gem 'rspec'

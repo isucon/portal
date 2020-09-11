@@ -56,6 +56,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       secret('ISUXPORTAL_SSH_KEY_API_SECRET'),
       secret('ISUXPORTAL_BENCH_TOKEN'),
       secret('ISUXPORTAL_DCIM_TOKEN'),
+      secret('ISUXPORTAL_VAPID_PRIVATE_KEY'),
     ],
     mount_points: [
     ],

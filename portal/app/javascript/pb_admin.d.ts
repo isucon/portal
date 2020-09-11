@@ -2896,6 +2896,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contestantInstances */
                     contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
+
+                    /** GetCurrentSessionResponse pushVapidKey */
+                    pushVapidKey?: (Uint8Array|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2921,6 +2924,9 @@ export namespace isuxportal {
 
                     /** GetCurrentSessionResponse contestantInstances. */
                     public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
+
+                    /** GetCurrentSessionResponse pushVapidKey. */
+                    public pushVapidKey: Uint8Array;
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.

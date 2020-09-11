@@ -112,5 +112,7 @@ Rails.application.configure do
 
   config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
 
+  config.x.webpush.vapid_key = ENV['ISUXPORTAL_VAPID_PRIVATE_KEY']&.yield_self { |_| Webpush::VapidKey.from_pem(JSON.parse(_)) }
+
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 end
