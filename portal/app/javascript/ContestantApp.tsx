@@ -19,6 +19,7 @@ import { ContestantNotificationsObserver } from "./contestant/ContestantNotifica
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
+  release?: string;
 }
 
 export interface State {
@@ -86,6 +87,19 @@ export class ContestantApp extends React.Component<Props, State> {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').then((reg) => {
         console.log("SW:", reg);
+
+        const lastServiceWorkerRelease = window.localStorage.getItem('isuxportal-swRelease');
+        if (lastServiceWorkerRelease !== undefined && this.props.release !== lastServiceWorkerRelease) {
+          console.log("Attempt to update sw");
+          reg.update();
+        }
+
+        try {
+          window.localStorage.setItem('isuxportal-swRelease', this.props.release || "");
+        } catch(e) {
+          console.warn(e);
+        }
+
         this.setState({serviceWorker: reg});
 
         reg.pushManager.getSubscription().then((s) => {
