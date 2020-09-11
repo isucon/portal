@@ -8,6 +8,7 @@ COPY webpack.config.js ./
 COPY tsconfig.json ./
 COPY types ./
 COPY app/javascript ./app/javascript
+COPY sw ./sw
 RUN NODE_ENV=production node_modules/.bin/webpack
 
 # https://github.com/sorah-rbpkg/dockerfiles
