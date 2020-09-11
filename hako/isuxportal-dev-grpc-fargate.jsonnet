@@ -21,7 +21,11 @@ base {
     }
   },
   additional_containers: {
-    front: frontEnvoy.container('isuxportal-dev-grpc-fargate', '4000'),
+    front: frontEnvoy.container('isuxportal-dev-grpc-fargate', '4000') {
+      env+: {
+        HTTP2_MAX_CONCURRENT_STREAMS: '20',
+      },
+    },
   },
   volumes: {
   },
