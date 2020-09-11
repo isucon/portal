@@ -20,8 +20,8 @@
   },
   ecsSchedulerFargate:: $.ecsSchedulerBase {
     cluster: 'isux-fargate',
-    cpu: '512',
-    memory: '1024',
+    cpu: '256',
+    memory: '512',
     requires_compatibilities: ['FARGATE'],
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE', weight: 1 },
