@@ -2,11 +2,19 @@ declare var self: ServiceWorkerGlobalScope; export {};
 
 import {isuxportal} from "./pb";
 import {skipWaiting, clientsClaim} from "workbox-core";
+import {openDB} from "idb";
 
 skipWaiting();
 clientsClaim();
 
 console.log("SW!");
+
+const openDb = () => openDB("isuxportal-swKnownNotifications", 3, {
+  upgrade(db) {
+    db.createObjectStore('kv2', {keyPath: 'id'});
+  }
+});
+
 
 self.addEventListener('activate', (e) => {
   console.log("SW! activate");
@@ -14,6 +22,9 @@ self.addEventListener('activate', (e) => {
     self.registration.unregister();
     return;
   }
+
+  const idbInitPromise = openDb();
+  e.waitUntil(idbInitPromise);
 });
 
 const openUrl = (event: ExtendableEvent, path: string) => {
@@ -30,10 +41,30 @@ const openUrl = (event: ExtendableEvent, path: string) => {
   event.waitUntil(promise);
 }
 
-const showNotification = (event: ExtendableEvent, n: isuxportal.proto.resources.INotification) => {
-  console.log("SW showNotification:", n);
-  let promise: Promise<void> | null = null;
+const showNotification = async (n: isuxportal.proto.resources.INotification) => {
   const tag = `isuxportal-pushtag-${n.id}`;
+  console.log("SW showNotification:", tag, n);
+
+  const wasKnown = await (async () => {
+    const obj = {id: n.id!.toString(), known: true};
+    const db = await openDb();
+    const txn = await db.transaction('kv2', 'readwrite');
+    const store = await txn.objectStore('kv2');
+
+    const known = (await store.get(obj.id))?.known;
+    if (!known) {
+      await store.put(obj);
+    }
+    await txn.done;
+    return known;
+  })();
+  if (wasKnown) {
+    console.log("SW showNotification knownSkip", tag);
+    return;
+  }
+
+  let promise: Promise<void> | null = null;
+
   if (n.contentTest) {
     promise = self.registration.showNotification("isuxportal test notification", {body: `test ${n.contentTest.something} ${n.id}`, tag, data: `/contestant`});
   } else if (n.contentBenchmarkJob) {
@@ -41,7 +72,7 @@ const showNotification = (event: ExtendableEvent, n: isuxportal.proto.resources.
   } else if (n.contentClarification) {
     // TODO:
   }
-  if (promise) event.waitUntil(promise);
+  await promise;
 }
 
 interface LocalNotificationMessage {
@@ -49,10 +80,10 @@ interface LocalNotificationMessage {
   notifications: isuxportal.proto.resources.INotification[],
 }
 
-const handleLocalNotifications = (e: ExtendableEvent, data: LocalNotificationMessage) => {
+const handleLocalNotifications = async (data: LocalNotificationMessage) => {
   console.log("local notifications", data.notifications);
 
-  data.notifications.forEach((v) => showNotification(e, v));
+  for (const v of data.notifications) await showNotification(v);
 };
 
 self.addEventListener('message', (e) => {
@@ -60,7 +91,7 @@ self.addEventListener('message', (e) => {
   const data = e.data;
   switch(data.kind) {
     case "localNotification":
-      handleLocalNotifications(e, data as LocalNotificationMessage);
+      e.waitUntil(handleLocalNotifications(data as LocalNotificationMessage));
       break;
     default: 
       console.warn("Unknown message received at sw", data);
@@ -80,7 +111,7 @@ self.addEventListener('push', (e) => {
   }
   console.log("SW push notification", notification);
   if (notification) {
-    showNotification(e, notification);
+    e.waitUntil(showNotification(notification));
   }
 });
 

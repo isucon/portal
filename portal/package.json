@@ -29,6 +29,7 @@
     "@types/react-router-dom": "^5.1.5",
     "bulma": "^0.9.0",
     "dayjs": "^1.8.33",
+    "idb": "^5.0.5",
     "protobufjs": "~6.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
