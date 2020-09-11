@@ -2898,7 +2898,7 @@ export namespace isuxportal {
                     contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
 
                     /** GetCurrentSessionResponse pushVapidKey */
-                    pushVapidKey?: (Uint8Array|null);
+                    pushVapidKey?: (string|null);
                 }
 
                 /** Represents a GetCurrentSessionResponse. */
@@ -2926,7 +2926,7 @@ export namespace isuxportal {
                     public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
 
                     /** GetCurrentSessionResponse pushVapidKey. */
-                    public pushVapidKey: Uint8Array;
+                    public pushVapidKey: string;
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -4895,6 +4895,366 @@ export namespace isuxportal {
 
                     /**
                      * Converts this ListNotificationsResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a SubscribeNotificationRequest. */
+                interface ISubscribeNotificationRequest {
+
+                    /** SubscribeNotificationRequest endpoint */
+                    endpoint?: (string|null);
+
+                    /** SubscribeNotificationRequest p256dh */
+                    p256dh?: (string|null);
+
+                    /** SubscribeNotificationRequest auth */
+                    auth?: (string|null);
+                }
+
+                /** Represents a SubscribeNotificationRequest. */
+                class SubscribeNotificationRequest implements ISubscribeNotificationRequest {
+
+                    /**
+                     * Constructs a new SubscribeNotificationRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.contestant.ISubscribeNotificationRequest);
+
+                    /** SubscribeNotificationRequest endpoint. */
+                    public endpoint: string;
+
+                    /** SubscribeNotificationRequest p256dh. */
+                    public p256dh: string;
+
+                    /** SubscribeNotificationRequest auth. */
+                    public auth: string;
+
+                    /**
+                     * Creates a new SubscribeNotificationRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SubscribeNotificationRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.contestant.ISubscribeNotificationRequest): isuxportal.proto.services.contestant.SubscribeNotificationRequest;
+
+                    /**
+                     * Encodes the specified SubscribeNotificationRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationRequest.verify|verify} messages.
+                     * @param message SubscribeNotificationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.contestant.ISubscribeNotificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SubscribeNotificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationRequest.verify|verify} messages.
+                     * @param message SubscribeNotificationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.contestant.ISubscribeNotificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SubscribeNotificationRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.SubscribeNotificationRequest;
+
+                    /**
+                     * Decodes a SubscribeNotificationRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.SubscribeNotificationRequest;
+
+                    /**
+                     * Verifies a SubscribeNotificationRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SubscribeNotificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SubscribeNotificationRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.SubscribeNotificationRequest;
+
+                    /**
+                     * Creates a plain object from a SubscribeNotificationRequest message. Also converts values to other types if specified.
+                     * @param message SubscribeNotificationRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.contestant.SubscribeNotificationRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SubscribeNotificationRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a SubscribeNotificationResponse. */
+                interface ISubscribeNotificationResponse {
+                }
+
+                /** Represents a SubscribeNotificationResponse. */
+                class SubscribeNotificationResponse implements ISubscribeNotificationResponse {
+
+                    /**
+                     * Constructs a new SubscribeNotificationResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.contestant.ISubscribeNotificationResponse);
+
+                    /**
+                     * Creates a new SubscribeNotificationResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SubscribeNotificationResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.contestant.ISubscribeNotificationResponse): isuxportal.proto.services.contestant.SubscribeNotificationResponse;
+
+                    /**
+                     * Encodes the specified SubscribeNotificationResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationResponse.verify|verify} messages.
+                     * @param message SubscribeNotificationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.contestant.ISubscribeNotificationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SubscribeNotificationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationResponse.verify|verify} messages.
+                     * @param message SubscribeNotificationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.contestant.ISubscribeNotificationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SubscribeNotificationResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.SubscribeNotificationResponse;
+
+                    /**
+                     * Decodes a SubscribeNotificationResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.SubscribeNotificationResponse;
+
+                    /**
+                     * Verifies a SubscribeNotificationResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SubscribeNotificationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SubscribeNotificationResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.SubscribeNotificationResponse;
+
+                    /**
+                     * Creates a plain object from a SubscribeNotificationResponse message. Also converts values to other types if specified.
+                     * @param message SubscribeNotificationResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.contestant.SubscribeNotificationResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SubscribeNotificationResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of an UnsubscribeNotificationRequest. */
+                interface IUnsubscribeNotificationRequest {
+
+                    /** UnsubscribeNotificationRequest endpoint */
+                    endpoint?: (string|null);
+                }
+
+                /** Represents an UnsubscribeNotificationRequest. */
+                class UnsubscribeNotificationRequest implements IUnsubscribeNotificationRequest {
+
+                    /**
+                     * Constructs a new UnsubscribeNotificationRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest);
+
+                    /** UnsubscribeNotificationRequest endpoint. */
+                    public endpoint: string;
+
+                    /**
+                     * Creates a new UnsubscribeNotificationRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns UnsubscribeNotificationRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest): isuxportal.proto.services.contestant.UnsubscribeNotificationRequest;
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationRequest.verify|verify} messages.
+                     * @param message UnsubscribeNotificationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationRequest.verify|verify} messages.
+                     * @param message UnsubscribeNotificationRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes an UnsubscribeNotificationRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns UnsubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.UnsubscribeNotificationRequest;
+
+                    /**
+                     * Decodes an UnsubscribeNotificationRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns UnsubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.UnsubscribeNotificationRequest;
+
+                    /**
+                     * Verifies an UnsubscribeNotificationRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates an UnsubscribeNotificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns UnsubscribeNotificationRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.UnsubscribeNotificationRequest;
+
+                    /**
+                     * Creates a plain object from an UnsubscribeNotificationRequest message. Also converts values to other types if specified.
+                     * @param message UnsubscribeNotificationRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.contestant.UnsubscribeNotificationRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this UnsubscribeNotificationRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of an UnsubscribeNotificationResponse. */
+                interface IUnsubscribeNotificationResponse {
+                }
+
+                /** Represents an UnsubscribeNotificationResponse. */
+                class UnsubscribeNotificationResponse implements IUnsubscribeNotificationResponse {
+
+                    /**
+                     * Constructs a new UnsubscribeNotificationResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse);
+
+                    /**
+                     * Creates a new UnsubscribeNotificationResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns UnsubscribeNotificationResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse): isuxportal.proto.services.contestant.UnsubscribeNotificationResponse;
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationResponse.verify|verify} messages.
+                     * @param message UnsubscribeNotificationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationResponse.verify|verify} messages.
+                     * @param message UnsubscribeNotificationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes an UnsubscribeNotificationResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns UnsubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.contestant.UnsubscribeNotificationResponse;
+
+                    /**
+                     * Decodes an UnsubscribeNotificationResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns UnsubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.contestant.UnsubscribeNotificationResponse;
+
+                    /**
+                     * Verifies an UnsubscribeNotificationResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates an UnsubscribeNotificationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns UnsubscribeNotificationResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.contestant.UnsubscribeNotificationResponse;
+
+                    /**
+                     * Creates a plain object from an UnsubscribeNotificationResponse message. Also converts values to other types if specified.
+                     * @param message UnsubscribeNotificationResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.contestant.UnsubscribeNotificationResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this UnsubscribeNotificationResponse to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };

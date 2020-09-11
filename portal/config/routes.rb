@@ -83,7 +83,11 @@ Rails.application.routes.draw do
       resources :clarifications, only: %i(index create)
 
       # contestant/notifications ListNotifications: GET /api/contestant/notifications
-      resources :notifications, only: %i(index)
+      resources :notifications, only: %i(index create destroy)
+
+      # contestant/notifications SubscribeNotification: POST /api/contestant/push_subscriptions
+      # contestant/notifications UnsubscribeNotification: DELETE /api/contestant/push_subscriptions
+      resource :push_subscriptions, only: %i(create destroy)
     end
 
     scope path: 'admin', module: 'admin' do

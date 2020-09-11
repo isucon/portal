@@ -35,17 +35,24 @@ export const ContestantNotificationSubscriptionPanel: React.FC<Props> = (props: 
 };
 
 export interface InnerProps extends Props {
+  serviceWorker: ServiceWorkerRegistration;
   pushSubscription: PushSubscription | null;
 }
 
 const ContestantNotificationSubscriptionPanelInner: React.FC<InnerProps> = (props: InnerProps) => {
   const [pushSubscription, setPushSubscription] = React.useState(props.pushSubscription);
 
-  // TODO: if (pushSubscription) {
-  if (pushSubscription || props.localNotificationEnabled) {
+  if (pushSubscription) {
     const doUnsubscribe = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
+      try {
+        await props.client.unsubscribeNotification(pushSubscription);
+      } catch (e) {
+        console.error("Unsubscribe API failed", e)
+      }
+      pushSubscription.unsubscribe();
       props.setLocalNotificationEnabled(false);
+      setPushSubscription(null);
     };
 
     return <button className="button is-small" onClick={doUnsubscribe}>
@@ -64,10 +71,21 @@ const ContestantNotificationSubscriptionPanelInner: React.FC<InnerProps> = (prop
           alert("通知が許可されませんでした (有効にできません)");
           return;
         }
-        props.setLocalNotificationEnabled(true);
       } catch (e) {
         console.error("requestPermission failure", e);
         alert("requestPermission failure");
+      }
+      try {
+        const sub = await props.serviceWorker.pushManager.subscribe({
+          applicationServerKey: props.session.pushVapidKey!,
+          userVisibleOnly: true,
+        });
+        await props.client.subscribeNotification(sub);
+        setPushSubscription(sub);
+        props.setLocalNotificationEnabled(true);
+      } catch (e) {
+        console.error("Failed to subscribe", e);
+        alert("Failed to subscribe");
       }
     };
 

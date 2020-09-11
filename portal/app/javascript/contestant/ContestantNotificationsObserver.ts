@@ -52,7 +52,7 @@ export class ContestantNotificationsObserver {
       }
 
       const last = resp.notifications[resp.notifications.length-1];
-      this.last = this.last || last?.id! as number;
+      this.last = last?.id! as number || this.last;
     } catch(e) {
       console.error("ContestantNotificationsObserver: error while polling", e);
       this.requesting = false;

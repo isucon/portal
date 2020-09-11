@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.string "auth", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["contestant_id"], name: "index_push_subscriptions_on_contestant_id"
+    t.index ["contestant_id", "endpoint"], name: "index_push_subscriptions_on_contestant_id_and_endpoint"
   end
 
   create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

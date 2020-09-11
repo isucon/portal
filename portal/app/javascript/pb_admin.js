@@ -7695,7 +7695,7 @@ $root.isuxportal = (function() {
                      * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
                      * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
                      * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] GetCurrentSessionResponse contestantInstances
-                     * @property {Uint8Array|null} [pushVapidKey] GetCurrentSessionResponse pushVapidKey
+                     * @property {string|null} [pushVapidKey] GetCurrentSessionResponse pushVapidKey
                      */
 
                     /**
@@ -7756,11 +7756,11 @@ $root.isuxportal = (function() {
 
                     /**
                      * GetCurrentSessionResponse pushVapidKey.
-                     * @member {Uint8Array} pushVapidKey
+                     * @member {string} pushVapidKey
                      * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
                      * @instance
                      */
-                    GetCurrentSessionResponse.prototype.pushVapidKey = $util.newBuffer([]);
+                    GetCurrentSessionResponse.prototype.pushVapidKey = "";
 
                     /**
                      * Creates a new GetCurrentSessionResponse instance using the specified properties.
@@ -7798,7 +7798,7 @@ $root.isuxportal = (function() {
                             for (var i = 0; i < message.contestantInstances.length; ++i)
                                 $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                         if (message.pushVapidKey != null && Object.hasOwnProperty.call(message, "pushVapidKey"))
-                            writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.pushVapidKey);
+                            writer.uint32(/* id 6, wireType 2 =*/50).string(message.pushVapidKey);
                         return writer;
                     };
 
@@ -7851,7 +7851,7 @@ $root.isuxportal = (function() {
                                 message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
                                 break;
                             case 6:
-                                message.pushVapidKey = reader.bytes();
+                                message.pushVapidKey = reader.string();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -7916,8 +7916,8 @@ $root.isuxportal = (function() {
                             }
                         }
                         if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
-                            if (!(message.pushVapidKey && typeof message.pushVapidKey.length === "number" || $util.isString(message.pushVapidKey)))
-                                return "pushVapidKey: buffer expected";
+                            if (!$util.isString(message.pushVapidKey))
+                                return "pushVapidKey: string expected";
                         return null;
                     };
 
@@ -7961,10 +7961,7 @@ $root.isuxportal = (function() {
                             }
                         }
                         if (object.pushVapidKey != null)
-                            if (typeof object.pushVapidKey === "string")
-                                $util.base64.decode(object.pushVapidKey, message.pushVapidKey = $util.newBuffer($util.base64.length(object.pushVapidKey)), 0);
-                            else if (object.pushVapidKey.length)
-                                message.pushVapidKey = object.pushVapidKey;
+                            message.pushVapidKey = String(object.pushVapidKey);
                         return message;
                     };
 
@@ -7988,13 +7985,7 @@ $root.isuxportal = (function() {
                             object.contestant = null;
                             object.discordServerId = "";
                             object.contest = null;
-                            if (options.bytes === String)
-                                object.pushVapidKey = "";
-                            else {
-                                object.pushVapidKey = [];
-                                if (options.bytes !== Array)
-                                    object.pushVapidKey = $util.newBuffer(object.pushVapidKey);
-                            }
+                            object.pushVapidKey = "";
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -8010,7 +8001,7 @@ $root.isuxportal = (function() {
                                 object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
                         }
                         if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
-                            object.pushVapidKey = options.bytes === String ? $util.base64.encode(message.pushVapidKey, 0, message.pushVapidKey.length) : options.bytes === Array ? Array.prototype.slice.call(message.pushVapidKey) : message.pushVapidKey;
+                            object.pushVapidKey = message.pushVapidKey;
                         return object;
                     };
 
@@ -18138,6 +18129,745 @@ $root.isuxportal = (function() {
                     };
 
                     return ListNotificationsResponse;
+                })();
+
+                contestant.SubscribeNotificationRequest = (function() {
+
+                    /**
+                     * Properties of a SubscribeNotificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface ISubscribeNotificationRequest
+                     * @property {string|null} [endpoint] SubscribeNotificationRequest endpoint
+                     * @property {string|null} [p256dh] SubscribeNotificationRequest p256dh
+                     * @property {string|null} [auth] SubscribeNotificationRequest auth
+                     */
+
+                    /**
+                     * Constructs a new SubscribeNotificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a SubscribeNotificationRequest.
+                     * @implements ISubscribeNotificationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationRequest=} [properties] Properties to set
+                     */
+                    function SubscribeNotificationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * SubscribeNotificationRequest endpoint.
+                     * @member {string} endpoint
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @instance
+                     */
+                    SubscribeNotificationRequest.prototype.endpoint = "";
+
+                    /**
+                     * SubscribeNotificationRequest p256dh.
+                     * @member {string} p256dh
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @instance
+                     */
+                    SubscribeNotificationRequest.prototype.p256dh = "";
+
+                    /**
+                     * SubscribeNotificationRequest auth.
+                     * @member {string} auth
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @instance
+                     */
+                    SubscribeNotificationRequest.prototype.auth = "";
+
+                    /**
+                     * Creates a new SubscribeNotificationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationRequest} SubscribeNotificationRequest instance
+                     */
+                    SubscribeNotificationRequest.create = function create(properties) {
+                        return new SubscribeNotificationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SubscribeNotificationRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationRequest} message SubscribeNotificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeNotificationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.endpoint != null && Object.hasOwnProperty.call(message, "endpoint"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.endpoint);
+                        if (message.p256dh != null && Object.hasOwnProperty.call(message, "p256dh"))
+                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.p256dh);
+                        if (message.auth != null && Object.hasOwnProperty.call(message, "auth"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.auth);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SubscribeNotificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationRequest} message SubscribeNotificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeNotificationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SubscribeNotificationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationRequest} SubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeNotificationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.SubscribeNotificationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.endpoint = reader.string();
+                                break;
+                            case 2:
+                                message.p256dh = reader.string();
+                                break;
+                            case 3:
+                                message.auth = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SubscribeNotificationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationRequest} SubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeNotificationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SubscribeNotificationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SubscribeNotificationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.endpoint != null && message.hasOwnProperty("endpoint"))
+                            if (!$util.isString(message.endpoint))
+                                return "endpoint: string expected";
+                        if (message.p256dh != null && message.hasOwnProperty("p256dh"))
+                            if (!$util.isString(message.p256dh))
+                                return "p256dh: string expected";
+                        if (message.auth != null && message.hasOwnProperty("auth"))
+                            if (!$util.isString(message.auth))
+                                return "auth: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SubscribeNotificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationRequest} SubscribeNotificationRequest
+                     */
+                    SubscribeNotificationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.SubscribeNotificationRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.SubscribeNotificationRequest();
+                        if (object.endpoint != null)
+                            message.endpoint = String(object.endpoint);
+                        if (object.p256dh != null)
+                            message.p256dh = String(object.p256dh);
+                        if (object.auth != null)
+                            message.auth = String(object.auth);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a SubscribeNotificationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.SubscribeNotificationRequest} message SubscribeNotificationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SubscribeNotificationRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults) {
+                            object.endpoint = "";
+                            object.p256dh = "";
+                            object.auth = "";
+                        }
+                        if (message.endpoint != null && message.hasOwnProperty("endpoint"))
+                            object.endpoint = message.endpoint;
+                        if (message.p256dh != null && message.hasOwnProperty("p256dh"))
+                            object.p256dh = message.p256dh;
+                        if (message.auth != null && message.hasOwnProperty("auth"))
+                            object.auth = message.auth;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this SubscribeNotificationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SubscribeNotificationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SubscribeNotificationRequest;
+                })();
+
+                contestant.SubscribeNotificationResponse = (function() {
+
+                    /**
+                     * Properties of a SubscribeNotificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface ISubscribeNotificationResponse
+                     */
+
+                    /**
+                     * Constructs a new SubscribeNotificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents a SubscribeNotificationResponse.
+                     * @implements ISubscribeNotificationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationResponse=} [properties] Properties to set
+                     */
+                    function SubscribeNotificationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new SubscribeNotificationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationResponse} SubscribeNotificationResponse instance
+                     */
+                    SubscribeNotificationResponse.create = function create(properties) {
+                        return new SubscribeNotificationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SubscribeNotificationResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationResponse} message SubscribeNotificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeNotificationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SubscribeNotificationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.SubscribeNotificationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.ISubscribeNotificationResponse} message SubscribeNotificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SubscribeNotificationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SubscribeNotificationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationResponse} SubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeNotificationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.SubscribeNotificationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SubscribeNotificationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationResponse} SubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SubscribeNotificationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SubscribeNotificationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SubscribeNotificationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SubscribeNotificationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.SubscribeNotificationResponse} SubscribeNotificationResponse
+                     */
+                    SubscribeNotificationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.SubscribeNotificationResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.SubscribeNotificationResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from a SubscribeNotificationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.SubscribeNotificationResponse} message SubscribeNotificationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SubscribeNotificationResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this SubscribeNotificationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.SubscribeNotificationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SubscribeNotificationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SubscribeNotificationResponse;
+                })();
+
+                contestant.UnsubscribeNotificationRequest = (function() {
+
+                    /**
+                     * Properties of an UnsubscribeNotificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IUnsubscribeNotificationRequest
+                     * @property {string|null} [endpoint] UnsubscribeNotificationRequest endpoint
+                     */
+
+                    /**
+                     * Constructs a new UnsubscribeNotificationRequest.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents an UnsubscribeNotificationRequest.
+                     * @implements IUnsubscribeNotificationRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest=} [properties] Properties to set
+                     */
+                    function UnsubscribeNotificationRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * UnsubscribeNotificationRequest endpoint.
+                     * @member {string} endpoint
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @instance
+                     */
+                    UnsubscribeNotificationRequest.prototype.endpoint = "";
+
+                    /**
+                     * Creates a new UnsubscribeNotificationRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationRequest} UnsubscribeNotificationRequest instance
+                     */
+                    UnsubscribeNotificationRequest.create = function create(properties) {
+                        return new UnsubscribeNotificationRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationRequest message. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest} message UnsubscribeNotificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UnsubscribeNotificationRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.endpoint != null && Object.hasOwnProperty.call(message, "endpoint"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.endpoint);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationRequest} message UnsubscribeNotificationRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UnsubscribeNotificationRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an UnsubscribeNotificationRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationRequest} UnsubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UnsubscribeNotificationRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.UnsubscribeNotificationRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.endpoint = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an UnsubscribeNotificationRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationRequest} UnsubscribeNotificationRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UnsubscribeNotificationRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an UnsubscribeNotificationRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    UnsubscribeNotificationRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.endpoint != null && message.hasOwnProperty("endpoint"))
+                            if (!$util.isString(message.endpoint))
+                                return "endpoint: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an UnsubscribeNotificationRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationRequest} UnsubscribeNotificationRequest
+                     */
+                    UnsubscribeNotificationRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.UnsubscribeNotificationRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.contestant.UnsubscribeNotificationRequest();
+                        if (object.endpoint != null)
+                            message.endpoint = String(object.endpoint);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from an UnsubscribeNotificationRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.UnsubscribeNotificationRequest} message UnsubscribeNotificationRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    UnsubscribeNotificationRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.endpoint = "";
+                        if (message.endpoint != null && message.hasOwnProperty("endpoint"))
+                            object.endpoint = message.endpoint;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this UnsubscribeNotificationRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    UnsubscribeNotificationRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return UnsubscribeNotificationRequest;
+                })();
+
+                contestant.UnsubscribeNotificationResponse = (function() {
+
+                    /**
+                     * Properties of an UnsubscribeNotificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @interface IUnsubscribeNotificationResponse
+                     */
+
+                    /**
+                     * Constructs a new UnsubscribeNotificationResponse.
+                     * @memberof isuxportal.proto.services.contestant
+                     * @classdesc Represents an UnsubscribeNotificationResponse.
+                     * @implements IUnsubscribeNotificationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse=} [properties] Properties to set
+                     */
+                    function UnsubscribeNotificationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new UnsubscribeNotificationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationResponse} UnsubscribeNotificationResponse instance
+                     */
+                    UnsubscribeNotificationResponse.create = function create(properties) {
+                        return new UnsubscribeNotificationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationResponse message. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse} message UnsubscribeNotificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UnsubscribeNotificationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified UnsubscribeNotificationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.contestant.UnsubscribeNotificationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.IUnsubscribeNotificationResponse} message UnsubscribeNotificationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    UnsubscribeNotificationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an UnsubscribeNotificationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationResponse} UnsubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UnsubscribeNotificationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.contestant.UnsubscribeNotificationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an UnsubscribeNotificationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationResponse} UnsubscribeNotificationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    UnsubscribeNotificationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an UnsubscribeNotificationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    UnsubscribeNotificationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an UnsubscribeNotificationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.contestant.UnsubscribeNotificationResponse} UnsubscribeNotificationResponse
+                     */
+                    UnsubscribeNotificationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.contestant.UnsubscribeNotificationResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.contestant.UnsubscribeNotificationResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from an UnsubscribeNotificationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.contestant.UnsubscribeNotificationResponse} message UnsubscribeNotificationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    UnsubscribeNotificationResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this UnsubscribeNotificationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    UnsubscribeNotificationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return UnsubscribeNotificationResponse;
                 })();
 
                 return contestant;

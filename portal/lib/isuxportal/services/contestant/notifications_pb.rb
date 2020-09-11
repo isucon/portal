@@ -13,6 +13,18 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :last_answered_clarification_id, :int64, 1
       repeated :notifications, :message, 2, "isuxportal.proto.resources.Notification"
     end
+    add_message "isuxportal.proto.services.contestant.SubscribeNotificationRequest" do
+      optional :endpoint, :string, 1
+      optional :p256dh, :string, 2
+      optional :auth, :string, 3
+    end
+    add_message "isuxportal.proto.services.contestant.SubscribeNotificationResponse" do
+    end
+    add_message "isuxportal.proto.services.contestant.UnsubscribeNotificationRequest" do
+      optional :endpoint, :string, 1
+    end
+    add_message "isuxportal.proto.services.contestant.UnsubscribeNotificationResponse" do
+    end
   end
 end
 
@@ -22,6 +34,10 @@ module Isuxportal
       module Contestant
         ListNotificationsQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.ListNotificationsQuery").msgclass
         ListNotificationsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.ListNotificationsResponse").msgclass
+        SubscribeNotificationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.SubscribeNotificationRequest").msgclass
+        SubscribeNotificationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.SubscribeNotificationResponse").msgclass
+        UnsubscribeNotificationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.UnsubscribeNotificationRequest").msgclass
+        UnsubscribeNotificationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.contestant.UnsubscribeNotificationResponse").msgclass
       end
     end
   end

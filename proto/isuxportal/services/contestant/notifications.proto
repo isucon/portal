@@ -14,3 +14,19 @@ message ListNotificationsResponse {
   int64 last_answered_clarification_id = 1;
   repeated isuxportal.proto.resources.Notification notifications = 2;
 }
+
+message SubscribeNotificationRequest {
+  string endpoint = 1;
+  string p256dh = 2;
+  string auth = 3;
+}
+
+message SubscribeNotificationResponse {
+}
+
+message UnsubscribeNotificationRequest {
+  string endpoint = 1;
+}
+
+message UnsubscribeNotificationResponse {
+}

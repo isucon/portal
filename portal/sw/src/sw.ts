@@ -30,15 +30,18 @@ const openUrl = (event: ExtendableEvent, path: string) => {
   event.waitUntil(promise);
 }
 
-const showNotification = (n: isuxportal.proto.resources.INotification) => {
+const showNotification = (event: ExtendableEvent, n: isuxportal.proto.resources.INotification) => {
   console.log("SW showNotification:", n);
+  let promise: Promise<void> | null = null;
+  const tag = `isuxportal-pushtag-${n.id}`;
   if (n.contentTest) {
-    self.registration.showNotification("isuxportal test notification", {body: "test test test", tag: '/contestant'});
+    promise = self.registration.showNotification("isuxportal test notification", {body: `test ${n.contentTest.something} ${n.id}`, tag, data: `/contestant`});
   } else if (n.contentBenchmarkJob) {
     // TODO:
   } else if (n.contentClarification) {
     // TODO:
   }
+  if (promise) event.waitUntil(promise);
 }
 
 interface LocalNotificationMessage {
@@ -46,24 +49,41 @@ interface LocalNotificationMessage {
   notifications: isuxportal.proto.resources.INotification[],
 }
 
-const handleLocalNotifications = (data: LocalNotificationMessage) => {
+const handleLocalNotifications = (e: ExtendableEvent, data: LocalNotificationMessage) => {
   console.log("local notifications", data.notifications);
 
-  data.notifications.forEach((v) => showNotification(v));
+  data.notifications.forEach((v) => showNotification(e, v));
 };
 
 self.addEventListener('message', (e) => {
+  console.log("SW message", e);
   const data = e.data;
   switch(data.kind) {
     case "localNotification":
-      handleLocalNotifications(data as LocalNotificationMessage);
+      handleLocalNotifications(e, data as LocalNotificationMessage);
       break;
     default: 
       console.warn("Unknown message received at sw", data);
       break;
   }
-})
+});
+
+self.addEventListener('push', (e) => {
+  console.log("SW push", e);
+  if (!e.data) return;
+  let notification: isuxportal.proto.resources.Notification | null = null;
+  try {
+    const wire = Uint8Array.from(atob(e.data.text()), c => c.charCodeAt(0));
+    notification = isuxportal.proto.resources.Notification.decode(wire);
+  } catch(e) {
+    console.error("SW push error while decoding", e);
+  }
+  console.log("SW push notification", notification);
+  if (notification) {
+    showNotification(e, notification);
+  }
+});
 
 self.addEventListener('notificationclick', (e) => {
-  if (e.notification.tag && e.notification.tag !== "") openUrl(e, e.notification.tag);
+  if (e.notification.data && e.notification.data !== "") openUrl(e, e.notification.data);
 });

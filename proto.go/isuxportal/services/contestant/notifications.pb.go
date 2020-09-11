@@ -130,6 +130,192 @@ func (x *ListNotificationsResponse) GetNotifications() []*resources.Notification
 	return nil
 }
 
+type SubscribeNotificationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Endpoint string `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
+	P256Dh   string `protobuf:"bytes,2,opt,name=p256dh,proto3" json:"p256dh,omitempty"`
+	Auth     string `protobuf:"bytes,3,opt,name=auth,proto3" json:"auth,omitempty"`
+}
+
+func (x *SubscribeNotificationRequest) Reset() {
+	*x = SubscribeNotificationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SubscribeNotificationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeNotificationRequest) ProtoMessage() {}
+
+func (x *SubscribeNotificationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeNotificationRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeNotificationRequest) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_contestant_notifications_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SubscribeNotificationRequest) GetEndpoint() string {
+	if x != nil {
+		return x.Endpoint
+	}
+	return ""
+}
+
+func (x *SubscribeNotificationRequest) GetP256Dh() string {
+	if x != nil {
+		return x.P256Dh
+	}
+	return ""
+}
+
+func (x *SubscribeNotificationRequest) GetAuth() string {
+	if x != nil {
+		return x.Auth
+	}
+	return ""
+}
+
+type SubscribeNotificationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SubscribeNotificationResponse) Reset() {
+	*x = SubscribeNotificationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SubscribeNotificationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeNotificationResponse) ProtoMessage() {}
+
+func (x *SubscribeNotificationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeNotificationResponse.ProtoReflect.Descriptor instead.
+func (*SubscribeNotificationResponse) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_contestant_notifications_proto_rawDescGZIP(), []int{3}
+}
+
+type UnsubscribeNotificationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Endpoint string `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
+}
+
+func (x *UnsubscribeNotificationRequest) Reset() {
+	*x = UnsubscribeNotificationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UnsubscribeNotificationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeNotificationRequest) ProtoMessage() {}
+
+func (x *UnsubscribeNotificationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeNotificationRequest.ProtoReflect.Descriptor instead.
+func (*UnsubscribeNotificationRequest) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_contestant_notifications_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UnsubscribeNotificationRequest) GetEndpoint() string {
+	if x != nil {
+		return x.Endpoint
+	}
+	return ""
+}
+
+type UnsubscribeNotificationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UnsubscribeNotificationResponse) Reset() {
+	*x = UnsubscribeNotificationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UnsubscribeNotificationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeNotificationResponse) ProtoMessage() {}
+
+func (x *UnsubscribeNotificationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_contestant_notifications_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeNotificationResponse.ProtoReflect.Descriptor instead.
+func (*UnsubscribeNotificationResponse) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_contestant_notifications_proto_rawDescGZIP(), []int{5}
+}
+
 var File_isuxportal_services_contestant_notifications_proto protoreflect.FileDescriptor
 
 var file_isuxportal_services_contestant_notifications_proto_rawDesc = []byte{
@@ -155,12 +341,27 @@ var file_isuxportal_services_contestant_notifications_proto_rawDesc = []byte{
 	0x69, 0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x4e, 0x6f, 0x74, 0x69, 0x66,
 	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0d, 0x6e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x42, 0x4b, 0x5a, 0x49, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x69, 0x73, 0x75, 0x63, 0x6f, 0x6e, 0x2f, 0x69, 0x73, 0x75, 0x63,
-	0x6f, 0x6e, 0x31, 0x30, 0x2d, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x67, 0x6f, 0x2f, 0x69, 0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x73, 0x74,
-	0x61, 0x6e, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x66, 0x0a, 0x1c, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72,
+	0x69, 0x62, 0x65, 0x4e, 0x6f, 0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f, 0x69,
+	0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f, 0x69,
+	0x6e, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x70, 0x32, 0x35, 0x36, 0x64, 0x68, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x70, 0x32, 0x35, 0x36, 0x64, 0x68, 0x12, 0x12, 0x0a, 0x04, 0x61, 0x75,
+	0x74, 0x68, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x61, 0x75, 0x74, 0x68, 0x22, 0x1f,
+	0x0a, 0x1d, 0x53, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x4e, 0x6f, 0x74, 0x69, 0x66,
+	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x3c, 0x0a, 0x1e, 0x55, 0x6e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x4e, 0x6f,
+	0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x6e, 0x64, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x22, 0x21, 0x0a,
+	0x1f, 0x55, 0x6e, 0x73, 0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x4e, 0x6f, 0x74, 0x69,
+	0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x42, 0x4b, 0x5a, 0x49, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x69,
+	0x73, 0x75, 0x63, 0x6f, 0x6e, 0x2f, 0x69, 0x73, 0x75, 0x63, 0x6f, 0x6e, 0x31, 0x30, 0x2d, 0x70,
+	0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x67, 0x6f, 0x2f, 0x69,
+	0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x73, 0x74, 0x61, 0x6e, 0x74, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -175,14 +376,18 @@ func file_isuxportal_services_contestant_notifications_proto_rawDescGZIP() []byt
 	return file_isuxportal_services_contestant_notifications_proto_rawDescData
 }
 
-var file_isuxportal_services_contestant_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_isuxportal_services_contestant_notifications_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_isuxportal_services_contestant_notifications_proto_goTypes = []interface{}{
-	(*ListNotificationsQuery)(nil),    // 0: isuxportal.proto.services.contestant.ListNotificationsQuery
-	(*ListNotificationsResponse)(nil), // 1: isuxportal.proto.services.contestant.ListNotificationsResponse
-	(*resources.Notification)(nil),    // 2: isuxportal.proto.resources.Notification
+	(*ListNotificationsQuery)(nil),          // 0: isuxportal.proto.services.contestant.ListNotificationsQuery
+	(*ListNotificationsResponse)(nil),       // 1: isuxportal.proto.services.contestant.ListNotificationsResponse
+	(*SubscribeNotificationRequest)(nil),    // 2: isuxportal.proto.services.contestant.SubscribeNotificationRequest
+	(*SubscribeNotificationResponse)(nil),   // 3: isuxportal.proto.services.contestant.SubscribeNotificationResponse
+	(*UnsubscribeNotificationRequest)(nil),  // 4: isuxportal.proto.services.contestant.UnsubscribeNotificationRequest
+	(*UnsubscribeNotificationResponse)(nil), // 5: isuxportal.proto.services.contestant.UnsubscribeNotificationResponse
+	(*resources.Notification)(nil),          // 6: isuxportal.proto.resources.Notification
 }
 var file_isuxportal_services_contestant_notifications_proto_depIdxs = []int32{
-	2, // 0: isuxportal.proto.services.contestant.ListNotificationsResponse.notifications:type_name -> isuxportal.proto.resources.Notification
+	6, // 0: isuxportal.proto.services.contestant.ListNotificationsResponse.notifications:type_name -> isuxportal.proto.resources.Notification
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -220,6 +425,54 @@ func file_isuxportal_services_contestant_notifications_proto_init() {
 				return nil
 			}
 		}
+		file_isuxportal_services_contestant_notifications_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SubscribeNotificationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_isuxportal_services_contestant_notifications_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SubscribeNotificationResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_isuxportal_services_contestant_notifications_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UnsubscribeNotificationRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_isuxportal_services_contestant_notifications_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UnsubscribeNotificationResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -227,7 +480,7 @@ func file_isuxportal_services_contestant_notifications_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_isuxportal_services_contestant_notifications_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
