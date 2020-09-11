@@ -34,6 +34,7 @@ WORKDIR /app
 COPY --from=builder /gems /gems
 COPY --from=builder /app/.bundle /app/.bundle
 COPY --from=assets-builder /app/public/packs ./public/packs
+COPY --from=assets-builder /app/public/sw.js* ./public/
 COPY . /app/
 
 ENV RAILS_LOG_TO_STDOUT 1

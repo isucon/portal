@@ -8,6 +8,7 @@ class Api::SessionsController < Api::ApplicationController
       discord_server_id: current_contestant ? Rails.application.config.x.discord.server_id : "",
       contest: Contest.to_pb,
       contestant_instances: (Contest.contest_running? ? current_team&.contestant_instances&.order(number: :asc)&.map(&:to_pb) : nil) || [],
+      push_vapid_key: Rails.application.config.x.webpush.vapid_key_public,
     )
   end
 end

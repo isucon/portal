@@ -9,6 +9,7 @@
     <meta name="isux:github-auth-path" content="<%= new_github_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true))) %>">
     <meta name="isux:discord-auth-path" content="<%= new_discord_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true))) %>">
     <meta name="isux:api-base-url" content="/">
+    <meta name="isux:release" content="<%= Rails.application.config.x.revision %>">
 
     <%- if Rails.application.config.x.sentry.dsn.present? -%>
     <meta name="isux:sentry-dsn" content="<%= Rails.application.config.x.sentry.dsn %>">

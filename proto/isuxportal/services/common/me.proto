@@ -16,6 +16,7 @@ message GetCurrentSessionResponse {
 
   isuxportal.proto.resources.Contest contest = 4;
 
-  repeated isuxportal.proto.resources.ContestantInstance contestant_instances =
-      5;
+  repeated isuxportal.proto.resources.ContestantInstance contestant_instances = 5;
+
+  string push_vapid_key = 6;
 }

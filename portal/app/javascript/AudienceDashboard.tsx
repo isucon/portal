@@ -71,7 +71,7 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
           </div>
         </div>
       </section>
-      <section className="is-fullwidth px-5 py-5 is-hidden-touch">
+      <section className="is-fullwidth py-5 is-hidden-touch">
         <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} teamPins={teamPinsMap} />
       </section>
       <div className="columns">

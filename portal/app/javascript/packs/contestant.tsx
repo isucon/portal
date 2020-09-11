@@ -7,7 +7,8 @@ import ReactDOM from "react-dom";
 (async function () {
   const client = new ApiClient();
   const session = await client.getCurrentSession();
+  const release = document.querySelector<HTMLMetaElement>('meta[name="isux:release"]')?.content;
   updateNavBarSession(session);
   const elem = document.getElementById("app");
-  ReactDOM.render(<ContestantApp session={session} client={client} />, elem);
+  ReactDOM.render(<ContestantApp session={session} client={client} release={release} />, elem);
 })();

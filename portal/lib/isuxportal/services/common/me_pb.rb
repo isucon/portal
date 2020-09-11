@@ -17,6 +17,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :discord_server_id, :string, 3
       optional :contest, :message, 4, "isuxportal.proto.resources.Contest"
       repeated :contestant_instances, :message, 5, "isuxportal.proto.resources.ContestantInstance"
+      optional :push_vapid_key, :string, 6
     end
   end
 end

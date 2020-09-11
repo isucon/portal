@@ -13,13 +13,19 @@ import { ScoreGraph } from "../ScoreGraph";
 import { BenchmarkJobList } from "../BenchmarkJobList";
 import { ContestantBenchmarkJobForm } from "./ContestantBenchmarkJobForm";
 import { Leaderboard } from "../Leaderboard";
+import { ContestantNotificationSubscriptionPanel } from "./ContestantNotificationSubscriptionPanel";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
+
+  serviceWorker: ServiceWorkerRegistration | null;
+  localNotificationEnabled: boolean;
+  setLocalNotificationEnabled: (flag: boolean) => any;
 }
 
-export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
+export const ContestantDashboard: React.FC<Props> = (props: Props) => {
+  const { session, client } = props;
   const [requestingDashboard, setRequestingDashboard] = React.useState(false);
   const [requestingJobs, setRequestingJobs] = React.useState(false);
   const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.contestant.DashboardResponse | null>(null);
@@ -94,12 +100,15 @@ export const ContestantDashboard: React.FC<Props> = ({ session, client }) => {
           <div className="level-left">
             <ContestClock contest={session.contest!} />
           </div>
-          <div className="level-right">
+          <div className="level-right has-text-right">
+            <div className="mr-1">
+              <ContestantNotificationSubscriptionPanel session={session} client={client} serviceWorker={props.serviceWorker} localNotificationEnabled={props.localNotificationEnabled} setLocalNotificationEnabled={props.setLocalNotificationEnabled} />
+            </div>
             <ReloadButton requesting={requestingDashboard || requestingJobs} onClick={refreshAll} />
           </div>
         </div>
       </section>
-      <section className="is-fullwidth px-5 py-5 is-hidden-touch">
+      <section className="is-fullwidth py-5 is-hidden-touch">
         <ScoreGraph
           teams={dashboard?.leaderboard?.teams!}
           contest={session.contest!}

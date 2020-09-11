@@ -29,7 +29,11 @@ export const ContestantBenchmarkJobForm: React.FC<Props> = (props: Props) => {
       const resp = await props.client.enqueueBenchmarkJob({
         targetId: data.targetId ? parseInt(data.targetId, 10) : 0,
       });
-      window.localStorage.setItem("isuxportal-last-target-id", data.targetId);
+      try {
+        window.localStorage.setItem("isuxportal-last-target-id", data.targetId);
+      } catch(e) {
+        console.warn(e);
+      }
       setRedirect(
         <Redirect
           push={true}

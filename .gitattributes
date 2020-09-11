@@ -2,3 +2,5 @@ proto.go/ linguist-generated=true
 portal/lib/isuxportal/  linguist-generated=true
 portal/app/javascript/pb.*  linguist-generated=true
 portal/app/javascript/pb_admin.*  linguist-generated=true
+portal/sw/src/pb.*  linguist-generated=true
+portal/app/javascript/ScoreGraphColors.tsx linguist-generated=true
