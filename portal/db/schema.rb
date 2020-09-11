@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_172858) do
+ActiveRecord::Schema.define(version: 2020_09_11_011239) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -107,6 +107,16 @@ ActiveRecord::Schema.define(version: 2020_09_10_172858) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contestant_id", "id"], name: "index_notifications_on_contestant_id_and_id"
     t.index ["contestant_id", "read", "id"], name: "index_notifications_on_contestant_id_and_read_and_id"
+  end
+
+  create_table "push_subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "contestant_id", null: false
+    t.string "endpoint", null: false
+    t.string "p256dh", null: false
+    t.string "auth", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contestant_id"], name: "index_push_subscriptions_on_contestant_id"
   end
 
   create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

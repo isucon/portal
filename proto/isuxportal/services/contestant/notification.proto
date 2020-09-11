@@ -1,7 +1,0 @@
-syntax = "proto3";
-package isuxportal.proto.services.contestant;
-option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/contestant";
-
-message GetNotificationsRequest {}
-
-message GetNotificationsResponse { int64 last_answered_clarification_id = 1; }
