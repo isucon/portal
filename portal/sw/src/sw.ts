@@ -1,6 +1,6 @@
 declare var self: ServiceWorkerGlobalScope; export {};
 
-import type {isuxportal} from "./pb";
+import {isuxportal} from "./pb";
 import {skipWaiting, clientsClaim} from "workbox-core";
 
 skipWaiting();
@@ -16,10 +16,24 @@ self.addEventListener('activate', (e) => {
   }
 });
 
+const openUrl = (event: ExtendableEvent, path: string) => {
+  const url = new URL(path, self.location.origin).href;
+  const promise = self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+    const windowClients = clients as WindowClient[];
+    const match = windowClients.find((c) => c.url === url);
+    if (match) {
+      return match.focus();
+    } else {
+      return self.clients.openWindow(url);
+    }
+  });
+  event.waitUntil(promise);
+}
+
 const showNotification = (n: isuxportal.proto.resources.INotification) => {
   console.log("SW showNotification:", n);
   if (n.contentTest) {
-    self.registration.showNotification("isuxportal test notification", {body: "test test test"});
+    self.registration.showNotification("isuxportal test notification", {body: "test test test", tag: '/contestant'});
   } else if (n.contentBenchmarkJob) {
     // TODO:
   } else if (n.contentClarification) {
@@ -49,3 +63,7 @@ self.addEventListener('message', (e) => {
       break;
   }
 })
+
+self.addEventListener('notificationclick', (e) => {
+  if (e.notification.tag && e.notification.tag !== "") openUrl(e, e.notification.tag);
+});
