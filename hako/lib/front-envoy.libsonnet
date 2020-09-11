@@ -4,7 +4,8 @@ local utils = import './utils.libsonnet';
   container(appId, appPort='4000'): {
     cpu: 64,
     memory: 64,
-    image_tag: 'sorah/infra-hako-front-envoy:9414376f78875462f426fa521729cbfdc18d9172',
+    //image_tag: 'sorah/infra-hako-front-envoy:f8f077a6c0d70061b7ceb658192a42c82c4182f0',
+    image_tag: '516315029474.dkr.ecr.ap-northeast-1.amazonaws.com/front-envoy:f8f077a6c0d70061b7ceb658192a42c82c4182f0',
     log_configuration: utils.awsLogs('front_envoy'),
     env: {
       APP_ID: appId,
