@@ -39,7 +39,7 @@ export const ContestClock: React.FC<Props> = ({ contest }) => {
             <time dateTime={contestEndsAt.toISOString()}>{contestEndsAt.format("YYYY-MM-DD HH:mm")}</time>
           </p>
         </div>
-        <div className="column is-1">
+        <div className="column is-3">
           <p>
             <progress className="progress is-small" max={100} value={100 - (untilEnd / duration) * 100}></progress>
           </p>
