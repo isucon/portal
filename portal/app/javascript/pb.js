@@ -6651,6 +6651,7 @@ $root.isuxportal = (function() {
                      * @property {number|Long|null} [clarificationId] ClarificationMessage clarificationId
                      * @property {boolean|null} [owned] ClarificationMessage owned
                      * @property {boolean|null} [updated] ClarificationMessage updated
+                     * @property {boolean|null} [admin] ClarificationMessage admin
                      */
 
                     /**
@@ -6693,6 +6694,14 @@ $root.isuxportal = (function() {
                     ClarificationMessage.prototype.updated = false;
 
                     /**
+                     * ClarificationMessage admin.
+                     * @member {boolean} admin
+                     * @memberof isuxportal.proto.resources.Notification.ClarificationMessage
+                     * @instance
+                     */
+                    ClarificationMessage.prototype.admin = false;
+
+                    /**
                      * Creates a new ClarificationMessage instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.resources.Notification.ClarificationMessage
@@ -6722,6 +6731,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 2, wireType 0 =*/16).bool(message.owned);
                         if (message.updated != null && Object.hasOwnProperty.call(message, "updated"))
                             writer.uint32(/* id 3, wireType 0 =*/24).bool(message.updated);
+                        if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.admin);
                         return writer;
                     };
 
@@ -6764,6 +6775,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 3:
                                 message.updated = reader.bool();
+                                break;
+                            case 4:
+                                message.admin = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -6809,6 +6823,9 @@ $root.isuxportal = (function() {
                         if (message.updated != null && message.hasOwnProperty("updated"))
                             if (typeof message.updated !== "boolean")
                                 return "updated: boolean expected";
+                        if (message.admin != null && message.hasOwnProperty("admin"))
+                            if (typeof message.admin !== "boolean")
+                                return "admin: boolean expected";
                         return null;
                     };
 
@@ -6837,6 +6854,8 @@ $root.isuxportal = (function() {
                             message.owned = Boolean(object.owned);
                         if (object.updated != null)
                             message.updated = Boolean(object.updated);
+                        if (object.admin != null)
+                            message.admin = Boolean(object.admin);
                         return message;
                     };
 
@@ -6861,6 +6880,7 @@ $root.isuxportal = (function() {
                                 object.clarificationId = options.longs === String ? "0" : 0;
                             object.owned = false;
                             object.updated = false;
+                            object.admin = false;
                         }
                         if (message.clarificationId != null && message.hasOwnProperty("clarificationId"))
                             if (typeof message.clarificationId === "number")
@@ -6871,6 +6891,8 @@ $root.isuxportal = (function() {
                             object.owned = message.owned;
                         if (message.updated != null && message.hasOwnProperty("updated"))
                             object.updated = message.updated;
+                        if (message.admin != null && message.hasOwnProperty("admin"))
+                            object.admin = message.admin;
                         return object;
                     };
 

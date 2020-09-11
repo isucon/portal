@@ -68,9 +68,43 @@ const showNotification = async (n: isuxportal.proto.resources.INotification) => 
   if (n.contentTest) {
     promise = self.registration.showNotification("isuxportal test notification", {body: `test ${n.contentTest.something} ${n.id}`, tag, data: `/contestant`});
   } else if (n.contentBenchmarkJob) {
-    // TODO:
+    promise = self.registration.showNotification(
+      `Benchmark Job Completed`,
+      {
+        body: `Benchmark Job #${n.contentBenchmarkJob.benchmarkJobId!} has finished.`,
+        data: `/contestant/benchmark_jobs/${n.contentBenchmarkJob.benchmarkJobId!}`,
+        tag,
+      },
+    );
   } else if (n.contentClarification) {
-    // TODO:
+    const c = n.contentClarification;
+    let title = "Clarification updated";
+    if (!c.owned && !c.admin && !c.updated) {
+      title = "新しい質問と回答が公開されました";
+    } else if (!c.owned && !c.admin && c.updated) {
+      title = "質問と回答が更新されました";
+    } else if (!c.owned && c.admin && !c.updated) {
+      title = "アナウンスが追加されました";
+    } else if (!c.owned && c.admin && c.updated) {
+      title = "アナウンスが更新されました";
+    } else if (c.owned && !c.admin && !c.updated) {
+      title = "質問/サポート依頼が回答されました";
+    } else if (c.owned && !c.admin && c.updated) {
+      title = "質問/サポート依頼の回答が更新されました";
+    } else if (c.owned && c.admin && !c.updated) {
+      title = "運営よりメッセージが届いています";
+    } else if (c.owned && c.admin && c.updated) {
+      title = "運営からのメッセージが更新されました";
+    }
+
+    promise = self.registration.showNotification(
+      title,
+      {
+        body: `Clarification #${c.clarificationId!}`,
+        data: `/contestant/clarifications`,
+        tag,
+      },
+    );
   }
   await promise;
 }

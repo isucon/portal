@@ -1,5 +1,19 @@
+require 'isuxportal/resources/notification_pb'
+
 class BenchmarkCompletionJob < ApplicationJob
   def perform(job)
+    job.team.members.each do |contestant|
+      n = Notification.create!(
+        contestant: contestant,
+        message: Isuxportal::Proto::Resources::Notification.new(
+          content_benchmark_job: Isuxportal::Proto::Resources::Notification::BenchmarkJobMessage.new(
+            benchmark_job_id: job.id,
+          ),
+        ),
+      )
+      DeliverPushNotificationJob.perform_later(n)
+    end
+
     slack_messages = [
       ":hourglass: Benchmark Job ##{job.id} completed for #{job.team.name} (##{job.team.id}) <https://#{default_url_options.fetch(:host)}/admin/benchmark_jobs/#{job.id}|Open>",
     ]

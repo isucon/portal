@@ -2420,6 +2420,9 @@ export namespace isuxportal {
 
                     /** ClarificationMessage updated */
                     updated?: (boolean|null);
+
+                    /** ClarificationMessage admin */
+                    admin?: (boolean|null);
                 }
 
                 /** Represents a ClarificationMessage. */
@@ -2439,6 +2442,9 @@ export namespace isuxportal {
 
                     /** ClarificationMessage updated. */
                     public updated: boolean;
+
+                    /** ClarificationMessage admin. */
+                    public admin: boolean;
 
                     /**
                      * Creates a new ClarificationMessage instance using the specified properties.
