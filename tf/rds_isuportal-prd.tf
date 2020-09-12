@@ -63,6 +63,8 @@ resource "aws_rds_cluster_instance" "isuportal-prd-002" {
   promotion_tier               = "0"
   preferred_maintenance_window = "tue:15:00-tue:15:30"
 
+  performance_insights_enabled = true
+
   tags = {
     Project = "isucon10"
   }
