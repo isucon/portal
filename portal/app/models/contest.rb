@@ -155,7 +155,7 @@ module Contest
     end
   end
 
-  def self.leaderboard(admin: false, team: nil, progresses: false, solo: false)
+  def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
     benchmark_results = BenchmarkResult
       .select(:team_id, :score, :created_at, :marked_at)
       .successfully_finished
@@ -163,6 +163,9 @@ module Contest
     unless admin
       benchmark_results = benchmark_results.marked_before_contest_ended
       benchmark_results = benchmark_results.visible_not_frozen(team)
+    end
+    if now
+      benchmark_results = benchmark_results.where('marked_at <= ?', now)
     end
     if solo && team
       benchmark_results = benchmark_results.where(team_id: team.id)
