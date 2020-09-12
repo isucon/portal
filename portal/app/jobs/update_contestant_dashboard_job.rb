@@ -1,3 +1,5 @@
+require 'isuxportal/resources/leaderboard_pb'
+require 'isuxportal/services/contestant/dashboard_pb'
 class UpdateContestantDashboardJob < ApplicationJob
   def perform
     Rails.logger.info("leaderboard")
@@ -21,12 +23,14 @@ class UpdateContestantDashboardJob < ApplicationJob
       lteams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
       lgeneral_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
       lstudent_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
-
-      lb2.teams = lteams
-      lb2.general_teams = lgeneral_teams
-      lb2.student_teams = lstudent_teams
-
-      resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb2))
+      lb3 = Isuxportal::Proto::Resources::Leaderboard.new(
+        teams: lteams,
+        general_teams: lgeneral_teams,
+        student_teams: lstudent_teams,
+        contest: lb2.contest,
+        generated_at: lb_team.generated_at
+      )
+      resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb3))
       Rails.cache.write("contestantdashboard3-t#{team.id}", resp, expires_in: 12.hours)
     end
   end
