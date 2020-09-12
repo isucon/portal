@@ -155,7 +155,7 @@ module Contest
     end
   end
 
-  def self.leaderboard(admin: false, team: nil, progresses: false)
+  def self.leaderboard(admin: false, team: nil, progresses: false, solo: false)
     benchmark_results = BenchmarkResult
       .select(:team_id, :score, :created_at, :marked_at)
       .successfully_finished
@@ -163,6 +163,9 @@ module Contest
     unless admin
       benchmark_results = benchmark_results.marked_before_contest_ended
       benchmark_results = benchmark_results.visible_not_frozen(team)
+    end
+    if solo && team
+      benchmark_results = benchmark_results.where(team_id: team.id)
     end
 
     teams = benchmark_results.group_by(&:team_id)
@@ -206,6 +209,10 @@ module Contest
         benchmark_progresses = benchmark_progresses.marked_before_contest_ended
         benchmark_progresses = benchmark_progresses.visible_not_frozen(team)
       end
+      if solo && team
+        benchmark_progresses = benchmark_progresses.where(team_id: team.id)
+      end
+
       progresses_items = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
         score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
           Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
@@ -221,6 +228,7 @@ module Contest
           latest_score: score,
         )
       end
+
     end
 
     items.reject! { |_| !admin && _.team.hidden && team&.id != _.team.id }

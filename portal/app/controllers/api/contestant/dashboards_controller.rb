@@ -5,7 +5,7 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
   def show
     expires_in 0, public: false, must_revalidate: true
     if stale?(etag: Contest.leaderboard_etag_cached(admin: false, team: current_team))
-      resp = Rails.cache.fetch("contestantdashboard2-t#{current_team.id}", expires_in: 30.seconds) do
+      resp = Rails.cache.fetch("contestantdashboard3-t#{current_team.id}", expires_in: 12.hours) do
         Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
           leaderboard: Contest.leaderboard(admin: false, team: current_team), # TODO: disable progresses
         ))
