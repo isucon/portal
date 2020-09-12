@@ -27,6 +27,6 @@ class BenchmarkCompletionJob < ApplicationJob
       slack_messages << "> reason=#{result.reason}" if result.reason.present?
       slack_messages << "> exit_status=#{result.exit_status}, signaled=#{result.signaled?}, exit_signal=#{result.exit_signal}" unless result.successfully_exited?
     end
-    SlackWebhookJob.perform_now(text: slack_messages.join(?\n))
+    SlackWebhookJob.perform_now(text: slack_messages.join(?\n)) if job.errored?
   end
 end
