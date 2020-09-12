@@ -20,6 +20,7 @@ class UpdateContestantDashboardJob < ApplicationJob
 
       lb2.generated_at = lb_team.generated_at
 
+      [lteams,lgeneral_teams,lstudent_teams].reject! { |_| _.team.id == team.id }
       lteams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
       lteams.reverse!
       lgeneral_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
