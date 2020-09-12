@@ -173,14 +173,14 @@ module Contest
     items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     items.reverse!
 
-    items.concat(Team.active.order(id: :desc).where.not(id: items.map { |_| _.team.id }).map do |team|
-      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
-        team: team.to_pb(detail: false, members: false),
-        scores: [],
-        best_score: nil,
-        latest_score: nil,
-      )
-    end.to_a)
+    #items.concat(Team.active.order(id: :desc).where.not(id: items.map { |_| _.team.id }).map do |team|
+    #  Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+    #    team: team.to_pb(detail: false, members: false),
+    #    scores: [],
+    #    best_score: nil,
+    #    latest_score: nil,
+    #  )
+    #end.to_a)
 
     if progresses
       benchmark_progresses = BenchmarkResult
