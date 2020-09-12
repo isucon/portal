@@ -9,7 +9,7 @@ class LeaderboardDumpJob < ApplicationJob
         student: item.team.student.status,
         best_score: item.best_score&.score,
         latest_score: item.latest_score&.score,
-        latest_score_at: item.latest_score&.marked_at,
+        latest_score_at: item.latest_score&.marked_at&.seconds,
       )
     end
     nil
