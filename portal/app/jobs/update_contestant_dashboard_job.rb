@@ -25,7 +25,9 @@ class UpdateContestantDashboardJob < ApplicationJob
       lb2.teams = lteams
       lb2.general_teams = lgeneral_teams
       lb2.student_teams = lstudent_teams
-      Rails.cache.write("contestantdashboard3-t#{team.id}", lb2.class.encode(lb2), expires_in: 12.hours)
+
+      resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb2))
+      Rails.cache.write("contestantdashboard3-t#{team.id}", resp, expires_in: 12.hours)
     end
   end
 end
