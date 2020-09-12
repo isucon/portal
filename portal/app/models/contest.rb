@@ -97,6 +97,12 @@ module Contest
     )
   end
 
+  def self.leaderboard_etag_cached(admin: false, team: nil, progresses: false)
+    Rails.cache.fetch("leaderboardetag-#{!admin}-t#{team&.id}-#{progresses}", expires_in: 30.seconds) do
+      leaderboard_etag(admin: admin, team: team, progresses: progresses)
+    end
+  end
+
   def self.leaderboard_etag(admin: false, team: nil, progresses: false)
     teams = Team.count
     team_last_updated = Team.pluck(:updated_at).max
@@ -141,6 +147,12 @@ module Contest
         has_progress: progresses,
       )
     )
+  end
+
+  def self.leaderboard_cached(admin: false, team: nil, progresses: false)
+    Rails.cache.fetch("leaderboard-#{!admin}-t#{team&.id}-#{progresses}", expires_in: 30.seconds) do
+      leaderboard(admin: admin, team: team, progresses: progresses).to_pb
+    end
   end
 
   def self.leaderboard(admin: false, team: nil, progresses: false)
