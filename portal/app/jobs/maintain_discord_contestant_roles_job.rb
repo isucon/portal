@@ -41,7 +41,7 @@ class MaintainDiscordContestantRolesJob < ApplicationJob
     @desired_roles ||= @contestant&.active? ? [
       basic_role,
       Rails.application.config.x.discord.contestant_qualify_role ? Rails.application.config.x.discord.contestant_qualify_role_id : nil,
-      Rails.application.config.x.discord.contestant_final_role && @contestant.final_participation? ? Rails.application.config.x.discord.contestant_final_role_id : nil,
+      Rails.application.config.x.discord.contestant_final_role && @contestant&.team&.final_participation? ? Rails.application.config.x.discord.contestant_final_role_id : nil,
     ].select(&:present?).sort : []
   end
 
