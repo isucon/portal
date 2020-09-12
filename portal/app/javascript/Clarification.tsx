@@ -70,9 +70,14 @@ export const Clarification: React.FC<Props> = (props: Props) => {
                 <>
                   チーム:
                   {props.admin ? (
-                    <Link to={`/admin/teams/${encodeURIComponent(clar.team!.id!.toString())}`}>
-                      {clar.team.name} (#{clar.team.id!.toString()})
-                    </Link>
+                    <>
+                      <Link to={`/admin/teams/${encodeURIComponent(clar.team!.id!.toString())}`}>
+                        {clar.team.name} (#{clar.team.id!.toString()})
+                      </Link>
+                      <Link to={`/admin/clarifications?team_id=${encodeURIComponent(clar.team!.id!.toString())}`}>
+                        <i className="material-icons-outlined">question_answer</i>
+                      </Link>
+                    </>
                   ) : (
                     <>
                       {clar.team.name} (#{clar.team.id!.toString()})
@@ -104,12 +109,16 @@ export const Clarification: React.FC<Props> = (props: Props) => {
               </div>
             ) : null}
             <section>
-              <pre className="isux-clarification-pre">{showOriginalQuestion ? clar.originalQuestion : clar.question}</pre>
+              <pre className="isux-clarification-pre">
+                {showOriginalQuestion ? clar.originalQuestion : clar.question}
+              </pre>
             </section>
           </div>
           <div className="column is-6">
             <h5 className="is-5">回答</h5>
-            <section>{clar.answered ? <pre className="isux-clarification-pre">{clar.answer}</pre> : <p>N/A</p>}</section>
+            <section>
+              {clar.answered ? <pre className="isux-clarification-pre">{clar.answer}</pre> : <p>N/A</p>}
+            </section>
           </div>
         </div>
         <p>

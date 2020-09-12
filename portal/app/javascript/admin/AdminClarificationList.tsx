@@ -3,7 +3,7 @@ import { ApiError, ApiClient } from "../ApiClient";
 import { AdminApiClient } from "./AdminApiClient";
 
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { Clarification } from "../Clarification";
@@ -14,7 +14,7 @@ type ListFilterProps = {
   incompleteOnly: boolean;
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
-  const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
+  const history = useHistory();
   const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
     defaultValues: props,
   });
@@ -22,20 +22,11 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
     const search = new URLSearchParams();
     search.set("team_id", data.teamId || "");
     search.set("incomplete_only", data.incompleteOnly ? "1" : "0");
-    setRedirect(
-      <Redirect
-        push={true}
-        to={{
-          pathname: "/admin/clarifications",
-          search: `?${search.toString()}`,
-        }}
-      />
-    );
+    history.push("/admin/clarifications?" + search.toString());
   });
 
   return (
     <div className="card mt-5">
-      {redirect}
       <div className="card-content">
         <form onSubmit={onSubmit}>
           <div className="columns">
@@ -190,20 +181,23 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
-  teamId: string | null;
-  incompleteOnly: boolean;
 }
 
 export const AdminClarificationList: React.FC<Props> = (props: Props) => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+
+  const teamId = query.get("team_id");
+  const incompleteOnly = query.get("incomplete_only") === "1";
   const [error, setError] = React.useState<Error | null>(null);
   const [list, setList] = React.useState<isuxportal.proto.resources.IClarification[] | null>(null);
 
   React.useEffect(() => {
     props.client
-      .listClarifications(props.teamId && props.teamId !== "" ? parseInt(props.teamId, 10) : 0, props.incompleteOnly)
+      .listClarifications(teamId && teamId !== "" ? parseInt(teamId, 10) : 0, incompleteOnly)
       .then((resp) => setList(resp.clarifications))
       .catch((e) => setError(e));
-  }, []);
+  }, [location.search]);
   const onClarSubmit = (clar: isuxportal.proto.resources.IClarification) => {
     setList(list ? [clar, ...list] : [clar]);
   };
@@ -218,7 +212,7 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
   return (
     <>
       <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} />
-      <ListFilter teamId={props.teamId} incompleteOnly={props.incompleteOnly} />
+      <ListFilter teamId={teamId} incompleteOnly={incompleteOnly} />
       {error ? <ErrorMessage error={error} /> : null}
       {list ? renderList() : <p>Loading..</p>}
     </>
