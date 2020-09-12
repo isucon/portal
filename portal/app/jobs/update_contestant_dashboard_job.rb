@@ -21,8 +21,11 @@ class UpdateContestantDashboardJob < ApplicationJob
       lb2.generated_at = lb_team.generated_at
 
       lteams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lteams.reverse!
       lgeneral_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lgeneral_teams.reverse!
       lstudent_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lstudent_teams.reverse!
       lb3 = Isuxportal::Proto::Resources::Leaderboard.new(
         teams: lteams,
         general_teams: lgeneral_teams,
