@@ -33,6 +33,8 @@ gem 'discordrb', git: 'https://github.com/discordrb/discordrb'
 gem 'octokit'
 gem 'webpush'
 
+gem 'rack-timeout'
+
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails',  '~> 4'
