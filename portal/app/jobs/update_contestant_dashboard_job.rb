@@ -11,14 +11,20 @@ class UpdateContestantDashboardJob < ApplicationJob
       Rails.logger.info "team_id=#{team.id} (#{i+1}/#{teams.size})"
       lb2 = lb.class.decode(lb_wire)
       lb_team = Contest.leaderboard(admin: false, team: team, progresses: false, solo: true)
-      lb2.teams.concat lb_team.teams.to_a
-      lb2.general_teams.concat lb_team.general_teams.to_a
-      lb2.student_teams.concat lb_team.student_teams.to_a
+      
+      lteams = lb2.teams.to_a + lb_team.teams.to_a
+      lgeneral_teams = lb2.general_teams.to_a + lb_team.general_teams.to_a
+      lstudent_teams = lb2.student_teams.to_a + lb_team.student_teams.to_a
+
       lb2.generated_at = lb_team.generated_at
 
-      lb2.teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
-      lb2.general_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
-      lb2.student_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lteams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lgeneral_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+      lstudent_teams.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+
+      lb2.teams = lteams
+      lb2.general_teams = lgeneral_teams
+      lb2.student_teams = lstudent_teams
       Rails.cache.write("contestantdashboard3-t#{team.id}", lb2.class.encode(lb2), expires_in: 12.hours)
     end
   end
