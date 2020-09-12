@@ -27,7 +27,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const onSubmit = handleSubmit((data) => {
     const search = new URLSearchParams();
     search.set("team_id", data.teamId || "");
-    search.set("incompleteOnly", data.incompleteOnly ? "1" : "0");
+    search.set("incomplete_only", data.incompleteOnly ? "1" : "0");
     setRedirect(
       <Redirect
         push={true}
@@ -198,7 +198,6 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
     if (!this.state.list) return <p>Loading...</p>;
     const itemIndexBegin = this.state.currentPage * ItemCountPerPage;
     const itemIndexEnd = (this.state.currentPage + 1) * ItemCountPerPage;
-    console.log(itemIndexBegin, itemIndexEnd);
     return (
       <table className="table">
         <thead>

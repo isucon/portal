@@ -3,12 +3,80 @@ import { ApiError, ApiClient } from "../ApiClient";
 import { AdminApiClient } from "./AdminApiClient";
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { Clarification } from "../Clarification";
 import { ErrorMessage } from "../ErrorMessage";
 
+type ListFilterProps = {
+  teamId: string | null;
+  incompleteOnly: boolean;
+};
+const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
+  const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
+  const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
+    defaultValues: props,
+  });
+  const onSubmit = handleSubmit((data) => {
+    const search = new URLSearchParams();
+    search.set("team_id", data.teamId || "");
+    search.set("incomplete_only", data.incompleteOnly ? "1" : "0");
+    setRedirect(
+      <Redirect
+        push={true}
+        to={{
+          pathname: "/admin/clarifications",
+          search: `?${search.toString()}`,
+        }}
+      />
+    );
+  });
+
+  return (
+    <div className="card mt-5">
+      {redirect}
+      <div className="card-content">
+        <form onSubmit={onSubmit}>
+          <div className="columns">
+            <div className="column is-3 field">
+              <label className="label" htmlFor="AdminClarificationListFilter-teamId">
+                Team ID
+              </label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="text"
+                  name="teamId"
+                  id="AdminClarificationListFilter-teamId"
+                  ref={register}
+                />
+              </div>
+            </div>
+            <div className="column is-3 field">
+              <label className="label" htmlFor="AdminClarificationListFilter-incompleteOnly">
+                Incomplete only
+              </label>
+              <div className="control">
+                <input
+                  type="checkbox"
+                  name="incompleteOnly"
+                  id="AdminClarificationListFilter-incompleteOnly"
+                  ref={register}
+                />
+              </div>
+            </div>
+            <div className="column is-3 field">
+              <button className="button is-link" type="submit">
+                Filter
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 interface FormProps {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
@@ -22,6 +90,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
     answer: string;
     question: string;
     teamId: string;
+    incompleteOnly: boolean;
   }>({
     shouldUnregister: false,
     defaultValues: {
@@ -121,6 +190,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
+  teamId: string | null;
+  incompleteOnly: boolean;
 }
 
 export const AdminClarificationList: React.FC<Props> = (props: Props) => {
@@ -129,7 +200,7 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
 
   React.useEffect(() => {
     props.client
-      .listClarifications()
+      .listClarifications(props.teamId && props.teamId !== "" ? parseInt(props.teamId, 10) : 0, props.incompleteOnly)
       .then((resp) => setList(resp.clarifications))
       .catch((e) => setError(e));
   }, []);
@@ -147,6 +218,7 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
   return (
     <>
       <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} />
+      <ListFilter teamId={props.teamId} incompleteOnly={props.incompleteOnly} />
       {error ? <ErrorMessage error={error} /> : null}
       {list ? renderList() : <p>Loading..</p>}
     </>
