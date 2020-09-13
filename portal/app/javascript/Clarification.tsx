@@ -68,7 +68,6 @@ export const Clarification: React.FC<Props> = (props: Props) => {
             <div className="level-item">
               {clar.team ? (
                 <>
-                  チーム:
                   {props.admin ? (
                     <>
                       <Link to={`/admin/teams/${encodeURIComponent(clar.team!.id!.toString())}`}>
