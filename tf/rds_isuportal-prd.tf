@@ -49,24 +49,4 @@ resource "aws_rds_cluster_instance" "isuportal-prd-001" {
     Project = "isucon10"
   }
 }
-resource "aws_rds_cluster_instance" "isuportal-prd-002" {
-  identifier                   = "isuportal-prd-002"
-  cluster_identifier           = aws_rds_cluster.isuxportal-prd.cluster_identifier
-  instance_class               = "db.r5.large"
-  db_parameter_group_name      = aws_db_parameter_group.aurora57.name
-  monitoring_role_arn          = aws_iam_role.rds-monitoring-role.arn
-  engine                       = "aurora-mysql"
-  engine_version               = "5.7.mysql_aurora.2.08.1"
-  monitoring_interval          = 60
-  auto_minor_version_upgrade   = false
-  apply_immediately            = true
-  promotion_tier               = "0"
-  preferred_maintenance_window = "tue:15:00-tue:15:30"
-
-  performance_insights_enabled = true
-
-  tags = {
-    Project = "isucon10"
-  }
-}
 

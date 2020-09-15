@@ -5,11 +5,18 @@ local base = import './isuxportal-prd-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 4,
+    desired_count: 2,
     elb_v2: utils.albInternetFacing,
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
+  },
+  app+: {
+    env+: {
+      RACK_TIMEOUT_SERVICE_TIMEOUT: '8',
+      WORKER_NUM: '1',
+      THREADS_NUM: '3',
+    },
   },
   additional_containers: {
     front: front.container,

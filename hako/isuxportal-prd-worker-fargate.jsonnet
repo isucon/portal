@@ -11,8 +11,6 @@ base {
     ],
   },
   app+: {
-    cpu: 256 - 64,
-    memory: 512 - 128,
     command: ['bundle', 'exec', 'shoryuken', 'start', '-R', '-C', '/app/config/shoryuken.yml'],
     env+: {
       ISUXPORTAL_SHORYUKEN_CONCURRENCY: '2',
