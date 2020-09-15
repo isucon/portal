@@ -34,6 +34,7 @@ gem 'octokit'
 gem 'webpush'
 
 gem 'rack-timeout'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'rspec'
