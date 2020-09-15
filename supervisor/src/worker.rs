@@ -206,12 +206,15 @@ impl Worker {
 
 const LOG_MAX: i64 = 48000;
 async fn read_log(path: String) -> Result<String, Error> {
-    let mut buf = "".to_string();
+    let mut buf: Vec<u8> = Vec::with_capacity(16000);
     let mut f = tokio::fs::File::open(path.clone()).await?;
+
     match f.seek(std::io::SeekFrom::End(-LOG_MAX)).await {
         Ok(_) => {
             log::warn!("Log {} will be sent truncated", path);
-            buf.push_str("[... early log was truncated (log is too long) ...]\n");
+            let truncate_msg = "[... early log was truncated (log was too long) ...]\n".as_bytes();
+            buf.reserve((LOG_MAX as usize) + truncate_msg.len());
+            buf.extend_from_slice(truncate_msg);
         },
         Err(e) => {
             if e.kind() != std::io::ErrorKind::InvalidInput {
@@ -219,6 +222,7 @@ async fn read_log(path: String) -> Result<String, Error> {
             }
         }
     }
-    f.read_to_string(&mut buf).await?;
-    return Ok(buf);
+    f.read_to_end(&mut buf).await?;
+    let ret = String::from_utf8_lossy(buf.as_slice()).into_owned();
+    return Ok(ret);
 }

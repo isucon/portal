@@ -33,6 +33,11 @@ func main() {
 	fmt.Printf("[stdout] Target: %v\n", benchrun.GetTargetAddress())
 	fmt.Fprintf(os.Stderr, "[stderr] Target: %v\n", benchrun.GetTargetAddress())
 
+	//for i := 1; i <= 1000; i++ {
+	//	fmt.Printf("\xFE\xFF\xF0")
+	//}
+	//fmt.Printf("\xFE\xFF\xF0\n")
+
 	r, err := benchrun.NewReporter(true)
 	if err != nil {
 		panic(err)
