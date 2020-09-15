@@ -28,6 +28,19 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
       origin_read_timeout      = 35
     }
   }
+  origin {
+    origin_id   = "portal-prd-web"
+    domain_name = "portal-prd-web.x.isucon.dev"
+    custom_origin_config {
+      http_port                = 80
+      https_port               = 443
+      origin_protocol_policy   = "https-only"
+      origin_ssl_protocols     = ["TLSv1.2"]
+      origin_keepalive_timeout = 30
+      origin_read_timeout      = 35
+    }
+  }
+
 
   ordered_cache_behavior {
     path_pattern     = "/packs/*"
@@ -68,6 +81,27 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
   }
+
+  ordered_cache_behavior {
+    path_pattern     = "/api/contestant/dashboard"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "portal-prd-web"
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
+      cookies {
+        forward           = "whitelist"
+        whitelisted_names = ["__Host-isuxportal_sess"]
+      }
+    }
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
