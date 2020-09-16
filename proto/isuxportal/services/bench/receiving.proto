@@ -5,6 +5,9 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 service BenchmarkQueue {
   rpc ReceiveBenchmarkJob(ReceiveBenchmarkJobRequest)
       returns (ReceiveBenchmarkJobResponse);
+
+  rpc CancelOwnedBenchmarkJob(CancelOwnedBenchmarkJobRequest)
+      returns (CancelOwnedBenchmarkJobResponse);
 }
 
 message ReceiveBenchmarkJobRequest {
@@ -22,4 +25,12 @@ message ReceiveBenchmarkJobResponse {
   }
   // optional
   JobHandle job_handle = 1;
+}
+
+message CancelOwnedBenchmarkJobRequest {
+  string token = 1;
+  string instance_name = 2;
+}
+
+message CancelOwnedBenchmarkJobResponse {
 }

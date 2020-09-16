@@ -34,4 +34,18 @@ class BenchmarkQueueService < Isuxportal::Proto::Services::Bench::BenchmarkQueue
       end
     end
   end
+
+  def cancel_owned_benchmark_job(request, _call)
+    unless Rack::Utils.secure_compare(request.token, Rails.application.config.x.bench_auth.token)
+      raise GRPC::Unauthenticated.new("Unauthenticated")
+    end
+
+    ApplicationRecord.transaction do
+      BenchmarkJob.where(status: :running, instance_name: request.instance_name).each do |job|
+        job.error!
+      end
+    end
+
+    Isuxportal::Proto::Services::Bench::CancelOwnedBenchmarkJobResponse.new()
+  end
 end

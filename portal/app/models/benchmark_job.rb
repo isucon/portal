@@ -104,6 +104,18 @@ class BenchmarkJob < ApplicationRecord
     self.save!
   end
 
+  def error!(reason = "[BUG] Benchmarker didn't successfully finish")
+    raise InvalidTransition if closed?
+    self.status = :errored
+    self.finished_at = Time.zone.now
+    result = benchmark_result || build_benchmark_result
+    result.reason = reason
+    result.finished = true
+    result.passed = false
+    result.save!
+    self.save!
+  end
+
   private def generate_handle
     if instance_name
       self.handle ||= SecureRandom.urlsafe_base64(64)
