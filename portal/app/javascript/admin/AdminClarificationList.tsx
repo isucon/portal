@@ -181,7 +181,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
-  teamId?: string;
+  teamId: string | null;
   unansweredOnly: boolean;
 }
 
