@@ -7,6 +7,7 @@ import "isuxportal/resources/clarification.proto";
 message ListClarificationsQuery {
   // optional to filter
   int64 team_id = 1;
+  bool unanswered_only = 2;
 }
 
 message ListClarificationsResponse {

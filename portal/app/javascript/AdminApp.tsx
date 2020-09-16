@@ -140,8 +140,16 @@ export class AdminApp extends React.Component<Props, State> {
                   <Route
                     exact
                     path="/admin/clarifications"
-                    render={({ match }) => {
-                      return <AdminClarificationList session={this.props.session} client={this.state.adminClient} />;
+                    render={({ location }) => {
+                      const query = new URLSearchParams(location.search);
+                      return (
+                        <AdminClarificationList
+                          session={this.props.session}
+                          client={this.state.adminClient}
+                          teamId={query.get("team_id")}
+                          unansweredOnly={query.get("unanswered_only") === "1"}
+                        />
+                      );
                     }}
                   />
                   <Route
