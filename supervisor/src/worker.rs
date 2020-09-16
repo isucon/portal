@@ -1,7 +1,9 @@
 use std::os::unix::process::ExitStatusExt;
 use tokio::io::AsyncReadExt;
 
+use crate::api::isuxportal::proto::services::bench::benchmark_report_client::BenchmarkReportClient;
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
+use crate::api::isuxportal::proto::services::bench::CompleteBenchmarkJobRequest;
 use crate::api::isuxportal::proto::resources::BenchmarkResult;
 use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::config::Config;
@@ -57,6 +59,19 @@ impl Worker {
 
         let mut process_exit_status: Option<std::process::ExitStatus> = None;
         let mut error: Option<Error> = None;
+        let mut last_report = BenchmarkResult{
+           finished: false,
+           passed: false,
+           score: 0,
+           score_breakdown: Some(benchmark_result::ScoreBreakdown {
+               raw: 0,
+               deduction: 0,
+           }),
+           execution: None,
+           marked_at: None,
+           survey_response: None,
+        };
+
         loop {
             log::trace!("Performing loop");
             let mut do_shutdown = false;
@@ -68,7 +83,8 @@ impl Worker {
                 },
                 message = handle.message::<BenchmarkResult>() => match message {
                     Some(Message::Data(m)) => {
-                        self.report_progress(&mut reporter, m).await;
+                        self.report_progress(&mut reporter, m.clone()).await;
+                        last_report = m;
                     },
                     Some(Message::DataFinished) => {
                         log::trace!("Data finished");
@@ -107,6 +123,9 @@ impl Worker {
         log::info!("Finishing job execution");
         handle.kill().expect("cannot kill child");
 
+        reporter.close().await;
+        reporter_task.await.unwrap();
+
         let stdout = read_log(self.stdout_path()).await
             .unwrap_or_else(|e| {
                 log::error!("Cannot read stdout: {:?}", e);
@@ -120,11 +139,8 @@ impl Worker {
                 "".to_string()
             });
 
-        let final_report = self.generate_final_report(error.as_ref(), process_exit_status, stdout, stderr);
-        reporter.send(final_report).await;
+        self.send_final_result(channel, last_report, error.as_ref(), process_exit_status, stdout, stderr).await?;
 
-        reporter.close().await;
-        reporter_task.await.unwrap();
         if let Some(e) = error {
             log::error!("Job failed to run");
             return Err(Box::new(e));
@@ -135,8 +151,6 @@ impl Worker {
 
     async fn report_first(&self, reporter: &mut ReporterInbox) {
         let report = Report {
-            completed: false,
-            execution_only: false,
             result: BenchmarkResult {
                 finished: false,
                 passed: false,
@@ -155,21 +169,50 @@ impl Worker {
 
     async fn report_progress(&self, reporter: &mut ReporterInbox, result: BenchmarkResult) {
         reporter.send(Report {
-            completed: false,
-            execution_only: false,
             result,
         }).await;
     }
 
-    fn generate_final_report(&self, known_error: Option<&Error>, exit_status: Option<std::process::ExitStatus>, stdout: String, stderr: String) -> Report {
+    const MAX_RETRIES: u32 = 5;
+    async fn send_final_result(&self, channel: tonic::transport::Channel, last_report: BenchmarkResult, known_error: Option<&Error>, exit_status: Option<std::process::ExitStatus>, stdout: String, stderr: String) -> Result<(), tonic::Status> {
+        let result = self.generate_final_result(last_report, known_error, exit_status, stdout, stderr);
+        let mut last_status: Option<tonic::Status> = None;
+
+        let req = CompleteBenchmarkJobRequest {
+            job_id: self.job_handle.job_id,
+            handle: self.job_handle.handle.clone(),
+            result: Some(result.clone()),
+        };
+
+        for num_attempt in 1..Self::MAX_RETRIES {
+            log::info!("send_final_result(attempt={}): request={:?}", num_attempt, get_report_request_for_log(req.clone()));
+            let mut client = BenchmarkReportClient::new(channel.clone());
+            let r = client.complete_benchmark_job(req.clone()).await;
+            match r {
+                Ok(_response) => {
+                    log::trace!("send_final_result(attempt={}): OK", num_attempt);
+                    return Ok(());
+                },
+                Err(status) => {
+                    log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, status);
+                    last_status = Some(status);
+                },
+            }
+            tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
+        }
+        return Err(last_status.unwrap());
+    }
+
+    fn generate_final_result(&self, last_report: BenchmarkResult, known_error: Option<&Error>, exit_status: Option<std::process::ExitStatus>, stdout: String, stderr: String) -> BenchmarkResult {
         let mut execution = benchmark_result::Execution {
-            reason: "".to_string(),
+            reason: "UNKNOWN".to_string(),
             stdout,
             stderr,
             exit_status: 9000,
             exit_signal: -1,
             signaled: false,
         };
+
         match exit_status {
             Some(status) => {
                 execution.exit_status = status.code().unwrap_or(9001);
@@ -182,25 +225,23 @@ impl Worker {
                 execution.reason = "[Supervisor Internal Error] A benchmarker didn't run correctly".to_string();
             },
         }
+
         if let Some(e) = known_error {
             let internal_log = format!("\n\n[Supervisor Internal Error] Error while run:\n\n{:#?}\n", e);
             execution.stderr.push_str(&internal_log);
             execution.exit_status = 9002;
         }
 
-        Report {
-            completed: true,
-            execution_only: true,
-            result: BenchmarkResult {
-                finished: false,
-                passed: false,
-                score: 0,
-                score_breakdown: None,
-                execution: Some(execution),
-                marked_at: Some(prost_types::Timestamp::from(std::time::SystemTime::now())),
-                survey_response: None,
-            },
+        if let Some(exec) = last_report.execution.as_ref() {
+            execution.reason = exec.reason.clone();
         }
+
+        let mut result = last_report.clone();
+        result.execution = Some(execution);
+        result.finished = true;
+        result.marked_at = Some(prost_types::Timestamp::from(std::time::SystemTime::now()));
+
+        result
     }
 }
 
@@ -225,4 +266,18 @@ async fn read_log(path: String) -> Result<String, Error> {
     f.read_to_end(&mut buf).await?;
     let ret = String::from_utf8_lossy(buf.as_slice()).into_owned();
     return Ok(ret);
+}
+
+fn get_report_request_for_log(mut orig: CompleteBenchmarkJobRequest) -> CompleteBenchmarkJobRequest {
+    if let Some(res) = orig.result {
+        let mut res2 = res.clone();
+        if let Some(exec) = res.execution {
+            let mut exec2 = exec.clone();
+            exec2.stdout = "[REDUCTED]".to_string();
+            exec2.stderr = "[REDUCTED]".to_string();
+            res2.execution = Some(exec2);
+        }
+        orig.result = Some(res2);
+    }
+    return orig;
 }

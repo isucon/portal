@@ -18,6 +18,7 @@ module Isuxportal
             self.service_name = 'isuxportal.proto.services.bench.BenchmarkReport'
 
             rpc :ReportBenchmarkResult, stream(Isuxportal::Proto::Services::Bench::ReportBenchmarkResultRequest), stream(Isuxportal::Proto::Services::Bench::ReportBenchmarkResultResponse)
+            rpc :CompleteBenchmarkJob, Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobRequest, Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse
           end
 
           Stub = Service.rpc_stub_class

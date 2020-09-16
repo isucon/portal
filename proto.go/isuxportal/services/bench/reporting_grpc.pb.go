@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BenchmarkReportClient interface {
 	ReportBenchmarkResult(ctx context.Context, opts ...grpc.CallOption) (BenchmarkReport_ReportBenchmarkResultClient, error)
+	CompleteBenchmarkJob(ctx context.Context, in *CompleteBenchmarkJobRequest, opts ...grpc.CallOption) (*CompleteBenchmarkJobResponse, error)
 }
 
 type benchmarkReportClient struct {
@@ -65,16 +66,47 @@ func (x *benchmarkReportReportBenchmarkResultClient) Recv() (*ReportBenchmarkRes
 	return m, nil
 }
 
+var benchmarkReportCompleteBenchmarkJobStreamDesc = &grpc.StreamDesc{
+	StreamName: "CompleteBenchmarkJob",
+}
+
+func (c *benchmarkReportClient) CompleteBenchmarkJob(ctx context.Context, in *CompleteBenchmarkJobRequest, opts ...grpc.CallOption) (*CompleteBenchmarkJobResponse, error) {
+	out := new(CompleteBenchmarkJobResponse)
+	err := c.cc.Invoke(ctx, "/isuxportal.proto.services.bench.BenchmarkReport/CompleteBenchmarkJob", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BenchmarkReportService is the service API for BenchmarkReport service.
 // Fields should be assigned to their respective handler implementations only before
 // RegisterBenchmarkReportService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
 type BenchmarkReportService struct {
 	ReportBenchmarkResult func(BenchmarkReport_ReportBenchmarkResultServer) error
+	CompleteBenchmarkJob  func(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error)
 }
 
 func (s *BenchmarkReportService) reportBenchmarkResult(_ interface{}, stream grpc.ServerStream) error {
 	return s.ReportBenchmarkResult(&benchmarkReportReportBenchmarkResultServer{stream})
+}
+func (s *BenchmarkReportService) completeBenchmarkJob(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompleteBenchmarkJobRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.CompleteBenchmarkJob(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/isuxportal.proto.services.bench.BenchmarkReport/CompleteBenchmarkJob",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.CompleteBenchmarkJob(ctx, req.(*CompleteBenchmarkJobRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 type BenchmarkReport_ReportBenchmarkResultServer interface {
@@ -107,9 +139,19 @@ func RegisterBenchmarkReportService(s grpc.ServiceRegistrar, srv *BenchmarkRepor
 			return status.Errorf(codes.Unimplemented, "method ReportBenchmarkResult not implemented")
 		}
 	}
+	if srvCopy.CompleteBenchmarkJob == nil {
+		srvCopy.CompleteBenchmarkJob = func(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method CompleteBenchmarkJob not implemented")
+		}
+	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "isuxportal.proto.services.bench.BenchmarkReport",
-		Methods:     []grpc.MethodDesc{},
+		Methods: []grpc.MethodDesc{
+			{
+				MethodName: "CompleteBenchmarkJob",
+				Handler:    srvCopy.completeBenchmarkJob,
+			},
+		},
 		Streams: []grpc.StreamDesc{
 			{
 				StreamName:    "ReportBenchmarkResult",
@@ -137,6 +179,11 @@ func NewBenchmarkReportService(s interface{}) *BenchmarkReportService {
 	}); ok {
 		ns.ReportBenchmarkResult = h.ReportBenchmarkResult
 	}
+	if h, ok := s.(interface {
+		CompleteBenchmarkJob(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error)
+	}); ok {
+		ns.CompleteBenchmarkJob = h.CompleteBenchmarkJob
+	}
 	return ns
 }
 
@@ -146,4 +193,5 @@ func NewBenchmarkReportService(s interface{}) *BenchmarkReportService {
 // use of this type is not recommended.
 type UnstableBenchmarkReportService interface {
 	ReportBenchmarkResult(BenchmarkReport_ReportBenchmarkResultServer) error
+	CompleteBenchmarkJob(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error)
 }

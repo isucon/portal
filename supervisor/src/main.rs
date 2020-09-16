@@ -37,6 +37,11 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
             channel.clone(),
         );
 
+    queue_client.cancel_owned_benchmark_job(api::isuxportal::proto::services::bench::CancelOwnedBenchmarkJobRequest{ 
+        token: config.token.clone(),
+        instance_name: config.instance_name.clone(),
+    }).await.expect("CancelOwnedBenchmarkJob failed");
+
     loop {
         let job_req = tonic::Request::new(
             api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {

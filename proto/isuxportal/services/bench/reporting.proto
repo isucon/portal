@@ -6,6 +6,7 @@ import "isuxportal/resources/benchmark_result.proto";
 
 service BenchmarkReport {
   rpc ReportBenchmarkResult(stream ReportBenchmarkResultRequest) returns (stream ReportBenchmarkResultResponse);
+  rpc CompleteBenchmarkJob(CompleteBenchmarkJobRequest) returns (CompleteBenchmarkJobResponse);
 }
 
 message ReportBenchmarkResultRequest {
@@ -17,4 +18,13 @@ message ReportBenchmarkResultRequest {
 
 message ReportBenchmarkResultResponse {
   int64 acked_nonce = 1;
+}
+
+message CompleteBenchmarkJobRequest {
+  int64 job_id = 1;
+  string handle = 2;
+  isuxportal.proto.resources.BenchmarkResult result = 4;
+}
+
+message CompleteBenchmarkJobResponse {
 }

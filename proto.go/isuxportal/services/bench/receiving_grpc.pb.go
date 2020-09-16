@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BenchmarkQueueClient interface {
 	ReceiveBenchmarkJob(ctx context.Context, in *ReceiveBenchmarkJobRequest, opts ...grpc.CallOption) (*ReceiveBenchmarkJobResponse, error)
+	CancelOwnedBenchmarkJob(ctx context.Context, in *CancelOwnedBenchmarkJobRequest, opts ...grpc.CallOption) (*CancelOwnedBenchmarkJobResponse, error)
 }
 
 type benchmarkQueueClient struct {
@@ -41,12 +42,26 @@ func (c *benchmarkQueueClient) ReceiveBenchmarkJob(ctx context.Context, in *Rece
 	return out, nil
 }
 
+var benchmarkQueueCancelOwnedBenchmarkJobStreamDesc = &grpc.StreamDesc{
+	StreamName: "CancelOwnedBenchmarkJob",
+}
+
+func (c *benchmarkQueueClient) CancelOwnedBenchmarkJob(ctx context.Context, in *CancelOwnedBenchmarkJobRequest, opts ...grpc.CallOption) (*CancelOwnedBenchmarkJobResponse, error) {
+	out := new(CancelOwnedBenchmarkJobResponse)
+	err := c.cc.Invoke(ctx, "/isuxportal.proto.services.bench.BenchmarkQueue/CancelOwnedBenchmarkJob", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BenchmarkQueueService is the service API for BenchmarkQueue service.
 // Fields should be assigned to their respective handler implementations only before
 // RegisterBenchmarkQueueService is called.  Any unassigned fields will result in the
 // handler for that method returning an Unimplemented error.
 type BenchmarkQueueService struct {
-	ReceiveBenchmarkJob func(context.Context, *ReceiveBenchmarkJobRequest) (*ReceiveBenchmarkJobResponse, error)
+	ReceiveBenchmarkJob     func(context.Context, *ReceiveBenchmarkJobRequest) (*ReceiveBenchmarkJobResponse, error)
+	CancelOwnedBenchmarkJob func(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error)
 }
 
 func (s *BenchmarkQueueService) receiveBenchmarkJob(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -66,6 +81,23 @@ func (s *BenchmarkQueueService) receiveBenchmarkJob(_ interface{}, ctx context.C
 	}
 	return interceptor(ctx, in, info, handler)
 }
+func (s *BenchmarkQueueService) cancelOwnedBenchmarkJob(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelOwnedBenchmarkJobRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return s.CancelOwnedBenchmarkJob(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     s,
+		FullMethod: "/isuxportal.proto.services.bench.BenchmarkQueue/CancelOwnedBenchmarkJob",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return s.CancelOwnedBenchmarkJob(ctx, req.(*CancelOwnedBenchmarkJobRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
 
 // RegisterBenchmarkQueueService registers a service implementation with a gRPC server.
 func RegisterBenchmarkQueueService(s grpc.ServiceRegistrar, srv *BenchmarkQueueService) {
@@ -75,12 +107,21 @@ func RegisterBenchmarkQueueService(s grpc.ServiceRegistrar, srv *BenchmarkQueueS
 			return nil, status.Errorf(codes.Unimplemented, "method ReceiveBenchmarkJob not implemented")
 		}
 	}
+	if srvCopy.CancelOwnedBenchmarkJob == nil {
+		srvCopy.CancelOwnedBenchmarkJob = func(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error) {
+			return nil, status.Errorf(codes.Unimplemented, "method CancelOwnedBenchmarkJob not implemented")
+		}
+	}
 	sd := grpc.ServiceDesc{
 		ServiceName: "isuxportal.proto.services.bench.BenchmarkQueue",
 		Methods: []grpc.MethodDesc{
 			{
 				MethodName: "ReceiveBenchmarkJob",
 				Handler:    srvCopy.receiveBenchmarkJob,
+			},
+			{
+				MethodName: "CancelOwnedBenchmarkJob",
+				Handler:    srvCopy.cancelOwnedBenchmarkJob,
 			},
 		},
 		Streams:  []grpc.StreamDesc{},
@@ -103,6 +144,11 @@ func NewBenchmarkQueueService(s interface{}) *BenchmarkQueueService {
 	}); ok {
 		ns.ReceiveBenchmarkJob = h.ReceiveBenchmarkJob
 	}
+	if h, ok := s.(interface {
+		CancelOwnedBenchmarkJob(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error)
+	}); ok {
+		ns.CancelOwnedBenchmarkJob = h.CancelOwnedBenchmarkJob
+	}
 	return ns
 }
 
@@ -112,4 +158,5 @@ func NewBenchmarkQueueService(s interface{}) *BenchmarkQueueService {
 // use of this type is not recommended.
 type UnstableBenchmarkQueueService interface {
 	ReceiveBenchmarkJob(context.Context, *ReceiveBenchmarkJobRequest) (*ReceiveBenchmarkJobResponse, error)
+	CancelOwnedBenchmarkJob(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error)
 }

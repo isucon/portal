@@ -19,6 +19,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :target_ipv4_address, :string, 3
       optional :description_human, :string, 4
     end
+    add_message "isuxportal.proto.services.bench.CancelOwnedBenchmarkJobRequest" do
+      optional :token, :string, 1
+      optional :instance_name, :string, 2
+    end
+    add_message "isuxportal.proto.services.bench.CancelOwnedBenchmarkJobResponse" do
+    end
   end
 end
 
@@ -29,6 +35,8 @@ module Isuxportal
         ReceiveBenchmarkJobRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobRequest").msgclass
         ReceiveBenchmarkJobResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse").msgclass
         ReceiveBenchmarkJobResponse::JobHandle = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.ReceiveBenchmarkJobResponse.JobHandle").msgclass
+        CancelOwnedBenchmarkJobRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.CancelOwnedBenchmarkJobRequest").msgclass
+        CancelOwnedBenchmarkJobResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.bench.CancelOwnedBenchmarkJobResponse").msgclass
       end
     end
   end
