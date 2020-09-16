@@ -1,4 +1,3 @@
-use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::api::isuxportal::proto::resources::BenchmarkResult;
 use crate::api::isuxportal::proto::services::bench::benchmark_report_client::BenchmarkReportClient;
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
@@ -8,8 +7,6 @@ use crate::error::Error;
 
 #[derive(Debug)]
 pub struct Report {
-    pub completed: bool,
-    pub execution_only: bool,
     pub result: BenchmarkResult,
 }
 
@@ -23,8 +20,6 @@ enum OutboundMessage {
 struct Context {
     shutdown: bool,
     nonce: i64,
-    last_result: BenchmarkResult,
-    request_must_retry: Option<ReportBenchmarkResultRequest>,
 }
 
 impl Context {
@@ -32,19 +27,6 @@ impl Context {
         Self {
             shutdown: false,
             nonce: 0,
-            last_result: BenchmarkResult {
-                finished: false,
-                passed: false,
-                score: 0,
-                score_breakdown: Some(benchmark_result::ScoreBreakdown {
-                    raw: 0,
-                    deduction: 0,
-                }),
-                execution: None,
-                marked_at: None,
-                survey_response: None,
-            },
-            request_must_retry: None,
         }
     }
 
@@ -128,11 +110,11 @@ impl Reporter {
             while !closed {
                 log::trace!("Reporter/outbound_loop: Connection loop");
                 tokio::select! {
-                    in_msg = &mut inbound_loop => {
+                    _in_msg = &mut inbound_loop => {
                         // error is considered transient and handled and displayed in inbound_loop
-                        if let Ok(last_acked_nonce) = in_msg {
-                            self.inbound_finalize(&mut context, last_acked_nonce).await;
-                        }
+                        // if let Ok(last_acked_nonce) = in_msg {
+                        //     self.inbound_finalize(&mut context, last_acked_nonce).await;
+                        // }
                         closed = true;
                     },
                     ob_msg = rx.recv(), if inner_outbound_tx.is_some() => {
@@ -149,9 +131,6 @@ impl Reporter {
 
         log::info!("Reporter/outbound_loop: Leaving");
 
-        if let Some(req) = context.request_must_retry {
-            self.retry_last_report(req).await?;
-        }
         Ok(())
     }
 
@@ -183,13 +162,8 @@ impl Reporter {
 
     // FIXME: https://github.com/rust-lang/rust/issues/63033
     //        async fn inbound_finalize(&self, context: &mut Context, in_msg: Result<i64, Box<dyn std::error::Error>>) {
-    async fn inbound_finalize(&self, context: &mut Context, last_acked_nonce: i64) {
-        if let Some(req) = context.request_must_retry.as_ref() {
-            if last_acked_nonce >= req.nonce  {
-                context.request_must_retry = None;
-            }
-        }
-    }
+    // async fn inbound_finalize(&self, context: &mut Context, last_acked_nonce: i64) {
+    // }
 
     async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
         match ob_msg {
@@ -198,27 +172,8 @@ impl Reporter {
 
                 let mut result = report.result;
 
-                if report.execution_only {
-                    let mut new_execution = result.execution.map(|e| e.clone()).unwrap_or(benchmark_result::Execution {
-                        reason: "".to_string(),
-                        stdout: "".to_string(),
-                        stderr: "".to_string(),
-                        exit_status: -1,
-                        exit_signal: -1,
-                        signaled: false,
-                    });
-
-                    result = context.last_result.clone();
-                    if new_execution.reason.len() == 0 {
-                        if let Some(last_execution) = context.last_result.execution.as_ref() {
-                            new_execution.reason = last_execution.reason.clone()
-                        }
-                    }
-
-                    result.execution = Some(new_execution);
-                }
-
-                result.finished = report.completed;
+                result.finished = false;
+                result.execution = None;
 
                 let req = ReportBenchmarkResultRequest {
                     job_id: self.job_handle.job_id,
@@ -227,16 +182,10 @@ impl Reporter {
                     result: Some(result.clone()),
                 };
 
-                log::info!("Reporter/outbound_loop/ReportBenchmarkResultRequest: rep.completed={:?} rep.execution_only={:?} req={:?}", report.completed, report.execution_only, get_report_request_for_log(req.clone()));
-
-                if result.finished || report.completed {
-                    context.request_must_retry = Some(req.clone());
-                }
-
+                log::info!("Reporter/outbound_loop/ReportBenchmarkResultRequest:  req={:?}", req.clone());
                 log::trace!("Reporter/outbound_loop/outbound_process: Enqueue...");
                 inner_outbound_tx.send(req).unwrap(); // TODO: unwrap is unsuitable
                 log::trace!("Reporter/outbound_loop/outbound_process: Enqueued");
-                context.last_result = result;
             }
             Some(OutboundMessage::Shutdown) => {
                 log::info!("Reporter/outbound_loop/Shutdown");
@@ -246,68 +195,6 @@ impl Reporter {
             }
         }
     }
-
-    const MAX_RETRIES: u32 = 5;
-    async fn retry_last_report(&self, orig_request: ReportBenchmarkResultRequest) -> Result<(), Error> {
-        let mut last_error: Option<Error> = None;
-        for num_attempt in 1..Self::MAX_RETRIES {
-            if num_attempt > 1 {
-                tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
-            }
-
-            log::warn!("Reporter/retry_last_report: Retrying request (attempt={:?}) {:?}", num_attempt, orig_request);
-            let (mut outgoing_tx, outgoing_rx) = tokio::sync::mpsc::unbounded_channel(); // oneshot is not a stream
-            let mut request = orig_request.clone();
-            request.nonce = 0;
-            outgoing_tx.send(request).unwrap();
-            drop(outgoing_tx);
-
-            let mut client = BenchmarkReportClient::new(self.channel.clone());
-            let response_result = client.report_benchmark_result(tonic::Request::new(outgoing_rx)).await
-                .map_err(|e| Error::RequestFailure(e));
-
-            if let Err(e) = response_result {
-                last_error = Some(e);
-                continue;
-            }
-
-            let mut inbound_rx = response_result.unwrap().into_inner();
-            let in_msg = inbound_rx.message().await;
-            match in_msg {
-                Ok(Some(res)) => {
-                    log::info!("Reporter/retry_last_report/response: {:?}", res);
-                    if res.acked_nonce == 0 {
-                        log::info!("Reporter/retry_last_report/response: OK");
-                        return Ok(());
-                    } else {
-                        log::error!("Reporter/retry_last_report/reponse: Nonce not acknowledged");
-                    }
-                },
-                Ok(None) => {
-                    log::error!("Reporter/retry_last_report/response: NONE");
-                    last_error = Some(Error::NotAcknowledged);
-                    break;
-                },
-                Err(err) => {
-                    log::error!("Reporter/retry_last_report/response: ERR {:?}", err);
-                    last_error = Some(Error::RequestFailure(err));
-                },
-            }
-        }
-        Err(last_error.unwrap())
-    }
 }
 
-fn get_report_request_for_log(mut orig: ReportBenchmarkResultRequest) -> ReportBenchmarkResultRequest {
-    if let Some(res) = orig.result {
-        let mut res2 = res.clone();
-        if let Some(exec) = res.execution {
-            let mut exec2 = exec.clone();
-            exec2.stdout = "[REDUCTED]".to_string();
-            exec2.stderr = "[REDUCTED]".to_string();
-            res2.execution = Some(exec2);
-        }
-        orig.result = Some(res2);
-    }
-    return orig;
-}
+
