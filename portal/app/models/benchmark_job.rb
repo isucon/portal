@@ -114,6 +114,7 @@ class BenchmarkJob < ApplicationRecord
     result.passed = false
     result.save!
     self.save!
+    BenchmarkCompletionJob.perform_later(self)
   end
 
   private def generate_handle
