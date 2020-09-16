@@ -83,11 +83,11 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async listClarifications(teamId?: number, incompleteOnly?: boolean) {
+  public async listClarifications(teamId?: number, unansweredOnly?: boolean) {
     const klass = isuxportal.proto.services.admin.ListClarificationsResponse;
     const resp = await this.request(
-      `${this.baseUrl}/api/admin/clarifications?team_id=${encodeURIComponent(teamId || "")}&incomplete_only=${
-        incompleteOnly ? "1" : "0"
+      `${this.baseUrl}/api/admin/clarifications?team_id=${encodeURIComponent(teamId || "")}&unanswered_only=${
+        unansweredOnly ? "1" : "0"
       }`,
       "GET",
       null,

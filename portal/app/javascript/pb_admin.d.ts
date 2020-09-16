@@ -3752,6 +3752,9 @@ export namespace isuxportal {
 
                     /** ListClarificationsQuery teamId */
                     teamId?: (number|Long|null);
+
+                    /** ListClarificationsQuery unansweredOnly */
+                    unansweredOnly?: (boolean|null);
                 }
 
                 /** Represents a ListClarificationsQuery. */
@@ -3765,6 +3768,9 @@ export namespace isuxportal {
 
                     /** ListClarificationsQuery teamId. */
                     public teamId: (number|Long);
+
+                    /** ListClarificationsQuery unansweredOnly. */
+                    public unansweredOnly: boolean;
 
                     /**
                      * Creates a new ListClarificationsQuery instance using the specified properties.

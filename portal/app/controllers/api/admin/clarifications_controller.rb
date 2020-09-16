@@ -5,7 +5,7 @@ class Api::Admin::ClarificationsController < Api::Admin::ApplicationController
   def index
     @clarifications = Clarification.includes(:team).order(id: :desc)
     @clarifications = @clarifications.where(team_id: params[:team_id]) if params[:team_id].present?
-    @clarifications = @clarifications.unanswered if params[:incomplete_only] == '1'
+    @clarifications = @clarifications.unanswered if params[:unanswered_only] == '1'
 
     render protobuf: Isuxportal::Proto::Services::Admin::ListClarificationsResponse.new(
       clarifications: @clarifications.map do |clarification|

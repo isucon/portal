@@ -9745,6 +9745,7 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.admin
                      * @interface IListClarificationsQuery
                      * @property {number|Long|null} [teamId] ListClarificationsQuery teamId
+                     * @property {boolean|null} [unansweredOnly] ListClarificationsQuery unansweredOnly
                      */
 
                     /**
@@ -9769,6 +9770,14 @@ $root.isuxportal = (function() {
                      * @instance
                      */
                     ListClarificationsQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * ListClarificationsQuery unansweredOnly.
+                     * @member {boolean} unansweredOnly
+                     * @memberof isuxportal.proto.services.admin.ListClarificationsQuery
+                     * @instance
+                     */
+                    ListClarificationsQuery.prototype.unansweredOnly = false;
 
                     /**
                      * Creates a new ListClarificationsQuery instance using the specified properties.
@@ -9796,6 +9805,8 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
                             writer.uint32(/* id 1, wireType 0 =*/8).int64(message.teamId);
+                        if (message.unansweredOnly != null && Object.hasOwnProperty.call(message, "unansweredOnly"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.unansweredOnly);
                         return writer;
                     };
 
@@ -9832,6 +9843,9 @@ $root.isuxportal = (function() {
                             switch (tag >>> 3) {
                             case 1:
                                 message.teamId = reader.int64();
+                                break;
+                            case 2:
+                                message.unansweredOnly = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -9871,6 +9885,9 @@ $root.isuxportal = (function() {
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
                                 return "teamId: integer|Long expected";
+                        if (message.unansweredOnly != null && message.hasOwnProperty("unansweredOnly"))
+                            if (typeof message.unansweredOnly !== "boolean")
+                                return "unansweredOnly: boolean expected";
                         return null;
                     };
 
@@ -9895,6 +9912,8 @@ $root.isuxportal = (function() {
                                 message.teamId = object.teamId;
                             else if (typeof object.teamId === "object")
                                 message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
+                        if (object.unansweredOnly != null)
+                            message.unansweredOnly = Boolean(object.unansweredOnly);
                         return message;
                     };
 
@@ -9911,17 +9930,21 @@ $root.isuxportal = (function() {
                         if (!options)
                             options = {};
                         var object = {};
-                        if (options.defaults)
+                        if (options.defaults) {
                             if ($util.Long) {
                                 var long = new $util.Long(0, 0, false);
                                 object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.teamId = options.longs === String ? "0" : 0;
+                            object.unansweredOnly = false;
+                        }
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (typeof message.teamId === "number")
                                 object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
                             else
                                 object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
+                        if (message.unansweredOnly != null && message.hasOwnProperty("unansweredOnly"))
+                            object.unansweredOnly = message.unansweredOnly;
                         return object;
                     };
 

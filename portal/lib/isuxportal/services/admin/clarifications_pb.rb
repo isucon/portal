@@ -8,6 +8,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/clarifications.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.admin.ListClarificationsQuery" do
       optional :team_id, :int64, 1
+      optional :unanswered_only, :bool, 2
     end
     add_message "isuxportal.proto.services.admin.ListClarificationsResponse" do
       repeated :clarifications, :message, 1, "isuxportal.proto.resources.Clarification"

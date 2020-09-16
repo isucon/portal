@@ -11,7 +11,7 @@ import { ErrorMessage } from "../ErrorMessage";
 
 type ListFilterProps = {
   teamId: string | null;
-  incompleteOnly: boolean;
+  unansweredOnly: boolean;
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const history = useHistory();
@@ -21,7 +21,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const onSubmit = handleSubmit((data) => {
     const search = new URLSearchParams();
     search.set("team_id", data.teamId || "");
-    search.set("incomplete_only", data.incompleteOnly ? "1" : "0");
+    search.set("unanswered_only", data.unansweredOnly ? "1" : "0");
     history.push("/admin/clarifications?" + search.toString());
   });
 
@@ -45,14 +45,14 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
               </div>
             </div>
             <div className="column is-3 field">
-              <label className="label" htmlFor="AdminClarificationListFilter-incompleteOnly">
-                Incomplete only
+              <label className="label" htmlFor="AdminClarificationListFilter-unansweredOnly">
+                Unanswered Only
               </label>
               <div className="control">
                 <input
                   type="checkbox"
-                  name="incompleteOnly"
-                  id="AdminClarificationListFilter-incompleteOnly"
+                  name="unansweredOnly"
+                  id="AdminClarificationListFilter-unansweredOnly"
                   ref={register}
                 />
               </div>
@@ -81,7 +81,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
     answer: string;
     question: string;
     teamId: string;
-    incompleteOnly: boolean;
+    unansweredOnly: boolean;
   }>({
     shouldUnregister: false,
     defaultValues: {
@@ -188,13 +188,13 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
   const query = new URLSearchParams(location.search);
 
   const teamId = query.get("team_id");
-  const incompleteOnly = query.get("incomplete_only") === "1";
+  const unansweredOnly = query.get("unanswered_only") === "1";
   const [error, setError] = React.useState<Error | null>(null);
   const [list, setList] = React.useState<isuxportal.proto.resources.IClarification[] | null>(null);
 
   React.useEffect(() => {
     props.client
-      .listClarifications(teamId && teamId !== "" ? parseInt(teamId, 10) : 0, incompleteOnly)
+      .listClarifications(teamId && teamId !== "" ? parseInt(teamId, 10) : 0, unansweredOnly)
       .then((resp) => setList(resp.clarifications))
       .catch((e) => setError(e));
   }, [location.search]);
@@ -212,7 +212,7 @@ export const AdminClarificationList: React.FC<Props> = (props: Props) => {
   return (
     <>
       <ClarForm session={props.session} client={props.client} onSubmit={onClarSubmit} />
-      <ListFilter teamId={teamId} incompleteOnly={incompleteOnly} />
+      <ListFilter teamId={teamId} unansweredOnly={unansweredOnly} />
       {error ? <ErrorMessage error={error} /> : null}
       {list ? renderList() : <p>Loading..</p>}
     </>
