@@ -181,14 +181,12 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
+  teamId?: string;
+  unansweredOnly: boolean;
 }
 
 export const AdminClarificationList: React.FC<Props> = (props: Props) => {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-
-  const teamId = query.get("team_id");
-  const unansweredOnly = query.get("unanswered_only") === "1";
+  const { teamId, unansweredOnly } = props;
   const [error, setError] = React.useState<Error | null>(null);
   const [list, setList] = React.useState<isuxportal.proto.resources.IClarification[] | null>(null);
 
