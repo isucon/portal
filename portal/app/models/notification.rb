@@ -9,8 +9,7 @@ class Notification < ApplicationRecord
     klass = Isuxportal::Proto::Resources::Notification
     raise TypeError, "message must be a #{klass}" unless x.is_a?(klass)
     self.encoded_message = [klass.encode(x)].pack('m0')
-    @message = nil
-    x
+    @message = x
   end
 
   def message
