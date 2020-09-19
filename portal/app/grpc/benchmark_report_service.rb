@@ -12,7 +12,15 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
         raise GRPC::InvalidArgument.new("result must not contain execution")
       end
 
-      job.submit_result_from_pb!(request.result)
+      marked_at = request.result.marked_at&.yield_self { |_| Time.zone.at(_.seconds, _.nanos / 1000) }
+      unless marked_at
+        raise GRPC::InvalidArgument.new("result.marked_at is mandatory")
+      end
+
+      if !job.benchmark_result || marked_at > job.benchmark_result.marked_at
+        job.submit_result_from_pb!(request.result)
+      end
+
       stream.send_msg Isuxportal::Proto::Services::Bench::ReportBenchmarkResultResponse.new(
         acked_nonce: request.nonce,
       )
