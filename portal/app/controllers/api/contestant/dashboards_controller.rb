@@ -3,12 +3,17 @@ require 'isuxportal/services/contestant/dashboard_pb'
 class Api::Contestant::DashboardsController < Api::Contestant::ApplicationController
   pb :show, Isuxportal::Proto::Services::Contestant::DashboardQuery
   def show
-    expires_in 0, public: false, must_revalidate: true
-      resp = Rails.cache.fetch("contestantdashboard3-t#{current_team.id}", expires_in: 12.hours) do
-        Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
-          leaderboard: Contest.leaderboard(admin: false, team: current_team), # TODO: disable progresses
-        ))
+    # See also: UpdateContestantDashboardJob
+    ptr = Rails.cache.read("contestantdashboard4-t#{current_team.id}-pointer")
+    if ptr
+      ptr_resp = Rails.cache.read(ptr)
+      if ptr_resp
+        return render protobuf: ptr_resp
       end
-      render protobuf: resp
+    end
+
+    render protobuf: Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
+      leaderboard: Contest.leaderboard(admin: false, team: current_team),
+    )
   end
 end

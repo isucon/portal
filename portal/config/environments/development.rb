@@ -40,6 +40,7 @@ Rails.application.configure do
   config.hosts << "portal-dev.x.isucon.dev"
 
   if ENV['ISUXPORTAL_DEV_REDIS'] == '1'
+    config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL') }
     config.session_store :redis_store, {
       servers: [
         {
