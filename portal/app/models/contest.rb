@@ -156,6 +156,8 @@ module Contest
   end
 
   def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
+    #p :___
+    #t0 = t_a = Time.now
     benchmark_results = BenchmarkResult
       .successfully_finished
       .order(marked_at: :asc)
@@ -173,10 +175,15 @@ module Contest
     query = benchmark_results
       .select(:team_id, :score, :created_at, :marked_at)
       .to_sql
+    #t_b = Time.now; p leaderboard_time_querybuild: t_b-t_a; t_a = t_b
     teams = ApplicationRecord.connection_pool.with_connection do |conn|
       conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first) 
     end
+    #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
+    #teams = results
+    #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
     team_objs = Team.active.order(id: :asc).map { |t| [t.id, t] }.to_h
+    #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|
       team = team_objs[team_id]
       next unless team
@@ -199,10 +206,13 @@ module Contest
         latest_score: scores[-1],
       )
     end
+    #t_b = Time.now; p leaderboard_time_itemmap: t_b-t_a; t_a = t_b
 
     items.compact!
     items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+    #t_b = Time.now; p leaderboard_time_sort: t_b-t_a; t_a = t_b
     items.reverse!
+    #t_b = Time.now; p leaderboard_time_rev: t_b-t_a; t_a = t_b
 
     items.concat(team_objs.map do |tid, team|
       next if teams[tid]
@@ -248,10 +258,12 @@ module Contest
 
     end
 
+    #t_b = Time.now; p leaderboard_time_prog: t_b-t_a; t_a = t_b
     items.reject! { |_| !admin && _.team.hidden && team&.id != _.team.id }
     items.reject! { |_| _.team.disqualified || _.team.withdrawn }
+    #t_b = Time.now; p leaderboard_time_rej: t_b-t_a; t_a = t_b
 
-    Isuxportal::Proto::Resources::Leaderboard.new(
+    r = Isuxportal::Proto::Resources::Leaderboard.new(
       teams: items,
       general_teams: items.reject { |_| _.team.student.status },
       student_teams: items.select { |_| _.team.student.status },
@@ -259,5 +271,8 @@ module Contest
       contest: Contest.to_pb,
       generated_at: Time.now.to_time,
     )
+    #t_b = Time.now; p leaderboard_time: t_b-t_a; t_a = t_b
+    #p leaderboard_timetime: t_b-t0
+    r
   end
 end
