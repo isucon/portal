@@ -158,7 +158,6 @@ module Contest
   def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
     benchmark_results = BenchmarkResult
       .successfully_finished
-      .preload(:team)
       .order(marked_at: :asc)
     unless admin
       benchmark_results = benchmark_results.marked_before_contest_ended
@@ -171,28 +170,37 @@ module Contest
       benchmark_results = benchmark_results.where(team_id: team.id)
     end
 
-    teams = benchmark_results
-      .pluck(:team_id, :score, :created_at, :marked_at)
-      .group_by(&:first) 
+    query = benchmark_results
+      .select(:team_id, :score, :created_at, :marked_at)
+      .to_sql
+    teams = ApplicationRecord.connection_pool.with_connection do |conn|
+      conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first) 
+    end
     team_objs = Team.active.order(id: :asc).map { |t| [t.id, t] }.to_h
     items = teams.map do |team_id, rs|
+      team = team_objs[team_id]
+      next unless team
       #rs.reduce(Time.at(0)) { |r,i| raise unless r <= i.marked_at; i.marked_at }
       #scores = rs.sort_by(&:marked_at).map do |r|
+      best_score = nil
       scores = rs.map do |(_tid, score, created_at, marked_at)|
-        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+        i = Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
           score: score,
-          started_at: Google::Protobuf::Timestamp.new(seconds: created_at.to_i, nanos: created_at.nsec), # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
-          marked_at: Google::Protobuf::Timestamp.new(seconds: marked_at.to_i, nanos: marked_at.nsec),
+          started_at: created_at, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
+          marked_at: marked_at,
         )
+        best_score = i if !best_score || i.score > best_score.score
+        i
       end
       Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
-        team: team_objs.fetch(team_id).to_pb(detail: false, members: false),
+        team: team.to_pb(detail: false, members: false),
         scores: scores,
-        best_score: scores.max_by(&:score),
+        best_score: best_score,
         latest_score: scores[-1],
       )
     end
 
+    items.compact!
     items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     items.reverse!
 
