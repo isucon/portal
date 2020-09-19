@@ -5,7 +5,7 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
   def show
     # See also: UpdateContestantDashboardJob
     ptr = Rails.cache.read("contestantdashboard4-t#{current_team.id}-pointer")
-    if ptr
+    if ptr && ptr.start_with?("contestantdashboard4-")
       ptr_resp = Rails.cache.read(ptr)
       if ptr_resp
         return render protobuf: ptr_resp
