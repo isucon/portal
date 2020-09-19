@@ -79,7 +79,7 @@ class BenchmarkJob < ApplicationRecord
                       else
                         :finished
                       end
-        self.finished_at = Time.zone.now
+        self.finished_at = result.marked_at
       end
       self.save!
       result.save!
