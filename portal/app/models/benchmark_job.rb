@@ -79,7 +79,7 @@ class BenchmarkJob < ApplicationRecord
                       else
                         :finished
                       end
-        self.finished_at = result.marked_at
+        self.finished_at = result.marked_at || Time.zone.now
       end
       self.save!
       result.save!
@@ -109,6 +109,7 @@ class BenchmarkJob < ApplicationRecord
     self.status = :errored
     self.finished_at = Time.zone.now
     result = benchmark_result || build_benchmark_result
+    result.marked_at = self.finished_at
     result.reason = reason
     result.finished = true
     result.passed = false
