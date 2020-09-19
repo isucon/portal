@@ -12,8 +12,10 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
       end
     end
 
-    render protobuf: Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
-      leaderboard: Contest.leaderboard(admin: false, team: current_team),
-    )
+    if stale?(etag: Contest.leaderboard_etag(admin: false, team: current_team))
+      render protobuf: Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
+        leaderboard: Contest.leaderboard(admin: false, team: current_team),
+      )
+    end
   end
 end
