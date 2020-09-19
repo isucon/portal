@@ -157,9 +157,9 @@ module Contest
 
   def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
     benchmark_results = BenchmarkResult
-      .select(:team_id, :score, :created_at, :marked_at)
       .successfully_finished
       .preload(:team)
+      .order(marked_at: :asc)
     unless admin
       benchmark_results = benchmark_results.marked_before_contest_ended
       benchmark_results = benchmark_results.visible_not_frozen(team)
@@ -171,17 +171,22 @@ module Contest
       benchmark_results = benchmark_results.where(team_id: team.id)
     end
 
-    teams = benchmark_results.group_by(&:team_id)
+    teams = benchmark_results
+      .pluck(:team_id, :score, :created_at, :marked_at)
+      .group_by(&:first) 
+    team_objs = Team.active.order(id: :asc).map { |t| [t.id, t] }.to_h
     items = teams.map do |team_id, rs|
-      scores = rs.sort_by(&:marked_at).map do |r|
+      #rs.reduce(Time.at(0)) { |r,i| raise unless r <= i.marked_at; i.marked_at }
+      #scores = rs.sort_by(&:marked_at).map do |r|
+      scores = rs.map do |(_tid, score, created_at, marked_at)|
         Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
-          score: r.score,
-          started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
-          marked_at: r.marked_at.to_time,
+          score: score,
+          started_at: Google::Protobuf::Timestamp.new(seconds: created_at.to_i, nanos: created_at.nsec), # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
+          marked_at: Google::Protobuf::Timestamp.new(seconds: marked_at.to_i, nanos: marked_at.nsec),
         )
       end
       Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
-        team: rs[0].team.to_pb(detail: false, members: false),
+        team: team_objs.fetch(team_id).to_pb(detail: false, members: false),
         scores: scores,
         best_score: scores.max_by(&:score),
         latest_score: scores[-1],
@@ -191,14 +196,15 @@ module Contest
     items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     items.reverse!
 
-    #items.concat(Team.active.order(id: :desc).where.not(id: items.map { |_| _.team.id }).map do |team|
-    #  Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
-    #    team: team.to_pb(detail: false, members: false),
-    #    scores: [],
-    #    best_score: nil,
-    #    latest_score: nil,
-    #  )
-    #end.to_a)
+    items.concat(team_objs.map do |tid, team|
+      next if teams[tid]
+      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+        team: team.to_pb(detail: false, members: false),
+        scores: [],
+        best_score: nil,
+        latest_score: nil,
+      )
+    end.compact)
 
     if progresses
       benchmark_progresses = BenchmarkResult
