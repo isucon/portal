@@ -9,8 +9,8 @@ inventory_providers:
       runlist_template: '%w(site.rb site/entry_ec2.rb site/entry_ec2_role.rb)'
       cache_path: tmp/hocho-ec2-cache.apne1.yml
       cache_duration: 3600
-      #  - file:
-      #      path: './hosts'
+  - file:
+      path: './hosts'
 property_providers:
   - add_default:
       properties:

@@ -1,0 +1,9 @@
+isux-builder-001.c.x.isucon.dev:
+  properties:
+    attributes:
+    alternate_ssh_options:
+      port: 22
+      user: root
+
+    run_list:
+      - cnw/roles/base/default.rb
