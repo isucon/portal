@@ -24,10 +24,7 @@ struct Context {
 
 impl Context {
     fn new() -> Self {
-        Self {
-            shutdown: false,
-            nonce: 0,
-        }
+        Self { shutdown: false, nonce: 0 }
     }
 
     fn next_nonce(&mut self) -> i64 {
@@ -75,8 +72,10 @@ impl Reporter {
         (inbox, self.outbound_loop(outbound_rx))
     }
 
-
-    async fn outbound_loop(self, mut rx: tokio::sync::mpsc::UnboundedReceiver<OutboundMessage>) -> Result<(), Error> {
+    async fn outbound_loop(
+        self,
+        mut rx: tokio::sync::mpsc::UnboundedReceiver<OutboundMessage>,
+    ) -> Result<(), Error> {
         log::trace!("Reporter/outbound_loop: Starting");
         let mut client = BenchmarkReportClient::new(self.channel.clone());
         let mut context = Context::new();
@@ -93,7 +92,8 @@ impl Reporter {
             // Need at least single message to start receiving response
             log::trace!("Reporter/outbound_loop: Waiting for first data for new connection");
             self.outbound_process(&mut context, inner_outbound_tx.as_mut().unwrap(), rx.recv().await).await;
-            if context.shutdown { //XXX:
+            if context.shutdown {
+                //XXX:
                 log::info!("Reporter/outbound_loop: reporter is shut down while waiting for first data for new connection");
                 break;
             }
@@ -151,7 +151,11 @@ impl Reporter {
         Ok(())
     }
 
-    async fn inbound_loop(&self, response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>, mut shutdown_rx: tokio::sync::mpsc::UnboundedReceiver<()>) -> Result<i64, tonic::Status> {
+    async fn inbound_loop(
+        &self,
+        response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>,
+        mut shutdown_rx: tokio::sync::mpsc::UnboundedReceiver<()>,
+    ) -> Result<i64, tonic::Status> {
         let mut rx = response.into_inner();
         let mut last_acked_nonce = -1;
         let mut shutdown = false;
@@ -190,7 +194,12 @@ impl Reporter {
     // async fn inbound_finalize(&self, context: &mut Context, last_acked_nonce: i64) {
     // }
 
-    async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
+    async fn outbound_process(
+        &self,
+        context: &mut Context,
+        inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>,
+        ob_msg: Option<OutboundMessage>,
+    ) {
         match ob_msg {
             Some(OutboundMessage::Report(report)) => {
                 log::trace!("Reporter/outbound_loop/OutboundMessage: Sending {:?}", report);
@@ -215,11 +224,8 @@ impl Reporter {
             Some(OutboundMessage::Shutdown) => {
                 log::info!("Reporter/outbound_loop/Shutdown");
                 context.shutdown = true;
-            },
-            None => {
             }
+            None => {}
         }
     }
 }
-
-

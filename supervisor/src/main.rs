@@ -5,9 +5,7 @@ use isuxportal_supervisor::worker::Worker;
 fn main() {
     env_logger::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
-    let config = envy::prefixed("ISUXPORTAL_SUPERVISOR_")
-        .from_env::<Config>()
-        .unwrap();
+    let config = envy::prefixed("ISUXPORTAL_SUPERVISOR_").from_env::<Config>().unwrap();
 
     let mut args = std::env::args().skip(1);
     let command_exec = args.next().expect("must have 1 arguments");
@@ -21,12 +19,9 @@ fn main() {
 
 #[tokio::main]
 async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
-    let mut channel_build =
-        tonic::transport::Channel::from_shared(config.endpoint_url.clone()).unwrap();
+    let mut channel_build = tonic::transport::Channel::from_shared(config.endpoint_url.clone()).unwrap();
     if config.endpoint_url.starts_with("https://") {
-        channel_build = channel_build
-            .tls_config(tonic::transport::ClientTlsConfig::new())
-            .unwrap();
+        channel_build = channel_build.tls_config(tonic::transport::ClientTlsConfig::new()).unwrap();
     }
 
     let channel = channel_build.connect().await.unwrap();
@@ -51,13 +46,12 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
     .expect("CancelOwnedBenchmarkJob failed");
 
     loop {
-        let job_req = tonic::Request::new(
-            api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {
+        let job_req =
+            tonic::Request::new(api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {
                 token: config.token.clone(),
                 instance_name: config.instance_name.clone(),
                 team_id: config.team_id.unwrap_or(0),
-            },
-        );
+            });
         log::info!("ReceiveBenchmarkJob(Request): {:?}", job_req);
 
         match tokio::time::timeout(
@@ -74,9 +68,13 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                         log::trace!("job {:?}", job);
                         let worker = Worker::new(job, &config, command_exec.clone(), command_args.clone());
                         worker.perform(channel.clone()).await.unwrap();
-                    },
+                    }
                     None => {
-                        tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0)).await;
+                        tokio::time::delay_for(std::time::Duration::new(
+                            config.interval_after_empty_receive,
+                            0,
+                        ))
+                        .await;
                     }
                 }
             }
