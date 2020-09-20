@@ -1,28 +1,38 @@
 use std::os::unix::process::ExitStatusExt;
 use tokio::io::AsyncReadExt;
 
+use crate::api::isuxportal::proto::resources::benchmark_result;
+use crate::api::isuxportal::proto::resources::BenchmarkResult;
 use crate::api::isuxportal::proto::services::bench::benchmark_report_client::BenchmarkReportClient;
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
 use crate::api::isuxportal::proto::services::bench::CompleteBenchmarkJobRequest;
-use crate::api::isuxportal::proto::resources::BenchmarkResult;
-use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::config::Config;
-use crate::process::Process;
 use crate::error::Error;
-use crate::reporter::{Reporter, ReporterInbox, Report};
+use crate::process::Process;
+use crate::reporter::{Report, Reporter, ReporterInbox};
 
 pub struct Worker {
     job_handle: JobHandle,
     hard_timeout: u64,
-	command_exec: String,
-	command_args: Vec<String>,
+    command_exec: String,
+    command_args: Vec<String>,
     log_directory: String,
 }
 
-
 impl Worker {
-    pub fn new(job_handle: JobHandle, config: &Config, command_exec: String, command_args: Vec<String>) -> Self {
-        Self { job_handle, hard_timeout: config.hard_timeout, command_exec, command_args, log_directory: config.log_directory.clone() }
+    pub fn new(
+        job_handle: JobHandle,
+        config: &Config,
+        command_exec: String,
+        command_args: Vec<String>,
+    ) -> Self {
+        Self {
+            job_handle,
+            hard_timeout: config.hard_timeout,
+            command_exec,
+            command_args,
+            log_directory: config.log_directory.clone(),
+        }
     }
 
     pub fn stdout_path(&self) -> String {
@@ -43,7 +53,10 @@ impl Worker {
         }
     }
 
-	pub async fn perform(&self, channel: tonic::transport::Channel) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn perform(
+        &self,
+        channel: tonic::transport::Channel,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         use crate::process::Message;
 
         log::info!("Performing job: {:?}", self.job_handle);
@@ -59,17 +72,14 @@ impl Worker {
 
         let mut process_exit_status: Option<std::process::ExitStatus> = None;
         let mut error: Option<Error> = None;
-        let mut last_report = BenchmarkResult{
-           finished: false,
-           passed: false,
-           score: 0,
-           score_breakdown: Some(benchmark_result::ScoreBreakdown {
-               raw: 0,
-               deduction: 0,
-           }),
-           execution: None,
-           marked_at: None,
-           survey_response: None,
+        let mut last_report = BenchmarkResult {
+            finished: false,
+            passed: false,
+            score: 0,
+            score_breakdown: Some(benchmark_result::ScoreBreakdown { raw: 0, deduction: 0 }),
+            execution: None,
+            marked_at: None,
+            survey_response: None,
         };
 
         loop {
@@ -126,20 +136,19 @@ impl Worker {
         reporter.close().await;
         reporter_task.await.unwrap();
 
-        let stdout = read_log(self.stdout_path()).await
-            .unwrap_or_else(|e| {
-                log::error!("Cannot read stdout: {:?}", e);
-                error = Some(e);
-                "".to_string()
-            });
-        let stderr = read_log(self.stderr_path()).await
-            .unwrap_or_else(|e| {
-                log::error!("Cannot read stderr: {:?}", e);
-                error = Some(e);
-                "".to_string()
-            });
+        let stdout = read_log(self.stdout_path()).await.unwrap_or_else(|e| {
+            log::error!("Cannot read stdout: {:?}", e);
+            error = Some(e);
+            "".to_string()
+        });
+        let stderr = read_log(self.stderr_path()).await.unwrap_or_else(|e| {
+            log::error!("Cannot read stderr: {:?}", e);
+            error = Some(e);
+            "".to_string()
+        });
 
-        self.send_final_result(channel, last_report, error.as_ref(), process_exit_status, stdout, stderr).await?;
+        self.send_final_result(channel, last_report, error.as_ref(), process_exit_status, stdout, stderr)
+            .await?;
 
         if let Some(e) = error {
             log::error!("Job failed to run");
@@ -147,7 +156,7 @@ impl Worker {
         }
         log::info!("Job successfully performed");
         Ok(())
-	}
+    }
 
     async fn report_first(&self, reporter: &mut ReporterInbox) {
         let report = Report {
@@ -155,10 +164,7 @@ impl Worker {
                 finished: false,
                 passed: false,
                 score: 0,
-                score_breakdown: Some(benchmark_result::ScoreBreakdown {
-                    raw: 0,
-                    deduction: 0,
-                }),
+                score_breakdown: Some(benchmark_result::ScoreBreakdown { raw: 0, deduction: 0 }),
                 execution: None,
                 marked_at: Some(prost_types::Timestamp::from(std::time::SystemTime::now())),
                 survey_response: None,
@@ -168,13 +174,19 @@ impl Worker {
     }
 
     async fn report_progress(&self, reporter: &mut ReporterInbox, result: BenchmarkResult) {
-        reporter.send(Report {
-            result,
-        }).await;
+        reporter.send(Report { result }).await;
     }
 
     const MAX_RETRIES: u32 = 5;
-    async fn send_final_result(&self, channel: tonic::transport::Channel, last_report: BenchmarkResult, known_error: Option<&Error>, exit_status: Option<std::process::ExitStatus>, stdout: String, stderr: String) -> Result<(), tonic::Status> {
+    async fn send_final_result(
+        &self,
+        channel: tonic::transport::Channel,
+        last_report: BenchmarkResult,
+        known_error: Option<&Error>,
+        exit_status: Option<std::process::ExitStatus>,
+        stdout: String,
+        stderr: String,
+    ) -> Result<(), tonic::Status> {
         let result = self.generate_final_result(last_report, known_error, exit_status, stdout, stderr);
         let mut last_status: Option<tonic::Status> = None;
 
@@ -185,25 +197,44 @@ impl Worker {
         };
 
         for num_attempt in 1..Self::MAX_RETRIES {
-            log::info!("send_final_result(attempt={}): request={:?}", num_attempt, get_report_request_for_log(req.clone()));
+            log::info!(
+                "send_final_result(attempt={}): request={:?}",
+                num_attempt,
+                get_report_request_for_log(req.clone())
+            );
             let mut client = BenchmarkReportClient::new(channel.clone());
-            let r = client.complete_benchmark_job(req.clone()).await;
+            let r = tokio::time::timeout(
+                std::time::Duration::new(18, 0),
+                client.complete_benchmark_job(req.clone()),
+            )
+            .await;
             match r {
-                Ok(_response) => {
+                Ok(Ok(_response)) => {
                     log::trace!("send_final_result(attempt={}): OK", num_attempt);
                     return Ok(());
-                },
-                Err(status) => {
+                }
+                Ok(Err(status)) => {
                     log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, status);
                     last_status = Some(status);
-                },
+                }
+                Err(e) => {
+                    log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, e);
+                    last_status = Some(tonic::Status::deadline_exceeded("timed out"));
+                }
             }
-            tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
+            tokio::time::delay_for(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry
         }
         return Err(last_status.unwrap());
     }
 
-    fn generate_final_result(&self, last_report: BenchmarkResult, known_error: Option<&Error>, exit_status: Option<std::process::ExitStatus>, stdout: String, stderr: String) -> BenchmarkResult {
+    fn generate_final_result(
+        &self,
+        last_report: BenchmarkResult,
+        known_error: Option<&Error>,
+        exit_status: Option<std::process::ExitStatus>,
+        stdout: String,
+        stderr: String,
+    ) -> BenchmarkResult {
         let mut execution = benchmark_result::Execution {
             reason: "UNKNOWN".to_string(),
             stdout,
@@ -220,10 +251,11 @@ impl Worker {
                     execution.exit_signal = exit_signal;
                     execution.signaled = true;
                 }
-            } 
+            }
             None => {
-                execution.reason = "[Supervisor Internal Error] A benchmarker didn't run correctly".to_string();
-            },
+                execution.reason =
+                    "[Supervisor Internal Error] A benchmarker didn't run correctly".to_string();
+            }
         }
 
         if let Some(e) = known_error {
@@ -256,7 +288,7 @@ async fn read_log(path: String) -> Result<String, Error> {
             let truncate_msg = "[... early log was truncated (log was too long) ...]\n".as_bytes();
             buf.reserve((LOG_MAX as usize) + truncate_msg.len());
             buf.extend_from_slice(truncate_msg);
-        },
+        }
         Err(e) => {
             if e.kind() != std::io::ErrorKind::InvalidInput {
                 return Err(Error::IoError(e));

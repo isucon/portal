@@ -1,5 +1,5 @@
-use tokio::stream::StreamExt;
 use crate::error::Error;
+use tokio::stream::StreamExt;
 
 pub struct Process {
     pub exec: String,
@@ -11,11 +11,18 @@ pub struct Process {
 
 impl Process {
     pub async fn spawn(self) -> Result<ProcessHandle, Box<dyn std::error::Error>> {
-        log::trace!("spawning cmd={} {}, stdout_path={}, stderr_path={}, target_address={}", &self.exec, self.args.clone().join(" "), &self.stdout_path, &self.stderr_path, &self.target_address);
+        log::trace!(
+            "spawning cmd={} {}, stdout_path={}, stderr_path={}, target_address={}",
+            &self.exec,
+            self.args.clone().join(" "),
+            &self.stdout_path,
+            &self.stderr_path,
+            &self.target_address
+        );
 
-        use nix::fcntl::{fcntl, OFlag, FdFlag, F_GETFD, F_SETFD, F_GETFL, F_SETFL};
+        use nix::fcntl::{fcntl, FdFlag, OFlag, F_GETFD, F_GETFL, F_SETFD, F_SETFL};
 
-        let (pipe_i,pipe_o) = nix::unistd::pipe()?;
+        let (pipe_i, pipe_o) = nix::unistd::pipe()?;
         let mut fdopts = FdFlag::from_bits(fcntl(pipe_i, F_GETFD)?).unwrap();
         fdopts.set(FdFlag::FD_CLOEXEC, true);
         fcntl(pipe_i, F_SETFD(fdopts)).unwrap();
@@ -38,25 +45,31 @@ impl Process {
         flopts.set(OFlag::O_NONBLOCK, true);
         fcntl(pipe_i, F_SETFL(flopts)).unwrap();
 
-        log::info!("spawned cmd={} {}, stdout_path={}, stderr_path={}, target_address={}, pid={}", &self.exec, self.args.clone().join(" "), &self.stdout_path, &self.stderr_path, &self.target_address, child.id());
+        log::info!(
+            "spawned cmd={} {}, stdout_path={}, stderr_path={}, target_address={}, pid={}",
+            &self.exec,
+            self.args.clone().join(" "),
+            &self.stdout_path,
+            &self.stderr_path,
+            &self.target_address,
+            child.id()
+        );
 
         let channel = Channel { fd: pipe_i };
         let codec = tokio_util::codec::LengthDelimitedCodec::builder()
             .length_field_length(2)
             .new_read(tokio::io::PollEvented::new(channel).unwrap());
 
-        Ok(ProcessHandle {
-            child,
-            codec,
-            child_alive: true,
-            channel_open: true,
-        })
+        Ok(ProcessHandle { child, codec, child_alive: true, channel_open: true })
     }
 }
 
 pub struct ProcessHandle {
     child: tokio::process::Child,
-    codec: tokio_util::codec::FramedRead<tokio::io::PollEvented<Channel>, tokio_util::codec::LengthDelimitedCodec>,
+    codec: tokio_util::codec::FramedRead<
+        tokio::io::PollEvented<Channel>,
+        tokio_util::codec::LengthDelimitedCodec,
+    >,
 
     child_alive: bool,
     channel_open: bool,
@@ -78,7 +91,10 @@ impl ProcessHandle {
         }
     }
 
-    pub async fn message<T>(&mut self) -> Option<Message<T>> where T: prost::Message + Default {
+    pub async fn message<T>(&mut self) -> Option<Message<T>>
+    where
+        T: prost::Message + Default,
+    {
         if !self.channel_open && !self.child_alive {
             return None;
         }
@@ -106,7 +122,6 @@ impl ProcessHandle {
     }
 }
 
-
 struct Channel {
     fd: std::os::unix::io::RawFd, // TODO: close on drop
 }
@@ -120,7 +135,7 @@ impl Drop for Channel {
                 Err(nix::Error::Sys(nix::errno::Errno::EBADF)) => break,
                 Err(nix::Error::Sys(nix::errno::Errno::EINTR)) => {
                     log::warn!("channel#drop: EINTR");
-                },
+                }
                 Err(e) => panic!(e),
             }
         }
@@ -164,5 +179,3 @@ impl mio::event::Evented for Channel {
         mio::unix::EventedFd(&self.fd).deregister(poll)
     }
 }
-
-

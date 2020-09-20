@@ -24,10 +24,7 @@ struct Context {
 
 impl Context {
     fn new() -> Self {
-        Self {
-            shutdown: false,
-            nonce: 0,
-        }
+        Self { shutdown: false, nonce: 0 }
     }
 
     fn next_nonce(&mut self) -> i64 {
@@ -75,8 +72,10 @@ impl Reporter {
         (inbox, self.outbound_loop(outbound_rx))
     }
 
-
-    async fn outbound_loop(self, mut rx: tokio::sync::mpsc::UnboundedReceiver<OutboundMessage>) -> Result<(), Error> {
+    async fn outbound_loop(
+        self,
+        mut rx: tokio::sync::mpsc::UnboundedReceiver<OutboundMessage>,
+    ) -> Result<(), Error> {
         log::trace!("Reporter/outbound_loop: Starting");
         let mut client = BenchmarkReportClient::new(self.channel.clone());
         let mut context = Context::new();
@@ -93,18 +92,35 @@ impl Reporter {
             // Need at least single message to start receiving response
             log::trace!("Reporter/outbound_loop: Waiting for first data for new connection");
             self.outbound_process(&mut context, inner_outbound_tx.as_mut().unwrap(), rx.recv().await).await;
-            if context.shutdown { //XXX:
+            if context.shutdown {
+                //XXX:
                 log::info!("Reporter/outbound_loop: reporter is shut down while waiting for first data for new connection");
                 break;
             }
 
             log::info!("Reporter/outbound_loop: Opening");
             let mut closed = false;
-            let response = client.report_benchmark_result(tonic::Request::new(inner_outbound_rx)).await
-                .map_err(|e| Error::RequestFailure(e) )?;
+
+            let response = match tokio::time::timeout(
+                std::time::Duration::new(15, 0),
+                client.report_benchmark_result(tonic::Request::new(inner_outbound_rx)),
+            )
+            .await
+            {
+                Ok(Ok(r)) => r,
+                Ok(Err(e)) => {
+                    log::error!("Reporter/outbound_loop: Open err: {:?}", e);
+                    continue;
+                }
+                Err(e) => {
+                    log::error!("Reporter/outbound_loop: Open err: {:?}", e);
+                    continue;
+                }
+            };
             log::trace!("Reporter/outbound_loop: Opened");
 
-            let inbound_loop = self.inbound_loop(response);
+            let (inbound_shutdown_tx, inbound_shutdown_rx) = tokio::sync::mpsc::unbounded_channel();
+            let inbound_loop = self.inbound_loop(response, inbound_shutdown_rx);
             tokio::pin!(inbound_loop);
 
             while !closed {
@@ -122,6 +138,7 @@ impl Reporter {
                         if context.shutdown {
                             rx.close();
                             drop(inner_outbound_tx.take());
+                            inbound_shutdown_tx.send(()).unwrap();
                         }
                     },
                 }
@@ -134,26 +151,38 @@ impl Reporter {
         Ok(())
     }
 
-    async fn inbound_loop(&self, response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>) -> Result<i64, tonic::Status> {
+    async fn inbound_loop(
+        &self,
+        response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>,
+        mut shutdown_rx: tokio::sync::mpsc::UnboundedReceiver<()>,
+    ) -> Result<i64, tonic::Status> {
         let mut rx = response.into_inner();
         let mut last_acked_nonce = -1;
+        let mut shutdown = false;
 
         log::trace!("Reporter/inbound_loop: Start");
-        loop {
-            let in_msg = rx.message().await;
-            match in_msg {
-                Ok(Some(res)) => {
-                    log::info!("Reporter/inbound_loop/response: {:?}", res);
-                    last_acked_nonce = res.acked_nonce;
+        while !shutdown {
+            tokio::select! {
+                in_msg = rx.message() => {
+                    match in_msg {
+                        Ok(Some(res)) => {
+                            log::info!("Reporter/inbound_loop/response: {:?}", res);
+                            last_acked_nonce = res.acked_nonce;
+                        },
+                        Ok(None) => {
+                            log::trace!("Reporter/inbound_loop/ok-none:");
+                            shutdown = true;
+                        },
+                        Err(err) => {
+                            log::error!("Reporter/inbound_loop/error: ERR {:?}", err);
+                            return Err(err);
+                        },
+                    }
                 },
-                Ok(None) => {
-                    log::trace!("Reporter/inbound_loop/ok-none:");
-                    break;
-                },
-                Err(err) => {
-                    log::error!("Reporter/inbound_loop/error: ERR {:?}", err);
-                    return Err(err);
-                },
+                _shutdown = shutdown_rx.recv() => {
+                    shutdown = true;
+                    log::trace!("Reporter/inbound_loop: Shutdown");
+                }
             }
         }
         log::trace!("Reporter/inbound_loop: Nominal Leaving");
@@ -165,7 +194,12 @@ impl Reporter {
     // async fn inbound_finalize(&self, context: &mut Context, last_acked_nonce: i64) {
     // }
 
-    async fn outbound_process(&self, context: &mut Context, inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>, ob_msg: Option<OutboundMessage>) {
+    async fn outbound_process(
+        &self,
+        context: &mut Context,
+        inner_outbound_tx: &mut tokio::sync::mpsc::UnboundedSender<ReportBenchmarkResultRequest>,
+        ob_msg: Option<OutboundMessage>,
+    ) {
         match ob_msg {
             Some(OutboundMessage::Report(report)) => {
                 log::trace!("Reporter/outbound_loop/OutboundMessage: Sending {:?}", report);
@@ -190,11 +224,8 @@ impl Reporter {
             Some(OutboundMessage::Shutdown) => {
                 log::info!("Reporter/outbound_loop/Shutdown");
                 context.shutdown = true;
-            },
-            None => {
             }
+            None => {}
         }
     }
 }
-
-

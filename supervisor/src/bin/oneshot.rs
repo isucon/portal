@@ -1,15 +1,13 @@
+use isuxportal_supervisor::api::isuxportal::proto::resources::BenchmarkResult;
 use isuxportal_supervisor::config::Config;
 use isuxportal_supervisor::process::Process;
-use isuxportal_supervisor::api::isuxportal::proto::resources::BenchmarkResult;
 
 fn main() {
     env_logger::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
     std::env::set_var("ISUXPORTAL_SUPERVISOR_ENDPOINT_URL", "http://dummy.invalid");
     std::env::set_var("ISUXPORTAL_SUPERVISOR_TOKEN", "himitsudamon");
-    let config = envy::prefixed("ISUXPORTAL_SUPERVISOR_")
-        .from_env::<Config>()
-        .unwrap();
+    let config = envy::prefixed("ISUXPORTAL_SUPERVISOR_").from_env::<Config>().unwrap();
 
     let mut args = std::env::args().skip(1);
     let command_exec = args.next().expect("must have 1 arguments");
@@ -59,6 +57,5 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                 None => break,
             },
         }
-
     }
 }
