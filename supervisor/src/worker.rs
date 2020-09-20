@@ -198,7 +198,7 @@ impl Worker {
                     last_status = Some(status);
                 },
             }
-            tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
+            tokio::time::delay_for(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry
         }
         return Err(last_status.unwrap());
     }

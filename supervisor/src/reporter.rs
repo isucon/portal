@@ -104,7 +104,8 @@ impl Reporter {
                 .map_err(|e| Error::RequestFailure(e) )?;
             log::trace!("Reporter/outbound_loop: Opened");
 
-            let inbound_loop = self.inbound_loop(response);
+            let (inbound_shutdown_tx, inbound_shutdown_rx) = tokio::sync::mpsc::unbounded_channel();
+            let inbound_loop = self.inbound_loop(response, inbound_shutdown_rx);
             tokio::pin!(inbound_loop);
 
             while !closed {
@@ -122,6 +123,7 @@ impl Reporter {
                         if context.shutdown {
                             rx.close();
                             drop(inner_outbound_tx.take());
+                            inbound_shutdown_tx.send(()).unwrap();
                         }
                     },
                 }
@@ -134,26 +136,34 @@ impl Reporter {
         Ok(())
     }
 
-    async fn inbound_loop(&self, response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>) -> Result<i64, tonic::Status> {
+    async fn inbound_loop(&self, response: tonic::Response<tonic::Streaming<ReportBenchmarkResultResponse>>, mut shutdown_rx: tokio::sync::mpsc::UnboundedReceiver<()>) -> Result<i64, tonic::Status> {
         let mut rx = response.into_inner();
         let mut last_acked_nonce = -1;
+        let mut shutdown = false;
 
         log::trace!("Reporter/inbound_loop: Start");
-        loop {
-            let in_msg = rx.message().await;
-            match in_msg {
-                Ok(Some(res)) => {
-                    log::info!("Reporter/inbound_loop/response: {:?}", res);
-                    last_acked_nonce = res.acked_nonce;
+        while !shutdown {
+            tokio::select! {
+                in_msg = rx.message() => {
+                    match in_msg {
+                        Ok(Some(res)) => {
+                            log::info!("Reporter/inbound_loop/response: {:?}", res);
+                            last_acked_nonce = res.acked_nonce;
+                        },
+                        Ok(None) => {
+                            log::trace!("Reporter/inbound_loop/ok-none:");
+                            shutdown = true;
+                        },
+                        Err(err) => {
+                            log::error!("Reporter/inbound_loop/error: ERR {:?}", err);
+                            return Err(err);
+                        },
+                    }
                 },
-                Ok(None) => {
-                    log::trace!("Reporter/inbound_loop/ok-none:");
-                    break;
-                },
-                Err(err) => {
-                    log::error!("Reporter/inbound_loop/error: ERR {:?}", err);
-                    return Err(err);
-                },
+                _shutdown = shutdown_rx.recv() => {
+                    shutdown = true;
+                    log::trace!("Reporter/inbound_loop: Shutdown");
+                }
             }
         }
         log::trace!("Reporter/inbound_loop: Nominal Leaving");

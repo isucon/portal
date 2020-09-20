@@ -60,14 +60,7 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                     Some(job) => {
                         log::trace!("job {:?}", job);
                         let worker = Worker::new(job, &config, command_exec.clone(), command_args.clone());
-                        match worker.perform(channel.clone()).await {
-                            Ok(_) => {
-                                log::info!("OK");
-                            }
-                            Err(err) => {
-                                log::error!("Err {:?}", err);
-                            }
-                        }
+                        worker.perform(channel.clone()).await.unwrap();
                     },
                     None => {
                         tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0)).await;
