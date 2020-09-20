@@ -9,6 +9,7 @@ gem 'puma'
 gem 'griffin'
 gem 'griffin-interceptors'
 gem 'grpc_kit', git: 'https://isucon10-public.s3.dualstack.ap-northeast-1.amazonaws.com/git/6MGgQp9lDmsK6G0CNa0DCOWHkOXID9-1davWxzKzI28/grpc_kit.git', ref: 'blocking-recv-buffer'
+#gem 'grpc_kit', path: '~/git/github.com/cookpad/grpc_kit'
 gem 'google-protobuf'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
@@ -35,6 +36,7 @@ gem 'webpush'
 
 gem 'rack-timeout'
 gem 'newrelic_rpm'
+gem 'sigdump', require: 'sigdump/setup'
 
 group :development, :test do
   gem 'rspec'
