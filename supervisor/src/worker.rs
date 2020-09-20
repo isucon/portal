@@ -187,16 +187,24 @@ impl Worker {
         for num_attempt in 1..Self::MAX_RETRIES {
             log::info!("send_final_result(attempt={}): request={:?}", num_attempt, get_report_request_for_log(req.clone()));
             let mut client = BenchmarkReportClient::new(channel.clone());
-            let r = client.complete_benchmark_job(req.clone()).await;
+            let r = tokio::time::timeout(
+                std::time::Duration::new(18, 0),
+                client.complete_benchmark_job(req.clone()),
+            )
+            .await;
             match r {
-                Ok(_response) => {
+                Ok(Ok(_response)) => {
                     log::trace!("send_final_result(attempt={}): OK", num_attempt);
                     return Ok(());
-                },
-                Err(status) => {
+                }
+                Ok(Err(status)) => {
                     log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, status);
                     last_status = Some(status);
-                },
+                }
+                Err(e) => {
+                    log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, e);
+                    last_status = Some(tonic::Status::deadline_exceeded("timed out"));
+                }
             }
             tokio::time::delay_for(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry
         }

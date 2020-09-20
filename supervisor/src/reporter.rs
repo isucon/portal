@@ -100,8 +100,23 @@ impl Reporter {
 
             log::info!("Reporter/outbound_loop: Opening");
             let mut closed = false;
-            let response = client.report_benchmark_result(tonic::Request::new(inner_outbound_rx)).await
-                .map_err(|e| Error::RequestFailure(e) )?;
+
+            let response = match tokio::time::timeout(
+                std::time::Duration::new(15, 0),
+                client.report_benchmark_result(tonic::Request::new(inner_outbound_rx)),
+            )
+            .await
+            {
+                Ok(Ok(r)) => r,
+                Ok(Err(e)) => {
+                    log::error!("Reporter/outbound_loop: Open err: {:?}", e);
+                    continue;
+                }
+                Err(e) => {
+                    log::error!("Reporter/outbound_loop: Open err: {:?}", e);
+                    continue;
+                }
+            };
             log::trace!("Reporter/outbound_loop: Opened");
 
             let (inbound_shutdown_tx, inbound_shutdown_rx) = tokio::sync::mpsc::unbounded_channel();

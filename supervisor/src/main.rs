@@ -37,10 +37,18 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
             channel.clone(),
         );
 
-    queue_client.cancel_owned_benchmark_job(api::isuxportal::proto::services::bench::CancelOwnedBenchmarkJobRequest{ 
-        token: config.token.clone(),
-        instance_name: config.instance_name.clone(),
-    }).await.expect("CancelOwnedBenchmarkJob failed");
+    tokio::time::timeout(
+        std::time::Duration::new(15, 0),
+        queue_client.cancel_owned_benchmark_job(
+            api::isuxportal::proto::services::bench::CancelOwnedBenchmarkJobRequest {
+                token: config.token.clone(),
+                instance_name: config.instance_name.clone(),
+            },
+        ),
+    )
+    .await
+    .expect("CancelOwnedBenchmarkJob timed out")
+    .expect("CancelOwnedBenchmarkJob failed");
 
     loop {
         let job_req = tonic::Request::new(
@@ -52,8 +60,13 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
         );
         log::info!("ReceiveBenchmarkJob(Request): {:?}", job_req);
 
-        match queue_client.receive_benchmark_job(job_req).await {
-            Ok(resp) => {
+        match tokio::time::timeout(
+            std::time::Duration::new(15, 0),
+            queue_client.receive_benchmark_job(job_req),
+        )
+        .await
+        {
+            Ok(Ok(resp)) => {
                 log::info!("ReceiveBenchmarkJob(Response): {:?}", resp);
                 let job_resp = resp.into_inner();
                 match job_resp.job_handle {
@@ -67,9 +80,14 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                     }
                 }
             }
-            Err(err) => {
+            Ok(Err(err)) => {
                 log::error!("ReceiveBenchmarkJob(Error): {:?}", err);
-                tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0)).await;
+                tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0))
+                    .await;
+            }
+            Err(_) => {
+                log::error!("ReceiveBenchmarkJob(Error): Timed out");
+                panic!("ReceiveBenchmarkJob Timed out");
             }
         }
     }
