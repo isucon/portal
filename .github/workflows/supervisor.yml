@@ -10,11 +10,17 @@ on:
 jobs:
   build:
     name: supervisor-build
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     defaults:
       run:
         working-directory: supervisor
     steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
       - uses: actions/checkout@master
       - run: 'echo $GITHUB_SHA > REVISION'
       - uses: actions/checkout@v2
@@ -35,7 +41,11 @@ jobs:
           command: build
           # https://github.com/actions-rs/cargo/issues/6
           args: --release --manifest-path supervisor/Cargo.toml
+
+      - run: aws s3 cp target/release/isuxportal-supervisor s3://isucon10-machine-images/supervisor/isuxportal-supervisor-ubuntu2004-amd64
+      - run: aws s3 cp target/release/isuxportal-supervisor s3://isucon10-machine-images/supervisor/isuxportal-supervisor-ubuntu2004-amd64_${{ github.sha }}
+
       - uses: actions/upload-artifact@v2
         with:
-          name: isuxportal-supervisor-ubuntu1804-amd64
+          name: isuxportal-supervisor-ubuntu2004-amd64
           path: supervisor/target/release/isuxportal-supervisor
