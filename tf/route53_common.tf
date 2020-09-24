@@ -182,7 +182,7 @@ resource "aws_route53_record" "a_cn-hv-x-isucon-dev-public" {
   name    = "isucn${format("%04d", count.index + 1)}.hv.x.isucon.dev"
   type    = "A"
   ttl     = "300"
-  records = ["10.160.0.${140 + count.index + 1}"]
+  records = ["10.200.80.${64 + count.index + 1}"]
 }
 
 resource "aws_route53_record" "a_cn-hv-x-isucon-dev-private" {
@@ -192,7 +192,7 @@ resource "aws_route53_record" "a_cn-hv-x-isucon-dev-private" {
   name    = "isucn${format("%04d", count.index + 1)}.hv.x.isucon.dev"
   type    = "A"
   ttl     = "300"
-  records = ["10.160.0.${140 + count.index + 1}"]
+  records = ["10.200.80.${64 + count.index + 1}"]
 }
 
 
@@ -203,7 +203,7 @@ resource "aws_route53_record" "a_adm-hv-x-isucon-dev-public" {
   name    = "isuadm${format("%04d", count.index + 1)}.hv.x.isucon.dev"
   type    = "A"
   ttl     = "300"
-  records = ["10.160.0.${140 + 24 + count.index + 1}"]
+  records = ["10.200.80.${64 + 24 + count.index + 1}"]
 }
 
 resource "aws_route53_record" "a_adm-hv-x-isucon-dev-private" {
@@ -213,5 +213,5 @@ resource "aws_route53_record" "a_adm-hv-x-isucon-dev-private" {
   name    = "isuadm${format("%04d", count.index + 1)}.hv.x.isucon.dev"
   type    = "A"
   ttl     = "300"
-  records = ["10.160.0.${140 + 24 + count.index + 1}"]
+  records = ["10.200.80.${64 + 24 + count.index + 1}"]
 }
