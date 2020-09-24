@@ -130,11 +130,11 @@ data "aws_iam_policy_document" "ghaction-final_role" {
     effect    = "Allow"
     actions   = ["sts:AssumeRole"]
     resources = [aws_iam_role.IsuPacker.arn]
-    condition {
-      test     = "IpAddress"
-      variable = "aws:SourceIp"
-      values   = local.sorah_guest_cidrs
-    }
+    //condition {
+    //  test     = "IpAddress"
+    //  variable = "aws:SourceIp"
+    //  values   = local.sorah_guest_cidrs
+    //}
   }
   statement {
     effect    = "Allow"
