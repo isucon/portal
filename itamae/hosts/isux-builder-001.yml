@@ -6,4 +6,4 @@ isux-builder-001.c.x.isucon.dev:
       user: root
 
     run_list:
-      - cnw/roles/base/default.rb
+      - roles/packer-builder/default.rb
