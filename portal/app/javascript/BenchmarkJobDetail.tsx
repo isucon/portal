@@ -22,7 +22,7 @@ const renderJobSummary = (job: isuxportal.proto.resources.IBenchmarkJob, admin: 
           <b>ID:</b> {job.id}
         </p>
         <p>
-          <b>Target:</b> #{job.target!.number}: {job.target!.publicIpv4Address}{" "}
+          <b>Target:</b> #{job.target!.number}: {job.target!.privateIpv4Address} ({job.target!.publicIpv4Address}){" "}
           {admin ? `(#${job.target!.id}, ${job.target!.cloudId})` : null}
         </p>
         <p>

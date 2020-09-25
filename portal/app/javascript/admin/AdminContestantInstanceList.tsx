@@ -139,8 +139,8 @@ export class AdminContestantInstanceList extends React.Component<Props, State> {
             <th>Cloud ID</th>
             <th>Team</th>
             <th>Number</th>
-            <th>Private IPv4</th>
-            <th>Public IPv4</th>
+            <th>Private Address</th>
+            <th>Public Address</th>
             <th>Status</th>
           </tr>
         </thead>
