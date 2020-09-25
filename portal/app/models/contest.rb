@@ -177,6 +177,7 @@ module Contest
     #teams = results
     #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
     team_objs = Team.active.order(id: :asc).map { |t| [t.id, t] }.to_h
+    team_exists = {}
     #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|
       team = team_objs[team_id]
@@ -193,6 +194,7 @@ module Contest
         best_score = i if !best_score || i.score > best_score.score
         i
       end
+      team_exists[team_id] = true
       Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
         scores: scores,
@@ -209,7 +211,7 @@ module Contest
     #t_b = Time.now; p leaderboard_time_rev: t_b-t_a; t_a = t_b
 
     items.concat(team_objs.map do |tid, team|
-      next if teams[tid]
+      next if team_exists[tid]
       Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
         scores: [],
