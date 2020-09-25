@@ -18,7 +18,8 @@ interface TeamItemProps {
 }
 type ItemType = "pinned" | "standings" | "me";
 
-const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, item, pinned, onPin, me, itemType }) => {
+const TeamItem: React.FC<TeamItemProps> = (props: TeamItemProps) => {
+  const { position, lastPosition, changed, item, pinned, onPin, me, itemType } = props;
   const [animationClassName, setAnimationClassName] = React.useState<string | null>(null);
   const [animationEpoch, setAnimationEpoch] = React.useState<number>(0);
 
@@ -93,6 +94,19 @@ const usePrevious = function <T>(value: T) {
   return ref.current;
 };
 
+const chooseTeamList = (mode: Mode, leaderboard: isuxportal.proto.resources.ILeaderboard) => {
+  switch(mode) {
+    case "all":
+      return leaderboard.teams || [];
+    case "general":
+      return leaderboard.generalTeams || [];
+    case "students":
+      return leaderboard.studentTeams || [];
+    default: 
+      throw new Error("[BUG] invalid mode");
+  }
+};
+
 export const Leaderboard: React.FC<Props> = (props: Props) => {
   const { leaderboard, teamId } = props;
   const [expanded, setExpanded] = React.useState(false);
@@ -101,13 +115,17 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
 
   const prevProps = usePrevious(props);
   const prevLeaderboard = prevProps?.leaderboard;
+
+  const filteredTeams = chooseTeamList(mode, leaderboard);
+  const prevFilteredTeams = prevLeaderboard && chooseTeamList(mode, prevLeaderboard);
+
   const prevRanks = new Map(
-    (prevLeaderboard?.teams || []).map((t, idx) => {
+    (prevFilteredTeams || []).map((t, idx) => {
       return [t.team!.id, idx + 1];
     })
   );
   const prevScores = new Map(
-    (prevLeaderboard?.teams || []).map((t, idx) => {
+    (prevFilteredTeams || []).map((t, idx) => {
       return [t.team!.id, t.latestScore?.score!];
     })
   );
@@ -120,23 +138,12 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
     lastPosition?: number;
     lastScore?: number | Long;
   };
-  const teams = leaderboard
-    .teams!.filter(({ team }) => {
-      switch (mode) {
-        case "all":
-          return true;
-        case "general":
-          return !team?.student?.status;
-        case "students":
-          return team?.student?.status;
-        default:
-          true;
-      }
-    })
+  const teams = filteredTeams
     .map(
       (item, idx): TeamStanding => {
         const pinned = pins.has(item.team!.id!.toString());
         const me = item.team!.id === teamId;
+        if(prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
         return {
           position: idx + 1,
           lastPosition: prevRanks.get(item.team!.id!),
@@ -147,14 +154,15 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
         };
       }
     );
-  const renderTeam = (key: string, { item, pinned, me, position, lastPosition, lastScore }: TeamStanding) => {
+  const renderTeam = (key: string, standing: TeamStanding) => {
+    const { item, pinned, me, position, lastPosition, lastScore } = standing;
     return (
       <TeamItem
         item={item}
         position={position}
         lastPosition={lastPosition}
         changed={lastScore != item.latestScore?.score!}
-        key={`${key}-${item.team!.id!.toString()}`}
+        key={`${mode}-${key}-${item.team!.id!.toString()}`}
         pinned={pinned}
         onPin={props.onPin}
         me={me}
