@@ -49,7 +49,7 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
       end
       job
     end
-    BenchmarkCompletionJob.perform_later(job) if j.finished?
+    BenchmarkCompletionJob.perform_later(j) if j.finished?
 
     Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse.new(
     )
