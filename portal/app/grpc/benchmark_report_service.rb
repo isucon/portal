@@ -19,6 +19,9 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
 
       if !job.benchmark_result || marked_at > job.benchmark_result.marked_at
         job.submit_result_from_pb!(request.result)
+        if job.finished?
+          BenchmarkCompletionJob.perform_later(self)
+        end
       end
 
       stream.send_msg Isuxportal::Proto::Services::Bench::ReportBenchmarkResultResponse.new(
@@ -45,6 +48,7 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
         raise GRPC::InvalidArgument.new("result must be complete")
       end
     end
+    BenchmarkCompletionJob.perform_later(self) if job.finished?
 
     Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse.new(
     )

@@ -49,6 +49,7 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
   def destroy
     @benchmark_job = BenchmarkJob.find(params[:id])
     @benchmark_job.cancel!
+    BenchmarkCompletionJob.perform_later(self)
     render protobuf: Isuxportal::Proto::Services::Admin::CancelBenchmarkJobResponse.new(
       job: @benchmark_job.to_pb(admin: true, team: true, detail: true)
     )

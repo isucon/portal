@@ -2,9 +2,7 @@ require 'isuxportal/resources/notification_pb'
 
 class BenchmarkCompletionJob < ApplicationJob
   def perform(job)
-    if job.finished?
-      UpdateContestantDashboardJob.perform_now(team: job.team, frozen: Contest.contest_frozen?(job.finished_at))
-    end
+    UpdateContestantDashboardJob.perform_now(team: job.team, frozen: Contest.contest_frozen?(job.finished_at))
 
     job.team.members.each do |contestant|
       n = Notification.create!(

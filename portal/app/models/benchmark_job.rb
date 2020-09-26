@@ -91,10 +91,6 @@ class BenchmarkJob < ApplicationRecord
         response.save!
       end
     end
-
-    if self.finished?
-      BenchmarkCompletionJob.perform_later(self)
-    end
   end
 
   def cancel!
