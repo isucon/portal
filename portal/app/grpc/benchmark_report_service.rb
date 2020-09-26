@@ -41,14 +41,15 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
       raise GRPC::InvalidArgument.new("result must be complete")
     end
 
-    ApplicationRecord.transaction do
+    j = ApplicationRecord.transaction do
       job = BenchmarkJob.find_by!(id: request.job_id, handle: request.handle)
       job.submit_result_from_pb!(request.result)
       unless job.closed?
         raise GRPC::InvalidArgument.new("result must be complete")
       end
+      job
     end
-    BenchmarkCompletionJob.perform_later(job) if job.finished?
+    BenchmarkCompletionJob.perform_later(job) if j.finished?
 
     Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse.new(
     )
