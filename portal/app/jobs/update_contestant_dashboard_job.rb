@@ -4,6 +4,8 @@ require 'isuxportal/services/audience/dashboard_pb'
 
 class UpdateContestantDashboardJob < ApplicationJob
   def perform(team: nil, frozen: false)
+    final = Rails.application.config.x.final ? "final" : "qualify"
+
     Rails.logger.info("leaderboard")
     lb = Contest.leaderboard(admin: false, team: nil, progresses: false)
     Rails.logger.info("leaderboard done")
@@ -13,8 +15,8 @@ class UpdateContestantDashboardJob < ApplicationJob
 
     lb_resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb))
     audience_lb_resp = Isuxportal::Proto::Services::Audience::DashboardResponse.encode(Isuxportal::Proto::Services::Audience::DashboardResponse.new(leaderboard: lb))
-    Rails.cache.write("contestantdashboard4-unfrozen", lb_resp)
-    Rails.cache.write("audiencedashboard4-unfrozen", audience_lb_resp)
+    Rails.cache.write("dashboard:#{final}:contestant:public", lb_resp)
+    Rails.cache.write("dashboard:#{final}:audience:public", audience_lb_resp)
 
     if frozen
       teams = team ? [team] : Team.active
@@ -40,18 +42,20 @@ class UpdateContestantDashboardJob < ApplicationJob
           contest: lb2.contest,
           generated_at: team_lb.generated_at,
         )
+
         resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb3))
-        Rails.cache.write("contestantdashboard4-t#{team.id}", resp)
-        Rails.cache.write("contestantdashboard4-t#{team.id}-pointer", "contestantdashboard4-t#{team.id}")
+        k = "dashboard:#{final}:contestant:team-#{team.id}"
+        Rails.cache.write(k, resp)
+        Rails.cache.write("dashboard:#{final}:contestant-ptr:team-#{team.id}", k)
       end
 
       admin_lb = Contest.leaderboard(admin: true, team: nil, progresses: false)
-      Rails.cache.write("adminleaderboard", admin_lb.class.encode(admin_lb))
+      Rails.cache.write("leaderboard:#{final}:admin", admin_lb.class.encode(admin_lb))
     else
       Team.active.each_with_index do |team,i|
-        Rails.cache.write("contestantdashboard4-t#{team.id}-pointer", "contestantdashboard4-unfrozen")
+        Rails.cache.write("dashboard:#{final}:contestant-ptr:team-#{team.id}", "dashboard:#{final}:contestant:public")
       end
-      Rails.cache.write("adminleaderboard", lb_wire)
+      Rails.cache.write("leaderboard:#{final}:admin", lb_wire)
     end
   end
 end
