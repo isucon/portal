@@ -57,7 +57,7 @@ const TeamItem: React.FC<TeamItemProps> = ({ position, lastPosition, changed, it
   );
 };
 
-type Mode = "all" | "general" | "students";
+type Mode = "all" | "general" | "students" | "hidden";
 
 interface Props {
   client: ApiClient;
@@ -137,19 +137,21 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
     lastPosition?: number;
     lastScore?: number | Long;
   };
-  const teams = leaderboard
-    .teams!.filter(({ team }) => {
-      switch (mode) {
-        case "all":
-          return true;
-        case "general":
-          return !team?.student?.status;
-        case "students":
-          return team?.student?.status;
-        default:
-          true;
-      }
-    })
+  const selectTeam = () => {
+    switch(mode) {
+      case "all":
+        return leaderboard.teams!;
+      case "general":
+        return leaderboard.generalTeams!;
+      case "student":
+        return leaderboard.studentTeams!;
+      case "hidden":
+        return leaderboard.hiddenTeams!;
+      default:
+        throw new Error("unknown mode");
+    }
+  };
+  const teams = selectTeam()
     .map(
       (item, idx): TeamStanding => {
         return {
