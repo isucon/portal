@@ -70,20 +70,21 @@ const TeamItem: React.FC<TeamItemProps> = (props: TeamItemProps) => {
         {item.team!.id}: {item.team!.name}
       </td>
       <td className="has-text-right">{item.bestScore?.score || 0}</td>
-      <td className="has-text-right">{item.latestScore?.score || 0}</td>
+      <td className="has-text-weight-semibold has-text-right">{item.latestScore?.score || 0}</td>
       <td>{item.latestScore ? <Timestamp timestamp={item.latestScore.markedAt!} short /> : "N/A"}</td>
       <td>{studentStatus}</td>
     </tr>
   );
 };
 
-type Mode = "all" | "general" | "students";
+type Mode = "all" | "general" | "students" | "hidden";
 
 interface Props {
   teamPins: TeamPinsMap;
   onPin: (teamId: string, flag: boolean) => void;
   leaderboard: isuxportal.proto.resources.ILeaderboard;
   teamId?: number | Long;
+  enableHiddenTeamsMode?: boolean;
 }
 
 const usePrevious = function <T>(value: T) {
@@ -102,6 +103,8 @@ const chooseTeamList = (mode: Mode, leaderboard: isuxportal.proto.resources.ILea
       return leaderboard.generalTeams || [];
     case "students":
       return leaderboard.studentTeams || [];
+    case "hidden":
+      return leaderboard.hiddenTeams || [];
     default: 
       throw new Error("[BUG] invalid mode");
   }
@@ -143,7 +146,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
       (item, idx): TeamStanding => {
         const pinned = pins.has(item.team!.id!.toString());
         const me = item.team!.id === teamId;
-        if(prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
+        if(prevRanks.get(item.team!.id!) && prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
         return {
           position: idx + 1,
           lastPosition: prevRanks.get(item.team!.id!),
@@ -190,6 +193,11 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
               <span>Students</span>
             </a>
           </li>
+          {props.enableHiddenTeamsMode ?  <li className={mode === "hidden" ? "is-active" : ""}>
+            <a onClick={() => setMode("hidden")}>
+              <span>Hidden</span>
+            </a>
+          </li> : null}
         </ul>
       </div>
       <table className="table is-hoverable is-fullwidth isux-leaderboard">

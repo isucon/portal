@@ -180,7 +180,7 @@ export class ApiClient {
       }
       url += `?${queryParams.join("&")}`;
     }
-    headers.append("Accept", "application/vnd.google.protobuf, text/plain");
+    headers.append("Accept", "application/protobuf, application/vnd.google.protobuf, text/plain");
     headers.append("X-Csrf-Token", Rails.csrfToken() || "");
     if (payload) {
       opts.body = payload;
@@ -193,7 +193,7 @@ export class ApiClient {
       let err;
       if (
         contentType &&
-        contentType.match(/^application\/vnd\.google\.protobuf(; proto=isuxportal\.proto\.Error|; charset=.*)?$/)
+        contentType.match(/^application\/(vnd\.google\.)?protobuf(; proto=isuxportal\.proto\.Error|; charset=.*)?$/)
       ) {
         const pbError = isuxportal.proto.Error.decode(new Uint8Array(await resp.arrayBuffer()));
         err = new ApiError(new Error(`${path} returned error ${resp.status}`), pbError);

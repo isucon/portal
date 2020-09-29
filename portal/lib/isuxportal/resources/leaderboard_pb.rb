@@ -12,6 +12,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       repeated :teams, :message, 1, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       repeated :general_teams, :message, 2, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       repeated :student_teams, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
+      repeated :hidden_teams, :message, 7, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       repeated :progresses, :message, 4, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
       optional :generated_at, :message, 6, "google.protobuf.Timestamp"
       optional :contest, :message, 5, "isuxportal.proto.resources.Contest"

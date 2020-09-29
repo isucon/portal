@@ -20,8 +20,6 @@
     "workbox-webpack-plugin": "^5.1.4"
   },
   "dependencies": {
-    "@nivo/line": "^0.62.0",
-    "@nivo/tooltip": "^0.62.0",
     "@rails/ujs": "^6.0.3-2",
     "@sentry/browser": "^5.19.0",
     "@types/react": "^16.9.41",
@@ -36,7 +34,7 @@
     "react-hook-form": "^6.3.0",
     "react-paginate": "^6.4.0",
     "react-router-dom": "^5.2.0",
-    "uplot": "^1.1.2",
+    "uplot": "~1.1.2",
     "workbox-core": "^5.1.4",
     "workbox-precaching": "^5.1.4"
   }

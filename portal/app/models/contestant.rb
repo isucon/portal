@@ -23,6 +23,10 @@ class Contestant < ApplicationRecord
     team.active?
   end
 
+  def promoted?
+    team.promoted?
+  end
+
   def leader?
     team.leader_id == id
   end

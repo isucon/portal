@@ -130,33 +130,3 @@ func RegisterBenchmarkQueueService(s grpc.ServiceRegistrar, srv *BenchmarkQueueS
 
 	s.RegisterService(&sd, nil)
 }
-
-// NewBenchmarkQueueService creates a new BenchmarkQueueService containing the
-// implemented methods of the BenchmarkQueue service in s.  Any unimplemented
-// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
-// This includes situations where the method handler is misspelled or has the wrong
-// signature.  For this reason, this function should be used with great care and
-// is not recommended to be used by most users.
-func NewBenchmarkQueueService(s interface{}) *BenchmarkQueueService {
-	ns := &BenchmarkQueueService{}
-	if h, ok := s.(interface {
-		ReceiveBenchmarkJob(context.Context, *ReceiveBenchmarkJobRequest) (*ReceiveBenchmarkJobResponse, error)
-	}); ok {
-		ns.ReceiveBenchmarkJob = h.ReceiveBenchmarkJob
-	}
-	if h, ok := s.(interface {
-		CancelOwnedBenchmarkJob(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error)
-	}); ok {
-		ns.CancelOwnedBenchmarkJob = h.CancelOwnedBenchmarkJob
-	}
-	return ns
-}
-
-// UnstableBenchmarkQueueService is the service API for BenchmarkQueue service.
-// New methods may be added to this interface if they are added to the service
-// definition, which is not a backward-compatible change.  For this reason,
-// use of this type is not recommended.
-type UnstableBenchmarkQueueService interface {
-	ReceiveBenchmarkJob(context.Context, *ReceiveBenchmarkJobRequest) (*ReceiveBenchmarkJobResponse, error)
-	CancelOwnedBenchmarkJob(context.Context, *CancelOwnedBenchmarkJobRequest) (*CancelOwnedBenchmarkJobResponse, error)
-}

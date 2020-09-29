@@ -165,33 +165,3 @@ func RegisterBenchmarkReportService(s grpc.ServiceRegistrar, srv *BenchmarkRepor
 
 	s.RegisterService(&sd, nil)
 }
-
-// NewBenchmarkReportService creates a new BenchmarkReportService containing the
-// implemented methods of the BenchmarkReport service in s.  Any unimplemented
-// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
-// This includes situations where the method handler is misspelled or has the wrong
-// signature.  For this reason, this function should be used with great care and
-// is not recommended to be used by most users.
-func NewBenchmarkReportService(s interface{}) *BenchmarkReportService {
-	ns := &BenchmarkReportService{}
-	if h, ok := s.(interface {
-		ReportBenchmarkResult(BenchmarkReport_ReportBenchmarkResultServer) error
-	}); ok {
-		ns.ReportBenchmarkResult = h.ReportBenchmarkResult
-	}
-	if h, ok := s.(interface {
-		CompleteBenchmarkJob(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error)
-	}); ok {
-		ns.CompleteBenchmarkJob = h.CompleteBenchmarkJob
-	}
-	return ns
-}
-
-// UnstableBenchmarkReportService is the service API for BenchmarkReport service.
-// New methods may be added to this interface if they are added to the service
-// definition, which is not a backward-compatible change.  For this reason,
-// use of this type is not recommended.
-type UnstableBenchmarkReportService interface {
-	ReportBenchmarkResult(BenchmarkReport_ReportBenchmarkResultServer) error
-	CompleteBenchmarkJob(context.Context, *CompleteBenchmarkJobRequest) (*CompleteBenchmarkJobResponse, error)
-}
