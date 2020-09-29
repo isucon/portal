@@ -146,7 +146,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
       (item, idx): TeamStanding => {
         const pinned = pins.has(item.team!.id!.toString());
         const me = item.team!.id === teamId;
-        if(prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
+        if(prevRanks.get(item.team!.id!) && prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
         return {
           position: idx + 1,
           lastPosition: prevRanks.get(item.team!.id!),
