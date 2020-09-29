@@ -70,7 +70,7 @@ const TeamItem: React.FC<TeamItemProps> = (props: TeamItemProps) => {
         {item.team!.id}: {item.team!.name}
       </td>
       <td className="has-text-right">{item.bestScore?.score || 0}</td>
-      <td className="has-text-right">{item.latestScore?.score || 0}</td>
+      <td className="has-text-weight-semibold has-text-right">{item.latestScore?.score || 0}</td>
       <td>{item.latestScore ? <Timestamp timestamp={item.latestScore.markedAt!} short /> : "N/A"}</td>
       <td>{studentStatus}</td>
     </tr>
