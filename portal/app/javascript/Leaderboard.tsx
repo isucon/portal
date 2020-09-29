@@ -77,13 +77,14 @@ const TeamItem: React.FC<TeamItemProps> = (props: TeamItemProps) => {
   );
 };
 
-type Mode = "all" | "general" | "students";
+type Mode = "all" | "general" | "students" | "hidden";
 
 interface Props {
   teamPins: TeamPinsMap;
   onPin: (teamId: string, flag: boolean) => void;
   leaderboard: isuxportal.proto.resources.ILeaderboard;
   teamId?: number | Long;
+  enableHiddenTeamsMode?: boolean;
 }
 
 const usePrevious = function <T>(value: T) {
@@ -102,6 +103,8 @@ const chooseTeamList = (mode: Mode, leaderboard: isuxportal.proto.resources.ILea
       return leaderboard.generalTeams || [];
     case "students":
       return leaderboard.studentTeams || [];
+    case "hidden":
+      return leaderboard.hiddenTeams || [];
     default: 
       throw new Error("[BUG] invalid mode");
   }
@@ -190,6 +193,11 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
               <span>Students</span>
             </a>
           </li>
+          {props.enableHiddenTeamsMode ?  <li className={mode === "hidden" ? "is-active" : ""}>
+            <a onClick={() => setMode("hidden")}>
+              <span>Hidden</span>
+            </a>
+          </li> : null}
         </ul>
       </div>
       <table className="table is-hoverable is-fullwidth isux-leaderboard">

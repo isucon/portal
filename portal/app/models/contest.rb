@@ -255,14 +255,15 @@ module Contest
     end
 
     #t_b = Time.now; p leaderboard_time_prog: t_b-t_a; t_a = t_b
-    items.reject! { |_| !admin && _.team.hidden && team&.id != _.team.id }
     items.reject! { |_| _.team.disqualified || _.team.withdrawn }
+    hidden_items, visible_items = items.partition { |_| _.team.hidden }
     #t_b = Time.now; p leaderboard_time_rej: t_b-t_a; t_a = t_b
 
     r = Isuxportal::Proto::Resources::Leaderboard.new(
-      teams: items,
-      general_teams: items.reject { |_| _.team.student.status },
-      student_teams: items.select { |_| _.team.student.status },
+      teams: visible_items,
+      general_teams: visible_items.reject { |_| _.team.student.status },
+      student_teams: visible_items.select { |_| _.team.student.status },
+      hidden_teams: hidden_items,
       progresses: progresses_items || [],
       contest: Contest.to_pb,
       generated_at: Time.now.to_time,

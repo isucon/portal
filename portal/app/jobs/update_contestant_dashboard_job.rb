@@ -26,8 +26,9 @@ class UpdateContestantDashboardJob < ApplicationJob
         lteams = lb2.teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.teams.to_a
         lgeneral_teams = lb2.general_teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.general_teams.to_a
         lstudent_teams = lb2.student_teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.student_teams.to_a
+        lhidden_teams  = lb2.hidden_teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.hidden_teams.to_a
 
-        [lteams,lgeneral_teams,lstudent_teams].each do |ary|
+        [lteams,lgeneral_teams,lstudent_teams,lhidden_teams].each do |ary|
           ary.sort_by! { |li| s = li.scores[-1]; s ? [s.score, -s.marked_at.seconds, -s.marked_at.nanos] : [0,0,0] }
           ary.reverse!
         end

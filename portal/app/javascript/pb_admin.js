@@ -5168,6 +5168,7 @@ $root.isuxportal = (function() {
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [teams] Leaderboard teams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [generalTeams] Leaderboard generalTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [studentTeams] Leaderboard studentTeams
+                 * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [hiddenTeams] Leaderboard hiddenTeams
                  * @property {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>|null} [progresses] Leaderboard progresses
                  * @property {google.protobuf.ITimestamp|null} [generatedAt] Leaderboard generatedAt
                  * @property {isuxportal.proto.resources.IContest|null} [contest] Leaderboard contest
@@ -5185,6 +5186,7 @@ $root.isuxportal = (function() {
                     this.teams = [];
                     this.generalTeams = [];
                     this.studentTeams = [];
+                    this.hiddenTeams = [];
                     this.progresses = [];
                     if (properties)
                         for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
@@ -5215,6 +5217,14 @@ $root.isuxportal = (function() {
                  * @instance
                  */
                 Leaderboard.prototype.studentTeams = $util.emptyArray;
+
+                /**
+                 * Leaderboard hiddenTeams.
+                 * @member {Array.<isuxportal.proto.resources.Leaderboard.ILeaderboardItem>} hiddenTeams
+                 * @memberof isuxportal.proto.resources.Leaderboard
+                 * @instance
+                 */
+                Leaderboard.prototype.hiddenTeams = $util.emptyArray;
 
                 /**
                  * Leaderboard progresses.
@@ -5280,6 +5290,9 @@ $root.isuxportal = (function() {
                         $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     if (message.generatedAt != null && Object.hasOwnProperty.call(message, "generatedAt"))
                         $root.google.protobuf.Timestamp.encode(message.generatedAt, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.hiddenTeams != null && message.hiddenTeams.length)
+                        for (var i = 0; i < message.hiddenTeams.length; ++i)
+                            $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.encode(message.hiddenTeams[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     return writer;
                 };
 
@@ -5328,6 +5341,11 @@ $root.isuxportal = (function() {
                             if (!(message.studentTeams && message.studentTeams.length))
                                 message.studentTeams = [];
                             message.studentTeams.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
+                            break;
+                        case 7:
+                            if (!(message.hiddenTeams && message.hiddenTeams.length))
+                                message.hiddenTeams = [];
+                            message.hiddenTeams.push($root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.decode(reader, reader.uint32()));
                             break;
                         case 4:
                             if (!(message.progresses && message.progresses.length))
@@ -5402,6 +5420,15 @@ $root.isuxportal = (function() {
                                 return "studentTeams." + error;
                         }
                     }
+                    if (message.hiddenTeams != null && message.hasOwnProperty("hiddenTeams")) {
+                        if (!Array.isArray(message.hiddenTeams))
+                            return "hiddenTeams: array expected";
+                        for (var i = 0; i < message.hiddenTeams.length; ++i) {
+                            var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify(message.hiddenTeams[i]);
+                            if (error)
+                                return "hiddenTeams." + error;
+                        }
+                    }
                     if (message.progresses != null && message.hasOwnProperty("progresses")) {
                         if (!Array.isArray(message.progresses))
                             return "progresses: array expected";
@@ -5466,6 +5493,16 @@ $root.isuxportal = (function() {
                             message.studentTeams[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.studentTeams[i]);
                         }
                     }
+                    if (object.hiddenTeams) {
+                        if (!Array.isArray(object.hiddenTeams))
+                            throw TypeError(".isuxportal.proto.resources.Leaderboard.hiddenTeams: array expected");
+                        message.hiddenTeams = [];
+                        for (var i = 0; i < object.hiddenTeams.length; ++i) {
+                            if (typeof object.hiddenTeams[i] !== "object")
+                                throw TypeError(".isuxportal.proto.resources.Leaderboard.hiddenTeams: object expected");
+                            message.hiddenTeams[i] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.fromObject(object.hiddenTeams[i]);
+                        }
+                    }
                     if (object.progresses) {
                         if (!Array.isArray(object.progresses))
                             throw TypeError(".isuxportal.proto.resources.Leaderboard.progresses: array expected");
@@ -5507,6 +5544,7 @@ $root.isuxportal = (function() {
                         object.generalTeams = [];
                         object.studentTeams = [];
                         object.progresses = [];
+                        object.hiddenTeams = [];
                     }
                     if (options.defaults) {
                         object.contest = null;
@@ -5536,6 +5574,11 @@ $root.isuxportal = (function() {
                         object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
                     if (message.generatedAt != null && message.hasOwnProperty("generatedAt"))
                         object.generatedAt = $root.google.protobuf.Timestamp.toObject(message.generatedAt, options);
+                    if (message.hiddenTeams && message.hiddenTeams.length) {
+                        object.hiddenTeams = [];
+                        for (var j = 0; j < message.hiddenTeams.length; ++j)
+                            object.hiddenTeams[j] = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.toObject(message.hiddenTeams[j], options);
+                    }
                     return object;
                 };
 

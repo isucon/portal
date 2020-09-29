@@ -1876,6 +1876,9 @@ export namespace isuxportal {
                 /** Leaderboard studentTeams */
                 studentTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
 
+                /** Leaderboard hiddenTeams */
+                hiddenTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+
                 /** Leaderboard progresses */
                 progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
 
@@ -1903,6 +1906,9 @@ export namespace isuxportal {
 
                 /** Leaderboard studentTeams. */
                 public studentTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+
+                /** Leaderboard hiddenTeams. */
+                public hiddenTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
 
                 /** Leaderboard progresses. */
                 public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
