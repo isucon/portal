@@ -21,7 +21,9 @@ class Team < ApplicationRecord
   before_validation :generate_student_status
 
   scope :active, -> { where(withdrawn: false, disqualified: false) }
+  scope :promoted, -> { Rails.application.config.x.contest.final ? where(final_participation: true) : where('1=1') }
   scope :visible, -> { where(is_hidden: false) }
+  scope :invisible, -> { where(is_hidden: true) }
 
   def active?
     !withdrawn? && !disqualified?
@@ -35,6 +37,10 @@ class Team < ApplicationRecord
     a = read_attribute(:student)
     return a unless a.nil?
     members_all_student?
+  end
+
+  def promoted?
+    Rails.application.config.x.contest.final ? final_participation : true
   end
 
   def update_student_status

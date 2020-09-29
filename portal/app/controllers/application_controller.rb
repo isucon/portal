@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method def current_contestant
     @current_contestant ||= session[:contestant_id]&.yield_self { |id| Contestant.active.find_by(id: id) }
   end
-  
+
   helper_method def current_team
     current_contestant&.team
   end
@@ -38,8 +38,14 @@ class ApplicationController < ActionController::Base
   end
 
   private def require_contestant
-    if !current_contestant
+    if !current_contestant && !github_login
       return redirect_to new_github_session_path(back_to: url_for(params.to_unsafe_h.merge(only_path: true)))
+    end
+  end
+
+  private def require_promoted_contestant
+    if !current_team || !current_team.promoted?
+      return render status: 403, plain: 'Forbidden'
     end
   end
 end

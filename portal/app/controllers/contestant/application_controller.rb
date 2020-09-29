@@ -1,5 +1,6 @@
 class Contestant::ApplicationController < ApplicationController
   before_action :require_contestant
+  before_action :require_promoted_contestant
   before_action :require_contest_started
 
   private def require_contest_started
