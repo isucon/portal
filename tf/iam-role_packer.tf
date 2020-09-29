@@ -117,6 +117,17 @@ data "aws_iam_policy_document" "packer" {
   statement {
     effect = "Allow"
     actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+    ]
+    resources = [
+      "arn:aws:s3:::isucon10-misc/actions_cache/*",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
       "ec2:CreateTags",
     ]
     resources = ["*"]
