@@ -1,5 +1,6 @@
 require 'isuxportal/resources/leaderboard_pb'
 require 'isuxportal/services/contestant/dashboard_pb'
+require 'isuxportal/services/audience/dashboard_pb'
 
 class UpdateContestantDashboardJob < ApplicationJob
   def perform(team: nil, frozen: false)
@@ -11,7 +12,9 @@ class UpdateContestantDashboardJob < ApplicationJob
 
 
     lb_resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.encode(Isuxportal::Proto::Services::Contestant::DashboardResponse.new(leaderboard: lb))
+    audience_lb_resp = Isuxportal::Proto::Services::Audience::DashboardResponse.encode(Isuxportal::Proto::Services::Audience::DashboardResponse.new(leaderboard: lb))
     Rails.cache.write("contestantdashboard4-unfrozen", lb_resp)
+    Rails.cache.write("audiencedashboard4-unfrozen", audience_lb_resp)
 
     if frozen
       teams = team ? [team] : Team.active
@@ -19,7 +22,7 @@ class UpdateContestantDashboardJob < ApplicationJob
         Rails.logger.info "frozen=true team_id=#{team.id} (#{i+1}/#{teams.size})"
         lb2 = lb.class.decode(lb_wire)
         team_lb = Contest.leaderboard(admin: false, team: team, progresses: false, solo: true)
-        
+
         lteams = lb2.teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.teams.to_a
         lgeneral_teams = lb2.general_teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.general_teams.to_a
         lstudent_teams = lb2.student_teams.to_a.reject{ |_| _.team.id == team.id } + team_lb.student_teams.to_a
@@ -41,10 +44,13 @@ class UpdateContestantDashboardJob < ApplicationJob
         Rails.cache.write("contestantdashboard4-t#{team.id}-pointer", "contestantdashboard4-t#{team.id}")
       end
 
+      admin_lb = Contest.leaderboard(admin: true, team: nil, progresses: false)
+      Rails.cache.write("adminleaderboard", admin_lb.class.encode(admin_lb))
     else
       Team.active.each_with_index do |team,i|
         Rails.cache.write("contestantdashboard4-t#{team.id}-pointer", "contestantdashboard4-unfrozen")
       end
+      Rails.cache.write("adminleaderboard", lb_wire)
     end
   end
 end
