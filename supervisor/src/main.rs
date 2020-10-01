@@ -45,7 +45,18 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
     .expect("CancelOwnedBenchmarkJob timed out")
     .expect("CancelOwnedBenchmarkJob failed");
 
+    let (shutdown_tx, mut shutdown_rx) = tokio::sync::oneshot::channel();
+    tokio::spawn(async {
+        let mut sigterm = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate()).expect("cannot handle signals");
+        sigterm.recv().await;
+        log::info!("received sigterm");
+        shutdown_tx.send(()).unwrap();
+    });
+
     loop {
+        if shutdown_rx.try_recv().is_ok() {
+            break;
+        }
         let job_req =
             tonic::Request::new(api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {
                 token: config.token.clone(),
@@ -80,6 +91,9 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
             }
             Ok(Err(err)) => {
                 log::error!("ReceiveBenchmarkJob(Error): {:?}", err);
+                if shutdown_rx.try_recv().is_ok() {
+                    break;
+                }
                 tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0))
                     .await;
             }
@@ -89,4 +103,5 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
             }
         }
     }
+    log::info!("bye bye!");
 }
