@@ -1,6 +1,7 @@
 package benchrun
 
 import (
+	"bufio"
 	"encoding/binary"
 	"errors"
 	"os"
@@ -27,7 +28,7 @@ func (rep *NullReporter) Report(result *isuxportalResources.BenchmarkResult) err
 
 // BoundReporter is a Reporter backed with a fd to isuxportal_supervisor.
 type BoundReporter struct {
-	io *os.File
+	io *bufio.Writer
 }
 
 // NewReporter returns a Reporter with a given ISUXBENCH_REPORT_FD.
@@ -51,8 +52,10 @@ func NewReporter(mustPresent bool) (Reporter, error) {
 	syscall.CloseOnExec(fd)
 	io := os.NewFile(uintptr(fd), "ISUXBENCH_REPORT_FD")
 
+	bufWriter := bufio.NewWriter(io)
+
 	rep := &BoundReporter{
-		io,
+		io: bufWriter,
 	}
 
 	return rep, nil
@@ -83,6 +86,9 @@ func (rep *BoundReporter) Report(result *isuxportalResources.BenchmarkResult) er
 		return err
 	}
 	if _, err := rep.io.Write(wire); err != nil {
+		return err
+	}
+	if err := rep.io.Flush(); err != nil {
 		return err
 	}
 
