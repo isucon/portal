@@ -6,15 +6,29 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
+
+@seed_jobs = Rails.root.join('db', 'seed-jobs.jsonl').read.each_line.map { |_| JSON.parse(_.chomp, symbolize_names: true) }.group_by { |_| _.fetch(:team_id) }
+@seed_results = Rails.root.join('db', 'seed-results.jsonl').read.each_line.map { |_| JSON.parse(_.chomp, symbolize_names: true) }.map { |_| [_.fetch(:benchmark_job_id), _] }.to_h
+@seed_team_ids = @seed_jobs.keys
+@seed_team_id_map = {}
+
 CONTEST_STARTS_AT = Time.at(Contest.to_pb.starts_at.seconds)
 CONTEST_ENDS_AT = Time.at(Contest.to_pb.ends_at.seconds)
 STUDENT_TEAMS = 100
-GENERAL_TEAMS = 200
+GENERAL_TEAMS = 600-STUDENT_TEAMS
 
 def generate_team_and_members(student: false)
+  team = Team.new(
+    name: Faker::Team.unique.name,
+    email_address: Faker::Internet.unique.email,
+    student: student,
+  )
+  team.save!
+
   contestants = 3.times.map do |i|
     login = Faker::Internet.unique.username
     Contestant.new(
+      team_id: team.id,
       name: Faker::Name.unique.name,
       github_login: login,
       github_id: login,
@@ -24,15 +38,9 @@ def generate_team_and_members(student: false)
       student: student,
     )
   end
-
-  team = Team.new(
-    name: Faker::Team.unique.name,
-    email_address: Faker::Internet.unique.email,
-    student: student,
-  )
-  team.members = contestants
   contestants.map(&:save!)
   team.leader_id = contestants.first.id
+  team.save!
 
   3.times do |i|
     team.contestant_instances << ContestantInstance.new(
@@ -45,7 +53,38 @@ def generate_team_and_members(student: false)
   end
 
   team.save!
+  @seed_team_id_map[team.id] = @seed_team_ids.shift
   team
+end
+
+def load_score(team)
+  @seed_jobs.fetch(@seed_team_id_map.fetch(team.id)).each do |seed_job|
+    job = BenchmarkJob.new(
+      team_id: team.id,
+      status: seed_job.fetch(:status),
+      target: team.contestant_instances.first,
+      instance_name: seed_job.fetch(:instance_name, 'default'),
+      started_at: seed_job[:started_at] ? CONTEST_STARTS_AT + seed_job.fetch(:started_at) : nil,
+      finished_at: seed_job[:finished_at] ? CONTEST_STARTS_AT + seed_job.fetch(:finished_at) : nil,
+      #created_at: CONTEST_STARTS_AT + t,
+      #updated_at: CONTEST_STARTS_AT + t + 60,
+    )
+    seed_result = @seed_results[seed_job.fetch(:id)]
+    if seed_result
+      job.benchmark_result = BenchmarkResult.new(
+        team_id: team.id,
+        score: seed_result.fetch(:score),
+        score_raw: seed_result.fetch(:score_raw),
+        score_deduction: seed_result.fetch(:score_deduction),
+        finished: seed_result.fetch(:finished),
+        passed: seed_result.fetch(:passed),
+        exit_status: seed_result.fetch(:exit_status),
+        exit_signal: seed_result.fetch(:exit_signal),
+        marked_at: CONTEST_STARTS_AT + seed_result.fetch(:marked_at),
+      )
+    end
+    job.save!
+  end
 end
 
 def generate_score(team)
@@ -100,7 +139,11 @@ q.close
 4.times.map do
   Thread.new do
     while t = q.pop
-      generate_score(t)
+      if @seed_team_id_map[t.id]
+        load_score(t)
+      else
+        generate_score(t)
+      end
     end
   end
 end.each(&:join)
