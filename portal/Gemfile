@@ -38,11 +38,12 @@ gem 'rack-timeout'
 gem 'newrelic_rpm'
 gem 'sigdump', require: 'sigdump/setup'
 
+gem 'faker'
+
 group :development, :test do
   gem 'rspec'
   gem 'rspec-rails',  '~> 4'
   gem 'factory_bot'
-  gem 'faker'
 end
 
 group :development do
