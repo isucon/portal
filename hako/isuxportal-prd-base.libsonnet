@@ -41,7 +41,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_TIMING_CONTEST_FREEZE: '2020-10-03T08:00:00Z',
       ISUXPORTAL_TIMING_CONTEST_END: '2020-10-03T09:00:00Z',
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
-      ISUXPORTAL_DOCS_URL: 'https://www.google.com',
+      ISUXPORTAL_DOCS_URL: 'https://hackmd.io/VD78z8syR16OTO25OtzW2A',
     },
     secrets: [
       secret('SECRET_KEY_BASE'),
