@@ -167,11 +167,11 @@ module Contest
     end
 
     query = benchmark_results
-      .select(:team_id, :score, :created_at, :marked_at)
+      .select(:team_id, :score, :passed, :created_at, :marked_at)
       .to_sql
     #t_b = Time.now; p leaderboard_time_querybuild: t_b-t_a; t_a = t_b
     teams = ApplicationRecord.connection_pool.with_connection do |conn|
-      conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first) 
+      conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first)
     end
     #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
     #teams = results
@@ -185,7 +185,8 @@ module Contest
       #rs.reduce(Time.at(0)) { |r,i| raise unless r <= i.marked_at; i.marked_at }
       #scores = rs.sort_by(&:marked_at).map do |r|
       best_score = nil
-      scores = rs.map do |(_tid, score, created_at, marked_at)|
+      scores = rs.map do |(_tid, score, passed, created_at, marked_at)|
+        score = 0 if passed == 0
         i = Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
           score: score,
           started_at: created_at, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
