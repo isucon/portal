@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get '/' => 'root#index'
   get '/teams' => 'root#index'
   get '/terms', to: redirect('http://isucon.net/archives/54800315.html')
-  get '/rules', to: redirect('http://isucon.net/archives/54753430.html')
+  get '/rules', to: redirect('/docs')
 
   get('/docs', to: redirect(Rails.application.config.x.docs_url), constraints: Module.new {
     def self.matches?(_request)
