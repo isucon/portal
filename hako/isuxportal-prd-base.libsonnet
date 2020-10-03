@@ -17,7 +17,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       RACK_ENV: 'production',
       RAILS_ENV: 'production',
       DATABASE_URL: 'mysql2://isuxportal@isuxportal-prd.cluster-cunslsivoetj.ap-northeast-1.rds.amazonaws.com/isuxportal?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci',
-      REDIS_URL: 'redis://isuxportal-prd.roqymc.ng.0001.apne1.cache.amazonaws.com:6379/0',
+      REDIS_URL: 'redis://isuxportal-prd-b.roqymc.ng.0001.apne1.cache.amazonaws.com:6379/0',
       SENTRY_DSN: 'https://89064bffbbde4a9c96fdbeaf68fc6664@o417264.ingest.sentry.io/5316249',
       RAILS_LOG_TO_STDOUT: '1',
       RAILS_SERVE_STATIC_FILES: '1',
@@ -25,7 +25,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       DEFAULT_URL_HOST: 'portal.isucon.net',
       ISUXPORTAL_FINAL: '1',
       ISUXPORTAL_DISCORD_SERVER_ID: '729982721924792320', 
-      ISUXPORTAL_DISCORD_CHANNEL_ID: '729982721929117797', // qualify-announcements
+      ISUXPORTAL_DISCORD_CHANNEL_ID: '729982722138963992', // final-announcements
       ISUXPORTAL_DISCORD_ADMIN_ROLE_ID: '729982721924792329',
       ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID: '729982721924792323',
       ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID: '729982721924792322',
