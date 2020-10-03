@@ -19,7 +19,7 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
 
       if !job.benchmark_result || marked_at > job.benchmark_result.marked_at
         job.submit_result_from_pb!(request.result)
-        if job.finished?
+        if job.closed?
           BenchmarkCompletionJob.perform_later(job)
         end
       end
@@ -49,7 +49,7 @@ class BenchmarkReportService < Isuxportal::Proto::Services::Bench::BenchmarkRepo
       end
       job
     end
-    BenchmarkCompletionJob.perform_later(j) if j.finished?
+    BenchmarkCompletionJob.perform_later(j) if j.closed?
 
     Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse.new(
     )
