@@ -78,7 +78,7 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
         <div className="column is-12">
           <section className="py-5">
             <p className="title"> Leaderboard </p>
-            <Leaderboard leaderboard={dashboard?.leaderboard!} teamPins={teamPinsMap} onPin={teamPins.set} />
+            <Leaderboard leaderboard={dashboard?.leaderboard!} teamPins={teamPinsMap} onPin={teamPins.set} enableHiddenTeamsMode={true} />
           </section>
         </div>
       </div>
