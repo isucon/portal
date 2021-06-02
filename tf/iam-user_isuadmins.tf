@@ -16,7 +16,7 @@ resource "aws_iam_user" "isuadmin-users" {
 
 resource "aws_iam_user_policy_attachment" "isuadmin-users" {
   for_each   = local.isuadmin_users
-  user       = each.value
+  user       = aws_iam_user.isuadmin-users[each.value].name
   policy_arn = aws_iam_policy.isuadmin-user.arn
 }
 
