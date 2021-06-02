@@ -31,7 +31,8 @@ data "aws_iam_policy_document" "isuadmin-user" {
     actions = [
       "iam:GetAccountPasswordPolicy",
       "iam:GetAccountSummary",
-      "iam:ListVirtualMFADevices"
+      "iam:ListVirtualMFADevices",
+      "iam:ListUsers",
     ]
     resources = ["*"]
   }
