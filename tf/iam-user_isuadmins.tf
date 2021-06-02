@@ -9,9 +9,6 @@ resource "aws_iam_user" "isuadmin-users" {
 
   name                 = each.value
   permissions_boundary = aws_iam_policy.IsuAdmin.arn
-  tags = {
-    Project = "isucon10"
-  }
 }
 
 resource "aws_iam_user_policy_attachment" "isuadmin-users" {
