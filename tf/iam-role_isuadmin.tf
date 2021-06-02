@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "isuadmin-trust" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::516315029474:root", // SELF
+        "arn:aws:iam::245943874622:root", // SELF
         "arn:aws:iam::789035092620:root", // cookpad2
       ]
     }
