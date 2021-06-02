@@ -4,6 +4,7 @@ locals {
     "rosylilly",
     "temma",
     "yasuhiro.fujita",
+    "sapphi_red",
   ])
 }
 
