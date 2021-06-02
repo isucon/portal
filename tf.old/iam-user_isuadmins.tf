@@ -1,5 +1,6 @@
 locals {
   isuadmin_users = toset([
+    "whywaita",
   ])
 }
 

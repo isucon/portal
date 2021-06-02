@@ -14,6 +14,8 @@ data "aws_iam_policy_document" "isuadmin-trust" {
       identifiers = [
         "arn:aws:iam::516315029474:root", // SELF
         "arn:aws:iam::789035092620:root", // cookpad2
+        "arn:aws:iam::341857463381:root", // sorah
+        "arn:aws:iam::625101675473:root", // yuya_mizuki
       ]
     }
   }
@@ -59,7 +61,7 @@ data "aws_iam_policy_document" "isuadmin" {
       variable = "iam:PermissionsBoundary"
 
       # Cannot use aws_iam_policy.*.arn because of cyclic
-      values = ["arn:aws:iam::245943874622:policy/IsuAdmin"]
+      values = ["arn:aws:iam::516315029474:policy/IsuAdmin"]
     }
   }
 
@@ -74,7 +76,7 @@ data "aws_iam_policy_document" "isuadmin" {
 
     not_resources = [
       aws_iam_role.IsuAdmin.arn,
-      "arn:aws:iam::245943874622:role/Admin",
+      "arn:aws:iam::516315029474:role/OrganizationAccountAccessRole",
     ]
   }
 
@@ -99,8 +101,8 @@ data "aws_iam_policy_document" "isuadmin" {
       "s3:PutObject*",
     ]
     resources = [
-      "arn:aws:s3:::isucon11-cloudtrail",
-      "arn:aws:s3:::isucon11-cloudtrail/*",
+      "arn:aws:s3:::isucon10-cloudtrail",
+      "arn:aws:s3:::isucon10-cloudtrail/*",
     ]
   }
 }
