@@ -1,6 +1,7 @@
 locals {
   isuadmin_users = toset([
     "takonomura",
+    "rosylilly",
     "temma",
     "yasuhiro.fujita",
   ])
