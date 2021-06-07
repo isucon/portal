@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_vpc_dhcp_options" "main" {
-  domain_name         = "aws.x.isucon.dev"
+  domain_name         = "aws.xi.isucon.dev"
   domain_name_servers = ["AmazonProvidedDNS"]
   ntp_servers         = ["169.254.169.123"] # Amazon Time Sync
 }
