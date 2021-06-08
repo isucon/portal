@@ -149,6 +149,7 @@ Rails.application.configure do
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
   config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
+  config.x.terms_url = ENV.fetch('ISUXPORTAL_TERMS_URL', 'https://isucon.net/archives/54800315.html')
   config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
 
   config.x.webpush.vapid_key = ENV.fetch('ISUXPORTAL_VAPID_PRIVATE_KEY').yield_self { |_| Webpush::VapidKey.from_pem(JSON.parse(_)) }
