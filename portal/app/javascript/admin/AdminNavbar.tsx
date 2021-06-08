@@ -26,7 +26,7 @@ export class AdminNavbar extends React.Component<Props, State> {
         <div className="container">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/contestant">
-              ISUCON10 Admin
+              ISUCON11 Admin
             </Link>
           </div>
           <div className="navbar-menu is-active">

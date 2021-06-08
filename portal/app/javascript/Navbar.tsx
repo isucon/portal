@@ -26,7 +26,7 @@ export class Navbar extends React.Component<Props, State> {
         <div className="container">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
-              ISUCON10 Portal
+              ISUCON11 Portal
             </Link>
           </div>
           <div className="navbar-menu is-active">

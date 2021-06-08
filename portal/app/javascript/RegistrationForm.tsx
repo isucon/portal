@@ -106,7 +106,7 @@ export class RegistrationForm extends React.Component<Props, State> {
           <h3 className="title is-3">注意事項</h3>
           <ul>
             <li>
-              ISUCON10 への参加には{" "}
+              ISUCON11 への参加には{" "}
               <a href="/terms" target="_blank">
                 参加規約
               </a>{" "}
