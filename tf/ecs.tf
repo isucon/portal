@@ -1,4 +1,4 @@
-resource "aws_ecs_cluster" "fargate" {
-  name               = "isuxi-fargate"
+resource "aws_ecs_cluster" "isuportal-fargate" {
+  name               = "isuportal-fargate"
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 }

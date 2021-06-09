@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "isuxiportal" {
-  name = "isuxiportal"
+resource "aws_ecr_repository" "isuportal" {
+  name = "isuportal"
 }
 
