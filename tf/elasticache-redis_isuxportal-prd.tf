@@ -8,7 +8,7 @@ resource "aws_elasticache_replication_group" "isuxportal-prd" {
   parameter_group_name          = "default.redis5.0"
 
   automatic_failover_enabled = true
-  subnet_group_name          = aws_elasticache_subnet_group.isux.name
+  subnet_group_name          = aws_elasticache_subnet_group.isuxportal.name
 
   security_group_ids = [
     aws_security_group.default.id,
