@@ -1,6 +1,5 @@
 resource "aws_s3_bucket" "isucon-public" {
   bucket = "isucon-public"
-  region = "ap-northeast-1"
 }
 
 resource "aws_s3_bucket_policy" "isucon-public" {
@@ -17,7 +16,7 @@ data "aws_iam_policy_document" "isucon-public" {
     }
     actions = ["s3:GetObject"]
     resources = [
-      "arn:aws:s3:::${aws_s3_bucket.isucon-public}/*",
+      "arn:aws:s3:::${aws_s3_bucket.isucon-public.id}/*",
     ]
     condition {
       test     = "Bool"
@@ -34,7 +33,7 @@ data "aws_iam_policy_document" "isucon-public" {
     }
     actions = ["s3:ListBucket"]
     resources = [
-      "arn:aws:s3:::${aws_s3_bucket.isucon-public}",
+      "arn:aws:s3:::${aws_s3_bucket.isucon-public.id}",
     ]
     condition {
       test     = "StringLike"
