@@ -52,6 +52,7 @@ data "aws_iam_policy_document" "isuadmin" {
   }
 
   statement {
+    effect = "Allow"
     actions = [
       "iam:AttachRolePolicy",
       "iam:CreateRole",
@@ -63,6 +64,9 @@ data "aws_iam_policy_document" "isuadmin" {
       "iam:PutUserPolicy",
       "iam:AttachUserPolicy",
       "iam:DeleteUserPolicy",
+
+      "iam:PutRolePermissionsBoundary",
+      "iam:PutUserPermissionsBoundary",
     ]
 
     resources = ["*"]
@@ -84,9 +88,11 @@ data "aws_iam_policy_document" "isuadmin" {
       "iam:Detach*",
       "iam:Attach*",
       "iam:Create*",
+      "iam:Put*",
+      "iam:Remove*",
     ]
 
-    not_resources = [
+    resources = [
       aws_iam_role.IsuAdmin.arn,
       "arn:aws:iam::245943874622:role/Admin",
       "arn:aws:iam::245943874622:policy/IsuAdmin", # Cannot use aws_iam_policy.*.arn because of cyclic
