@@ -29,7 +29,7 @@ export class AudienceApp extends React.Component<Props, State> {
       <BrowserRouter>
         <Navbar session={this.props.session} client={this.props.client} />
 
-        <div className="container mt-5">
+        <div className="container px-5 py-5">
           <Switch>
             <Route
               exact

@@ -39,7 +39,7 @@ export class AdminApp extends React.Component<Props, State> {
       <BrowserRouter>
         <AdminNavbar session={this.props.session} client={this.state.adminClient} />
 
-        <div className="container mt-5">
+        <div className="container px-5 py-5">
           <div className="columns">
             <div className="column is-3">
               <aside className="menu">
