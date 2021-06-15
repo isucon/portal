@@ -5,6 +5,7 @@ locals {
     "temma",
     "yasuhiro.fujita",
     "sapphi_red",
+    "kanata",
     "mahito",
   ])
 }
