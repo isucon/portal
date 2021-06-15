@@ -3,12 +3,6 @@ variable aws_account_canonical_id {}
 
 resource "aws_s3_bucket" "isucon-logs" {
   bucket = "isucon-logs"
-
-  grant {
-    id          = "var.aws_account_canonical_id"
-    type        = "CanonicalUser"
-    permissions = ["FULL_CONTROL"]
-  }
 }
 
 resource "aws_s3_bucket_policy" "isucon-logs" {
