@@ -26,7 +26,7 @@ export class Navbar extends React.Component<Props, State> {
         <div className="container">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
-              <img src="/isucon11_logo.png" />
+              <img src="/isucon11_logo_white.png" />
             </Link>
           </div>
           <div className="navbar-menu is-active">

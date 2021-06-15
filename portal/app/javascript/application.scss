@@ -152,6 +152,10 @@ body.isux-session-guest .isux-visibility-guest {
   }
 }
 
+.isux-landing-logo-wrapper {
+  max-width: 400px;
+}
+
 .isux-registration-login-card {
   @media screen and (max-width: 768px) {
     .media-content {
