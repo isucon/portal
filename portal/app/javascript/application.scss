@@ -152,6 +152,14 @@ body.isux-session-guest .isux-visibility-guest {
   }
 }
 
+.isux-registration-login-card {
+  @media screen and (max-width: 768px) {
+    .media-content {
+      overflow-y: hidden;
+    }
+  }
+}
+
 .isux-scoregraph {
   text-align: center;
   width: 100%;

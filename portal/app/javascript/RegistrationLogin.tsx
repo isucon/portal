@@ -26,8 +26,8 @@ export class RegistrationLogin extends React.Component<Props, State> {
           に同意の上、それぞれのアカウントでログインをお願いします。
         </p>
         <div className="columns mt-1">
-          <div className="column is-4">{this.renderGithubLogin()}</div>
-          <div className="column is-4">{this.renderDiscordLogin()}</div>
+          <div className="column is-6-tablet is-4-desktop">{this.renderGithubLogin()}</div>
+          <div className="column is-6-tablet is-4-desktop">{this.renderDiscordLogin()}</div>
         </div>
       </section>
     );
@@ -44,7 +44,7 @@ export class RegistrationLogin extends React.Component<Props, State> {
   public renderLogin(title: string, loginUrl: string, username?: string, avatarUrl?: string) {
     if (username && username !== "" && avatarUrl) {
       return (
-        <div className="card">
+        <div className="card isux-registration-login-card">
           <div className="card-content">
             <div className="media">
               <div className="media-left">
@@ -53,11 +53,13 @@ export class RegistrationLogin extends React.Component<Props, State> {
                 </figure>
               </div>
               <div className="media-content">
-                <p className="title is-5">{title}</p>
-                <p className="subtitle is-6">{username}</p>
+                <div className="content">
+                  <p className="title is-5">{title}</p>
+                  <p className="subtitle is-6">{username}</p>
+                </div>
               </div>
-              <div className="level-right">
-                <a href={loginUrl} className="button is-light level-item">
+              <div className="media-right">
+                <a href={loginUrl} className="button is-light">
                   変更
                 </a>
               </div>
