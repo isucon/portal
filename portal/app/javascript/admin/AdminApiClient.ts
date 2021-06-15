@@ -61,7 +61,7 @@ export class AdminApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async getBenchmarkJob(id: number) {
+  public async getBenchmarkJob(id: number | string) {
     const klass = isuxportal.proto.services.admin.GetBenchmarkJobResponse;
     const resp = await this.request(
       `${this.baseUrl}/api/admin/benchmark_jobs/${encodeURIComponent(id.toString())}`,
