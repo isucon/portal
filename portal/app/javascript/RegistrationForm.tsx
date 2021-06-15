@@ -102,7 +102,7 @@ export class RegistrationForm extends React.Component<Props, State> {
   public render() {
     return (
       <>
-        <section className="mt-2">
+        <section className="mt-6">
           <h3 className="title is-3">注意事項</h3>
           <ul>
             <li>
@@ -137,7 +137,7 @@ export class RegistrationForm extends React.Component<Props, State> {
             </li>
           </ul>
         </section>
-        <section className="mt-2">
+        <section className="mt-6">
           <h3 className="title is-3">{this.isEditing() ? "編集" : "詳細の入力"}</h3>
           <form onSubmit={this.onSubmit.bind(this)}>
             {this.renderTeamFormFields()}

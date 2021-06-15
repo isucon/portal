@@ -18,7 +18,7 @@ export class RegistrationLogin extends React.Component<Props, State> {
 
   public render() {
     return (
-      <section className="mt-2">
+      <section className="mt-4">
         <h3 className="title is-3">ログイン</h3>
         <p>
           ISUCON11 の参加登録には、<a href="https://github.com">GitHub</a> と <a href="https://discord.com">Discord</a>{" "}
