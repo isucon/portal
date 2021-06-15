@@ -17,14 +17,16 @@ export interface Props {
 export const ContestantNotificationSubscriptionPanel: React.FC<Props> = (props: Props) => {
   const [sub, setSub] = React.useState<PushSubscription | null | undefined>(undefined);
 
-  if (!('serviceWorker' in navigator)) return <></>;
-  if (!('Notification' in window)) return <></>;
+  if (!("serviceWorker" in navigator)) return <></>;
+  if (!("Notification" in window)) return <></>;
 
   const sw = props.serviceWorker;
 
   React.useEffect(() => {
     if (!sw) return;
-    sw.pushManager.getSubscription().then((s) => setSub(s))
+    sw.pushManager
+      .getSubscription()
+      .then((s) => setSub(s))
       .catch((e) => console.warn("getSubscription failed:", e));
   }, [sw]);
 
@@ -48,16 +50,20 @@ const ContestantNotificationSubscriptionPanelInner: React.FC<InnerProps> = (prop
       try {
         await props.client.unsubscribeNotification(pushSubscription);
       } catch (e) {
-        console.error("Unsubscribe API failed", e)
+        console.error("Unsubscribe API failed", e);
       }
       pushSubscription.unsubscribe();
       props.setLocalNotificationEnabled(false);
       setPushSubscription(null);
     };
 
-    return <button className="button is-small" onClick={doUnsubscribe}>
-      <span className="material-icons" aria-label={"通知を無効にする"}>notifications_active</span>
-    </button>;
+    return (
+      <button className="button is-small" onClick={doUnsubscribe}>
+        <span className="material-icons" aria-label={"通知を無効にする"}>
+          notifications_active
+        </span>
+      </button>
+    );
   } else {
     const doSubscribe = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -89,9 +95,13 @@ const ContestantNotificationSubscriptionPanelInner: React.FC<InnerProps> = (prop
       }
     };
 
-    return <button className="button is-small" onClick={doSubscribe}>
-      通知を有効にする
-      <span className="material-icons" aria-hidden={true}>notifications_none</span>
-    </button>
+    return (
+      <button className="button is-small" onClick={doSubscribe}>
+        通知を有効にする
+        <span className="material-icons" aria-hidden={true}>
+          notifications_none
+        </span>
+      </button>
+    );
   }
-}
+};

@@ -16,7 +16,13 @@ export const ContestantBenchmarkJobForm: React.FC<Props> = (props: Props) => {
   const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const { register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     targetId: string;
   }>({
     defaultValues: {
@@ -31,7 +37,7 @@ export const ContestantBenchmarkJobForm: React.FC<Props> = (props: Props) => {
       });
       try {
         window.localStorage.setItem("isuxportal-last-target-id", data.targetId);
-      } catch(e) {
+      } catch (e) {
         console.warn(e);
       }
       setRedirect(
@@ -56,7 +62,7 @@ export const ContestantBenchmarkJobForm: React.FC<Props> = (props: Props) => {
           <div className="field has-addons">
             <div className="control is-expanded">
               <div className="select is-fullwidth">
-                <select name="targetId" ref={register}>
+                <select {...register("targetId")}>
                   {(props.session.contestantInstances || []).map((ci) => {
                     return (
                       <option key={ci.id!.toString()} value={ci.id!.toString()}>

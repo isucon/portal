@@ -102,14 +102,12 @@ const onLeaderboardUpdate = (
   //console.log(prevScores);
 
   const teams = leaderboard
-    .teams!.map(
-      (item, idx): TeamStanding => {
-        const prev = prevTeams.get(item.team!.id);
-        const lastScore = prev?.latestScore?.score!;
-        const lastBestScore = prev?.bestScore?.score!;
-        return { position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore, lastBestScore, item };
-      }
-    )
+    .teams!.map((item, idx): TeamStanding => {
+      const prev = prevTeams.get(item.team!.id);
+      const lastScore = prev?.latestScore?.score!;
+      const lastBestScore = prev?.bestScore?.score!;
+      return { position: idx + 1, lastPosition: prevRanks.get(item.team!.id!), lastScore, lastBestScore, item };
+    })
     .filter((team) => team.item.latestScore && team.lastScore !== undefined)
     .filter(
       (team) =>

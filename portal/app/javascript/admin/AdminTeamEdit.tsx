@@ -23,7 +23,13 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
   const history = useHistory();
   const [requestError, setRequestError] = React.useState<Error | null>(null);
   const [requesting, setRequesting] = React.useState<boolean>(false);
-  const { register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     team: isuxportal.proto.resources.ITeam;
     contestants: isuxportal.proto.resources.IContestant[];
   }>({
@@ -51,7 +57,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
         </h3>
       </section>
       <form onSubmit={onSubmit}>
-        <input type="hidden" name="team.id" value={props.team.id!.toString()} ref={register} />
+        <input type="hidden" {...register("team.id")} value={props.team.id!.toString()} />
         <div className="card mt-5">
           <div className="card-content">
             <div className="field">
@@ -63,9 +69,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                   className="input"
                   type="text"
                   required={true}
-                  name="team.name"
+                  {...register("team.name")}
                   id={`AdminTeamEdit-${props.team.id}-name`}
-                  ref={register}
                 />
               </div>
             </div>
@@ -76,12 +81,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
               </label>
               <div className="control">
                 <div className="select">
-                  <select
-                    required={true}
-                    name="team.leaderId"
-                    id={`AdminTeamEdit-${props.team.id}-leaderId`}
-                    ref={register}
-                  >
+                  <select required={true} {...register("team.leaderId")} id={`AdminTeamEdit-${props.team.id}-leaderId`}>
                     {props.team.members!.map((v) => (
                       <option key={v.id!.toString()} value={v.id!.toString()}>
                         {v.id!.toString()}: {v.name}
@@ -101,9 +101,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                   className="input"
                   type="email"
                   required={true}
-                  name="team.detail.emailAddress"
+                  {...register("team.detail.emailAddress")}
                   id={`AdminTeamEdit-${props.team.id}-emailAddress`}
-                  ref={register}
                 />
               </div>
             </div>
@@ -111,7 +110,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
             <div className="field">
               <div className="control">
                 <label className="checkbox">
-                  <input type="checkbox" name="team.hidden" ref={register} />
+                  <input type="checkbox" {...register("team.hidden")} />
                   Hidden
                 </label>
               </div>
@@ -120,7 +119,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
             <div className="field">
               <div className="control">
                 <label className="checkbox">
-                  <input type="checkbox" name="team.finalParticipation" ref={register} />
+                  <input type="checkbox" {...register("team.finalParticipation")} />
                   Final Participation
                 </label>
               </div>
@@ -129,7 +128,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
             <div className="field">
               <div className="control">
                 <label className="checkbox">
-                  <input type="checkbox" name="team.withdrawn" ref={register} />
+                  <input type="checkbox" {...register("team.withdrawn")} />
                   Withdrawn
                 </label>
               </div>
@@ -138,7 +137,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
             <div className="field">
               <div className="control">
                 <label className="checkbox">
-                  <input type="checkbox" name="team.disqualified" ref={register} />
+                  <input type="checkbox" {...register("team.disqualified")} />
                   Disqualified
                 </label>
               </div>
@@ -149,7 +148,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
         {props.team.members!.map((member, i) => {
           return (
             <div className="card mt-5" key={member.id!.toString()}>
-              <input type="hidden" name={`contestants[${i}].id`} value={member.id!.toString()} ref={register} />
+              <input type="hidden" name={`contestants[${i}].id`} value={member.id!.toString()} />
               <div className="card-content">
                 <div className="field">
                   <label className="label" htmlFor={`AdminTeamEdit-${props.team.id}-${member.id}-name`}>
@@ -162,7 +161,6 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       required={true}
                       name={`contestants[${i}].name`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-name`}
-                      ref={register}
                     />
                   </div>
                 </div>
@@ -177,7 +175,6 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       required={true}
                       name={`contestants[${i}].contestantDetail.githubLogin`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubLogin`}
-                      ref={register}
                     />
                   </div>
                 </div>
@@ -192,7 +189,6 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       required={true}
                       name={`contestants[${i}].contestantDetail.githubId`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubid`}
-                      ref={register}
                     />
                   </div>
                 </div>
@@ -207,7 +203,6 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       required={true}
                       name={`contestants[${i}].contestantDetail.discordTag`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordTag`}
-                      ref={register}
                     />
                   </div>
                 </div>
@@ -222,14 +217,13 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       required={true}
                       name={`contestants[${i}].contestantDetail.discordId`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordId`}
-                      ref={register}
                     />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control">
                     <label className="checkbox">
-                      <input type="checkbox" name={`contestants[${i}].contestantDetail.isStudent`} ref={register} />
+                      <input type="checkbox" name={`contestants[${i}].contestantDetail.isStudent`} />
                       Student
                     </label>
                   </div>
