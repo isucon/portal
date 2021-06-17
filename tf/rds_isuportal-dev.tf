@@ -1,10 +1,7 @@
-variable mysql_master_username {}
-variable mysql_master_password {}
-
 resource "aws_rds_cluster" "isuxportal-dev" {
   cluster_identifier              = "isuxportal-dev"
-  master_username                 = var.mysql_master_username
-  master_password                 = var.mysql_master_password
+  master_username                 = "root"
+  master_password                 = random_password.password.result
   backup_retention_period         = 20
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora57.name
   db_subnet_group_name            = aws_db_subnet_group.isuxportal.name
@@ -22,12 +19,22 @@ resource "aws_rds_cluster" "isuxportal-dev" {
   ]
 
   iam_roles = [
-    "arn:aws:iam::${var.aws_account_id}:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+    aws_iam_service_linked_role.AWSServiceRoleForRDS.arn,
   ]
 
   enabled_cloudwatch_logs_exports = [
     "slowquery",
   ]
+}
+
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
+}
+
+resource "aws_iam_service_linked_role" "AWSServiceRoleForRDS" {
+  aws_service_name = "rds.amazonaws.com"
 }
 
 
