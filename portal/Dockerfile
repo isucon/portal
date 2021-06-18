@@ -14,6 +14,8 @@ RUN NODE_ENV=production node_modules/.bin/webpack
 # https://github.com/sorah-rbpkg/dockerfiles
 FROM sorah/ruby:2.7-dev as builder
 
+RUN rm /etc/apt/sources.list.d/sorah-ruby.list
+
 RUN apt-get update \
     && apt-get install -y libmysqlclient-dev libsodium-dev git-core \
     && rm -rf /var/lib/apt/lists/*
@@ -26,6 +28,8 @@ ENV BUNDLE_FORCE_RUBY_PLATFORM 1
 RUN bundle install --path /gems --jobs 2 --deployment --without development:test
 
 FROM sorah/ruby:2.7
+
+RUN rm /etc/apt/sources.list.d/sorah-ruby.list
 
 RUN apt-get update \
     && apt-get install -y libmysqlclient21 libsodium23 libsodium-dev \
@@ -43,4 +47,3 @@ ENV RAILS_SERVE_STATIC_FILES 1
 ENV RAILS_SERVE_STATIC_FILES_CC public,max-age=31536000
 ENV PORT 3000
 CMD ["bundle", "exec", "puma", "-C", "/etc/puma.rb"]
-
