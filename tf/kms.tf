@@ -7,4 +7,3 @@ resource "aws_kms_alias" "isuxportal" {
   name          = "alias/isuxportal"
   target_key_id = aws_kms_key.isuxportal.key_id
 }
-
