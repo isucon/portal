@@ -146,9 +146,10 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
         </div>
 
         {props.team.members!.map((member, i) => {
+          const s = `contestants.${i}.id`;
           return (
             <div className="card mt-5" key={member.id!.toString()}>
-              <input type="hidden" name={`contestants[${i}].id`} value={member.id!.toString()} />
+              <input type="hidden" value={member.id!.toString()} {...register(`contestants.${i}.id` as const)} />
               <div className="card-content">
                 <div className="field">
                   <label className="label" htmlFor={`AdminTeamEdit-${props.team.id}-${member.id}-name`}>
@@ -159,8 +160,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       className="input"
                       type="text"
                       required={true}
-                      name={`contestants[${i}].name`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-name`}
+                      {...register(`contestants.${i}.name` as const)}
                     />
                   </div>
                 </div>
@@ -173,8 +174,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       className="input"
                       type="text"
                       required={true}
-                      name={`contestants[${i}].contestantDetail.githubLogin`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubLogin`}
+                      {...register(`contestants.${i}.contestantDetail.githubLogin` as const)}
                     />
                   </div>
                 </div>
@@ -187,8 +188,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       className="input"
                       type="text"
                       required={true}
-                      name={`contestants[${i}].contestantDetail.githubId`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubid`}
+                      {...register(`contestants.${i}.contestantDetail.githubId` as const)}
                     />
                   </div>
                 </div>
@@ -201,8 +202,8 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       className="input"
                       type="text"
                       required={true}
-                      name={`contestants[${i}].contestantDetail.discordTag`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordTag`}
+                      {...register(`contestants.${i}.contestantDetail.discordTag` as const)}
                     />
                   </div>
                 </div>
@@ -215,15 +216,15 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       className="input"
                       type="text"
                       required={true}
-                      name={`contestants[${i}].contestantDetail.discordId`}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordId`}
+                      {...register(`contestants.${i}.contestantDetail.discordId` as const)}
                     />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control">
                     <label className="checkbox">
-                      <input type="checkbox" name={`contestants[${i}].contestantDetail.isStudent`} />
+                      <input type="checkbox" {...register(`contestants.${i}.contestantDetail.isStudent` as const)} />
                       Student
                     </label>
                   </div>
