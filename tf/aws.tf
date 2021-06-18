@@ -1,5 +1,3 @@
-variable aws_account_id {}
-
 provider "aws" {
   region              = "ap-northeast-1"
   allowed_account_ids = ["245943874622"]

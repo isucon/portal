@@ -1,7 +1,7 @@
 resource "aws_rds_cluster" "isuxportal-dev" {
   cluster_identifier              = "isuxportal-dev"
   master_username                 = "root"
-  master_password                 = random_password.password.result
+  master_password                 = random_password.isuxportal-rds-dev.result
   backup_retention_period         = 20
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.aurora57.name
   db_subnet_group_name            = aws_db_subnet_group.isuxportal.name
@@ -27,7 +27,7 @@ resource "aws_rds_cluster" "isuxportal-dev" {
   ]
 }
 
-resource "random_password" "password" {
+resource "random_password" "isuxportal-rds-dev" {
   length           = 16
   special          = true
   override_special = "_%@"
@@ -36,5 +36,4 @@ resource "random_password" "password" {
 resource "aws_iam_service_linked_role" "AWSServiceRoleForRDS" {
   aws_service_name = "rds.amazonaws.com"
 }
-
 
