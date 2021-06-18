@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "isucon-logs" {
-  bucket = "isucon-logs"
+  bucket = "isucon11-logs"
 
   grant {
    id          = "809c053be6795100a6fb06810c8a3ddf944f086e209cddcf82102fc3174e869b"
@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "isucon-logs" {
 }
 
 resource "aws_s3_bucket_policy" "isucon-logs" {
-  bucket = "isucon-logs"
+  bucket = aws_s3_bucket.isucon-logs.id
   policy = data.aws_iam_policy_document.allow-putting-elb-access-logs.json
 }
 
