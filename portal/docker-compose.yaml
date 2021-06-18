@@ -42,6 +42,7 @@ services:
 
   mysql:
     image: mysql:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     environment:
       MYSQL_ROOT_PASSWORD: passsss
       MYSQL_USER: isuxportal_dev
