@@ -1,5 +1,5 @@
-local utils = import 'lib/utils.libsonnet';
 local frontEnvoy = import 'lib/front-envoy.libsonnet';
+local utils = import 'lib/utils.libsonnet';
 
 local base = import './isuxportal-prd-base.libsonnet';
 
@@ -21,7 +21,7 @@ base {
       GRIFFIN_CONNECTION_MIN: '2',
       GRIFFIN_CONNECTION_MAX: '8',
       THREADS_NUM: '60',
-    }
+    },
   },
   additional_containers: {
     front: frontEnvoy.container('isuxportal-prd-grpc-fargate', '4000') {

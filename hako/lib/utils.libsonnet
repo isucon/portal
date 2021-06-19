@@ -9,8 +9,8 @@
 
   ecsSchedulerBase:: {
     type: 'ecs',
-    region: "ap-northeast-1",
-    cluster: error "cluster must be specified",
+    region: 'ap-northeast-1',
+    cluster: error 'cluster must be specified',
     // role: 'aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS',
     execution_role_arn: $.iamRole('EcsTaskExecution'),
     desired_count: 1,
@@ -32,8 +32,8 @@
       awsvpc_configuration: {
         subnets: $.privateSubnets,
         security_groups: [
-          'sg-01e55b291deea585e', // default
-          'sg-073e8286681e972b0', // http
+          'sg-01e55b291deea585e',  // default
+          'sg-073e8286681e972b0',  // http
         ],
         assign_public_ip: 'DISABLED',
       },
@@ -41,59 +41,59 @@
   },
 
   albInternetFacing:: {
-      vpc_id: $.vpcId,
-      scheme: 'internet-facing',
-      health_check_path: '/site/sha',
-      listeners: [
-        {
-          port: 80,
-          protocol: 'HTTP',
-        },
-        {
-          port: 443,
-          protocol: 'HTTPS',
-          certificate_arn: $.acmCertificateWildDev,
-          ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
-        },
-      ],
-      subnets: $.publicSubnets,
-      security_groups: $.elbSecurityGroups,
-      tags: {
-        Project: 'isucon10',
+    vpc_id: $.vpcId,
+    scheme: 'internet-facing',
+    health_check_path: '/site/sha',
+    listeners: [
+      {
+        port: 80,
+        protocol: 'HTTP',
       },
-      load_balancer_attributes: {
-        'access_logs.s3.enabled': 'true',
-        'access_logs.s3.bucket': 'isucon10-logs',
-        'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
-        'idle_timeout.timeout_seconds': '60',
+      {
+        port: 443,
+        protocol: 'HTTPS',
+        certificate_arn: $.acmCertificateWildDev,
+        ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
       },
-      target_group_attributes: {
-        'deregistration_delay.timeout_seconds': '20',
-      },
+    ],
+    subnets: $.publicSubnets,
+    security_groups: $.elbSecurityGroups,
+    tags: {
+      Project: 'isucon10',
     },
+    load_balancer_attributes: {
+      'access_logs.s3.enabled': 'true',
+      'access_logs.s3.bucket': 'isucon10-logs',
+      'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
+      'idle_timeout.timeout_seconds': '60',
+    },
+    target_group_attributes: {
+      'deregistration_delay.timeout_seconds': '20',
+    },
+  },
   grpcNlbInternetFacing:: {
-      vpc_id: $.vpcId,
-      type: 'network',
-      scheme: 'internet-facing',
-      listeners: [
-        {
-          port: 443,
-          protocol: 'TLS',
-          certificate_arn: $.acmCertificateWildDev,
-          ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
-        },
-      ],
-      container_name: 'front',
-      container_port: 8000,
-      subnets: $.publicSubnets,
-      security_groups: $.elbSecurityGroups,
-      tags: {
-        Project: 'isucon10',
+    vpc_id: $.vpcId,
+    type: 'network',
+    scheme: 'internet-facing',
+    listeners: [
+      {
+        port: 443,
+        protocol: 'TLS',
+        certificate_arn: $.acmCertificateWildDev,
+        ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
       },
-      target_group_attributes: {
-        'deregistration_delay.timeout_seconds': '20',
-      },
+    ],
+    container_name: 'front',
+    container_port: 8000,
+    subnets: $.publicSubnets,
+    security_groups: $.elbSecurityGroups,
+    tags: {
+      Project: 'isucon10',
     },
+    target_group_attributes: {
+      'deregistration_delay.timeout_seconds': '20',
+    },
+  },
 
   //serviceDiscovery(container_name, name, port=80):: {
   //  container_name: container_name,
@@ -135,6 +135,4 @@
   createLogGroups():: {
     type: 'create_aws_cloud_watch_logs_log_group',
   },
-
-
 }
