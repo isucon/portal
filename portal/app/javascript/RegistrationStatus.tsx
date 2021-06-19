@@ -60,11 +60,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
         <div className="mt-3">
           <div className="columns">
-            <section className="column">
+            <section className="column is-6">
               <h4 className="title is-4">チーム: {this.props.registrationSession.team!.name}</h4>
               <p>
                 招待URL:{" "}
-                <small>
+                <small className="isux-registration-status-invitation-url">
                   <a href={this.props.registrationSession.memberInviteUrl}>
                     {this.props.registrationSession.memberInviteUrl}
                   </a>
@@ -75,7 +75,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
               {this.renderTeamMembers()}
             </section>
 
-            <section className="column">
+            <section className="column is-6">
               <h4 className="title is-4">Discord</h4>
               <iframe
                 src={`https://discordapp.com/widget?id=${this.props.registrationSession.discordServerId}`}
@@ -120,7 +120,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
   renderTeamMember(member: isuxportal.proto.resources.IContestant) {
     return (
-      <div className="card mt-2" key={member.id!.toString()}>
+      <div className="card mt-2 isux-registration-member-card" key={member.id!.toString()}>
         <div className="card-content">
           <div className="media">
             <div className="media-left">

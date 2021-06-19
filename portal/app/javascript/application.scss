@@ -156,7 +156,8 @@ body.isux-session-guest .isux-visibility-guest {
   max-width: 400px;
 }
 
-.isux-registration-login-card {
+.isux-registration-login-card,
+.isux-registration-member-card {
   @media screen and (max-width: 768px) {
     .media-content {
       overflow-y: hidden;
@@ -168,6 +169,10 @@ body.isux-session-guest .isux-visibility-guest {
   ol {
     list-style-position: inside;
   }
+}
+
+.isux-registration-status-invitation-url {
+  word-break: break-all;
 }
 
 .isux-scoregraph {
