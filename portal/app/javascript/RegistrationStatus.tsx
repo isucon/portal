@@ -44,7 +44,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
   public render() {
     return (
       <>
-        <section className="mt-2">
+        <section className="isux-registration-status-complete mt-2">
           <h3 className="title is-3">登録完了</h3>
           <ol>
             <li>

@@ -164,6 +164,12 @@ body.isux-session-guest .isux-visibility-guest {
   }
 }
 
+.isux-registration-status-complete {
+  ol {
+    list-style-position: inside;
+  }
+}
+
 .isux-scoregraph {
   text-align: center;
   width: 100%;
