@@ -1,11 +1,11 @@
 {
-  vpcId:: 'vpc-0ee05560be5a92944',
-  privateSubnets:: ['subnet-023e325c18b14b5f0', 'subnet-08e9420e6aa0d1cae', 'subnet-0a40d79a12bd44519'],
-  publicSubnets:: ['subnet-0144e738b28e05b70', 'subnet-08e15bfef16f74b28', 'subnet-020d222c7dec3f4da'],
-  elbSecurityGroups:: ['sg-090e4638400031f3c'],
-  acmCertificateWildDev:: 'arn:aws:acm:ap-northeast-1:516315029474:certificate/3945bc20-711f-4980-aeea-509d75dc4e77',
-  ecrRepository(name):: std.format('516315029474.dkr.ecr.ap-northeast-1.amazonaws.com/%s', name),
-  iamRole(name):: std.format('arn:aws:iam::516315029474:role/%s', name),
+  vpcId:: 'vpc-04f36e0596c6daf7f',
+  privateSubnets:: ['subnet-034d22a6c3b71c333', 'subnet-0f5f28fdb05370179', 'subnet-01f7e595924958da7'],
+  publicSubnets:: ['subnet-0979899c1663bf8b0', 'subnet-0cbb1e44b6d0cb8ee', 'subnet-034d22a6c3b71c333'],
+  elbSecurityGroups:: ['sg-00fa0b6878bfd8e76'],
+  acmCertificateWildDev:: 'arn:aws:acm:ap-northeast-1:245943874622:certificate/38464bc5-a0d4-4789-87e1-2b9ba9f305da',
+  ecrRepository(name):: std.format('245943874622.dkr.ecr.ap-northeast-1.amazonaws.com/%s', name),
+  iamRole(name):: std.format('arn:aws:iam::245943874622:role/%s', name),
 
   ecsSchedulerBase:: {
     type: 'ecs',
@@ -15,11 +15,11 @@
     execution_role_arn: $.iamRole('EcsTaskExecution'),
     desired_count: 1,
     tags: {
-      Project: 'isucon10',
+      Project: 'portal',
     },
   },
   ecsSchedulerFargate:: $.ecsSchedulerBase {
-    cluster: 'isux-fargate',
+    cluster: 'isuxportal-fargate',
     cpu: '256',
     memory: '512',
     requires_compatibilities: ['FARGATE'],
@@ -32,8 +32,8 @@
       awsvpc_configuration: {
         subnets: $.privateSubnets,
         security_groups: [
-          'sg-01e55b291deea585e',  // default
-          'sg-073e8286681e972b0',  // http
+          'sg-007b13cdfcc6893fe',  // default
+          'sg-0159a3ef3703caada',  // http
         ],
         assign_public_ip: 'DISABLED',
       },
@@ -59,11 +59,11 @@
     subnets: $.publicSubnets,
     security_groups: $.elbSecurityGroups,
     tags: {
-      Project: 'isucon10',
+      Project: 'portal',
     },
     load_balancer_attributes: {
       'access_logs.s3.enabled': 'true',
-      'access_logs.s3.bucket': 'isucon10-logs',
+      'access_logs.s3.bucket': 'isucon11-logs',
       'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
       'idle_timeout.timeout_seconds': '60',
     },
@@ -121,7 +121,7 @@
   makeSecretParameterStore(path)::
     function(variableName) {
       name: variableName,
-      value_from: std.format('arn:aws:ssm:ap-northeast-1:516315029474:parameter/hako/%s/%s', [path, variableName]),
+      value_from: std.format('arn:aws:ssm:ap-northeast-1:245943874622:parameter/hako/%s/%s', [path, variableName]),
     },
 
   awsLogs(name):: {
