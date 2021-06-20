@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "EcsTaskExecution-ecs" {
     actions = [
       "ssm:GetParameters",
     ]
-    resources = ["arn:aws:ssm:*:${var.aws_account_id}:parameter/hako/*"]
+    resources = ["arn:aws:ssm:*:245943874622:parameter/hako/*"]
   }
   statement {
     effect = "Allow"
