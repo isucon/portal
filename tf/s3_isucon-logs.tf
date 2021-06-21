@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "allow-putting-elb-access-logs" {
       type = "AWS"
       // Elastic Load Balancing Account ID of ap-northeast-1
       // https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions
-      identifiers = ["245943874622"]
+      identifiers = ["582318560864"]
     }
     actions = ["s3:PutObject"]
     resources = [
