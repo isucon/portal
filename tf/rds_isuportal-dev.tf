@@ -37,3 +37,17 @@ resource "aws_iam_service_linked_role" "AWSServiceRoleForRDS" {
   aws_service_name = "rds.amazonaws.com"
 }
 
+resource "aws_rds_cluster_instance" "isuxportal-dev-001" {
+  identifier                   = "isuxportal-dev-001"
+  cluster_identifier           = aws_rds_cluster.isuxportal-dev.cluster_identifier
+  instance_class               = "db.t3.small"
+  db_parameter_group_name      = aws_db_parameter_group.aurora57.name
+  monitoring_role_arn          = aws_iam_role.rds-monitoring-role.arn
+  engine                       = "aurora-mysql"
+  engine_version               = "5.7.mysql_aurora.2.08.1"
+  monitoring_interval          = 60
+  auto_minor_version_upgrade   = false
+  apply_immediately            = true
+  promotion_tier               = "0"
+  preferred_maintenance_window = "tue:17:00-tue:17:30"
+}
