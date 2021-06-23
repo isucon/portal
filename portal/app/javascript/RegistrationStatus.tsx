@@ -41,6 +41,17 @@ export class RegistrationStatus extends React.Component<Props, State> {
     }
   }
 
+  onInviteUrlClick(event: React.MouseEvent<HTMLInputElement>) {
+    if (event.target instanceof HTMLInputElement) {
+      event.target.select()
+    }
+  }
+
+  async onCopyInviteButtonClick(event: React.MouseEvent<HTMLElement>) {
+    event.preventDefault();
+    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl)
+  }
+
   public render() {
     return (
       <>
@@ -62,14 +73,19 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <div className="columns">
             <section className="column is-6">
               <h4 className="title is-4">チーム: {this.props.registrationSession.team!.name}</h4>
-              <p>
-                招待URL:{" "}
-                <small className="isux-registration-status-invitation-url">
-                  <a href={this.props.registrationSession.memberInviteUrl}>
-                    {this.props.registrationSession.memberInviteUrl}
-                  </a>
-                </small>
-              </p>
+              <div className="field">
+                <label className="label">招待URL</label>
+                <div className="field has-addons">
+                  <div className="control is-expanded">
+                    <input className="input" type="text" readOnly value={this.props.registrationSession.memberInviteUrl} onClick={this.onInviteUrlClick.bind(this)} />
+                  </div>
+                  <div className="control">
+                    <button className="button" onClick={this.onCopyInviteButtonClick.bind(this)}>
+                      <span className="material-icons">content_copy</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               <h5 className="title is-5 mt-3">メンバーリスト</h5>
               {this.renderTeamMembers()}
