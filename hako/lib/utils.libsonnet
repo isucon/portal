@@ -1,6 +1,6 @@
 {
   vpcId:: 'vpc-04f36e0596c6daf7f',
-  privateSubnets:: ['subnet-034d22a6c3b71c333', 'subnet-0f5f28fdb05370179', 'subnet-01f7e595924958da7'],
+  privateSubnets:: ['subnet-0f3edf5aebee274dc', 'subnet-0f5f28fdb05370179', 'subnet-01f7e595924958da7'],
   publicSubnets:: ['subnet-0979899c1663bf8b0', 'subnet-0cbb1e44b6d0cb8ee', 'subnet-034d22a6c3b71c333'],
   elbSecurityGroups:: ['sg-00fa0b6878bfd8e76'],
   acmCertificateWildDev:: 'arn:aws:acm:ap-northeast-1:245943874622:certificate/38464bc5-a0d4-4789-87e1-2b9ba9f305da',
