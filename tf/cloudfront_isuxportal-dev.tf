@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "isuxportal-dev" {
 
   logging_config {
     include_cookies = false
-    bucket          = "isucon11-logs.s3.amazonaws.com"
+    bucket          = aws_s3_bucket.isucon-logs.bucket_domain_name
     prefix          = "cloudfront/isuxportal-dev/"
   }
 
