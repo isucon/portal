@@ -158,7 +158,7 @@ export class ContestantApp extends React.Component<Props, State> {
       <BrowserRouter>
         <ContestantNavbar session={this.props.session} client={this.props.client} unreadNotificationExists={this.state.lastAnsweredClarificationIdObserved && this.state.lastClarificationIdSeen !== this.state.lastAnsweredClarificationId} />
 
-        <div className="container mt-5">
+        <div className="container px-5 py-5">
           <Switch>
             <Route
               exact

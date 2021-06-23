@@ -22,11 +22,11 @@ export class Navbar extends React.Component<Props, State> {
 
   public render() {
     return (
-      <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+      <nav className="navbar isux-navbar" role="navigation" aria-label="main navigation">
         <div className="container">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
-              ISUCON11 Portal
+              <img src="/isucon11_logo_white.png" />
             </Link>
           </div>
           <div className="navbar-menu is-active">

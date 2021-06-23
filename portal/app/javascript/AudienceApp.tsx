@@ -9,6 +9,7 @@ import { ErrorMessage } from "./ErrorMessage";
 import { Navbar } from "./Navbar";
 import { TeamList } from "./TeamList";
 import { AudienceDashboard } from "./AudienceDashboard";
+import { Landing } from './Landing';
 import { Registration } from "./Registration";
 
 export interface Props {
@@ -29,7 +30,7 @@ export class AudienceApp extends React.Component<Props, State> {
       <BrowserRouter>
         <Navbar session={this.props.session} client={this.props.client} />
 
-        <div className="container mt-5">
+        <div className="container px-5 py-5">
           <Switch>
             <Route
               exact
@@ -41,7 +42,7 @@ export class AudienceApp extends React.Component<Props, State> {
                     this.props.session.contest!.status == isuxportal.proto.resources.Contest.Status.STARTED ? (
                       <AudienceDashboard session={this.props.session} client={this.props.client} />
                     ) : (
-                      <TeamList session={this.props.session} client={this.props.client} />
+                      <Landing session={this.props.session} client={this.props.client} />
                     )}
                   </>
                 );

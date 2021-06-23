@@ -156,7 +156,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         </div>
 
         <div className="level-right has-text-right">
-          <label>
+          <label className="checkbox">
             <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
             Show pinned only
           </label>
