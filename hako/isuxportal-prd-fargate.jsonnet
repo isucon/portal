@@ -1,5 +1,5 @@
-local utils = import 'lib/utils.libsonnet';
 local front = import 'lib/front.libsonnet';
+local utils = import 'lib/utils.libsonnet';
 
 local base = import './isuxportal-prd-base.libsonnet';
 
@@ -30,8 +30,8 @@ base {
       locations+: {
         '/packs/manifest.json': {
           allow_only_from: ['127.0.0.1/32'],
-        }
-      }
+        },
+      },
     },
   ],
 }

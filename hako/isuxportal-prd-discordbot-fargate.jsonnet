@@ -1,5 +1,5 @@
-local utils = import 'lib/utils.libsonnet';
 local front = import 'lib/front.libsonnet';
+local utils = import 'lib/utils.libsonnet';
 
 local base = import './isuxportal-prd-base.libsonnet';
 

@@ -12,7 +12,7 @@ local utils = import './utils.libsonnet';
       type: 'nginx_front',
       s3: {
         region: 'ap-northeast-1',
-        bucket: 'isucon10-misc',
+        bucket: 'isucon11-misc',
         prefix: 'hako/nginx-config',
       },
     },
