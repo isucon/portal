@@ -147,7 +147,7 @@ Rails.application.configure do
   config.x.bench_auth.token = ENV.fetch('ISUXPORTAL_BENCH_TOKEN')
   config.x.bypass_token.secret = ENV.fetch('ISUXPORTAL_BYPASS_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
-  config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
+  #config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
   config.x.terms_url = ENV.fetch('ISUXPORTAL_TERMS_URL', 'https://isucon.net/archives/54800315.html')
   config.x.rules_url = ENV.fetch('ISUXPORTAL_RULES_URL', 'https://isucon.net/archives/54753430.html')
