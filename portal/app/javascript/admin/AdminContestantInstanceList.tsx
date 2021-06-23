@@ -17,7 +17,13 @@ type ListFilterProps = {
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
-  const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<ListFilterProps>({
     defaultValues: props,
   });
   const onSubmit = handleSubmit((data) => {
@@ -48,9 +54,8 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
                 <input
                   className="input"
                   type="text"
-                  name="teamId"
                   id="AdminContestantInstanceListFilter-teamId"
-                  ref={register}
+                  {...register("teamId")}
                 />
               </div>
             </div>

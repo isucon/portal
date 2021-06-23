@@ -1,5 +1,5 @@
-import type {isuxportal} from "../pb";
-import type {ApiClient, ApiError} from "../ApiClient";
+import type { isuxportal } from "../pb";
+import type { ApiClient, ApiError } from "../ApiClient";
 
 export class ContestantNotificationsObserver {
   client: ApiClient;
@@ -38,8 +38,12 @@ export class ContestantNotificationsObserver {
       this.requesting = true;
       const resp = await this.client.listNotifications(this.last);
 
-      const lastAnsweredClarificationId = resp.lastAnsweredClarificationId === 0 ? undefined : resp.lastAnsweredClarificationId as number;
-      if (lastAnsweredClarificationId !== this.lastAnsweredClarificationId && this.onLastAnsweredClarificationIdChange) {
+      const lastAnsweredClarificationId =
+        resp.lastAnsweredClarificationId === 0 ? undefined : (resp.lastAnsweredClarificationId as number);
+      if (
+        lastAnsweredClarificationId !== this.lastAnsweredClarificationId &&
+        this.onLastAnsweredClarificationIdChange
+      ) {
         console.log("ContestantNotificationsObserver: lastAnsweredClarificationId change", lastAnsweredClarificationId);
         this.onLastAnsweredClarificationIdChange(lastAnsweredClarificationId);
       }
@@ -47,13 +51,13 @@ export class ContestantNotificationsObserver {
       this.lastAnsweredClarificationId = lastAnsweredClarificationId;
 
       if (resp.notifications.length > 0 && this.onNewNotifications) {
-        console.log("ContestantNotificationsObserver: observed newNotifications", resp.notifications)
+        console.log("ContestantNotificationsObserver: observed newNotifications", resp.notifications);
         this.onNewNotifications(resp.notifications);
       }
 
-      const last = resp.notifications[resp.notifications.length-1];
-      this.last = last?.id! as number || this.last;
-    } catch(e) {
+      const last = resp.notifications[resp.notifications.length - 1];
+      this.last = (last?.id! as number) || this.last;
+    } catch (e) {
       console.error("ContestantNotificationsObserver: error while polling", e);
       this.requesting = false;
     }

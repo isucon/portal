@@ -10,22 +10,23 @@ import { Clarification } from "../Clarification";
 import { ErrorMessage } from "../ErrorMessage";
 
 interface QuickButtonProps {
-  caption?: string,
-  id?: string,
-  body: string,
-  onClick: (body: string) => any,
+  caption?: string;
+  id?: string;
+  body: string;
+  onClick: (body: string) => any;
 }
 
 const ClarQuickButton: React.FC<QuickButtonProps> = (props: QuickButtonProps) => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props.onClick(props.body);
-  }
-  return <button className="button" onClick={onClick}>
-    {props.id ? <span>({props.id}) </span> : null} {props.caption ?? props.body.slice(0,25)}
-  </button>
+  };
+  return (
+    <button className="button" onClick={onClick}>
+      {props.id ? <span>({props.id}) </span> : null} {props.caption ?? props.body.slice(0, 25)}
+    </button>
+  );
 };
-
 
 interface FormProps {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -37,7 +38,14 @@ interface FormProps {
 const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const { reset, register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    reset,
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     answer: string;
     question: string;
     disclose: boolean;
@@ -77,8 +85,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   });
 
   const onQuickButton = (body: string) => {
-    setValue('answer', body, { shouldDirty: true });
-  }
+    setValue("answer", body, { shouldDirty: true });
+  };
 
   return (
     <div className="card mt-5">
@@ -96,9 +104,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
                 <div className="control">
                   <textarea
                     className="textarea"
-                    name="question"
+                    {...register("question")}
                     id="AdminClarificationDetail-question"
-                    ref={register}
                     placeholder=""
                   />
                 </div>
@@ -107,7 +114,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
               <div className="field">
                 <div className="control">
                   <label className="checkbox">
-                    <input type="checkbox" name="disclose" ref={register} />
+                    <input type="checkbox" {...register("disclose")} />
                     Disclose (Visible to all teams)
                   </label>
                 </div>
@@ -130,9 +137,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
                   <div className="control">
                     <textarea
                       className="textarea"
-                      name="answer"
+                      {...register("answer")}
                       id="AdminClarificationDetail-answer"
-                      ref={register}
                       placeholder=""
                       autoFocus
                     />
@@ -144,19 +150,52 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
                   <div className="buttons">
                     <ClarQuickButton body="はい" caption="Yes" onClick={onQuickButton} />
                     <ClarQuickButton body="いいえ" caption="No" onClick={onQuickButton} />
-                    <ClarQuickButton body="ドキュメント (マニュアル、レギュレーション、ルール等) や既存のアナウンスに記載されています。" caption="Answered in task description" onClick={onQuickButton} />
-                    <ClarQuickButton body="運営側 (競技環境等) の問題ではありません。" caption="This is a problem on your end" onClick={onQuickButton} />
-                    <ClarQuickButton body="質問が不明瞭のため回答できません。" caption="Invalid question" onClick={onQuickButton} />
+                    <ClarQuickButton
+                      body="ドキュメント (マニュアル、レギュレーション、ルール等) や既存のアナウンスに記載されています。"
+                      caption="Answered in task description"
+                      onClick={onQuickButton}
+                    />
+                    <ClarQuickButton
+                      body="運営側 (競技環境等) の問題ではありません。"
+                      caption="This is a problem on your end"
+                      onClick={onQuickButton}
+                    />
+                    <ClarQuickButton
+                      body="質問が不明瞭のため回答できません。"
+                      caption="Invalid question"
+                      onClick={onQuickButton}
+                    />
                     <ClarQuickButton body="その内容には回答できません。" caption="No comment" onClick={onQuickButton} />
                   </div>
                 </section>
 
                 <section className="mt-5">
                   <h5 className="is-5 subtitle">Past Responses</h5>
-                  {list ? <div className="buttons are-small">
-                    {list.filter((v) => v.answered && v.question !== "Discord Support Channel Log" && v.answer && !v.answer.match(/^既に Clarification /))
-                      .map((v) => <ClarQuickButton id={v.id!.toString()} body={`${v.disclosed ? `既に Clarification #${v.id!} で回答されている内容です(再掲します)\n\n` : ""}${v.answer!}`} caption={v.answer!.slice(0,25)} onClick={onQuickButton} key={v.id!.toString()} />)}
-                  </div> : <p>Loading</p>}
+                  {list ? (
+                    <div className="buttons are-small">
+                      {list
+                        .filter(
+                          (v) =>
+                            v.answered &&
+                            v.question !== "Discord Support Channel Log" &&
+                            v.answer &&
+                            !v.answer.match(/^既に Clarification /)
+                        )
+                        .map((v) => (
+                          <ClarQuickButton
+                            id={v.id!.toString()}
+                            body={`${
+                              v.disclosed ? `既に Clarification #${v.id!} で回答されている内容です(再掲します)\n\n` : ""
+                            }${v.answer!}`}
+                            caption={v.answer!.slice(0, 25)}
+                            onClick={onQuickButton}
+                            key={v.id!.toString()}
+                          />
+                        ))}
+                    </div>
+                  ) : (
+                    <p>Loading</p>
+                  )}
                 </section>
               </div>
             </div>

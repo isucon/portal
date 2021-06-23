@@ -17,7 +17,14 @@ interface FormProps {
 const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const { reset, register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    reset,
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     question: string;
   }>({
     shouldUnregister: false,
@@ -55,9 +62,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
             <div className="control">
               <textarea
                 className="textarea"
-                name="question"
+                {...register("question")}
                 id="ContestantClarificationList-question"
-                ref={register}
                 placeholder=""
                 autoFocus
               />
@@ -80,7 +86,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
-  onLastClarificationIdSeenChange: (id?: number) => any,
+  onLastClarificationIdSeenChange: (id?: number) => any;
 }
 
 export const ContestantClarificationList: React.FC<Props> = (props: Props) => {
@@ -100,7 +106,7 @@ export const ContestantClarificationList: React.FC<Props> = (props: Props) => {
   React.useEffect(() => {
     if (!list) return;
     const clar = list.find((clar) => clar.answered);
-    props.onLastClarificationIdSeenChange(clar?.id! as number ?? undefined);
+    props.onLastClarificationIdSeenChange((clar?.id! as number) ?? undefined);
   }, [list]);
 
   const renderList = () => {

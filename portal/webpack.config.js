@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
+const devTool = isProd ? {} : {devtool: "eval-source-map"};
 
 const entries = {};
 glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
@@ -15,15 +16,17 @@ glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
   entries[name] = path.resolve(__dirname, filePath);
 });
 
+
+
 module.exports =  [
   {
+    ...devTool,
     mode: isProd ? "production" : "development",
-    devtool: isProd ? "nosources-source-map" : "source-map",
     entry: entries,
     output: {
       path: path.resolve(__dirname, "public/packs"),
       publicPath: "/packs/",
-      filename: isProd ? "[name]-[hash].js" : "[name].js",
+      filename: isProd ? "[name]-[contenthash].js" : "[name].js",
     },
     optimization: {
       splitChunks: {
@@ -62,15 +65,15 @@ module.exports =  [
       ]
     },
     plugins: [
-      new WebpackAssetsManifest({ publicPath: true }),
+      new WebpackAssetsManifest({ publicPath: true, output: "manifest.json" }),
       new MiniCssExtractPlugin({
-        filename: isProd ? "[name]-[hash].css" : "[name].css"
+        filename: isProd ? "[name]-[contenthash].css" : "[name].css"
       }),
     ]
   },
   {
+    ...devTool,
     mode: isProd ? "production" : "development",
-    devtool: isProd ? "nosources-source-map" : "source-map",
     entry: {
       sw: path.resolve(__dirname, './sw/src/sw.ts'),
     },
