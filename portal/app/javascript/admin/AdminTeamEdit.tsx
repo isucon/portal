@@ -146,7 +146,6 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
         </div>
 
         {props.team.members!.map((member, i) => {
-          const s = `contestants.${i}.id`;
           return (
             <div className="card mt-5" key={member.id!.toString()}>
               <input type="hidden" value={member.id!.toString()} {...register(`contestants.${i}.id` as const)} />
