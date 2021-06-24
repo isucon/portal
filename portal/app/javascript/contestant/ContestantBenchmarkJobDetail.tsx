@@ -11,7 +11,7 @@ import { ReloadButton } from "../ReloadButton";
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
-  id: number;
+  id: number | string;
 }
 
 export interface State {

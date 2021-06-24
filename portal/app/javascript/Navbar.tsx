@@ -22,11 +22,11 @@ export class Navbar extends React.Component<Props, State> {
 
   public render() {
     return (
-      <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+      <nav className="navbar isux-navbar" role="navigation" aria-label="main navigation">
         <div className="container">
           <div className="navbar-brand">
             <Link className="navbar-item" to="/">
-              ISUCON11 Portal
+              <img src="/isucon11_logo_white.png" />
             </Link>
           </div>
           <div className="navbar-menu is-active">
@@ -37,9 +37,7 @@ export class Navbar extends React.Component<Props, State> {
               <a className="navbar-item" href="/terms">
                 規約
               </a>
-              <a className="navbar-item" href="/rules">
-                レギュレーション
-              </a>
+              {this.renderRulesButton()}
             </div>
             <div className="navbar-end">
               <div className="navbar-item">
@@ -53,6 +51,17 @@ export class Navbar extends React.Component<Props, State> {
         </div>
       </nav>
     );
+  }
+
+  public renderRulesButton() {
+    if (this.props.session.contest?.status !== isuxportal.proto.resources.Contest.Status.STANDBY) {
+      return (
+        <a className="navbar-item" href="/rules">
+          レギュレーション
+        </a>
+      );
+    }
+    return null;
   }
 
   public renderNavbarContestButton() {

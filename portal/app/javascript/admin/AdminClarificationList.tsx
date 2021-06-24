@@ -15,7 +15,13 @@ type ListFilterProps = {
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const history = useHistory();
-  const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<ListFilterProps>({
     defaultValues: props,
   });
   const onSubmit = handleSubmit((data) => {
@@ -35,13 +41,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
                 Team ID
               </label>
               <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="teamId"
-                  id="AdminClarificationListFilter-teamId"
-                  ref={register}
-                />
+                <input className="input" type="text" id="AdminClarificationListFilter-teamId" {...register("teamId")} />
               </div>
             </div>
             <div className="column is-3 field">
@@ -51,9 +51,8 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
               <div className="control">
                 <input
                   type="checkbox"
-                  name="unansweredOnly"
                   id="AdminClarificationListFilter-unansweredOnly"
-                  ref={register}
+                  {...register("unansweredOnly")}
                 />
               </div>
             </div>
@@ -77,7 +76,14 @@ interface FormProps {
 const ClarForm: React.FC<FormProps> = (props: FormProps) => {
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const { reset, register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    reset,
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     answer: string;
     question: string;
     teamId: string;
@@ -124,9 +130,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
               <div className="control">
                 <textarea
                   className="textarea"
-                  name="question"
+                  {...register("question")}
                   id="AdminClarificationListForm-question"
-                  ref={register}
                   placeholder=""
                   autoFocus
                 />
@@ -140,9 +145,8 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
                 <div className="control">
                   <textarea
                     className="textarea"
-                    name="answer"
+                    {...register("answer")}
                     id="AdminClarificationListForm-answer"
-                    ref={register}
                     placeholder=""
                   />
                 </div>
@@ -158,8 +162,7 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
                 className="input"
                 type="text"
                 id="AdminClarificationListForm-teamId"
-                name="teamId"
-                ref={register}
+                {...register("teamId")}
                 placeholder="optional; disclosed to the all teams if not set"
               />
             </div>

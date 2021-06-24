@@ -18,7 +18,13 @@ export const AdminBenchmarkJobForm: React.FC<Props> = (props: Props) => {
   const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
   const [requesting, setRequesting] = React.useState<boolean>(false);
   const [error, setError] = React.useState<Error | null>(null);
-  const { register, handleSubmit, watch, setValue, errors } = useForm<{
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<{
     teamId: string;
     targetId: string;
   }>({
@@ -56,7 +62,7 @@ export const AdminBenchmarkJobForm: React.FC<Props> = (props: Props) => {
                 Team ID
               </label>
               <div className="control">
-                <input className="input" type="text" name="teamId" id="AdminBenchmarkJobForm-teamId" ref={register} />
+                <input className="input" type="text" id="AdminBenchmarkJobForm-teamId" {...register("teamId")} />
               </div>
             </div>
             <div className="column is-3 field">
@@ -64,13 +70,7 @@ export const AdminBenchmarkJobForm: React.FC<Props> = (props: Props) => {
                 Target ID
               </label>
               <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="targetId"
-                  id="AdminBenchmarkJobForm-targetId"
-                  ref={register}
-                />
+                <input className="input" type="text" id="AdminBenchmarkJobForm-targetId" {...register("targetId")} />
               </div>
             </div>
             <div className="column is-3 field">

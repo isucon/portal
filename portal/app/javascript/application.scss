@@ -79,6 +79,32 @@ body.isux-session-guest .isux-visibility-guest {
   }
 }
 
+.isux-navbar {
+  color: #fff;
+  background-image: url(/navbar-bg.svg);
+  background-size: contain;
+  background-color: #363636;
+
+  @media screen and (max-width: 1023px) {
+    .navbar-brand {
+      background-image: url(/navbar-bg.svg);
+      background-size: contain;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    a.navbar-item {
+      color: #fff;
+      &:focus,
+      &:hover,
+      &.is-active {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
+
 .navbar-item .isux-navbar-contestant {
   .image {
     display: flex;
@@ -123,6 +149,25 @@ body.isux-session-guest .isux-visibility-guest {
     .level .level-right {
       text-align: right;
     }
+  }
+}
+
+.isux-landing-logo-wrapper {
+  max-width: 400px;
+}
+
+.isux-registration-login-card,
+.isux-registration-member-card {
+  @media screen and (max-width: 768px) {
+    .media-content {
+      overflow-y: hidden;
+    }
+  }
+}
+
+.isux-registration-status-complete {
+  ol {
+    list-style-position: inside;
   }
 }
 

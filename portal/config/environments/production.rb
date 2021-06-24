@@ -147,10 +147,11 @@ Rails.application.configure do
   config.x.bench_auth.token = ENV.fetch('ISUXPORTAL_BENCH_TOKEN')
   config.x.bypass_token.secret = ENV.fetch('ISUXPORTAL_BYPASS_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
-  config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
+  #config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
   config.x.terms_url = ENV.fetch('ISUXPORTAL_TERMS_URL', 'https://isucon.net/archives/54800315.html')
-  config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://www.google.com')
+  config.x.rules_url = ENV.fetch('ISUXPORTAL_RULES_URL', 'https://isucon.net/archives/54753430.html')
+  config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://gist.github.com/progfay/25edb2a9ede4ca478cb3e2422f1f12f6')
 
   config.x.webpush.vapid_key = ENV.fetch('ISUXPORTAL_VAPID_PRIVATE_KEY').yield_self { |_| Webpush::VapidKey.from_pem(JSON.parse(_)) }
   config.x.webpush.vapid_key_public = config.x.webpush.vapid_key&.public_key_for_push_header

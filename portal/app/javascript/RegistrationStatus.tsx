@@ -41,10 +41,21 @@ export class RegistrationStatus extends React.Component<Props, State> {
     }
   }
 
+  onInviteUrlClick(event: React.MouseEvent<HTMLInputElement>) {
+    if (event.target instanceof HTMLInputElement) {
+      event.target.select()
+    }
+  }
+
+  async onCopyInviteButtonClick(event: React.MouseEvent<HTMLElement>) {
+    event.preventDefault();
+    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl)
+  }
+
   public render() {
     return (
       <>
-        <section className="mt-2">
+        <section className="isux-registration-status-complete mt-2">
           <h3 className="title is-3">登録完了</h3>
           <ol>
             <li>
@@ -60,22 +71,27 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
         <div className="mt-3">
           <div className="columns">
-            <section className="column">
+            <section className="column is-6">
               <h4 className="title is-4">チーム: {this.props.registrationSession.team!.name}</h4>
-              <p>
-                招待URL:{" "}
-                <small>
-                  <a href={this.props.registrationSession.memberInviteUrl}>
-                    {this.props.registrationSession.memberInviteUrl}
-                  </a>
-                </small>
-              </p>
+              <div className="field">
+                <label className="label">招待URL</label>
+                <div className="field has-addons">
+                  <div className="control is-expanded">
+                    <input className="input" type="text" readOnly value={this.props.registrationSession.memberInviteUrl} onClick={this.onInviteUrlClick.bind(this)} />
+                  </div>
+                  <div className="control">
+                    <button className="button" onClick={this.onCopyInviteButtonClick.bind(this)}>
+                      <span className="material-icons">content_copy</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
               <h5 className="title is-5 mt-3">メンバーリスト</h5>
               {this.renderTeamMembers()}
             </section>
 
-            <section className="column">
+            <section className="column is-6">
               <h4 className="title is-4">Discord</h4>
               <iframe
                 src={`https://discordapp.com/widget?id=${this.props.registrationSession.discordServerId}`}
@@ -89,14 +105,14 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
         <section className="mt-3">
           <h4 className="title is-4">登録内容の編集</h4>
-          <p>
+          <p className="block">
             <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>
               編集
             </button>
             <br />
             参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
           </p>
-          <p>
+          <p className="block">
             <button className="button is-danger" onClick={this.onWithdrawButtonClick.bind(this)}>
               辞退
             </button>
@@ -120,7 +136,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
   renderTeamMember(member: isuxportal.proto.resources.IContestant) {
     return (
-      <div className="card mt-2" key={member.id!.toString()}>
+      <div className="card mt-2 isux-registration-member-card" key={member.id!.toString()}>
         <div className="card-content">
           <div className="media">
             <div className="media-left">
@@ -132,9 +148,9 @@ export class RegistrationStatus extends React.Component<Props, State> {
               <p className="title is-5">{member.name}</p>
               <p className="subtitle is-6">
                 {this.props.registrationSession.team!.leaderId == member.id ? (
-                  <span className="tag is-danger">代表者</span>
+                  <span className="tag is-danger mr-1">代表者</span>
                 ) : null}
-                {member.contestantDetail!.isStudent ? <span className="tag is-info">学生</span> : null}
+                {member.contestantDetail!.isStudent ? <span className="tag is-info mr-1">学生</span> : null}
                 GitHub @{member.contestantDetail!.githubLogin}, Discord {member.contestantDetail!.discordTag}
               </p>
             </div>

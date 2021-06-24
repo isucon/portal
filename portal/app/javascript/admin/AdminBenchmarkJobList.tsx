@@ -21,7 +21,13 @@ type ListFilterProps = {
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
-  const { register, handleSubmit, watch, setValue, errors } = useForm<ListFilterProps>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<ListFilterProps>({
     defaultValues: props,
   });
   const onSubmit = handleSubmit((data) => {
@@ -50,13 +56,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
                 Team ID
               </label>
               <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  name="teamId"
-                  id="AdminBenchmarkJobListFilter-teamId"
-                  ref={register}
-                />
+                <input className="input" type="text" id="AdminBenchmarkJobListFilter-teamId" {...register("teamId")} />
               </div>
             </div>
             <div className="column is-3 field">
@@ -66,9 +66,8 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
               <div className="control">
                 <input
                   type="checkbox"
-                  name="incompleteOnly"
                   id="AdminBenchmarkJobListFilter-incompleteOnly"
-                  ref={register}
+                  {...register("incompleteOnly")}
                 />
               </div>
             </div>

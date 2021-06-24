@@ -12,7 +12,7 @@ import { ReloadButton } from "../ReloadButton";
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: AdminApiClient;
-  id: number;
+  id: number | string;
 }
 
 export interface State {

@@ -102,7 +102,13 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
           </div>
           <div className="level-right has-text-right">
             <div className="mr-1">
-              <ContestantNotificationSubscriptionPanel session={session} client={client} serviceWorker={props.serviceWorker} localNotificationEnabled={props.localNotificationEnabled} setLocalNotificationEnabled={props.setLocalNotificationEnabled} />
+              <ContestantNotificationSubscriptionPanel
+                session={session}
+                client={client}
+                serviceWorker={props.serviceWorker}
+                localNotificationEnabled={props.localNotificationEnabled}
+                setLocalNotificationEnabled={props.setLocalNotificationEnabled}
+              />
             </div>
             <ReloadButton requesting={requestingDashboard || requestingJobs} onClick={refreshAll} />
           </div>

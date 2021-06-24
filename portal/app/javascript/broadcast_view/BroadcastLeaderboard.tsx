@@ -138,7 +138,7 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
     lastScore?: number | Long;
   };
   const selectTeam = () => {
-    switch(mode) {
+    switch (mode) {
       case "all":
         return leaderboard.teams!;
       case "general":
@@ -152,16 +152,14 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
     }
   };
   const teams = selectTeam()
-    .map(
-      (item, idx): TeamStanding => {
-        return {
-          position: idx + 1,
-          lastPosition: prevRanks.get(item.team!.id!),
-          lastScore: prevScores.get(item.team!.id!),
-          item,
-        };
-      }
-    )
+    .map((item, idx): TeamStanding => {
+      return {
+        position: idx + 1,
+        lastPosition: prevRanks.get(item.team!.id!),
+        lastScore: prevScores.get(item.team!.id!),
+        item,
+      };
+    })
     .filter((team) => !!team.item.latestScore);
   const renderTeam = (key: string, { item, position, lastPosition, lastScore }: TeamStanding) => {
     return (
