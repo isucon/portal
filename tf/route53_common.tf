@@ -28,7 +28,7 @@ resource "aws_route53_record" "cname_portal-prd-isucon-net-xi-isucon-dev" {
     ] : k => k
   }
   zone_id = each.value
-  name    = "portal-prd-isucon-net.xi.isucon.dev"
+  name    = "portal-isucon-net.xi.isucon.dev"
   type    = "CNAME"
   ttl     = "300"
   records = ["${aws_cloudfront_distribution.isuxportal-prd.domain_name}."]
