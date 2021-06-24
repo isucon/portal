@@ -4,7 +4,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
 
 {
   scheduler: {
-    task_role_arn: utils.iamRole('Isuxportal'),
+    task_role_arn: utils.iamRole('IsuxportalPrd'),
   },
   app: {
     image: utils.ecrRepository('isuxportal'),
@@ -16,14 +16,14 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       AWS_REGION: 'ap-northeast-1',
       RACK_ENV: 'production',
       RAILS_ENV: 'production',
-      DATABASE_URL: 'mysql2://isuxportal@isuxportal-prd.cluster-cunslsivoetj.ap-northeast-1.rds.amazonaws.com/isuxportal?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci',
-      REDIS_URL: 'redis://isuxportal-prd.roqymc.ng.0001.apne1.cache.amazonaws.com:6379/0',
-      SENTRY_DSN: 'https://89064bffbbde4a9c96fdbeaf68fc6664@o417264.ingest.sentry.io/5316249',
+      DATABASE_URL: 'mysql2://isuxportal@isuxportal-prd.cluster-cwda4z5vn03a.ap-northeast-1.rds.amazonaws.com/isuxportal?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci',
+      REDIS_URL: 'redis://isuxportal-prd.bikdgh.ng.0001.apne1.cache.amazonaws.com:6379/0',
+      SENTRY_DSN: 'https://965d96d9a47e4ea79d3caf200d00c524@o879000.ingest.sentry.io/5831515',
       RAILS_LOG_TO_STDOUT: '1',
       RAILS_SERVE_STATIC_FILES: '1',
       RAILS_SERVE_STATIC_FILES_CC: 'public, max-age=31536000',
       DEFAULT_URL_HOST: 'portal.isucon.net',
-      ISUXPORTAL_FINAL: '1',
+      ISUXPORTAL_FINAL: '0',
       ISUXPORTAL_DISCORD_SERVER_ID: '857222988088737803',  // ISUCON11
       ISUXPORTAL_DISCORD_CHANNEL_ID: '857222988368707589',  // #announcement
       ISUXPORTAL_DISCORD_ADMIN_ROLE_ID: '857222988368707584',
@@ -33,15 +33,17 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID: '857222988088737804',
       ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE: '1',
       ISUXPORTAL_DISCORD_SUPPORT_COMM_CHANNEL_ROLES: '857222988583796784=857222988088737809,857222988583796785=857222988088737808,857222988781191178=857222988088737807',
-      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2020-08-31T09:00:00Z',
-      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2020-08-31T09:00:00Z',
-      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2020-08-31T09:00:00Z',
-      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2020-09-12T01:00:00Z',
-      ISUXPORTAL_TIMING_CONTEST_START: '2020-10-03T01:00:00Z',
-      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2020-10-12T00:45:00Z',
-      ISUXPORTAL_TIMING_CONTEST_END: '2020-10-12T01:00:00Z',
+      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-28T07:00:00Z',
+      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2021-07-30T09:00:00Z',
+      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2021-07-30T09:00:00Z',
+      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2021-07-30T09:00:00Z',
+      ISUXPORTAL_TIMING_CONTEST_START: '2021-08-21T01:00:00Z',
+      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-08-21T08:00:00Z',
+      ISUXPORTAL_TIMING_CONTEST_END: '2021-08-21T09:00:00Z',
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
-      ISUXPORTAL_DOCS_URL: 'https://hackmd.io/VD78z8syR16OTO25OtzW2A',
+      ISUXPORTAL_TERMS_URL: 'https://isucon.net/archives/55857411.html',
+      ISUXPORTAL_RULES_URL: 'https://isucon.net/archives/55854734.html',
+      ISUXPORTAL_DOCS_URL: '',
     },
     secrets: [
       secret('SECRET_KEY_BASE'),
@@ -67,7 +69,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
   volumes: {
   },
   scripts: [
-    utils.githubTag('isucon/isucon10-portal') {
+    utils.githubTag('isucon/isucon11-portal') {
       checks: ['portal-build'],
     },
     utils.createLogGroups(),
