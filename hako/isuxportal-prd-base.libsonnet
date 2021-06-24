@@ -41,7 +41,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-08-21T08:00:00Z',
       ISUXPORTAL_TIMING_CONTEST_END: '2021-08-21T09:00:00Z',
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
-      ISUXPORTAL_TERMS_URL: '',
+      ISUXPORTAL_TERMS_URL: 'https://isucon.net/archives/55857411.html',
       ISUXPORTAL_RULES_URL: 'https://isucon.net/archives/55854734.html',
       ISUXPORTAL_DOCS_URL: '',
     },
