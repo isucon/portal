@@ -5,10 +5,10 @@ on:
       - 'portal/**'
       - '.github/workflows/portal.yml'
     branches:
-      - master
+      - main
 
 env:
-  DOCKER_REPO: '516315029474.dkr.ecr.ap-northeast-1.amazonaws.com/isuxportal'
+  DOCKER_REPO: '245943874622.dkr.ecr.ap-northeast-1.amazonaws.com/isuxportal'
 
 jobs:
   build:
@@ -40,9 +40,9 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - run: "docker pull ${DOCKER_REPO}:latest-amd64 || :"
-      - run: "docker pull ${DOCKER_REPO}:latest-arm64 || :"
+      #- run: "docker pull ${DOCKER_REPO}:latest-arm64 || :"
       - run: "docker pull ${DOCKER_REPO}:builder-amd64 || :"
-      - run: "docker pull ${DOCKER_REPO}:builder-arm64 || :"
+      #- run: "docker pull ${DOCKER_REPO}:builder-arm64 || :"
       - run: "docker pull ${DOCKER_REPO}:assets-builder || :"
 
       - run: "docker build --pull --platform linux/amd64 --cache-from ${DOCKER_REPO}:assets-builder -t ${DOCKER_REPO}:assets-builder --target assets-builder -f Dockerfile ."
