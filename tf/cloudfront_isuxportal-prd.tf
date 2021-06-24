@@ -100,7 +100,7 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
       headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
       cookies {
         forward           = "whitelist"
-        whitelisted_names = ["isuxportalprd_sess"]
+        whitelisted_names = ["__Host-isuxportal_sess"]
       }
     }
     min_ttl                = 0
