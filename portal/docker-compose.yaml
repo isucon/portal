@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    environment:
+      RACK_ENV: development
+      RAILS_ENV: development
+      DATABASE_URL: 'mysql2://isuxportal_dev@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci'
+      DATABASE_PASSWORD: dbpass
+      REDIS_URL: 'redis://redis:6379'
+      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-01T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2021-06-31T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2021-06-31T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2021-06-31T09:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_START: '2021-07-14T09:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-07-14T18:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_END: '2021-07-14T19:00:00Z'
+      ISUXPORTAL_GITHUB_CLIENT_ID:
+      ISUXPORTAL_GITHUB_CLIENT_SECRET:
+      ISUXPORTAL_DISCORD_CLIENT_ID:
+      ISUXPORTAL_DISCORD_CLIENT_SECRET:
+      ISUXPORTAL_DISCORD_BOT_TOKEN:
+      ISUXPORTAL_DISCORD_SERVER_ID:
+      ISUXPORTAL_DISCORD_CHANNEL_ID:
+      ISUXPORTAL_DISCORD_CONTESTANT_ROLE_ID:
+      ISUXPORTAL_DISCORD_ADMIN_ROLE_ID:
+      ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE_ID:
+      ISUXPORTAL_DISCORD_CONTESTANT_FINAL_ROLE:
+      ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE_ID:
+      ISUXPORTAL_DISCORD_CONTESTANT_QUALIFY_ROLE:
+      ISUXPORTAL_DISCORD_SUPPORT_COMM_CHANNEL_ROLES:
+      ISUXPORTAL_ADMIN_LOGIN: admin
+      ISUXPORTAL_ADMIN_PASSWORD: pass
+    ports:
+      - '3000:3000'
+
+  redis:
+    image: redis:latest
+    expose:
+      - '6379'
+
+  mysql:
+    image: mysql:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: passsss
+      MYSQL_USER: isuxportal_dev
+      MYSQL_PASSWORD: dbpass
+      MYSQL_DATABASE: isuxportal_dev
+    expose:
+      - '3306'
