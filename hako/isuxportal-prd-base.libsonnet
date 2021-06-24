@@ -4,7 +4,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
 
 {
   scheduler: {
-    task_role_arn: utils.iamRole('Isuxportal'),
+    task_role_arn: utils.iamRole('IsuxportalPrd'),
   },
   app: {
     image: utils.ecrRepository('isuxportal'),
@@ -69,7 +69,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
   volumes: {
   },
   scripts: [
-    utils.githubTag('isucon/isucon10-portal') {
+    utils.githubTag('isucon/isucon11-portal') {
       checks: ['portal-build'],
     },
     utils.createLogGroups(),
