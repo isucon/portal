@@ -133,7 +133,7 @@ Rails.application.configure do
   config.x.admin_auth.login = ENV.fetch('ISUXPORTAL_ADMIN_LOGIN')
   config.x.admin_auth.password = ENV.fetch('ISUXPORTAL_ADMIN_PASSWORD')
 
-  config.x.contest.max_teams = 500
+  config.x.contest.max_teams = 600
   config.x.contest.final = ENV.fetch('ISUXPORTAL_FINAL') == '1'
   config.x.contest.registration_open = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_OPEN').yield_self { |_| Time.xmlschema(_) }
   config.x.contest.registration_close = ENV.fetch('ISUXPORTAL_TIMING_REGISTRATION_CLOSE').yield_self { |_| Time.xmlschema(_) }
