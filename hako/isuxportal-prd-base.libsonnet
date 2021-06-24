@@ -17,7 +17,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       RACK_ENV: 'production',
       RAILS_ENV: 'production',
       DATABASE_URL: 'mysql2://isuxportal@isuxportal-prd.cluster-cwda4z5vn03a.ap-northeast-1.rds.amazonaws.com/isuxportal?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci',
-      REDIS_URL: 'redis://isuxportal-prd-ro.bikdgh.ng.0001.apne1.cache.amazonaws.com:6379/0',
+      REDIS_URL: 'redis://isuxportal-prd.bikdgh.ng.0001.apne1.cache.amazonaws.com:6379/0',
       SENTRY_DSN: 'https://89064bffbbde4a9c96fdbeaf68fc6664@o417264.ingest.sentry.io/5316249',
       RAILS_LOG_TO_STDOUT: '1',
       RAILS_SERVE_STATIC_FILES: '1',
