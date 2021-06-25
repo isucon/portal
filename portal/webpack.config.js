@@ -18,6 +18,25 @@ glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
 
 
 
+// https://github.com/protobufjs/protobuf.js/issues/997
+const evalReplaceRule = {
+  test: /\.js$/,
+  use: [
+    {
+      loader: 'string-replace-loader',
+      options: {
+        multiple: [{
+          search: /eval.*\(moduleName\);/g,
+          replace: 'undefined;',
+        }],
+      },
+    },
+  ],
+  include: [
+    path.join(__dirname, 'node_modules/@protobufjs/inquire'),
+  ],
+}
+
 module.exports =  [
   {
     ...devTool,
@@ -70,7 +89,8 @@ module.exports =  [
               instance: 'main',
             }
           }
-        }
+        },
+        evalReplaceRule
       ]
     },
     plugins: [
@@ -117,7 +137,8 @@ module.exports =  [
               instance: 'sw',
             },
           }
-        }
+        },
+        evalReplaceRule
       ]
     },
     plugins: [
