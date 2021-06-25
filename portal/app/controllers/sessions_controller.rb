@@ -57,11 +57,25 @@ class SessionsController < ApplicationController
     contestant = Contestant.active.find_by(discord_id: auth['uid'])
 
     case
-    when contestant
+    when contestant # 紐づくdiscordアカウントが既に存在していたらそのアカウントに切り替える
       contestant.update_attributes!(
         discord_tag: tag,
       )
       session[:contestant_id] = contestant.id
+      redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
+    when session[:contestant_id] # ログイン済みの場合は紐づいているdiscordアカウントを変更する
+      contestant = Contestant.active.find_by(id: session[:contestant_id])
+      unless contestant
+        redirect_to session[:back_to] || registration_path
+      end
+
+      Rails.logger.info "switch_discord_account: contestant=#{contestant.id}"
+      MaintainDiscordContestantRolesJob.perform_later(nil, force_discord_id: contestant.discord_id)
+
+      contestant.update_attributes!(
+        discord_id: auth['uid'],
+        discord_tag: tag,
+      )
       redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
     else
       redirect_to session[:back_to] || registration_path

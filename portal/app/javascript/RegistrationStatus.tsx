@@ -106,10 +106,14 @@ export class RegistrationStatus extends React.Component<Props, State> {
         <section className="mt-3">
           <h4 className="title is-4">登録内容の編集</h4>
           <p className="block">
-            <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>
-              編集
-            </button>
-            <br />
+            <div className="buttons">
+              <button className="button is-info" onClick={this.onEditButtonClick.bind(this)}>
+                編集
+              </button>
+              <a className="button is-light" href={this.discordLoginUrl()}>
+                Discordアカウント変更
+              </a>
+            </div>
             参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
           </p>
           <p className="block">
@@ -128,6 +132,10 @@ export class RegistrationStatus extends React.Component<Props, State> {
         </section>
       </>
     );
+  }
+
+  discordLoginUrl() {
+    return (document.querySelector('meta[name="isux:discord-auth-path"]') as HTMLMetaElement).content;
   }
 
   renderTeamMembers() {
