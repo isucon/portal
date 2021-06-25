@@ -38,6 +38,13 @@ export class Navbar extends React.Component<Props, State> {
                 規約
               </a>
               {this.renderRulesButton()}
+              <a className="navbar-item"
+                href="https://pages.awscloud.com/event_JAPAN_Ondemand_Hands-on-for-Beginners-1st-Step_LP.html"
+                target="_blank"
+                rel="noreferrer noopener">
+                  AWS 基本のキ
+                  <span className="material-icons-outlined">launch</span>
+              </a>
             </div>
             <div className="navbar-end">
               <div className="navbar-item">
