@@ -14,13 +14,15 @@ module APIServerMokeyPatch
     )
   end
 end
-Discordrb::API::Server.prepend(APIServerMokeyPatch)
+Discordrb::API::Server.singleton_class.prepend(APIServerMokeyPatch)
 
 module ServerMokeyPatch
   def initialize(data, bot)
     super(data, bot)
 
-    @member_count = data['approximate_member_count']
+    if data['approximate_member_count']
+      @member_count = data['approximate_member_count']
+    end
   end
 end
 Discordrb::Server.prepend(ServerMokeyPatch)
