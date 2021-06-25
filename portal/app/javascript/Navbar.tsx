@@ -34,7 +34,7 @@ export class Navbar extends React.Component<Props, State> {
               <Link className="navbar-item" to="/teams">
                 チーム一覧
               </Link>
-              <a className="navbar-item" href="/terms">
+              <a className="navbar-item" href="/terms" target="_blank" rel="noreferrer noopener">
                 規約
               </a>
               {this.renderRulesButton()}
@@ -56,7 +56,7 @@ export class Navbar extends React.Component<Props, State> {
   public renderRulesButton() {
     if (this.props.session.contest?.status !== isuxportal.proto.resources.Contest.Status.STANDBY) {
       return (
-        <a className="navbar-item" href="/rules">
+        <a className="navbar-item" href="/rules" target="_blank" rel="noreferrer noopener">
           レギュレーション
         </a>
       );
