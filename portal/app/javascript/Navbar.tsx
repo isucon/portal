@@ -34,10 +34,17 @@ export class Navbar extends React.Component<Props, State> {
               <Link className="navbar-item" to="/teams">
                 チーム一覧
               </Link>
-              <a className="navbar-item" href="/terms">
+              <a className="navbar-item" href="/terms" target="_blank" rel="noreferrer noopener">
                 規約
               </a>
               {this.renderRulesButton()}
+              <a className="navbar-item"
+                href="https://pages.awscloud.com/event_JAPAN_Ondemand_Hands-on-for-Beginners-1st-Step_LP.html"
+                target="_blank"
+                rel="noreferrer noopener">
+                  AWS 基本のキ
+                  <span className="material-icons-outlined">launch</span>
+              </a>
             </div>
             <div className="navbar-end">
               <div className="navbar-item">
@@ -56,7 +63,7 @@ export class Navbar extends React.Component<Props, State> {
   public renderRulesButton() {
     if (this.props.session.contest?.status !== isuxportal.proto.resources.Contest.Status.STANDBY) {
       return (
-        <a className="navbar-item" href="/rules">
+        <a className="navbar-item" href="/rules" target="_blank" rel="noreferrer noopener">
           レギュレーション
         </a>
       );
