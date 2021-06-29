@@ -69,11 +69,14 @@ class SessionsController < ApplicationController
         redirect_to session[:back_to] || registration_path
       end
 
-      Rails.logger.info "switch_discord_account: contestant=#{contestant.id}"
+      newId = auth['uid']
+
+      SlackWebhookJob.perform_later(text: ":left_right_arrow: *Switch discord account:* contestant=#{contestant.id} from=#{contestant.discord_tag}(#{contestant.discord_id}) to=#{tag}(#{newId})")
+      Rails.logger.info "switch_discord_account: contestant=#{contestant.id} from=#{contestant.discord_tag}(#{contestant.discord_id}) to=#{tag}(#{newId})"
       MaintainDiscordContestantRolesJob.perform_later(nil, force_discord_id: contestant.discord_id)
 
       contestant.update_attributes!(
-        discord_id: auth['uid'],
+        discord_id: newId,
         discord_tag: tag,
       )
       redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
