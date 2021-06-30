@@ -54,28 +54,41 @@ bot.member_join() do |event|
 end
 
 CHAIR_EMOJI = "\xf0\x9f\xaa\x91"
+SOS_EMOJI = "\xf0\x9f\x86\x98"
 bot.reaction_add() do |event|
   next unless event.server.id.to_s == expected_server_id
   next unless event.channel.name == "readme"
+  next unless event.emoji.name == CHAIR_EMOJI || event.emoji.name == SOS_EMOJI
+
   Rails.logger.info "CHANNEL_REACTION_ADD: #{event.emoji.inspect}"
+
+  contestant = Contestant.find_by(discord_id: event.user.id)
+
   if event.emoji.name == CHAIR_EMOJI
-    contestant = Contestant.find_by(discord_id: event.user.id)
     if contestant
       MaintainDiscordContestantRolesJob.perform_later(contestant)
     end
+    Discordrb::API::Channel.delete_user_reaction(
+      bot.token,
+      event.instance_variable_get(:@channel_id).to_s,
+      event.instance_variable_get(:@message_id).to_s,
+      CHAIR_EMOJI,
+      event.instance_variable_get(:@user_id).to_s,
+    )
+  elsif event.emoji.name == SOS_EMOJI
+    contestant_info = '_unknown_'
+    if contestant
+      contestant_info = "#{contestant.name} (#{contestant&.id})"
+    end
+
+    SlackWebhookJob.perform_later(text: ":sos: *Discord SOS reaction:* contestant=#{contestant_info}")
   end
-  Discordrb::API::Channel.delete_user_reaction(
-    bot.token,
-    event.instance_variable_get(:@channel_id).to_s,
-    event.instance_variable_get(:@message_id).to_s,
-    CHAIR_EMOJI,
-    event.instance_variable_get(:@user_id).to_s,
-  )
+
   Discordrb::API::Channel.create_reaction(
     bot.token,
     event.instance_variable_get(:@channel_id).to_s,
     event.instance_variable_get(:@message_id).to_s,
-    CHAIR_EMOJI,
+    event.emoji.name,
   )
 end
 
