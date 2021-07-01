@@ -23,6 +23,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       RAILS_SERVE_STATIC_FILES: '1',
       RAILS_SERVE_STATIC_FILES_CC: 'public, max-age=31536000',
       DEFAULT_URL_HOST: 'portal.isucon.net',
+      ISUXPORTAL_MAX_TEAMS: '600',
       ISUXPORTAL_FINAL: '0',
       ISUXPORTAL_DISCORD_SERVER_ID: '857222988088737803',  // ISUCON11
       ISUXPORTAL_DISCORD_CHANNEL_ID: '857222988368707589',  // #announcement
