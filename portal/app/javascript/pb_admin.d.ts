@@ -2804,214 +2804,6 @@ export namespace isuxportal {
         /** Namespace services. */
         namespace services {
 
-            /** Namespace common. */
-            namespace common {
-
-                /** Properties of a GetCurrentSessionRequest. */
-                interface IGetCurrentSessionRequest {
-                }
-
-                /** Represents a GetCurrentSessionRequest. */
-                class GetCurrentSessionRequest implements IGetCurrentSessionRequest {
-
-                    /**
-                     * Constructs a new GetCurrentSessionRequest.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest);
-
-                    /**
-                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns GetCurrentSessionRequest instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @param message GetCurrentSessionRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @param message GetCurrentSessionRequest message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Verifies a GetCurrentSessionRequest message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns GetCurrentSessionRequest
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionRequest;
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
-                     * @param message GetCurrentSessionRequest
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this GetCurrentSessionRequest to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of a GetCurrentSessionResponse. */
-                interface IGetCurrentSessionResponse {
-
-                    /** GetCurrentSessionResponse team */
-                    team?: (isuxportal.proto.resources.ITeam|null);
-
-                    /** GetCurrentSessionResponse contestant */
-                    contestant?: (isuxportal.proto.resources.IContestant|null);
-
-                    /** GetCurrentSessionResponse discordServerId */
-                    discordServerId?: (string|null);
-
-                    /** GetCurrentSessionResponse contest */
-                    contest?: (isuxportal.proto.resources.IContest|null);
-
-                    /** GetCurrentSessionResponse contestantInstances */
-                    contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
-
-                    /** GetCurrentSessionResponse pushVapidKey */
-                    pushVapidKey?: (string|null);
-                }
-
-                /** Represents a GetCurrentSessionResponse. */
-                class GetCurrentSessionResponse implements IGetCurrentSessionResponse {
-
-                    /**
-                     * Constructs a new GetCurrentSessionResponse.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse);
-
-                    /** GetCurrentSessionResponse team. */
-                    public team?: (isuxportal.proto.resources.ITeam|null);
-
-                    /** GetCurrentSessionResponse contestant. */
-                    public contestant?: (isuxportal.proto.resources.IContestant|null);
-
-                    /** GetCurrentSessionResponse discordServerId. */
-                    public discordServerId: string;
-
-                    /** GetCurrentSessionResponse contest. */
-                    public contest?: (isuxportal.proto.resources.IContest|null);
-
-                    /** GetCurrentSessionResponse contestantInstances. */
-                    public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
-
-                    /** GetCurrentSessionResponse pushVapidKey. */
-                    public pushVapidKey: string;
-
-                    /**
-                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns GetCurrentSessionResponse instance
-                     */
-                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @param message GetCurrentSessionResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @param message GetCurrentSessionResponse message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Verifies a GetCurrentSessionResponse message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns GetCurrentSessionResponse
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionResponse;
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
-                     * @param message GetCurrentSessionResponse
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this GetCurrentSessionResponse to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-            }
-
             /** Namespace admin. */
             namespace admin {
 
@@ -6101,6 +5893,214 @@ export namespace isuxportal {
                          */
                         public toJSON(): { [k: string]: any };
                     }
+                }
+            }
+
+            /** Namespace common. */
+            namespace common {
+
+                /** Properties of a GetCurrentSessionRequest. */
+                interface IGetCurrentSessionRequest {
+                }
+
+                /** Represents a GetCurrentSessionRequest. */
+                class GetCurrentSessionRequest implements IGetCurrentSessionRequest {
+
+                    /**
+                     * Constructs a new GetCurrentSessionRequest.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest);
+
+                    /**
+                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCurrentSessionRequest instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionRequest): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @param message GetCurrentSessionRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @param message GetCurrentSessionRequest message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Verifies a GetCurrentSessionRequest message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCurrentSessionRequest
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionRequest;
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
+                     * @param message GetCurrentSessionRequest
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCurrentSessionRequest to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a GetCurrentSessionResponse. */
+                interface IGetCurrentSessionResponse {
+
+                    /** GetCurrentSessionResponse team */
+                    team?: (isuxportal.proto.resources.ITeam|null);
+
+                    /** GetCurrentSessionResponse contestant */
+                    contestant?: (isuxportal.proto.resources.IContestant|null);
+
+                    /** GetCurrentSessionResponse discordServerId */
+                    discordServerId?: (string|null);
+
+                    /** GetCurrentSessionResponse contest */
+                    contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances */
+                    contestantInstances?: (isuxportal.proto.resources.IContestantInstance[]|null);
+
+                    /** GetCurrentSessionResponse pushVapidKey */
+                    pushVapidKey?: (string|null);
+                }
+
+                /** Represents a GetCurrentSessionResponse. */
+                class GetCurrentSessionResponse implements IGetCurrentSessionResponse {
+
+                    /**
+                     * Constructs a new GetCurrentSessionResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse);
+
+                    /** GetCurrentSessionResponse team. */
+                    public team?: (isuxportal.proto.resources.ITeam|null);
+
+                    /** GetCurrentSessionResponse contestant. */
+                    public contestant?: (isuxportal.proto.resources.IContestant|null);
+
+                    /** GetCurrentSessionResponse discordServerId. */
+                    public discordServerId: string;
+
+                    /** GetCurrentSessionResponse contest. */
+                    public contest?: (isuxportal.proto.resources.IContest|null);
+
+                    /** GetCurrentSessionResponse contestantInstances. */
+                    public contestantInstances: isuxportal.proto.resources.IContestantInstance[];
+
+                    /** GetCurrentSessionResponse pushVapidKey. */
+                    public pushVapidKey: string;
+
+                    /**
+                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCurrentSessionResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.common.IGetCurrentSessionResponse): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @param message GetCurrentSessionResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @param message GetCurrentSessionResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.common.IGetCurrentSessionResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Verifies a GetCurrentSessionResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCurrentSessionResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.common.GetCurrentSessionResponse;
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
+                     * @param message GetCurrentSessionResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.common.GetCurrentSessionResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCurrentSessionResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
                 }
             }
 
