@@ -18,6 +18,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :avatar_url, :string, 4
       optional :github_id, :string, 16
       optional :discord_id, :string, 17
+      optional :is_ssh_key_registered, :bool, 21
+      optional :is_discord_guild_member, :bool, 22
     end
   end
 end

@@ -1476,6 +1476,12 @@ export namespace isuxportal {
 
                     /** ContestantDetail discordId */
                     discordId?: (string|null);
+
+                    /** ContestantDetail isSshKeyRegistered */
+                    isSshKeyRegistered?: (boolean|null);
+
+                    /** ContestantDetail isDiscordGuildMember */
+                    isDiscordGuildMember?: (boolean|null);
                 }
 
                 /** Represents a ContestantDetail. */
@@ -1504,6 +1510,12 @@ export namespace isuxportal {
 
                     /** ContestantDetail discordId. */
                     public discordId: string;
+
+                    /** ContestantDetail isSshKeyRegistered. */
+                    public isSshKeyRegistered: boolean;
+
+                    /** ContestantDetail isDiscordGuildMember. */
+                    public isDiscordGuildMember: boolean;
 
                     /**
                      * Creates a new ContestantDetail instance using the specified properties.

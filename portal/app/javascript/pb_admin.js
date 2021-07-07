@@ -4033,6 +4033,8 @@ $root.isuxportal = (function() {
                      * @property {string|null} [avatarUrl] ContestantDetail avatarUrl
                      * @property {string|null} [githubId] ContestantDetail githubId
                      * @property {string|null} [discordId] ContestantDetail discordId
+                     * @property {boolean|null} [isSshKeyRegistered] ContestantDetail isSshKeyRegistered
+                     * @property {boolean|null} [isDiscordGuildMember] ContestantDetail isDiscordGuildMember
                      */
 
                     /**
@@ -4099,6 +4101,22 @@ $root.isuxportal = (function() {
                     ContestantDetail.prototype.discordId = "";
 
                     /**
+                     * ContestantDetail isSshKeyRegistered.
+                     * @member {boolean} isSshKeyRegistered
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.isSshKeyRegistered = false;
+
+                    /**
+                     * ContestantDetail isDiscordGuildMember.
+                     * @member {boolean} isDiscordGuildMember
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.isDiscordGuildMember = false;
+
+                    /**
                      * Creates a new ContestantDetail instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
@@ -4134,6 +4152,10 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 16, wireType 2 =*/130).string(message.githubId);
                         if (message.discordId != null && Object.hasOwnProperty.call(message, "discordId"))
                             writer.uint32(/* id 17, wireType 2 =*/138).string(message.discordId);
+                        if (message.isSshKeyRegistered != null && Object.hasOwnProperty.call(message, "isSshKeyRegistered"))
+                            writer.uint32(/* id 21, wireType 0 =*/168).bool(message.isSshKeyRegistered);
+                        if (message.isDiscordGuildMember != null && Object.hasOwnProperty.call(message, "isDiscordGuildMember"))
+                            writer.uint32(/* id 22, wireType 0 =*/176).bool(message.isDiscordGuildMember);
                         return writer;
                     };
 
@@ -4185,6 +4207,12 @@ $root.isuxportal = (function() {
                                 break;
                             case 17:
                                 message.discordId = reader.string();
+                                break;
+                            case 21:
+                                message.isSshKeyRegistered = reader.bool();
+                                break;
+                            case 22:
+                                message.isDiscordGuildMember = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -4239,6 +4267,12 @@ $root.isuxportal = (function() {
                         if (message.discordId != null && message.hasOwnProperty("discordId"))
                             if (!$util.isString(message.discordId))
                                 return "discordId: string expected";
+                        if (message.isSshKeyRegistered != null && message.hasOwnProperty("isSshKeyRegistered"))
+                            if (typeof message.isSshKeyRegistered !== "boolean")
+                                return "isSshKeyRegistered: boolean expected";
+                        if (message.isDiscordGuildMember != null && message.hasOwnProperty("isDiscordGuildMember"))
+                            if (typeof message.isDiscordGuildMember !== "boolean")
+                                return "isDiscordGuildMember: boolean expected";
                         return null;
                     };
 
@@ -4266,6 +4300,10 @@ $root.isuxportal = (function() {
                             message.githubId = String(object.githubId);
                         if (object.discordId != null)
                             message.discordId = String(object.discordId);
+                        if (object.isSshKeyRegistered != null)
+                            message.isSshKeyRegistered = Boolean(object.isSshKeyRegistered);
+                        if (object.isDiscordGuildMember != null)
+                            message.isDiscordGuildMember = Boolean(object.isDiscordGuildMember);
                         return message;
                     };
 
@@ -4289,6 +4327,8 @@ $root.isuxportal = (function() {
                             object.avatarUrl = "";
                             object.githubId = "";
                             object.discordId = "";
+                            object.isSshKeyRegistered = false;
+                            object.isDiscordGuildMember = false;
                         }
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
                             object.githubLogin = message.githubLogin;
@@ -4302,6 +4342,10 @@ $root.isuxportal = (function() {
                             object.githubId = message.githubId;
                         if (message.discordId != null && message.hasOwnProperty("discordId"))
                             object.discordId = message.discordId;
+                        if (message.isSshKeyRegistered != null && message.hasOwnProperty("isSshKeyRegistered"))
+                            object.isSshKeyRegistered = message.isSshKeyRegistered;
+                        if (message.isDiscordGuildMember != null && message.hasOwnProperty("isDiscordGuildMember"))
+                            object.isDiscordGuildMember = message.isDiscordGuildMember;
                         return object;
                     };
 
