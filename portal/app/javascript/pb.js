@@ -3746,7 +3746,7 @@ $root.isuxportal = (function() {
                  * @property {number|Long|null} [id] Contestant id
                  * @property {number|Long|null} [teamId] Contestant teamId
                  * @property {string|null} [name] Contestant name
-                 * @property {isuxportal.proto.resources.Contestant.IContestantDetail|null} [contestantDetail] Contestant contestantDetail
+                 * @property {isuxportal.proto.resources.Contestant.IContestantDetail|null} [detail] Contestant detail
                  */
 
                 /**
@@ -3789,12 +3789,12 @@ $root.isuxportal = (function() {
                 Contestant.prototype.name = "";
 
                 /**
-                 * Contestant contestantDetail.
-                 * @member {isuxportal.proto.resources.Contestant.IContestantDetail|null|undefined} contestantDetail
+                 * Contestant detail.
+                 * @member {isuxportal.proto.resources.Contestant.IContestantDetail|null|undefined} detail
                  * @memberof isuxportal.proto.resources.Contestant
                  * @instance
                  */
-                Contestant.prototype.contestantDetail = null;
+                Contestant.prototype.detail = null;
 
                 /**
                  * Creates a new Contestant instance using the specified properties.
@@ -3826,8 +3826,8 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 2, wireType 0 =*/16).int64(message.teamId);
                     if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                         writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
-                    if (message.contestantDetail != null && Object.hasOwnProperty.call(message, "contestantDetail"))
-                        $root.isuxportal.proto.resources.Contestant.ContestantDetail.encode(message.contestantDetail, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    if (message.detail != null && Object.hasOwnProperty.call(message, "detail"))
+                        $root.isuxportal.proto.resources.Contestant.ContestantDetail.encode(message.detail, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     return writer;
                 };
 
@@ -3872,7 +3872,7 @@ $root.isuxportal = (function() {
                             message.name = reader.string();
                             break;
                         case 7:
-                            message.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.decode(reader, reader.uint32());
+                            message.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -3918,10 +3918,10 @@ $root.isuxportal = (function() {
                     if (message.name != null && message.hasOwnProperty("name"))
                         if (!$util.isString(message.name))
                             return "name: string expected";
-                    if (message.contestantDetail != null && message.hasOwnProperty("contestantDetail")) {
-                        var error = $root.isuxportal.proto.resources.Contestant.ContestantDetail.verify(message.contestantDetail);
+                    if (message.detail != null && message.hasOwnProperty("detail")) {
+                        var error = $root.isuxportal.proto.resources.Contestant.ContestantDetail.verify(message.detail);
                         if (error)
-                            return "contestantDetail." + error;
+                            return "detail." + error;
                     }
                     return null;
                 };
@@ -3958,10 +3958,10 @@ $root.isuxportal = (function() {
                             message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
                     if (object.name != null)
                         message.name = String(object.name);
-                    if (object.contestantDetail != null) {
-                        if (typeof object.contestantDetail !== "object")
-                            throw TypeError(".isuxportal.proto.resources.Contestant.contestantDetail: object expected");
-                        message.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.fromObject(object.contestantDetail);
+                    if (object.detail != null) {
+                        if (typeof object.detail !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Contestant.detail: object expected");
+                        message.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.fromObject(object.detail);
                     }
                     return message;
                 };
@@ -3991,7 +3991,7 @@ $root.isuxportal = (function() {
                         } else
                             object.teamId = options.longs === String ? "0" : 0;
                         object.name = "";
-                        object.contestantDetail = null;
+                        object.detail = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
                         if (typeof message.id === "number")
@@ -4005,8 +4005,8 @@ $root.isuxportal = (function() {
                             object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
                     if (message.name != null && message.hasOwnProperty("name"))
                         object.name = message.name;
-                    if (message.contestantDetail != null && message.hasOwnProperty("contestantDetail"))
-                        object.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.toObject(message.contestantDetail, options);
+                    if (message.detail != null && message.hasOwnProperty("detail"))
+                        object.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.toObject(message.detail, options);
                     return object;
                 };
 

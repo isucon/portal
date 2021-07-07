@@ -1358,8 +1358,8 @@ export namespace isuxportal {
                 /** Contestant name */
                 name?: (string|null);
 
-                /** Contestant contestantDetail */
-                contestantDetail?: (isuxportal.proto.resources.Contestant.IContestantDetail|null);
+                /** Contestant detail */
+                detail?: (isuxportal.proto.resources.Contestant.IContestantDetail|null);
             }
 
             /** Represents a Contestant. */
@@ -1380,8 +1380,8 @@ export namespace isuxportal {
                 /** Contestant name. */
                 public name: string;
 
-                /** Contestant contestantDetail. */
-                public contestantDetail?: (isuxportal.proto.resources.Contestant.IContestantDetail|null);
+                /** Contestant detail. */
+                public detail?: (isuxportal.proto.resources.Contestant.IContestantDetail|null);
 
                 /**
                  * Creates a new Contestant instance using the specified properties.
