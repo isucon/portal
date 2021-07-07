@@ -114,23 +114,23 @@ export class AdminTeamDetail extends React.Component<Props, State> {
             <div className="media-left">
               <figure className="image is-48x48">
                 <img
-                  src={member.contestantDetail!.avatarUrl || "https://avatars2.githubusercontent.com/u/10137?s=144"}
+                  src={member.detail!.avatarUrl || "https://avatars2.githubusercontent.com/u/10137?s=144"}
                 />
               </figure>
             </div>
             <div className="media-content">
               <p className="title is-5">{member.name}</p>
               <p className="subtitle is-6">
-                {member.contestantDetail!.isStudent ? <span className="tag is-info">学生</span> : null}
+                {member.detail!.isStudent ? <span className="tag is-info">学生</span> : null}
                 <span>
                   GitHub:
-                  <a href={`https://github.com/${member.contestantDetail!.githubLogin}`}>
-                    @{member.contestantDetail!.githubLogin}
+                  <a href={`https://github.com/${member.detail!.githubLogin}`}>
+                    @{member.detail!.githubLogin}
                   </a>
                 </span>
                 <span>
                   Discord:
-                  {member.contestantDetail!.discordTag}
+                  {member.detail!.discordTag}
                 </span>
               </p>
             </div>
@@ -142,7 +142,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
 
   teamIsStudent() {
     return (
-      this.state.team?.members && this.state.team.members.filter((v) => !v.contestantDetail!.isStudent).length == 0
+      this.state.team?.members && this.state.team.members.filter((v) => !v.detail!.isStudent).length == 0
     );
   }
 

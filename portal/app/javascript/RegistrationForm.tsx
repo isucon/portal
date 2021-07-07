@@ -28,7 +28,7 @@ export class RegistrationForm extends React.Component<Props, State> {
       teamName: this.props.registrationSession.team?.name ?? "",
       name: this.props.session.contestant?.name ?? "",
       emailAddress: this.props.registrationSession.team?.detail?.emailAddress ?? "",
-      isStudent: this.props.session.contestant?.contestantDetail!.isStudent ?? false,
+      isStudent: this.props.session.contestant?.detail!.isStudent ?? false,
       requesting: false,
       requestError: null,
     };

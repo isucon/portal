@@ -22,7 +22,7 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
 
   pb :show, Isuxportal::Proto::Services::Admin::GetTeamQuery
   def show
-    team = Team.find(params[:id]) 
+    team = Team.find(params[:id])
     render protobuf: Isuxportal::Proto::Services::Admin::GetTeamResponse.new(
       team: team.to_pb(detail: true, members: true, member_detail: true),
     )
@@ -31,11 +31,11 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
   pb :update, Isuxportal::Proto::Services::Admin::UpdateTeamRequest
   def update
     raise Api::ApplicationController::Error::BadRequest unless pb.team && pb.team.detail
-    raise Api::ApplicationController::Error::BadRequest unless pb.contestants.all?(&:contestant_detail)
+    raise Api::ApplicationController::Error::BadRequest unless pb.contestants.all?(&:detail)
     raise Api::ApplicationController::Error::BadRequest if params[:id]&.to_i != pb.team.id
 
     ApplicationRecord.transaction do
-      team = Team.find(params[:id]) 
+      team = Team.find(params[:id])
       contestants = team.members.where(id: pb.contestants.map(&:id))
       raise Api::ApplicationController::Error::NotFound if contestants.size != pb.contestants.size
 
@@ -53,11 +53,11 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
         cpb = pb.contestants.find { |_| _.id == contestant.id }
         contestant.update_attributes!(
           name: cpb.name,
-          student: cpb.contestant_detail.is_student,
-          github_id: cpb.contestant_detail.github_id,
-          github_login: cpb.contestant_detail.github_login,
-          discord_id: cpb.contestant_detail.discord_id,
-          discord_tag: cpb.contestant_detail.discord_tag,
+          student: cpb.detail.is_student,
+          github_id: cpb.detail.github_id,
+          github_login: cpb.detail.github_login,
+          discord_id: cpb.detail.discord_id,
+          discord_tag: cpb.detail.discord_tag,
         )
       end
     end
