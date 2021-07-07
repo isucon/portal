@@ -14,6 +14,9 @@ message Contestant {
 
     string github_id = 16;
     string discord_id = 17;
+
+    bool is_ssh_key_registered = 21;
+    bool is_discord_guild_member = 22;
   }
   ContestantDetail detail = 7;
 }
