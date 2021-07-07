@@ -29,7 +29,6 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       // See config/environments/development.rb
       ISUXPORTAL_ADMIN_ONLY: '1',
       ISUXPORTAL_ADMIN_LOGIN: 'neonlight',
-      ISUXPORTAL_BENCH_TOKEN: 'devtoken',  // TODO: change
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-dev',
       DISABLE_SHORYUKEN: '0',
       ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-01T09:00:00Z',
@@ -61,6 +60,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
       secret('ISUXPORTAL_DISCORD_CLIENT_SECRET'),
       secret('ISUXPORTAL_DISCORD_BOT_TOKEN'),
       secret('ISUXPORTAL_ADMIN_PASSWORD'),
+      secret('ISUXPORTAL_BENCH_TOKEN'),
       secret('ISUXPORTAL_VAPID_PRIVATE_KEY'),
     ],
     mount_points: [
