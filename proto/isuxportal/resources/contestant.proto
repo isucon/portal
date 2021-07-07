@@ -15,5 +15,5 @@ message Contestant {
     string github_id = 16;
     string discord_id = 17;
   }
-  ContestantDetail contestant_detail = 7; // FIXME: rename to "detail"
+  ContestantDetail detail = 7;
 }
