@@ -25,6 +25,20 @@ class Admin::DebugController < Admin::ApplicationController
     render plain: result.join("\n")
   end
 
+  def discord_stats
+    result = []
+    Team.active.find_in_batches do |batch|
+      batch.each do |team|
+        not_present_all = team.members.all? { |contestant| !contestant.is_discord_guild_member }
+        members_not_guild_member = team.members.select{ |c| !c.is_discord_guild_member }.map { |c| "#{c.name} (##{c.id}, #{c.github_login}/#{c.github_id}, #{c.discord_tag})" }
+        unless members_not_guild_member.empty?
+          result << "#{team.name} (##{team.id}): #{not_present_all ? '*全員未参加*' : ''} #{members_not_guild_member.join(', ')}"
+        end
+      end
+    end
+    render plain: result.join("\n")
+  end
+
   def long_running_check
     LongRunningCheckJob.perform_later
     render plain: 'enqueud'
