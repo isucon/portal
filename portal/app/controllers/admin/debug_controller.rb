@@ -25,6 +25,11 @@ class Admin::DebugController < Admin::ApplicationController
     render plain: result.join("\n")
   end
 
+  def sync_all_discord_stats
+    SyncDiscordMemberStateOfAllContestantJob.perform_later()
+    render plain: 'enqueued'
+  end
+
   def discord_stats
     result = []
     Team.active.find_in_batches do |batch|

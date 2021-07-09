@@ -149,6 +149,7 @@ Rails.application.routes.draw do
     get 'slacktown' => 'debug#slack'
     get 'sync_all_ssh_key' => 'debug#sync_all_ssh_key'
     get 'ssh_key_stats' => 'debug#ssh_key_stats'
+    get 'sync_all_discord_stats' => 'debug#sync_all_discord_stats'
     get 'discord_stats' => 'debug#discord_stats'
     get 'long_running_check' => 'debug#long_running_check'
   end
