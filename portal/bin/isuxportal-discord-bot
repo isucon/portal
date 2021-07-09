@@ -50,6 +50,7 @@ bot.member_join() do |event|
   if contestant
     Rails.logger.info "GUILD_MEMBER_ADD: contestant=#{contestant.id}"
     MaintainDiscordContestantRolesJob.perform_later(contestant)
+    SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
   end
 end
 
@@ -67,6 +68,7 @@ bot.reaction_add() do |event|
   if event.emoji.name == CHAIR_EMOJI
     if contestant
       MaintainDiscordContestantRolesJob.perform_later(contestant)
+      SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
     end
     Discordrb::API::Channel.delete_user_reaction(
       bot.token,

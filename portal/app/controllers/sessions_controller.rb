@@ -43,6 +43,7 @@ class SessionsController < ApplicationController
       )
       session[:contestant_id] = contestant.id
       SyncSshKeysOfContestantJob.perform_later(contestant, auth['credentials']['token'])
+      SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
       redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
     else
       redirect_to session[:back_to] || registration_path
@@ -74,6 +75,7 @@ class SessionsController < ApplicationController
       SlackWebhookJob.perform_later(text: ":left_right_arrow: *Switch discord account:* contestant=#{contestant.id} from=#{contestant.discord_tag}(#{contestant.discord_id}) to=#{tag}(#{newId})")
       Rails.logger.info "switch_discord_account: contestant=#{contestant.id} from=#{contestant.discord_tag}(#{contestant.discord_id}) to=#{tag}(#{newId})"
       MaintainDiscordContestantRolesJob.perform_later(nil, force_discord_id: contestant.discord_id)
+      SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
 
       contestant.update_attributes!(
         discord_id: newId,
