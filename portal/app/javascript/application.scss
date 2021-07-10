@@ -165,6 +165,15 @@ body.isux-session-guest .isux-visibility-guest {
   }
 }
 
+.isux-registration-member-card {
+  .status-ok {
+    color: $isuBlue;
+  }
+  .status-ng {
+    color: $isuRed;
+  }
+}
+
 .isux-registration-status-complete {
   ol {
     list-style-position: inside;
