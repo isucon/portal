@@ -43,13 +43,13 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
   onInviteUrlClick(event: React.MouseEvent<HTMLInputElement>) {
     if (event.target instanceof HTMLInputElement) {
-      event.target.select()
+      event.target.select();
     }
   }
 
   async onCopyInviteButtonClick(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
-    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl)
+    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl);
   }
 
   public render() {
