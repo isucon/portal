@@ -3746,7 +3746,7 @@ $root.isuxportal = (function() {
                  * @property {number|Long|null} [id] Contestant id
                  * @property {number|Long|null} [teamId] Contestant teamId
                  * @property {string|null} [name] Contestant name
-                 * @property {isuxportal.proto.resources.Contestant.IContestantDetail|null} [contestantDetail] Contestant contestantDetail
+                 * @property {isuxportal.proto.resources.Contestant.IContestantDetail|null} [detail] Contestant detail
                  */
 
                 /**
@@ -3789,12 +3789,12 @@ $root.isuxportal = (function() {
                 Contestant.prototype.name = "";
 
                 /**
-                 * Contestant contestantDetail.
-                 * @member {isuxportal.proto.resources.Contestant.IContestantDetail|null|undefined} contestantDetail
+                 * Contestant detail.
+                 * @member {isuxportal.proto.resources.Contestant.IContestantDetail|null|undefined} detail
                  * @memberof isuxportal.proto.resources.Contestant
                  * @instance
                  */
-                Contestant.prototype.contestantDetail = null;
+                Contestant.prototype.detail = null;
 
                 /**
                  * Creates a new Contestant instance using the specified properties.
@@ -3826,8 +3826,8 @@ $root.isuxportal = (function() {
                         writer.uint32(/* id 2, wireType 0 =*/16).int64(message.teamId);
                     if (message.name != null && Object.hasOwnProperty.call(message, "name"))
                         writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
-                    if (message.contestantDetail != null && Object.hasOwnProperty.call(message, "contestantDetail"))
-                        $root.isuxportal.proto.resources.Contestant.ContestantDetail.encode(message.contestantDetail, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    if (message.detail != null && Object.hasOwnProperty.call(message, "detail"))
+                        $root.isuxportal.proto.resources.Contestant.ContestantDetail.encode(message.detail, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                     return writer;
                 };
 
@@ -3872,7 +3872,7 @@ $root.isuxportal = (function() {
                             message.name = reader.string();
                             break;
                         case 7:
-                            message.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.decode(reader, reader.uint32());
+                            message.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -3918,10 +3918,10 @@ $root.isuxportal = (function() {
                     if (message.name != null && message.hasOwnProperty("name"))
                         if (!$util.isString(message.name))
                             return "name: string expected";
-                    if (message.contestantDetail != null && message.hasOwnProperty("contestantDetail")) {
-                        var error = $root.isuxportal.proto.resources.Contestant.ContestantDetail.verify(message.contestantDetail);
+                    if (message.detail != null && message.hasOwnProperty("detail")) {
+                        var error = $root.isuxportal.proto.resources.Contestant.ContestantDetail.verify(message.detail);
                         if (error)
-                            return "contestantDetail." + error;
+                            return "detail." + error;
                     }
                     return null;
                 };
@@ -3958,10 +3958,10 @@ $root.isuxportal = (function() {
                             message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
                     if (object.name != null)
                         message.name = String(object.name);
-                    if (object.contestantDetail != null) {
-                        if (typeof object.contestantDetail !== "object")
-                            throw TypeError(".isuxportal.proto.resources.Contestant.contestantDetail: object expected");
-                        message.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.fromObject(object.contestantDetail);
+                    if (object.detail != null) {
+                        if (typeof object.detail !== "object")
+                            throw TypeError(".isuxportal.proto.resources.Contestant.detail: object expected");
+                        message.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.fromObject(object.detail);
                     }
                     return message;
                 };
@@ -3991,7 +3991,7 @@ $root.isuxportal = (function() {
                         } else
                             object.teamId = options.longs === String ? "0" : 0;
                         object.name = "";
-                        object.contestantDetail = null;
+                        object.detail = null;
                     }
                     if (message.id != null && message.hasOwnProperty("id"))
                         if (typeof message.id === "number")
@@ -4005,8 +4005,8 @@ $root.isuxportal = (function() {
                             object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
                     if (message.name != null && message.hasOwnProperty("name"))
                         object.name = message.name;
-                    if (message.contestantDetail != null && message.hasOwnProperty("contestantDetail"))
-                        object.contestantDetail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.toObject(message.contestantDetail, options);
+                    if (message.detail != null && message.hasOwnProperty("detail"))
+                        object.detail = $root.isuxportal.proto.resources.Contestant.ContestantDetail.toObject(message.detail, options);
                     return object;
                 };
 
@@ -4033,6 +4033,8 @@ $root.isuxportal = (function() {
                      * @property {string|null} [avatarUrl] ContestantDetail avatarUrl
                      * @property {string|null} [githubId] ContestantDetail githubId
                      * @property {string|null} [discordId] ContestantDetail discordId
+                     * @property {boolean|null} [isSshKeyRegistered] ContestantDetail isSshKeyRegistered
+                     * @property {boolean|null} [isDiscordGuildMember] ContestantDetail isDiscordGuildMember
                      */
 
                     /**
@@ -4099,6 +4101,22 @@ $root.isuxportal = (function() {
                     ContestantDetail.prototype.discordId = "";
 
                     /**
+                     * ContestantDetail isSshKeyRegistered.
+                     * @member {boolean} isSshKeyRegistered
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.isSshKeyRegistered = false;
+
+                    /**
+                     * ContestantDetail isDiscordGuildMember.
+                     * @member {boolean} isDiscordGuildMember
+                     * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
+                     * @instance
+                     */
+                    ContestantDetail.prototype.isDiscordGuildMember = false;
+
+                    /**
                      * Creates a new ContestantDetail instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.resources.Contestant.ContestantDetail
@@ -4134,6 +4152,10 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 16, wireType 2 =*/130).string(message.githubId);
                         if (message.discordId != null && Object.hasOwnProperty.call(message, "discordId"))
                             writer.uint32(/* id 17, wireType 2 =*/138).string(message.discordId);
+                        if (message.isSshKeyRegistered != null && Object.hasOwnProperty.call(message, "isSshKeyRegistered"))
+                            writer.uint32(/* id 21, wireType 0 =*/168).bool(message.isSshKeyRegistered);
+                        if (message.isDiscordGuildMember != null && Object.hasOwnProperty.call(message, "isDiscordGuildMember"))
+                            writer.uint32(/* id 22, wireType 0 =*/176).bool(message.isDiscordGuildMember);
                         return writer;
                     };
 
@@ -4185,6 +4207,12 @@ $root.isuxportal = (function() {
                                 break;
                             case 17:
                                 message.discordId = reader.string();
+                                break;
+                            case 21:
+                                message.isSshKeyRegistered = reader.bool();
+                                break;
+                            case 22:
+                                message.isDiscordGuildMember = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -4239,6 +4267,12 @@ $root.isuxportal = (function() {
                         if (message.discordId != null && message.hasOwnProperty("discordId"))
                             if (!$util.isString(message.discordId))
                                 return "discordId: string expected";
+                        if (message.isSshKeyRegistered != null && message.hasOwnProperty("isSshKeyRegistered"))
+                            if (typeof message.isSshKeyRegistered !== "boolean")
+                                return "isSshKeyRegistered: boolean expected";
+                        if (message.isDiscordGuildMember != null && message.hasOwnProperty("isDiscordGuildMember"))
+                            if (typeof message.isDiscordGuildMember !== "boolean")
+                                return "isDiscordGuildMember: boolean expected";
                         return null;
                     };
 
@@ -4266,6 +4300,10 @@ $root.isuxportal = (function() {
                             message.githubId = String(object.githubId);
                         if (object.discordId != null)
                             message.discordId = String(object.discordId);
+                        if (object.isSshKeyRegistered != null)
+                            message.isSshKeyRegistered = Boolean(object.isSshKeyRegistered);
+                        if (object.isDiscordGuildMember != null)
+                            message.isDiscordGuildMember = Boolean(object.isDiscordGuildMember);
                         return message;
                     };
 
@@ -4289,6 +4327,8 @@ $root.isuxportal = (function() {
                             object.avatarUrl = "";
                             object.githubId = "";
                             object.discordId = "";
+                            object.isSshKeyRegistered = false;
+                            object.isDiscordGuildMember = false;
                         }
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
                             object.githubLogin = message.githubLogin;
@@ -4302,6 +4342,10 @@ $root.isuxportal = (function() {
                             object.githubId = message.githubId;
                         if (message.discordId != null && message.hasOwnProperty("discordId"))
                             object.discordId = message.discordId;
+                        if (message.isSshKeyRegistered != null && message.hasOwnProperty("isSshKeyRegistered"))
+                            object.isSshKeyRegistered = message.isSshKeyRegistered;
+                        if (message.isDiscordGuildMember != null && message.hasOwnProperty("isDiscordGuildMember"))
+                            object.isDiscordGuildMember = message.isDiscordGuildMember;
                         return object;
                     };
 
@@ -7580,513 +7624,6 @@ $root.isuxportal = (function() {
              */
             var services = {};
 
-            services.common = (function() {
-
-                /**
-                 * Namespace common.
-                 * @memberof isuxportal.proto.services
-                 * @namespace
-                 */
-                var common = {};
-
-                common.GetCurrentSessionRequest = (function() {
-
-                    /**
-                     * Properties of a GetCurrentSessionRequest.
-                     * @memberof isuxportal.proto.services.common
-                     * @interface IGetCurrentSessionRequest
-                     */
-
-                    /**
-                     * Constructs a new GetCurrentSessionRequest.
-                     * @memberof isuxportal.proto.services.common
-                     * @classdesc Represents a GetCurrentSessionRequest.
-                     * @implements IGetCurrentSessionRequest
-                     * @constructor
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest=} [properties] Properties to set
-                     */
-                    function GetCurrentSessionRequest(properties) {
-                        if (properties)
-                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
-                     * @function create
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest instance
-                     */
-                    GetCurrentSessionRequest.create = function create(properties) {
-                        return new GetCurrentSessionRequest(properties);
-                    };
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @function encode
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest} message GetCurrentSessionRequest message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCurrentSessionRequest.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest} message GetCurrentSessionRequest message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCurrentSessionRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCurrentSessionRequest.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.common.GetCurrentSessionRequest();
-                        while (reader.pos < end) {
-                            var tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCurrentSessionRequest.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a GetCurrentSessionRequest message.
-                     * @function verify
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    GetCurrentSessionRequest.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
-                     */
-                    GetCurrentSessionRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.common.GetCurrentSessionRequest)
-                            return object;
-                        return new $root.isuxportal.proto.services.common.GetCurrentSessionRequest();
-                    };
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @static
-                     * @param {isuxportal.proto.services.common.GetCurrentSessionRequest} message GetCurrentSessionRequest
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    GetCurrentSessionRequest.toObject = function toObject() {
-                        return {};
-                    };
-
-                    /**
-                     * Converts this GetCurrentSessionRequest to JSON.
-                     * @function toJSON
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    GetCurrentSessionRequest.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return GetCurrentSessionRequest;
-                })();
-
-                common.GetCurrentSessionResponse = (function() {
-
-                    /**
-                     * Properties of a GetCurrentSessionResponse.
-                     * @memberof isuxportal.proto.services.common
-                     * @interface IGetCurrentSessionResponse
-                     * @property {isuxportal.proto.resources.ITeam|null} [team] GetCurrentSessionResponse team
-                     * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
-                     * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
-                     * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
-                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] GetCurrentSessionResponse contestantInstances
-                     * @property {string|null} [pushVapidKey] GetCurrentSessionResponse pushVapidKey
-                     */
-
-                    /**
-                     * Constructs a new GetCurrentSessionResponse.
-                     * @memberof isuxportal.proto.services.common
-                     * @classdesc Represents a GetCurrentSessionResponse.
-                     * @implements IGetCurrentSessionResponse
-                     * @constructor
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse=} [properties] Properties to set
-                     */
-                    function GetCurrentSessionResponse(properties) {
-                        this.contestantInstances = [];
-                        if (properties)
-                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * GetCurrentSessionResponse team.
-                     * @member {isuxportal.proto.resources.ITeam|null|undefined} team
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.team = null;
-
-                    /**
-                     * GetCurrentSessionResponse contestant.
-                     * @member {isuxportal.proto.resources.IContestant|null|undefined} contestant
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.contestant = null;
-
-                    /**
-                     * GetCurrentSessionResponse discordServerId.
-                     * @member {string} discordServerId
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.discordServerId = "";
-
-                    /**
-                     * GetCurrentSessionResponse contest.
-                     * @member {isuxportal.proto.resources.IContest|null|undefined} contest
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.contest = null;
-
-                    /**
-                     * GetCurrentSessionResponse contestantInstances.
-                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} contestantInstances
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.contestantInstances = $util.emptyArray;
-
-                    /**
-                     * GetCurrentSessionResponse pushVapidKey.
-                     * @member {string} pushVapidKey
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     */
-                    GetCurrentSessionResponse.prototype.pushVapidKey = "";
-
-                    /**
-                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
-                     * @function create
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse instance
-                     */
-                    GetCurrentSessionResponse.create = function create(properties) {
-                        return new GetCurrentSessionResponse(properties);
-                    };
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @function encode
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse} message GetCurrentSessionResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCurrentSessionResponse.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.team != null && Object.hasOwnProperty.call(message, "team"))
-                            $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                        if (message.contestant != null && Object.hasOwnProperty.call(message, "contestant"))
-                            $root.isuxportal.proto.resources.Contestant.encode(message.contestant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                        if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
-                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
-                        if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
-                            $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                        if (message.contestantInstances != null && message.contestantInstances.length)
-                            for (var i = 0; i < message.contestantInstances.length; ++i)
-                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                        if (message.pushVapidKey != null && Object.hasOwnProperty.call(message, "pushVapidKey"))
-                            writer.uint32(/* id 6, wireType 2 =*/50).string(message.pushVapidKey);
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse} message GetCurrentSessionResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCurrentSessionResponse.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCurrentSessionResponse.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.common.GetCurrentSessionResponse();
-                        while (reader.pos < end) {
-                            var tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
-                                break;
-                            case 2:
-                                message.contestant = $root.isuxportal.proto.resources.Contestant.decode(reader, reader.uint32());
-                                break;
-                            case 3:
-                                message.discordServerId = reader.string();
-                                break;
-                            case 4:
-                                message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
-                                break;
-                            case 5:
-                                if (!(message.contestantInstances && message.contestantInstances.length))
-                                    message.contestantInstances = [];
-                                message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
-                                break;
-                            case 6:
-                                message.pushVapidKey = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCurrentSessionResponse.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a GetCurrentSessionResponse message.
-                     * @function verify
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    GetCurrentSessionResponse.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        if (message.team != null && message.hasOwnProperty("team")) {
-                            var error = $root.isuxportal.proto.resources.Team.verify(message.team);
-                            if (error)
-                                return "team." + error;
-                        }
-                        if (message.contestant != null && message.hasOwnProperty("contestant")) {
-                            var error = $root.isuxportal.proto.resources.Contestant.verify(message.contestant);
-                            if (error)
-                                return "contestant." + error;
-                        }
-                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
-                            if (!$util.isString(message.discordServerId))
-                                return "discordServerId: string expected";
-                        if (message.contest != null && message.hasOwnProperty("contest")) {
-                            var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
-                            if (error)
-                                return "contest." + error;
-                        }
-                        if (message.contestantInstances != null && message.hasOwnProperty("contestantInstances")) {
-                            if (!Array.isArray(message.contestantInstances))
-                                return "contestantInstances: array expected";
-                            for (var i = 0; i < message.contestantInstances.length; ++i) {
-                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.contestantInstances[i]);
-                                if (error)
-                                    return "contestantInstances." + error;
-                            }
-                        }
-                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
-                            if (!$util.isString(message.pushVapidKey))
-                                return "pushVapidKey: string expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
-                     */
-                    GetCurrentSessionResponse.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.common.GetCurrentSessionResponse)
-                            return object;
-                        var message = new $root.isuxportal.proto.services.common.GetCurrentSessionResponse();
-                        if (object.team != null) {
-                            if (typeof object.team !== "object")
-                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.team: object expected");
-                            message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
-                        }
-                        if (object.contestant != null) {
-                            if (typeof object.contestant !== "object")
-                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestant: object expected");
-                            message.contestant = $root.isuxportal.proto.resources.Contestant.fromObject(object.contestant);
-                        }
-                        if (object.discordServerId != null)
-                            message.discordServerId = String(object.discordServerId);
-                        if (object.contest != null) {
-                            if (typeof object.contest !== "object")
-                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contest: object expected");
-                            message.contest = $root.isuxportal.proto.resources.Contest.fromObject(object.contest);
-                        }
-                        if (object.contestantInstances) {
-                            if (!Array.isArray(object.contestantInstances))
-                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: array expected");
-                            message.contestantInstances = [];
-                            for (var i = 0; i < object.contestantInstances.length; ++i) {
-                                if (typeof object.contestantInstances[i] !== "object")
-                                    throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: object expected");
-                                message.contestantInstances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.contestantInstances[i]);
-                            }
-                        }
-                        if (object.pushVapidKey != null)
-                            message.pushVapidKey = String(object.pushVapidKey);
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @static
-                     * @param {isuxportal.proto.services.common.GetCurrentSessionResponse} message GetCurrentSessionResponse
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    GetCurrentSessionResponse.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        var object = {};
-                        if (options.arrays || options.defaults)
-                            object.contestantInstances = [];
-                        if (options.defaults) {
-                            object.team = null;
-                            object.contestant = null;
-                            object.discordServerId = "";
-                            object.contest = null;
-                            object.pushVapidKey = "";
-                        }
-                        if (message.team != null && message.hasOwnProperty("team"))
-                            object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
-                        if (message.contestant != null && message.hasOwnProperty("contestant"))
-                            object.contestant = $root.isuxportal.proto.resources.Contestant.toObject(message.contestant, options);
-                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
-                            object.discordServerId = message.discordServerId;
-                        if (message.contest != null && message.hasOwnProperty("contest"))
-                            object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
-                        if (message.contestantInstances && message.contestantInstances.length) {
-                            object.contestantInstances = [];
-                            for (var j = 0; j < message.contestantInstances.length; ++j)
-                                object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
-                        }
-                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
-                            object.pushVapidKey = message.pushVapidKey;
-                        return object;
-                    };
-
-                    /**
-                     * Converts this GetCurrentSessionResponse to JSON.
-                     * @function toJSON
-                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    GetCurrentSessionResponse.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return GetCurrentSessionResponse;
-                })();
-
-                return common;
-            })();
-
             services.audience = (function() {
 
                 /**
@@ -9124,6 +8661,513 @@ $root.isuxportal = (function() {
                 })();
 
                 return audience;
+            })();
+
+            services.common = (function() {
+
+                /**
+                 * Namespace common.
+                 * @memberof isuxportal.proto.services
+                 * @namespace
+                 */
+                var common = {};
+
+                common.GetCurrentSessionRequest = (function() {
+
+                    /**
+                     * Properties of a GetCurrentSessionRequest.
+                     * @memberof isuxportal.proto.services.common
+                     * @interface IGetCurrentSessionRequest
+                     */
+
+                    /**
+                     * Constructs a new GetCurrentSessionRequest.
+                     * @memberof isuxportal.proto.services.common
+                     * @classdesc Represents a GetCurrentSessionRequest.
+                     * @implements IGetCurrentSessionRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest=} [properties] Properties to set
+                     */
+                    function GetCurrentSessionRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new GetCurrentSessionRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest instance
+                     */
+                    GetCurrentSessionRequest.create = function create(properties) {
+                        return new GetCurrentSessionRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest} message GetCurrentSessionRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetCurrentSessionRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetCurrentSessionRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionRequest} message GetCurrentSessionRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetCurrentSessionRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetCurrentSessionRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.common.GetCurrentSessionRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetCurrentSessionRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetCurrentSessionRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetCurrentSessionRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetCurrentSessionRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetCurrentSessionRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionRequest} GetCurrentSessionRequest
+                     */
+                    GetCurrentSessionRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.common.GetCurrentSessionRequest)
+                            return object;
+                        return new $root.isuxportal.proto.services.common.GetCurrentSessionRequest();
+                    };
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @static
+                     * @param {isuxportal.proto.services.common.GetCurrentSessionRequest} message GetCurrentSessionRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetCurrentSessionRequest.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this GetCurrentSessionRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetCurrentSessionRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetCurrentSessionRequest;
+                })();
+
+                common.GetCurrentSessionResponse = (function() {
+
+                    /**
+                     * Properties of a GetCurrentSessionResponse.
+                     * @memberof isuxportal.proto.services.common
+                     * @interface IGetCurrentSessionResponse
+                     * @property {isuxportal.proto.resources.ITeam|null} [team] GetCurrentSessionResponse team
+                     * @property {isuxportal.proto.resources.IContestant|null} [contestant] GetCurrentSessionResponse contestant
+                     * @property {string|null} [discordServerId] GetCurrentSessionResponse discordServerId
+                     * @property {isuxportal.proto.resources.IContest|null} [contest] GetCurrentSessionResponse contest
+                     * @property {Array.<isuxportal.proto.resources.IContestantInstance>|null} [contestantInstances] GetCurrentSessionResponse contestantInstances
+                     * @property {string|null} [pushVapidKey] GetCurrentSessionResponse pushVapidKey
+                     */
+
+                    /**
+                     * Constructs a new GetCurrentSessionResponse.
+                     * @memberof isuxportal.proto.services.common
+                     * @classdesc Represents a GetCurrentSessionResponse.
+                     * @implements IGetCurrentSessionResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse=} [properties] Properties to set
+                     */
+                    function GetCurrentSessionResponse(properties) {
+                        this.contestantInstances = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetCurrentSessionResponse team.
+                     * @member {isuxportal.proto.resources.ITeam|null|undefined} team
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.team = null;
+
+                    /**
+                     * GetCurrentSessionResponse contestant.
+                     * @member {isuxportal.proto.resources.IContestant|null|undefined} contestant
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contestant = null;
+
+                    /**
+                     * GetCurrentSessionResponse discordServerId.
+                     * @member {string} discordServerId
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.discordServerId = "";
+
+                    /**
+                     * GetCurrentSessionResponse contest.
+                     * @member {isuxportal.proto.resources.IContest|null|undefined} contest
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contest = null;
+
+                    /**
+                     * GetCurrentSessionResponse contestantInstances.
+                     * @member {Array.<isuxportal.proto.resources.IContestantInstance>} contestantInstances
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.contestantInstances = $util.emptyArray;
+
+                    /**
+                     * GetCurrentSessionResponse pushVapidKey.
+                     * @member {string} pushVapidKey
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     */
+                    GetCurrentSessionResponse.prototype.pushVapidKey = "";
+
+                    /**
+                     * Creates a new GetCurrentSessionResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse instance
+                     */
+                    GetCurrentSessionResponse.create = function create(properties) {
+                        return new GetCurrentSessionResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse} message GetCurrentSessionResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetCurrentSessionResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.team != null && Object.hasOwnProperty.call(message, "team"))
+                            $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.contestant != null && Object.hasOwnProperty.call(message, "contestant"))
+                            $root.isuxportal.proto.resources.Contestant.encode(message.contestant, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                        if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.discordServerId);
+                        if (message.contest != null && Object.hasOwnProperty.call(message, "contest"))
+                            $root.isuxportal.proto.resources.Contest.encode(message.contest, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        if (message.contestantInstances != null && message.contestantInstances.length)
+                            for (var i = 0; i < message.contestantInstances.length; ++i)
+                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.contestantInstances[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                        if (message.pushVapidKey != null && Object.hasOwnProperty.call(message, "pushVapidKey"))
+                            writer.uint32(/* id 6, wireType 2 =*/50).string(message.pushVapidKey);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetCurrentSessionResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.common.GetCurrentSessionResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {isuxportal.proto.services.common.IGetCurrentSessionResponse} message GetCurrentSessionResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetCurrentSessionResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetCurrentSessionResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.common.GetCurrentSessionResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
+                                break;
+                            case 2:
+                                message.contestant = $root.isuxportal.proto.resources.Contestant.decode(reader, reader.uint32());
+                                break;
+                            case 3:
+                                message.discordServerId = reader.string();
+                                break;
+                            case 4:
+                                message.contest = $root.isuxportal.proto.resources.Contest.decode(reader, reader.uint32());
+                                break;
+                            case 5:
+                                if (!(message.contestantInstances && message.contestantInstances.length))
+                                    message.contestantInstances = [];
+                                message.contestantInstances.push($root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32()));
+                                break;
+                            case 6:
+                                message.pushVapidKey = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetCurrentSessionResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetCurrentSessionResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetCurrentSessionResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetCurrentSessionResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.team != null && message.hasOwnProperty("team")) {
+                            var error = $root.isuxportal.proto.resources.Team.verify(message.team);
+                            if (error)
+                                return "team." + error;
+                        }
+                        if (message.contestant != null && message.hasOwnProperty("contestant")) {
+                            var error = $root.isuxportal.proto.resources.Contestant.verify(message.contestant);
+                            if (error)
+                                return "contestant." + error;
+                        }
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            if (!$util.isString(message.discordServerId))
+                                return "discordServerId: string expected";
+                        if (message.contest != null && message.hasOwnProperty("contest")) {
+                            var error = $root.isuxportal.proto.resources.Contest.verify(message.contest);
+                            if (error)
+                                return "contest." + error;
+                        }
+                        if (message.contestantInstances != null && message.hasOwnProperty("contestantInstances")) {
+                            if (!Array.isArray(message.contestantInstances))
+                                return "contestantInstances: array expected";
+                            for (var i = 0; i < message.contestantInstances.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.contestantInstances[i]);
+                                if (error)
+                                    return "contestantInstances." + error;
+                            }
+                        }
+                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
+                            if (!$util.isString(message.pushVapidKey))
+                                return "pushVapidKey: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetCurrentSessionResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.common.GetCurrentSessionResponse} GetCurrentSessionResponse
+                     */
+                    GetCurrentSessionResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.common.GetCurrentSessionResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.common.GetCurrentSessionResponse();
+                        if (object.team != null) {
+                            if (typeof object.team !== "object")
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.team: object expected");
+                            message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
+                        }
+                        if (object.contestant != null) {
+                            if (typeof object.contestant !== "object")
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestant: object expected");
+                            message.contestant = $root.isuxportal.proto.resources.Contestant.fromObject(object.contestant);
+                        }
+                        if (object.discordServerId != null)
+                            message.discordServerId = String(object.discordServerId);
+                        if (object.contest != null) {
+                            if (typeof object.contest !== "object")
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contest: object expected");
+                            message.contest = $root.isuxportal.proto.resources.Contest.fromObject(object.contest);
+                        }
+                        if (object.contestantInstances) {
+                            if (!Array.isArray(object.contestantInstances))
+                                throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: array expected");
+                            message.contestantInstances = [];
+                            for (var i = 0; i < object.contestantInstances.length; ++i) {
+                                if (typeof object.contestantInstances[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.common.GetCurrentSessionResponse.contestantInstances: object expected");
+                                message.contestantInstances[i] = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.contestantInstances[i]);
+                            }
+                        }
+                        if (object.pushVapidKey != null)
+                            message.pushVapidKey = String(object.pushVapidKey);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetCurrentSessionResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @static
+                     * @param {isuxportal.proto.services.common.GetCurrentSessionResponse} message GetCurrentSessionResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetCurrentSessionResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.contestantInstances = [];
+                        if (options.defaults) {
+                            object.team = null;
+                            object.contestant = null;
+                            object.discordServerId = "";
+                            object.contest = null;
+                            object.pushVapidKey = "";
+                        }
+                        if (message.team != null && message.hasOwnProperty("team"))
+                            object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
+                        if (message.contestant != null && message.hasOwnProperty("contestant"))
+                            object.contestant = $root.isuxportal.proto.resources.Contestant.toObject(message.contestant, options);
+                        if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
+                            object.discordServerId = message.discordServerId;
+                        if (message.contest != null && message.hasOwnProperty("contest"))
+                            object.contest = $root.isuxportal.proto.resources.Contest.toObject(message.contest, options);
+                        if (message.contestantInstances && message.contestantInstances.length) {
+                            object.contestantInstances = [];
+                            for (var j = 0; j < message.contestantInstances.length; ++j)
+                                object.contestantInstances[j] = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.contestantInstances[j], options);
+                        }
+                        if (message.pushVapidKey != null && message.hasOwnProperty("pushVapidKey"))
+                            object.pushVapidKey = message.pushVapidKey;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetCurrentSessionResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.common.GetCurrentSessionResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetCurrentSessionResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetCurrentSessionResponse;
+                })();
+
+                return common;
             })();
 
             services.contestant = (function() {

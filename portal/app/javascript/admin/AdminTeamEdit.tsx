@@ -174,7 +174,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       type="text"
                       required={true}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubLogin`}
-                      {...register(`contestants.${i}.contestantDetail.githubLogin` as const)}
+                      {...register(`contestants.${i}.detail.githubLogin` as const)}
                     />
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       type="text"
                       required={true}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-githubid`}
-                      {...register(`contestants.${i}.contestantDetail.githubId` as const)}
+                      {...register(`contestants.${i}.detail.githubId` as const)}
                     />
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       type="text"
                       required={true}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordTag`}
-                      {...register(`contestants.${i}.contestantDetail.discordTag` as const)}
+                      {...register(`contestants.${i}.detail.discordTag` as const)}
                     />
                   </div>
                 </div>
@@ -216,14 +216,14 @@ export const AdminTeamEdit: React.FC<Props> = (props: Props) => {
                       type="text"
                       required={true}
                       id={`AdminTeamEdit-${props.team.id}-${member.id}-discordId`}
-                      {...register(`contestants.${i}.contestantDetail.discordId` as const)}
+                      {...register(`contestants.${i}.detail.discordId` as const)}
                     />
                   </div>
                 </div>
                 <div className="field">
                   <div className="control">
                     <label className="checkbox">
-                      <input type="checkbox" {...register(`contestants.${i}.contestantDetail.isStudent` as const)} />
+                      <input type="checkbox" {...register(`contestants.${i}.detail.isStudent` as const)} />
                       Student
                     </label>
                   </div>

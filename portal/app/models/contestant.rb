@@ -43,7 +43,7 @@ class Contestant < ApplicationRecord
       id: id,
       team_id: team_id,
       name: name,
-      contestant_detail: !detail ? nil : Isuxportal::Proto::Resources::Contestant::ContestantDetail.new(
+      detail: !detail ? nil : Isuxportal::Proto::Resources::Contestant::ContestantDetail.new(
         avatar_url: avatar_url,
         github_login: github_login,
         github_id: github_id,

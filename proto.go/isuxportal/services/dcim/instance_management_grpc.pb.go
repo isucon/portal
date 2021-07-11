@@ -89,3 +89,27 @@ func RegisterInstanceManagementService(s grpc.ServiceRegistrar, srv *InstanceMan
 
 	s.RegisterService(&sd, nil)
 }
+
+// NewInstanceManagementService creates a new InstanceManagementService containing the
+// implemented methods of the InstanceManagement service in s.  Any unimplemented
+// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
+// This includes situations where the method handler is misspelled or has the wrong
+// signature.  For this reason, this function should be used with great care and
+// is not recommended to be used by most users.
+func NewInstanceManagementService(s interface{}) *InstanceManagementService {
+	ns := &InstanceManagementService{}
+	if h, ok := s.(interface {
+		InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
+	}); ok {
+		ns.InformInstanceStateUpdate = h.InformInstanceStateUpdate
+	}
+	return ns
+}
+
+// UnstableInstanceManagementService is the service API for InstanceManagement service.
+// New methods may be added to this interface if they are added to the service
+// definition, which is not a backward-compatible change.  For this reason,
+// use of this type is not recommended.
+type UnstableInstanceManagementService interface {
+	InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
+}

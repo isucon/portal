@@ -3,8 +3,6 @@ package isuxportal.proto.services.contestant;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/contestant";
 
 import "isuxportal/resources/leaderboard.proto";
-import "isuxportal/resources/contestant_instance.proto";
-import "isuxportal/resources/benchmark_job.proto";
 
 message DashboardQuery {}
 

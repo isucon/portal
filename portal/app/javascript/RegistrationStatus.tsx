@@ -149,7 +149,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <div className="media">
             <div className="media-left">
               <figure className="image is-48x48">
-                <img src={member.contestantDetail!.avatarUrl || ""} />
+                <img src={member.detail!.avatarUrl || ""} />
               </figure>
             </div>
             <div className="media-content">
@@ -158,8 +158,8 @@ export class RegistrationStatus extends React.Component<Props, State> {
                 {this.props.registrationSession.team!.leaderId == member.id ? (
                   <span className="tag is-danger mr-1">代表者</span>
                 ) : null}
-                {member.contestantDetail!.isStudent ? <span className="tag is-info mr-1">学生</span> : null}
-                GitHub @{member.contestantDetail!.githubLogin}, Discord {member.contestantDetail!.discordTag}
+                {member.detail!.isStudent ? <span className="tag is-info mr-1">学生</span> : null}
+                GitHub @{member.detail!.githubLogin}, Discord {member.detail!.discordTag}
               </p>
             </div>
           </div>
