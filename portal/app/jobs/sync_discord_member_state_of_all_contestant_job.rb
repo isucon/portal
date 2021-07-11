@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class SyncDiscordMemberStateOfAllContestantJob < ApplicationJob
   LIMIT = 1000
   self.log_arguments = false

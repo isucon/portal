@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class SyncDiscordMemberStateOfContestantJob < ApplicationJob
   self.log_arguments = false
   def perform(contestant)
