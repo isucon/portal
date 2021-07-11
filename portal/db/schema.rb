@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_011239) do
+ActiveRecord::Schema.define(version: 2021_07_09_000429) do
 
-  create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "benchmark_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "benchmark_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id", null: false
     t.integer "status", default: 0, null: false
     t.string "instance_name"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["team_id", "id"], name: "index_benchmark_jobs_on_team_id_and_id"
   end
 
-  create_table "benchmark_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "benchmark_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id", null: false
     t.integer "benchmark_job_id", null: false
     t.integer "score", default: 0, null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["updated_at"], name: "index_benchmark_results_on_updated_at"
   end
 
-  create_table "clarifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "clarifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id"
     t.boolean "disclosed"
     t.text "question"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["team_id", "created_at"], name: "index_clarifications_on_team_id_and_created_at"
   end
 
-  create_table "contestant_instances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "contestant_instances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id", null: false
     t.string "cloud_id", null: false
     t.integer "number", null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["team_id", "number"], name: "index_contestant_instances_on_team_id_and_number"
   end
 
-  create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id", null: false
     t.string "name", null: false
     t.string "github_login", null: false
@@ -94,12 +94,13 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "github_id", null: false
     t.string "discord_tag", null: false
+    t.boolean "is_discord_guild_member", default: false, null: false
     t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
     t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
     t.index ["team_id"], name: "index_contestants_on_team_id"
   end
 
-  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "contestant_id", null: false
     t.boolean "read", default: false, null: false
     t.text "encoded_message", null: false
@@ -109,7 +110,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["contestant_id", "read", "id"], name: "index_notifications_on_contestant_id_and_read_and_id"
   end
 
-  create_table "push_subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "push_subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "contestant_id", null: false
     t.string "endpoint", null: false
     t.string "p256dh", null: false
@@ -119,7 +120,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["contestant_id", "endpoint"], name: "index_push_subscriptions_on_contestant_id_and_endpoint"
   end
 
-  create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "ssh_public_keys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "contestant_id", null: false
     t.text "public_key", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -127,7 +128,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["contestant_id"], name: "index_ssh_public_keys_on_contestant_id"
   end
 
-  create_table "survey_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "survey_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.integer "team_id"
     t.integer "benchmark_job_id"
     t.string "language"
@@ -137,7 +138,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_011239) do
     t.index ["team_id"], name: "index_survey_responses_on_team_id"
   end
 
-  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "leader_id"
     t.boolean "is_hidden", default: false, null: false
