@@ -43,16 +43,20 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
   onInviteUrlClick(event: React.MouseEvent<HTMLInputElement>) {
     if (event.target instanceof HTMLInputElement) {
-      event.target.select()
+      event.target.select();
     }
   }
 
   async onCopyInviteButtonClick(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
-    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl)
+    await navigator.clipboard.writeText(this.props.registrationSession.memberInviteUrl);
   }
 
   public render() {
+    const isTeamConditionOk = this.props.registrationSession.team!.members!.every(
+      (member) => member.detail!.isSshKeyRegistered && member.detail!.isDiscordGuildMember
+    );
+
     return (
       <>
         <section className="isux-registration-status-complete mt-2">
@@ -73,11 +77,24 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <div className="columns">
             <section className="column is-6">
               <h4 className="title is-4">チーム: {this.props.registrationSession.team!.name}</h4>
+              <div className={`notification ${isTeamConditionOk ? "is-info" : "is-danger"}`}>
+                {this.renderConditions(
+                  isTeamConditionOk,
+                  "現時点での準備が整っています。次のアナウンスをお待ちください。",
+                  "参加準備が整っていません。"
+                )}
+              </div>
               <div className="field">
                 <label className="label">招待URL</label>
                 <div className="field has-addons">
                   <div className="control is-expanded">
-                    <input className="input" type="text" readOnly value={this.props.registrationSession.memberInviteUrl} onClick={this.onInviteUrlClick.bind(this)} />
+                    <input
+                      className="input"
+                      type="text"
+                      readOnly
+                      value={this.props.registrationSession.memberInviteUrl}
+                      onClick={this.onInviteUrlClick.bind(this)}
+                    />
                   </div>
                   <div className="control">
                     <button className="button" onClick={this.onCopyInviteButtonClick.bind(this)}>
@@ -163,8 +180,33 @@ export class RegistrationStatus extends React.Component<Props, State> {
               </p>
             </div>
           </div>
+          <div className="content">
+            {this.renderConditions(
+              !!member.detail!.isSshKeyRegistered,
+              "GitHubにSSH鍵が登録されています",
+              "GitHubにSSH鍵が登録されていません"
+            )}
+            {this.renderConditions(
+              !!member.detail!.isDiscordGuildMember,
+              "Discordサーバーに参加しています",
+              "Discordサーバーに参加していません"
+            )}
+          </div>
         </div>
       </div>
+    );
+  }
+
+  renderConditions(isOk: boolean, okString: string, ngString: string) {
+    return (
+      <span className="icon-text">
+        <span className="icon">
+          <span className={`material-icons-outlined status-${isOk ? "ok" : "ng"}`}>
+            {isOk ? "check_circle" : "cancel"}
+          </span>
+        </span>
+        <span>{isOk ? okString : ngString}</span>
+      </span>
     );
   }
 
