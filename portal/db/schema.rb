@@ -78,7 +78,8 @@ ActiveRecord::Schema.define(version: 2021_07_09_000429) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cloud_id"], name: "index_contestant_instances_on_cloud_id"
-    t.index ["private_ipv4_address"], name: "index_contestant_instances_on_private_ipv4_address"    t.index ["status"], name: "index_contestant_instances_on_status"
+    t.index ["private_ipv4_address"], name: "index_contestant_instances_on_private_ipv4_address"
+    t.index ["status"], name: "index_contestant_instances_on_status"
     t.index ["team_id", "number"], name: "index_contestant_instances_on_team_id_and_number"
   end
 
