@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_09_000429) do
+ActiveRecord::Schema.define(version: 2021_07_15_023419) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_000429) do
     t.boolean "withdrawn", default: false, null: false
     t.boolean "disqualified", default: false, null: false
     t.boolean "student", null: false
+    t.string "availability_zone"
     t.index ["withdrawn", "disqualified", "final_participation"], name: "idx_active_final"
   end
 
