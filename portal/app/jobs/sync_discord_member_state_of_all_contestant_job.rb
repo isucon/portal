@@ -5,16 +5,16 @@ class SyncDiscordMemberStateOfAllContestantJob < ApplicationJob
     Rails.logger.info "Syncing discord guild member state of ALL contestants"
 
     member_discord_ids = Set.new
-    offset = 0
+    after = nil
     while true
       m = JSON.parse(Discordrb::API::Server.resolve_members(
         discord_token,
         server_id,
         LIMIT,
-        offset
+        after
       ))
       member_discord_ids.merge(m.map{ |_| _['user']['id'] })
-      offset += LIMIT
+      after = m.length > 0 ? m.last['user']['id'] : nil
 
       break if m.length < LIMIT
     end
