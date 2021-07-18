@@ -3,8 +3,8 @@ require 'isuxportal/services/registration/session_pb'
 class Api::Registration::SessionsController < Api::Registration::ApplicationController
   def show
     case
-    when current_contestant
-      @team = current_contestant.team
+    when current_contestant_include_disqualified
+      @team = current_contestant_include_disqualified.team
     when params[:team_id] && params[:invite_token]
       @team = Team.find_by(id: params[:team_id], invite_token: params[:invite_token])
       unless @team
@@ -18,7 +18,9 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     end
 
     status = case
-    when current_contestant
+    when current_contestant_include_disqualified&.disqualified?
+      Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::DISQUALIFIED
+    when current_contestant_include_disqualified
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::JOINED
     when @team && Contest.registration_invitation_closed? && !current_bypass_allowed?(:JOIN_TEAM)
       Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse::Status::CLOSED
@@ -37,7 +39,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     end
 
     render protobuf: Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse.new(
-      team: @team&.to_pb(detail: current_contestant&.id == current_team&.leader_id, member_detail: true, members: true),
+      team: @team&.to_pb(detail: current_contestant_include_disqualified&.id == current_team&.leader_id, member_detail: true, members: true),
       status: status,
       github_login: github_login&.fetch('login'),
       github_avatar_url: github_login&.fetch('avatar_url'),

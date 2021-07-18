@@ -160,6 +160,16 @@ export class Registration extends React.Component<Props, State> {
             />
           );
           break;
+        case isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status.DISQUALIFIED:
+          return (
+            <>
+              <div className="message is-danger">
+                <div className="message-body">
+                  失格になっているため、参加登録ができません。
+                </div>
+              </div>
+            </>
+          )
       }
     } else {
       return <p>Loading...</p>;

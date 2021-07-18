@@ -34,9 +34,12 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
 
     session[:github_login] = {id: auth['uid'], login: auth['info']['nickname'], token: auth['credentials']['token'], avatar_url: auth['info']['image']}
-    contestant = Contestant.active.find_by(github_id: auth['uid'])
+    contestant = Contestant.include_disqualified.find_by(github_id: auth['uid'])
 
     case
+    when contestant&.disqualified?
+      session[:contestant_id] = contestant.id
+      redirect_to session[:back_to] || registration_path
     when contestant
       contestant.update_attributes!(
         github_login: auth['info']['nickname'],
@@ -55,9 +58,12 @@ class SessionsController < ApplicationController
 
     tag = "#{auth['extra']['raw_info']['username']}##{auth['extra']['raw_info']['discriminator']}"
     session[:discord_login] = {id: auth['uid'], tag: tag, token: auth['credentials']['token'], avatar_url: auth['info']['image']}
-    contestant = Contestant.active.find_by(discord_id: auth['uid'])
+    contestant = Contestant.include_disqualified.find_by(discord_id: auth['uid'])
 
     case
+    when contestant&.disqualified?
+      session[:contestant_id] = contestant.id
+      redirect_to session[:back_to] || registration_path
     when contestant # 紐づくdiscordアカウントが既に存在していたらそのアカウントに切り替える
       contestant.update_attributes!(
         discord_tag: tag,

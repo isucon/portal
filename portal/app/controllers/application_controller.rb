@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
     @current_contestant ||= session[:contestant_id]&.yield_self { |id| Contestant.active.find_by(id: id) }
   end
 
+  helper_method def current_contestant_include_disqualified
+    @current_contestant_include_disqualified ||= session[:contestant_id]&.yield_self { |id| Contestant.include_disqualified.find_by(id: id) }
+  end
+
   helper_method def current_team
     current_contestant&.team
   end
