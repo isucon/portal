@@ -14432,6 +14432,7 @@ $root.isuxportal = (function() {
                             case 3:
                             case 4:
                             case 5:
+                            case 6:
                                 break;
                             }
                         if (message.githubLogin != null && message.hasOwnProperty("githubLogin"))
@@ -14496,6 +14497,10 @@ $root.isuxportal = (function() {
                         case "JOINED":
                         case 5:
                             message.status = 5;
+                            break;
+                        case "DISQUALIFIED":
+                        case 6:
+                            message.status = 6;
                             break;
                         }
                         if (object.githubLogin != null)
@@ -14576,6 +14581,7 @@ $root.isuxportal = (function() {
                      * @property {number} CREATABLE=3 CREATABLE value
                      * @property {number} JOINABLE=4 JOINABLE value
                      * @property {number} JOINED=5 JOINED value
+                     * @property {number} DISQUALIFIED=6 DISQUALIFIED value
                      */
                     GetRegistrationSessionResponse.Status = (function() {
                         var valuesById = {}, values = Object.create(valuesById);
@@ -14585,6 +14591,7 @@ $root.isuxportal = (function() {
                         values[valuesById[3] = "CREATABLE"] = 3;
                         values[valuesById[4] = "JOINABLE"] = 4;
                         values[valuesById[5] = "JOINED"] = 5;
+                        values[valuesById[6] = "DISQUALIFIED"] = 6;
                         return values;
                     })();
 

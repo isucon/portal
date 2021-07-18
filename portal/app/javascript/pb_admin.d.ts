@@ -8550,7 +8550,8 @@ export namespace isuxportal {
                         NOT_LOGGED_IN = 2,
                         CREATABLE = 3,
                         JOINABLE = 4,
-                        JOINED = 5
+                        JOINED = 5,
+                        DISQUALIFIED = 6
                     }
                 }
 
