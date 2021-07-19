@@ -3,7 +3,7 @@ require 'isuxportal/services/registration/session_pb'
 class Api::Registration::SessionsController < Api::Registration::ApplicationController
   def show
     case
-    when current_contestant_include_disqualified
+    when current_contestant_include_disqualified && !current_contestant_include_disqualified.disqualified?
       @team = current_contestant_include_disqualified.team
     when params[:team_id] && params[:invite_token]
       @team = Team.find_by(id: params[:team_id], invite_token: params[:invite_token])
