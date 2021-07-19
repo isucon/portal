@@ -1,0 +1,7 @@
+syntax = "proto3";
+package isuxportal.proto.services.registration;
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/registration";
+
+message GetCloudFormationResponse {
+  string template = 1;
+}
