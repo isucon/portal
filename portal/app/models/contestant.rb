@@ -16,11 +16,16 @@ class Contestant < ApplicationRecord
   validate :validate_number_of_team_members
 
   scope :active, -> { eager_load(:team).joins(:team).where(teams: {withdrawn: false, disqualified: false}) }
+  scope :include_disqualified, -> { eager_load(:team).joins(:team).where(teams: {withdrawn: false}) }
 
   after_save :save_team_student_status
 
   def active?
     team.active?
+  end
+
+  def disqualified?
+    team.disqualified?
   end
 
   def promoted?

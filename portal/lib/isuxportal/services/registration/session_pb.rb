@@ -28,6 +28,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :CREATABLE, 3
       value :JOINABLE, 4
       value :JOINED, 5
+      value :DISQUALIFIED, 6
     end
     add_message "isuxportal.proto.services.registration.UpdateRegistrationRequest" do
       optional :team_name, :string, 1

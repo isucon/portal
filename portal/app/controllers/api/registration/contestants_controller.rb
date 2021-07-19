@@ -3,10 +3,11 @@ require 'isuxportal/services/registration/join_pb'
 class Api::Registration::ContestantsController < Api::Registration::ApplicationController
   pb :create, Isuxportal::Proto::Services::Registration::JoinTeamRequest
   def create
-    raise ActiveRecord::RecordNotFound if current_contestant
+    raise ActiveRecord::RecordNotFound, "disqualified" if current_contestant_include_disqualified&.disqualified?
+    raise ActiveRecord::RecordNotFound, "already signed up" if current_contestant_include_disqualified
     raise ActiveRecord::RecordInvalid, "logins are missing" if !github_login || !discord_login
     if Contest.registration_invitation_closed? && !current_bypass_allowed?(:JOIN_TEAM)
-      raise Contest::RegistrationClosed 
+      raise Contest::RegistrationClosed
     end
 
     @team = Team.find_by!(id: pb.team_id, invite_token: pb.invite_token)

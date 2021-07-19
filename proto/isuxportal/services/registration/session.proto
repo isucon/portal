@@ -20,6 +20,7 @@ message GetRegistrationSessionResponse {
     CREATABLE = 3;
     JOINABLE = 4;
     JOINED = 5;
+    DISQUALIFIED = 6;
   }
   Status status = 2;
   string github_login = 3;
