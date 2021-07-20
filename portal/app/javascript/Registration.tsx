@@ -41,6 +41,11 @@ export class Registration extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.updateRegistrationSession();
+
+    ;(async () => {
+      const cf = await this.props.client.getTestCloudFormation();
+      console.log('template', cf.template)
+    })()
   }
 
   async updateRegistrationSession() {

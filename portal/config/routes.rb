@@ -59,6 +59,8 @@ Rails.application.routes.draw do
       resource :team, only: %i(create)
       # registration/join JoinTeam: POST /api/registration/contestant
       resource :contestant, only: %i(create)
+      # registration/cloud_formation GetCloudFormation: GET /api/registration/test_cloud_formation
+      get 'test_cloud_formation', to: 'test_cloud_formations#show'
     end
 
     scope path: 'audience', module: 'audience' do
