@@ -7,6 +7,7 @@ locals {
     "sapphi_red",
     "kanata",
     "mahito",
+    "tabuchi",
   ])
 }
 
