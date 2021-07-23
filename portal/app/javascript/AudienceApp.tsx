@@ -11,6 +11,7 @@ import { TeamList } from "./TeamList";
 import { AudienceDashboard } from "./AudienceDashboard";
 import { Landing } from './Landing';
 import { Registration } from "./Registration";
+import { Preparation } from "./Preparation";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -66,6 +67,17 @@ export class AudienceApp extends React.Component<Props, State> {
                 return (
                   <>
                     <Registration session={this.props.session} client={this.props.client} />
+                  </>
+                );
+              }}
+            />
+            <Route
+              exact
+              path="/registration/preparation"
+              render={({ match }) => {
+                return (
+                  <>
+                    <Preparation session={this.props.session} client={this.props.client} />
                   </>
                 );
               }}

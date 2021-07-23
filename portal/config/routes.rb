@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   scope path: 'registration', module: 'registration' do
     get '/' => 'registration#index', as: 'registration'
+    get '/preparation' => 'registration#index'
+
     resource :team, only: %i(new create)
     resource :user, only: %i(new create)
   end
