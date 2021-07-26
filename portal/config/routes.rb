@@ -103,6 +103,9 @@ Rails.application.routes.draw do
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id
       resources :teams, only: %i(index show update)
 
+      # admin/teams/cloud_formation GetCloudFormation: GET /api/admin/teams/:id/cloud_formation
+      get 'teams/:id/cloud_formation', to: 'cloud_formations#show'
+
       # admin/benchmark ListBenchmarkJobs: GET /api/admin/benchmark_jobs
       # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs
       # admin/benchmark GetBenchmarkJobs: GET /api/admin/benchmark_jobs/:id
