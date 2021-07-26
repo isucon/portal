@@ -4313,6 +4313,192 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
+                /** Properties of a GetCloudFormationQuery. */
+                interface IGetCloudFormationQuery {
+
+                    /** GetCloudFormationQuery id */
+                    id?: (number|Long|null);
+
+                    /** GetCloudFormationQuery type */
+                    type?: (string|null);
+                }
+
+                /** Represents a GetCloudFormationQuery. */
+                class GetCloudFormationQuery implements IGetCloudFormationQuery {
+
+                    /**
+                     * Constructs a new GetCloudFormationQuery.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IGetCloudFormationQuery);
+
+                    /** GetCloudFormationQuery id. */
+                    public id: (number|Long);
+
+                    /** GetCloudFormationQuery type. */
+                    public type: string;
+
+                    /**
+                     * Creates a new GetCloudFormationQuery instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCloudFormationQuery instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IGetCloudFormationQuery): isuxportal.proto.services.admin.GetCloudFormationQuery;
+
+                    /**
+                     * Encodes the specified GetCloudFormationQuery message. Does not implicitly {@link isuxportal.proto.services.admin.GetCloudFormationQuery.verify|verify} messages.
+                     * @param message GetCloudFormationQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IGetCloudFormationQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCloudFormationQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetCloudFormationQuery.verify|verify} messages.
+                     * @param message GetCloudFormationQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetCloudFormationQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCloudFormationQuery message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCloudFormationQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetCloudFormationQuery;
+
+                    /**
+                     * Decodes a GetCloudFormationQuery message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCloudFormationQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetCloudFormationQuery;
+
+                    /**
+                     * Verifies a GetCloudFormationQuery message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCloudFormationQuery message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCloudFormationQuery
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetCloudFormationQuery;
+
+                    /**
+                     * Creates a plain object from a GetCloudFormationQuery message. Also converts values to other types if specified.
+                     * @param message GetCloudFormationQuery
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.GetCloudFormationQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCloudFormationQuery to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a GetCloudFormationResponse. */
+                interface IGetCloudFormationResponse {
+
+                    /** GetCloudFormationResponse template */
+                    template?: (string|null);
+                }
+
+                /** Represents a GetCloudFormationResponse. */
+                class GetCloudFormationResponse implements IGetCloudFormationResponse {
+
+                    /**
+                     * Constructs a new GetCloudFormationResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IGetCloudFormationResponse);
+
+                    /** GetCloudFormationResponse template. */
+                    public template: string;
+
+                    /**
+                     * Creates a new GetCloudFormationResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetCloudFormationResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IGetCloudFormationResponse): isuxportal.proto.services.admin.GetCloudFormationResponse;
+
+                    /**
+                     * Encodes the specified GetCloudFormationResponse message. Does not implicitly {@link isuxportal.proto.services.admin.GetCloudFormationResponse.verify|verify} messages.
+                     * @param message GetCloudFormationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IGetCloudFormationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetCloudFormationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetCloudFormationResponse.verify|verify} messages.
+                     * @param message GetCloudFormationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetCloudFormationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetCloudFormationResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetCloudFormationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetCloudFormationResponse;
+
+                    /**
+                     * Decodes a GetCloudFormationResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetCloudFormationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetCloudFormationResponse;
+
+                    /**
+                     * Verifies a GetCloudFormationResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetCloudFormationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetCloudFormationResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetCloudFormationResponse;
+
+                    /**
+                     * Creates a plain object from a GetCloudFormationResponse message. Also converts values to other types if specified.
+                     * @param message GetCloudFormationResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.GetCloudFormationResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetCloudFormationResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
                 /** Properties of a ListContestantInstancesQuery. */
                 interface IListContestantInstancesQuery {
 
