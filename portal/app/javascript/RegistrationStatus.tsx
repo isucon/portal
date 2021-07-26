@@ -3,6 +3,7 @@ import { ApiClient } from "./ApiClient";
 import React from "react";
 
 import { ErrorMessage } from "./ErrorMessage";
+import { Link } from "react-router-dom";
 
 export interface Props {
   client: ApiClient;
@@ -146,6 +147,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
             )}
           </p>
           {this.renderError()}
+        </section>
+
+        <section className="mt-3">
+          <h4 className="title is-4">参加準備</h4>
+          <Link to="/registration/preparation">参加準備ページ</Link>
         </section>
       </>
     );
