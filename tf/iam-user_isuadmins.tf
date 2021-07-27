@@ -8,6 +8,7 @@ locals {
     "kanata",
     "mahito",
     "tabuchi",
+    "eiya",
   ])
 }
 
