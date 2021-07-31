@@ -9,6 +9,7 @@ locals {
     "mahito",
     "tabuchi",
     "eiya",
+    "ryoha",
   ])
 }
 
