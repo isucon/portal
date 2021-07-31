@@ -3,7 +3,11 @@ class Api::AwsEnvironmentsController < Api::ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    # TODO: 認証
+    token = params[:token]
+    render status: :bad_request, body: "request not have token" and return unless token
+    payload = CheckerToken.verify(token)
+    render status: :unauthorized, body: "invalid token" and return unless payload
+    render status: :bad_request, body: "token not have team_id" and return unless payload[:team_id] == params[:team_id].to_i
 
     @aws_environment = AwsEnvironment.new(
       team_id: params[:team_id].to_i,
