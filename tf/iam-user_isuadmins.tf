@@ -10,6 +10,7 @@ locals {
     "tabuchi",
     "eiya",
     "ryoha",
+    "oribe",
   ])
 }
 
