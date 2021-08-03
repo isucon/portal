@@ -13,7 +13,12 @@ module CheckerToken
       return nil
     end
 
-    decode_payload(payload_str)
+    payload = decode_payload(payload_str)
+    if payload[:expiry] < Time.now.to_i
+      return nil
+    end
+
+    payload
   rescue ArgumentError
     nil
   end
