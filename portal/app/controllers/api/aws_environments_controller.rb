@@ -4,9 +4,9 @@ class Api::AwsEnvironmentsController < Api::ApplicationController
 
   def create
     token = params[:token]
-    render status: :bad_request, body: "request not have token" and return unless token
+    return render status: :bad_request, body: "request not have token" unless token
     payload = CheckerToken.verify(token)
-    render status: :unauthorized, body: "invalid token" and return unless payload
+    return render status: :unauthorized, body: "invalid token" unless payload
 
     @aws_environment = AwsEnvironment.new(
       team_id: payload[:team_id],
