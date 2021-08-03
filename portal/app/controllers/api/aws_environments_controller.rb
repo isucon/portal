@@ -7,10 +7,9 @@ class Api::AwsEnvironmentsController < Api::ApplicationController
     render status: :bad_request, body: "request not have token" and return unless token
     payload = CheckerToken.verify(token)
     render status: :unauthorized, body: "invalid token" and return unless payload
-    render status: :bad_request, body: "token not have team_id" and return unless payload[:team_id] == params[:team_id].to_i
 
     @aws_environment = AwsEnvironment.new(
-      team_id: params[:team_id].to_i,
+      team_id: payload[:team_id],
       name: params[:name],
       ip_address: params[:ip_address],
       passed: params[:passed],
