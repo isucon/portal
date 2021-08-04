@@ -11,6 +11,8 @@ locals {
     "eiya",
     "ryoha",
     "oribe",
+    "hattori",
+    "hosshii",
   ])
 }
 
