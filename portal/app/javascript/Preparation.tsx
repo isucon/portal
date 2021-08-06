@@ -5,6 +5,12 @@ import React from "react";
 
 import { ErrorMessage } from "./ErrorMessage";
 
+const stateMap = new Map([
+  [null, { type: "", icon: "hourglass_top", desc: "状態取得中" }],
+  [0, { type: "is-info", icon: "check_circle", desc: "確認完了" }],
+  [1, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
+] as const);
+
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
@@ -12,6 +18,7 @@ export interface Props {
 
 export interface State {
   template: string;
+  checkState: null;
   instanceIP: string | null;
   error: Error | null;
 }
@@ -21,6 +28,7 @@ export class Preparation extends React.Component<Props, State> {
     super(props);
     this.state = {
       template: "",
+      checkState: null,
       instanceIP: null,
       error: null,
     };
@@ -76,6 +84,7 @@ export class Preparation extends React.Component<Props, State> {
           を利用します。予選実施前に実際に競技環境が用意できるかのチェックのため、以下の手順で事前チェックを行ってください。
           <b>必ずSSHの接続まで</b> 行ってください。
         </p>
+        {this.renderState()}
         <ol className="block ml-4">
           <li>
             テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>
@@ -109,6 +118,25 @@ export class Preparation extends React.Component<Props, State> {
     );
   }
 
+  renderState() {
+    if (!stateMap.has(this.state.checkState)) {
+      console.warn("Unexpected state:", this.state.checkState);
+      return null;
+    }
+
+    const { type, icon, desc } = stateMap.get(this.state.checkState)!;
+    return (
+      <div className={`notification ${type}`}>
+        <span className="icon-text">
+          <span className="icon">
+            <span className={"material-icons-outlined"}>{icon}</span>
+          </span>
+          <span>{desc}</span>
+        </span>
+      </div>
+    );
+  }
+
   onInstanceIPClick(event: React.MouseEvent<HTMLInputElement>) {
     if (event.target instanceof HTMLInputElement) {
       event.target.select();
@@ -135,12 +163,17 @@ export class Preparation extends React.Component<Props, State> {
                 className="input"
                 type="text"
                 readOnly
+                disabled={this.state.instanceIP === null}
                 value={this.state.instanceIP ?? "取得中"}
                 onClick={this.onInstanceIPClick.bind(this)}
               />
             </div>
             <div className="control">
-              <button className="button" disabled={this.state.instanceIP === null} onClick={this.onCopyInstanceIPButtonClick.bind(this)}>
+              <button
+                className="button"
+                disabled={this.state.instanceIP === null}
+                onClick={this.onCopyInstanceIPButtonClick.bind(this)}
+              >
                 <span className="material-icons">content_copy</span>
               </button>
             </div>
