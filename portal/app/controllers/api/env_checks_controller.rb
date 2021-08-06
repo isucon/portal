@@ -1,4 +1,4 @@
-class Api::AwsEnvironmentsController < Api::ApplicationController
+class Api::EnvChecksController < Api::ApplicationController
   skip_before_action :require_staff_when_always_required
   skip_before_action :verify_authenticity_token
 
@@ -8,7 +8,7 @@ class Api::AwsEnvironmentsController < Api::ApplicationController
     payload = CheckerToken.verify(token)
     return render status: :unauthorized, body: "invalid token" unless payload
 
-    @aws_environment = AwsEnvironment.new(
+    @env_check = EnvCheck.new(
       team_id: payload[:team_id],
       name: params[:name],
       ip_address: params[:ip_address],
@@ -17,6 +17,6 @@ class Api::AwsEnvironmentsController < Api::ApplicationController
       admin_message: params[:admin_message],
       raw_data: params[:raw_data],
     )
-    @aws_environment.save!
+    @env_check.save!
   end
 end

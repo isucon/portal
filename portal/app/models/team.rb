@@ -8,7 +8,7 @@ class Team < ApplicationRecord
   has_many :benchmark_results, dependent: :destroy
   has_many :clarifications, dependent: :destroy
   has_many :contestant_instances, dependent: :destroy
-  has_many :aws_environments, dependent: :destroy
+  has_many :env_checks, dependent: :destroy
 
   has_one :survey_response, dependent: :destroy
 

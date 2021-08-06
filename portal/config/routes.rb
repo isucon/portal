@@ -123,7 +123,7 @@ Rails.application.routes.draw do
 
     get 'ssh_public_keys/:team_id/:signature' => 'ssh_public_keys#index'
 
-    post 'aws_environments' => 'aws_environments#create'
+    post 'env_checks' => 'env_checks#create'
   end
 
   scope path: 'admin', module: 'admin' do

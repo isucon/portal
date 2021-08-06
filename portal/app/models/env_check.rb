@@ -1,6 +1,6 @@
 require 'isuxportal/resources/notification_pb'
 
-class AwsEnvironment < ApplicationRecord
+class EnvCheck < ApplicationRecord
   belongs_to :team
 
   validates :ip_address, presence: true
