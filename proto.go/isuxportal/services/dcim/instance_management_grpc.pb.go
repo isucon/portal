@@ -11,6 +11,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // InstanceManagementClient is the client API for InstanceManagement service.
@@ -28,10 +29,6 @@ func NewInstanceManagementClient(cc grpc.ClientConnInterface) InstanceManagement
 	return &instanceManagementClient{cc}
 }
 
-var instanceManagementInformInstanceStateUpdateStreamDesc = &grpc.StreamDesc{
-	StreamName: "InformInstanceStateUpdate",
-}
-
 func (c *instanceManagementClient) InformInstanceStateUpdate(ctx context.Context, in *InformInstanceStateUpdateRequest, opts ...grpc.CallOption) (*InformInstanceStateUpdateResponse, error) {
 	out := new(InformInstanceStateUpdateResponse)
 	err := c.cc.Invoke(ctx, "/isuxportal.proto.services.dcim.InstanceManagement/InformInstanceStateUpdate", in, out, opts...)
@@ -41,75 +38,64 @@ func (c *instanceManagementClient) InformInstanceStateUpdate(ctx context.Context
 	return out, nil
 }
 
-// InstanceManagementService is the service API for InstanceManagement service.
-// Fields should be assigned to their respective handler implementations only before
-// RegisterInstanceManagementService is called.  Any unassigned fields will result in the
-// handler for that method returning an Unimplemented error.
-type InstanceManagementService struct {
-	InformInstanceStateUpdate func(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
+// InstanceManagementServer is the server API for InstanceManagement service.
+// All implementations must embed UnimplementedInstanceManagementServer
+// for forward compatibility
+type InstanceManagementServer interface {
+	InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
+	mustEmbedUnimplementedInstanceManagementServer()
 }
 
-func (s *InstanceManagementService) informInstanceStateUpdate(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+// UnimplementedInstanceManagementServer must be embedded to have forward compatible implementations.
+type UnimplementedInstanceManagementServer struct {
+}
+
+func (UnimplementedInstanceManagementServer) InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InformInstanceStateUpdate not implemented")
+}
+func (UnimplementedInstanceManagementServer) mustEmbedUnimplementedInstanceManagementServer() {}
+
+// UnsafeInstanceManagementServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InstanceManagementServer will
+// result in compilation errors.
+type UnsafeInstanceManagementServer interface {
+	mustEmbedUnimplementedInstanceManagementServer()
+}
+
+func RegisterInstanceManagementServer(s grpc.ServiceRegistrar, srv InstanceManagementServer) {
+	s.RegisterService(&InstanceManagement_ServiceDesc, srv)
+}
+
+func _InstanceManagement_InformInstanceStateUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(InformInstanceStateUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return s.InformInstanceStateUpdate(ctx, in)
+		return srv.(InstanceManagementServer).InformInstanceStateUpdate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     s,
+		Server:     srv,
 		FullMethod: "/isuxportal.proto.services.dcim.InstanceManagement/InformInstanceStateUpdate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return s.InformInstanceStateUpdate(ctx, req.(*InformInstanceStateUpdateRequest))
+		return srv.(InstanceManagementServer).InformInstanceStateUpdate(ctx, req.(*InformInstanceStateUpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// RegisterInstanceManagementService registers a service implementation with a gRPC server.
-func RegisterInstanceManagementService(s grpc.ServiceRegistrar, srv *InstanceManagementService) {
-	srvCopy := *srv
-	if srvCopy.InformInstanceStateUpdate == nil {
-		srvCopy.InformInstanceStateUpdate = func(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error) {
-			return nil, status.Errorf(codes.Unimplemented, "method InformInstanceStateUpdate not implemented")
-		}
-	}
-	sd := grpc.ServiceDesc{
-		ServiceName: "isuxportal.proto.services.dcim.InstanceManagement",
-		Methods: []grpc.MethodDesc{
-			{
-				MethodName: "InformInstanceStateUpdate",
-				Handler:    srvCopy.informInstanceStateUpdate,
-			},
+// InstanceManagement_ServiceDesc is the grpc.ServiceDesc for InstanceManagement service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var InstanceManagement_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "isuxportal.proto.services.dcim.InstanceManagement",
+	HandlerType: (*InstanceManagementServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "InformInstanceStateUpdate",
+			Handler:    _InstanceManagement_InformInstanceStateUpdate_Handler,
 		},
-		Streams:  []grpc.StreamDesc{},
-		Metadata: "isuxportal/services/dcim/instance_management.proto",
-	}
-
-	s.RegisterService(&sd, nil)
-}
-
-// NewInstanceManagementService creates a new InstanceManagementService containing the
-// implemented methods of the InstanceManagement service in s.  Any unimplemented
-// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
-// This includes situations where the method handler is misspelled or has the wrong
-// signature.  For this reason, this function should be used with great care and
-// is not recommended to be used by most users.
-func NewInstanceManagementService(s interface{}) *InstanceManagementService {
-	ns := &InstanceManagementService{}
-	if h, ok := s.(interface {
-		InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
-	}); ok {
-		ns.InformInstanceStateUpdate = h.InformInstanceStateUpdate
-	}
-	return ns
-}
-
-// UnstableInstanceManagementService is the service API for InstanceManagement service.
-// New methods may be added to this interface if they are added to the service
-// definition, which is not a backward-compatible change.  For this reason,
-// use of this type is not recommended.
-type UnstableInstanceManagementService interface {
-	InformInstanceStateUpdate(context.Context, *InformInstanceStateUpdateRequest) (*InformInstanceStateUpdateResponse, error)
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "isuxportal/services/dcim/instance_management.proto",
 }
