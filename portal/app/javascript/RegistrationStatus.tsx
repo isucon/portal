@@ -42,10 +42,26 @@ export class RegistrationStatus extends React.Component<Props, State> {
     }
   }
 
-  onInviteUrlClick(event: React.MouseEvent<HTMLInputElement>) {
+  async onActivateCouponButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event?.preventDefault()
+    try {
+      const teamId = this.props.registrationSession.team?.id
+      await this.props.client.activateCoupon({ teamId });
+      document.location.href = '/registration'
+    } catch (error) {
+      this.setState({ error })
+    }
+  }
+
+  onCopyTargetInputClick(event: React.MouseEvent<HTMLInputElement>) {
     if (event.target instanceof HTMLInputElement) {
       event.target.select();
     }
+  }
+
+  async onCopyCouponButtonClick(event: React.MouseEvent<HTMLElement>) {
+    event.preventDefault();
+    await navigator.clipboard.writeText(this.props.registrationSession.coupon?.code ?? '');
   }
 
   async onCopyInviteButtonClick(event: React.MouseEvent<HTMLElement>) {
@@ -84,7 +100,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
                       type="text"
                       readOnly
                       value={this.props.registrationSession.memberInviteUrl}
-                      onClick={this.onInviteUrlClick.bind(this)}
+                      onClick={this.onCopyTargetInputClick.bind(this)}
                     />
                   </div>
                   <div className="control">
@@ -93,6 +109,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
                     </button>
                   </div>
                 </div>
+              </div>
+
+              <div className="field">
+                <label className="label">AWSクーポン</label>
+                { this.renderCoupon() }
               </div>
 
               <h5 className="title is-5 mt-3">メンバーリスト</h5>
@@ -167,6 +188,35 @@ export class RegistrationStatus extends React.Component<Props, State> {
     return (
       <div className={`notification ${isOk ? "is-info" : "is-danger"}`}>{this.renderConditions(isOk, message)}</div>
     );
+  }
+
+  renderCoupon() {
+    if (this.props.registrationSession.coupon?.activate) {
+      return (
+        <div className="field has-addons">
+          <div className="control is-expanded">
+            <input
+              className="input"
+              type="text"
+              readOnly
+              value={this.props.registrationSession.coupon?.code ?? ''}
+              onClick={this.onCopyTargetInputClick.bind(this)}
+            />
+          </div>
+          <div className="control">
+            <button className="button" onClick={this.onCopyCouponButtonClick.bind(this)}>
+              <span className="material-icons">content_copy</span>
+            </button>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <button className="button is-info" onClick={this.onActivateCouponButtonClick.bind(this)}>
+          AWSクーポンを獲得
+        </button>
+      )
+    }
   }
 
   renderTeamMembers() {
