@@ -7,8 +7,9 @@ import { ErrorMessage } from "./ErrorMessage";
 
 const stateMap = new Map([
   [null, { type: "", icon: "hourglass_top", desc: "状態取得中" }],
-  [0, { type: "is-info", icon: "check_circle", desc: "確認完了" }],
-  [1, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
+  [isuxportal.proto.resources.EnvCheckStatus.NOT_STARTED, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
+  [isuxportal.proto.resources.EnvCheckStatus.CREATED_INSTANCE, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
+  [isuxportal.proto.resources.EnvCheckStatus.DONE, { type: "is-info", icon: "check_circle", desc: "確認完了" }],
 ] as const);
 
 export interface Props {
@@ -17,33 +18,33 @@ export interface Props {
 }
 
 export interface State {
-  template: string;
-  checkState: null;
+  template: string | null;
+  checkStatus: isuxportal.proto.resources.EnvCheckStatus | null;
   instanceIP: string | null;
   error: Error | null;
 }
 
-export class Preparation extends React.Component<Props, State> {
+export class EnvCheck extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      template: "",
-      checkState: null,
+      template: null,
+      checkStatus: null,
       instanceIP: null,
       error: null,
     };
   }
 
   public componentDidMount() {
-    this.fetchCloudFormation();
+    this.fetchEnvCheckInformation();
   }
 
-  async fetchCloudFormation() {
+  async fetchEnvCheckInformation() {
     if (!this.props.session.team) return;
 
     try {
-      const cf = await this.props.client.getTestCloudFormation();
-      this.setState({ template: cf.template });
+      const info = await this.props.client.getEnvCheckInformation();
+      this.setState({ template: info.template, checkStatus: info.status, instanceIP: info.instanceIp });
     } catch (err) {
       this.setState({ error: err });
     }
@@ -73,7 +74,7 @@ export class Preparation extends React.Component<Props, State> {
       return <>未ログインです</>;
     }
 
-    const templateBase64 = `data:text/plain,${encodeURI(this.state.template)}`;
+    const templateBase64 = `data:text/plain,${encodeURI(this.state.template ?? '')}`;
 
     return (
       <section>
@@ -90,7 +91,7 @@ export class Preparation extends React.Component<Props, State> {
             テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>
             です。このテンプレートを利用すると、EC2インスタンスとそれに付随するVPC、また情報取得用のLambdaなどが作成されます。
             <br />
-            <a className="button is-info" href={templateBase64} download="test_cloudformation.yaml">
+            <a className={`button is-info ${this.state.template === null ? 'is-loading' : ''}`} href={templateBase64} download="test_cloudformation.yaml">
               CloudFormation テンプレートをダウンロード
             </a>
           </li>
@@ -119,12 +120,12 @@ export class Preparation extends React.Component<Props, State> {
   }
 
   renderState() {
-    if (!stateMap.has(this.state.checkState)) {
-      console.warn("Unexpected state:", this.state.checkState);
+    if (!stateMap.has(this.state.checkStatus)) {
+      console.warn("Unexpected state:", this.state.checkStatus);
       return null;
     }
 
-    const { type, icon, desc } = stateMap.get(this.state.checkState)!;
+    const { type, icon, desc } = stateMap.get(this.state.checkStatus)!;
     return (
       <div className={`notification ${type}`}>
         <span className="icon-text">

@@ -83,9 +83,9 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async getTestCloudFormation() {
-    const responseClass = isuxportal.proto.services.registration.GetCloudFormationResponse;
-    const resp = await this.request(`${this.baseUrl}/api/registration/test_cloud_formation`, "GET", null, null);
+  public async getEnvCheckInformation() {
+    const responseClass = isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+    const resp = await this.request(`${this.baseUrl}/api/registration/env_check`, "GET", null, null);
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
