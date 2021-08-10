@@ -5203,6 +5203,22 @@ $root.isuxportal = (function() {
                 return Contest;
             })();
 
+            /**
+             * EnvCheckStatus enum.
+             * @name isuxportal.proto.resources.EnvCheckStatus
+             * @enum {number}
+             * @property {number} NOT_STARTED=0 NOT_STARTED value
+             * @property {number} CREATED_INSTANCE=1 CREATED_INSTANCE value
+             * @property {number} DONE=2 DONE value
+             */
+            resources.EnvCheckStatus = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "NOT_STARTED"] = 0;
+                values[valuesById[1] = "CREATED_INSTANCE"] = 1;
+                values[valuesById[2] = "DONE"] = 2;
+                return values;
+            })();
+
             resources.Leaderboard = (function() {
 
                 /**
@@ -19425,193 +19441,6 @@ $root.isuxportal = (function() {
                  */
                 var registration = {};
 
-                registration.GetCloudFormationResponse = (function() {
-
-                    /**
-                     * Properties of a GetCloudFormationResponse.
-                     * @memberof isuxportal.proto.services.registration
-                     * @interface IGetCloudFormationResponse
-                     * @property {string|null} [template] GetCloudFormationResponse template
-                     */
-
-                    /**
-                     * Constructs a new GetCloudFormationResponse.
-                     * @memberof isuxportal.proto.services.registration
-                     * @classdesc Represents a GetCloudFormationResponse.
-                     * @implements IGetCloudFormationResponse
-                     * @constructor
-                     * @param {isuxportal.proto.services.registration.IGetCloudFormationResponse=} [properties] Properties to set
-                     */
-                    function GetCloudFormationResponse(properties) {
-                        if (properties)
-                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * GetCloudFormationResponse template.
-                     * @member {string} template
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @instance
-                     */
-                    GetCloudFormationResponse.prototype.template = "";
-
-                    /**
-                     * Creates a new GetCloudFormationResponse instance using the specified properties.
-                     * @function create
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {isuxportal.proto.services.registration.IGetCloudFormationResponse=} [properties] Properties to set
-                     * @returns {isuxportal.proto.services.registration.GetCloudFormationResponse} GetCloudFormationResponse instance
-                     */
-                    GetCloudFormationResponse.create = function create(properties) {
-                        return new GetCloudFormationResponse(properties);
-                    };
-
-                    /**
-                     * Encodes the specified GetCloudFormationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.GetCloudFormationResponse.verify|verify} messages.
-                     * @function encode
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {isuxportal.proto.services.registration.IGetCloudFormationResponse} message GetCloudFormationResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCloudFormationResponse.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.template != null && Object.hasOwnProperty.call(message, "template"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.template);
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified GetCloudFormationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.GetCloudFormationResponse.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {isuxportal.proto.services.registration.IGetCloudFormationResponse} message GetCloudFormationResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GetCloudFormationResponse.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a GetCloudFormationResponse message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {isuxportal.proto.services.registration.GetCloudFormationResponse} GetCloudFormationResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCloudFormationResponse.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.GetCloudFormationResponse();
-                        while (reader.pos < end) {
-                            var tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.template = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a GetCloudFormationResponse message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {isuxportal.proto.services.registration.GetCloudFormationResponse} GetCloudFormationResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GetCloudFormationResponse.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a GetCloudFormationResponse message.
-                     * @function verify
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    GetCloudFormationResponse.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        if (message.template != null && message.hasOwnProperty("template"))
-                            if (!$util.isString(message.template))
-                                return "template: string expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a GetCloudFormationResponse message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {isuxportal.proto.services.registration.GetCloudFormationResponse} GetCloudFormationResponse
-                     */
-                    GetCloudFormationResponse.fromObject = function fromObject(object) {
-                        if (object instanceof $root.isuxportal.proto.services.registration.GetCloudFormationResponse)
-                            return object;
-                        var message = new $root.isuxportal.proto.services.registration.GetCloudFormationResponse();
-                        if (object.template != null)
-                            message.template = String(object.template);
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a GetCloudFormationResponse message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @static
-                     * @param {isuxportal.proto.services.registration.GetCloudFormationResponse} message GetCloudFormationResponse
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    GetCloudFormationResponse.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        var object = {};
-                        if (options.defaults)
-                            object.template = "";
-                        if (message.template != null && message.hasOwnProperty("template"))
-                            object.template = message.template;
-                        return object;
-                    };
-
-                    /**
-                     * Converts this GetCloudFormationResponse to JSON.
-                     * @function toJSON
-                     * @memberof isuxportal.proto.services.registration.GetCloudFormationResponse
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    GetCloudFormationResponse.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return GetCloudFormationResponse;
-                })();
-
                 registration.CreateTeamRequest = (function() {
 
                     /**
@@ -20087,6 +19916,256 @@ $root.isuxportal = (function() {
                     };
 
                     return CreateTeamResponse;
+                })();
+
+                registration.GetEnvCheckInformationResponse = (function() {
+
+                    /**
+                     * Properties of a GetEnvCheckInformationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IGetEnvCheckInformationResponse
+                     * @property {string|null} [template] GetEnvCheckInformationResponse template
+                     * @property {isuxportal.proto.resources.EnvCheckStatus|null} [status] GetEnvCheckInformationResponse status
+                     * @property {string|null} [instanceIp] GetEnvCheckInformationResponse instanceIp
+                     */
+
+                    /**
+                     * Constructs a new GetEnvCheckInformationResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents a GetEnvCheckInformationResponse.
+                     * @implements IGetEnvCheckInformationResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IGetEnvCheckInformationResponse=} [properties] Properties to set
+                     */
+                    function GetEnvCheckInformationResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetEnvCheckInformationResponse template.
+                     * @member {string} template
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @instance
+                     */
+                    GetEnvCheckInformationResponse.prototype.template = "";
+
+                    /**
+                     * GetEnvCheckInformationResponse status.
+                     * @member {isuxportal.proto.resources.EnvCheckStatus} status
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @instance
+                     */
+                    GetEnvCheckInformationResponse.prototype.status = 0;
+
+                    /**
+                     * GetEnvCheckInformationResponse instanceIp.
+                     * @member {string} instanceIp
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @instance
+                     */
+                    GetEnvCheckInformationResponse.prototype.instanceIp = "";
+
+                    /**
+                     * Creates a new GetEnvCheckInformationResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IGetEnvCheckInformationResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.GetEnvCheckInformationResponse} GetEnvCheckInformationResponse instance
+                     */
+                    GetEnvCheckInformationResponse.create = function create(properties) {
+                        return new GetEnvCheckInformationResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetEnvCheckInformationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.GetEnvCheckInformationResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IGetEnvCheckInformationResponse} message GetEnvCheckInformationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetEnvCheckInformationResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.template != null && Object.hasOwnProperty.call(message, "template"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.template);
+                        if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.status);
+                        if (message.instanceIp != null && Object.hasOwnProperty.call(message, "instanceIp"))
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.instanceIp);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetEnvCheckInformationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.GetEnvCheckInformationResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IGetEnvCheckInformationResponse} message GetEnvCheckInformationResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetEnvCheckInformationResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetEnvCheckInformationResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.GetEnvCheckInformationResponse} GetEnvCheckInformationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetEnvCheckInformationResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.GetEnvCheckInformationResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.template = reader.string();
+                                break;
+                            case 2:
+                                message.status = reader.int32();
+                                break;
+                            case 3:
+                                message.instanceIp = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetEnvCheckInformationResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.GetEnvCheckInformationResponse} GetEnvCheckInformationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetEnvCheckInformationResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetEnvCheckInformationResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetEnvCheckInformationResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.template != null && message.hasOwnProperty("template"))
+                            if (!$util.isString(message.template))
+                                return "template: string expected";
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            switch (message.status) {
+                            default:
+                                return "status: enum value expected";
+                            case 0:
+                            case 1:
+                            case 2:
+                                break;
+                            }
+                        if (message.instanceIp != null && message.hasOwnProperty("instanceIp"))
+                            if (!$util.isString(message.instanceIp))
+                                return "instanceIp: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetEnvCheckInformationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.GetEnvCheckInformationResponse} GetEnvCheckInformationResponse
+                     */
+                    GetEnvCheckInformationResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.GetEnvCheckInformationResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.registration.GetEnvCheckInformationResponse();
+                        if (object.template != null)
+                            message.template = String(object.template);
+                        switch (object.status) {
+                        case "NOT_STARTED":
+                        case 0:
+                            message.status = 0;
+                            break;
+                        case "CREATED_INSTANCE":
+                        case 1:
+                            message.status = 1;
+                            break;
+                        case "DONE":
+                        case 2:
+                            message.status = 2;
+                            break;
+                        }
+                        if (object.instanceIp != null)
+                            message.instanceIp = String(object.instanceIp);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetEnvCheckInformationResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.GetEnvCheckInformationResponse} message GetEnvCheckInformationResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetEnvCheckInformationResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults) {
+                            object.template = "";
+                            object.status = options.enums === String ? "NOT_STARTED" : 0;
+                            object.instanceIp = "";
+                        }
+                        if (message.template != null && message.hasOwnProperty("template"))
+                            object.template = message.template;
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            object.status = options.enums === String ? $root.isuxportal.proto.resources.EnvCheckStatus[message.status] : message.status;
+                        if (message.instanceIp != null && message.hasOwnProperty("instanceIp"))
+                            object.instanceIp = message.instanceIp;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetEnvCheckInformationResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.GetEnvCheckInformationResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetEnvCheckInformationResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetEnvCheckInformationResponse;
                 })();
 
                 registration.JoinTeamRequest = (function() {
