@@ -113,17 +113,17 @@ export class RegistrationForm extends React.Component<Props, State> {
               への同意が必要です。
             </li>
             <li>
-              ご登録いただいたチーム名, 代表者名, メンバー名は ISUCON
+              ご登録いただいたチーム名, 代表選手名, メンバー名は ISUCON
               公式サイトおよびポータルなど上で広く公開されます。GitHub
               アカウントの情報はチームメンバー内で共有されます。
             </li>
             <li>
-              競技進行のため、全参加者はサポート/アナウンス用の Discord サーバー (サポートチャット)
-              への参加が必要です。そのため、Discord アカウントの情報は全参加者にも共有されます。
+              競技進行のため、全選手はサポート/アナウンス用の Discord サーバー (サポートチャット)
+              への参加が必要です。そのため、Discord アカウントの情報は全選手にも共有されます。
             </li>
             <li>参加登録が完了すると、他のチームへの参加はできなくなります。</li>
             <li>
-              1人目 (チーム代表者) の登録後、チームメンバーを招待するための URL を確認することができます。招待 URL
+              1人目 (チーム代表選手) の登録後、チームメンバーを招待するための URL を確認することができます。招待 URL
               を共有し、チームメンバー全員の登録をしてください。
             </li>
             <li>
@@ -131,9 +131,9 @@ export class RegistrationForm extends React.Component<Props, State> {
               が利用できない場合を想定してメールアドレスの記入をお願いしていますが、競技のアナウンスや連絡は、本ポータルサイトあるいは
               Discord 上で行われます。
             </li>
-            <li>チーム名・代表者名に公序良俗に反する名前は使わないでください。</li>
+            <li>チーム名・代表選手名に公序良俗に反する名前は使わないでください。</li>
             <li>
-              チーム名・代表者名に機種依存文字・絵文字・HTMLタグなどが入っていた場合、サイトへの表示時に表現を変えさせていただく場合があります。
+              チーム名・代表選手名に機種依存文字・絵文字・HTMLタグなどが入っていた場合、サイトへの表示時に表現を変えさせていただく場合があります。
             </li>
           </ul>
         </section>
@@ -185,11 +185,11 @@ export class RegistrationForm extends React.Component<Props, State> {
             </div>
             {this.isEditing() ? (
               <p className="help">
-                代表者 {leader.name}{" "}
-                のチームへ参加しています。チーム名・代表者メールアドレスは代表者のみが変更可能です。
+                代表選手 {leader.name}{" "}
+                のチームへ参加しています。チーム名・代表選手メールアドレスは代表選手のみが変更可能です。
               </p>
             ) : (
-              <p className="help">招待を利用し、代表者 {leader.name} のチームへ参加します。</p>
+              <p className="help">招待を利用し、代表選手 {leader.name} のチームへ参加します。</p>
             )}
           </div>
         </>
@@ -215,7 +215,7 @@ export class RegistrationForm extends React.Component<Props, State> {
               <p className="help"></p>
             ) : (
               <p className="help">
-                現在ログインしている方を代表とするチームを作成します。代表者は変更できません。既存のチームへ参加する場合、代表者もしくはチームメンバーの方より招待
+                現在ログインしている方を代表とするチームを作成します。代表選手は変更できません。既存のチームへ参加する場合、代表選手もしくはチームメンバーの方より招待
                 URL を受け取ってください。
               </p>
             )}
@@ -223,7 +223,7 @@ export class RegistrationForm extends React.Component<Props, State> {
 
           <div className="field">
             <label className="label" htmlFor="fieldEmailAddress">
-              代表者メールアドレス
+              代表選手メールアドレス
             </label>
             <div className="control">
               <input
@@ -250,7 +250,7 @@ export class RegistrationForm extends React.Component<Props, State> {
       <>
         <div className="field">
           <label className="label" htmlFor="fieldName">
-            {!this.props.registrationSession.team ? "代表者名" : "参加者名"}
+            {!this.props.registrationSession.team ? "代表選手名" : "選手名"}
           </label>
           <div className="control">
             <input
