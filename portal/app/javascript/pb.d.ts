@@ -5921,6 +5921,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId */
                     discordServerId?: (string|null);
+
+                    /** GetRegistrationSessionResponse envCheckDone */
+                    envCheckDone?: (boolean|null);
                 }
 
                 /** Represents a GetRegistrationSessionResponse. */
@@ -5955,6 +5958,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId. */
                     public discordServerId: string;
+
+                    /** GetRegistrationSessionResponse envCheckDone. */
+                    public envCheckDone: boolean;
 
                     /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.

@@ -20856,6 +20856,7 @@ $root.isuxportal = (function() {
                      * @property {string|null} [discordAvatarUrl] GetRegistrationSessionResponse discordAvatarUrl
                      * @property {string|null} [memberInviteUrl] GetRegistrationSessionResponse memberInviteUrl
                      * @property {string|null} [discordServerId] GetRegistrationSessionResponse discordServerId
+                     * @property {boolean|null} [envCheckDone] GetRegistrationSessionResponse envCheckDone
                      */
 
                     /**
@@ -20938,6 +20939,14 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.discordServerId = "";
 
                     /**
+                     * GetRegistrationSessionResponse envCheckDone.
+                     * @member {boolean} envCheckDone
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.envCheckDone = false;
+
+                    /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
@@ -20977,6 +20986,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 7, wireType 2 =*/58).string(message.memberInviteUrl);
                         if (message.discordServerId != null && Object.hasOwnProperty.call(message, "discordServerId"))
                             writer.uint32(/* id 8, wireType 2 =*/66).string(message.discordServerId);
+                        if (message.envCheckDone != null && Object.hasOwnProperty.call(message, "envCheckDone"))
+                            writer.uint32(/* id 9, wireType 0 =*/72).bool(message.envCheckDone);
                         return writer;
                     };
 
@@ -21034,6 +21045,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 8:
                                 message.discordServerId = reader.string();
+                                break;
+                            case 9:
+                                message.envCheckDone = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -21106,6 +21120,9 @@ $root.isuxportal = (function() {
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             if (!$util.isString(message.discordServerId))
                                 return "discordServerId: string expected";
+                        if (message.envCheckDone != null && message.hasOwnProperty("envCheckDone"))
+                            if (typeof message.envCheckDone !== "boolean")
+                                return "envCheckDone: boolean expected";
                         return null;
                     };
 
@@ -21168,6 +21185,8 @@ $root.isuxportal = (function() {
                             message.memberInviteUrl = String(object.memberInviteUrl);
                         if (object.discordServerId != null)
                             message.discordServerId = String(object.discordServerId);
+                        if (object.envCheckDone != null)
+                            message.envCheckDone = Boolean(object.envCheckDone);
                         return message;
                     };
 
@@ -21193,6 +21212,7 @@ $root.isuxportal = (function() {
                             object.discordAvatarUrl = "";
                             object.memberInviteUrl = "";
                             object.discordServerId = "";
+                            object.envCheckDone = false;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -21210,6 +21230,8 @@ $root.isuxportal = (function() {
                             object.memberInviteUrl = message.memberInviteUrl;
                         if (message.discordServerId != null && message.hasOwnProperty("discordServerId"))
                             object.discordServerId = message.discordServerId;
+                        if (message.envCheckDone != null && message.hasOwnProperty("envCheckDone"))
+                            object.envCheckDone = message.envCheckDone;
                         return object;
                     };
 
