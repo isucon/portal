@@ -7,9 +7,22 @@ import { ErrorMessage } from "./ErrorMessage";
 
 const stateMap = new Map([
   [null, { type: "", icon: "hourglass_top", desc: "状態取得中" }],
-  [isuxportal.proto.resources.EnvCheckStatus.NOT_STARTED, { type: "is-danger", icon: "cancel", desc: "確認が未完了です。下記の手順に従って競技環境の確認を行ってください。" }],
-  [isuxportal.proto.resources.EnvCheckStatus.CREATED_INSTANCE, { type: "is-danger", icon: "cancel", desc: "確認が未完了です。下記の手順の通りインスタンスへのSSH接続を行ってください。" }],
-  [isuxportal.proto.resources.EnvCheckStatus.DONE, { type: "is-info", icon: "check_circle", desc: "確認が完了しています。ご協力ありがとうございます。" }],
+  [
+    isuxportal.proto.resources.EnvCheckStatus.NOT_STARTED,
+    { type: "is-danger", icon: "cancel", desc: "確認が未完了です。下記の手順に従って競技環境の確認を行ってください。" },
+  ],
+  [
+    isuxportal.proto.resources.EnvCheckStatus.CREATED_INSTANCE,
+    {
+      type: "is-danger",
+      icon: "cancel",
+      desc: "確認が未完了です。下記の手順の通りインスタンスへのSSH接続を行ってください。",
+    },
+  ],
+  [
+    isuxportal.proto.resources.EnvCheckStatus.DONE,
+    { type: "is-info", icon: "check_circle", desc: "確認が完了しています。ご協力ありがとうございます。" },
+  ],
 ] as const);
 
 export interface Props {
@@ -74,7 +87,7 @@ export class EnvCheck extends React.Component<Props, State> {
       return <>未ログインです</>;
     }
 
-    const templateBase64 = `data:text/plain,${encodeURI(this.state.template ?? '')}`;
+    const templateBase64 = `data:text/plain,${encodeURI(this.state.template ?? "")}`;
 
     return (
       <section>
@@ -91,7 +104,11 @@ export class EnvCheck extends React.Component<Props, State> {
             テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>
             です。このテンプレートを利用すると、EC2インスタンスとそれに付随するVPC、また情報取得用のLambdaなどが作成されます。
             <br />
-            <a className={`button is-info ${this.state.template === null ? 'is-loading' : ''}`} href={templateBase64} download="test_cloudformation.yaml">
+            <a
+              className={`button is-info ${this.state.template === null ? "is-loading" : ""}`}
+              href={templateBase64}
+              download="test_cloudformation.yaml"
+            >
               CloudFormation テンプレートをダウンロード
             </a>
           </li>
