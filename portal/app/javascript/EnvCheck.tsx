@@ -33,9 +33,9 @@ export interface Props {
 }
 
 export interface State {
-  template: string | null;
+  template: string;
   checkStatus: isuxportal.proto.resources.EnvCheckStatus | null;
-  instanceIP: string | null;
+  instanceIP: string;
   isFetching: boolean;
   intervalId: number | null;
   error: Error | null;
@@ -45,9 +45,9 @@ export class EnvCheck extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      template: null,
+      template: "",
       checkStatus: null,
-      instanceIP: null,
+      instanceIP: "",
       isFetching: false,
       intervalId: null,
       error: null,
@@ -157,7 +157,7 @@ export class EnvCheck extends React.Component<Props, State> {
             </div>
           </article>
           <a
-            className={`button is-info ${this.state.template === null ? "is-loading" : ""}`}
+            className={`button is-info ${this.state.template === "" ? "is-loading" : ""}`}
             href={templateBase64}
             download="test_cloudformation.yaml"
           >
@@ -258,7 +258,7 @@ export class EnvCheck extends React.Component<Props, State> {
   }
 
   renderInstanceIPAndSSHCommand() {
-    const ipNotFetched = this.state.instanceIP === null;
+    const ipNotFetched = this.state.instanceIP === "";
 
     return (
       <>
