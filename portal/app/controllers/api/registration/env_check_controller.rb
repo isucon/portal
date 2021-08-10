@@ -9,10 +9,10 @@ class Api::Registration::EnvCheckController < Api::Registration::ApplicationCont
     instance_ip = "0.0.0.0"
     ssh_done = false
 
-    status = if instance_ip.nil?
-        Isuxportal::Proto::Resources::EnvCheckStatus::CREATED_INSTANCE
-      elsif ssh_done
+    status = if ssh_done
         Isuxportal::Proto::Resources::EnvCheckStatus::DONE
+      elsif !instance_ip.nil?
+        Isuxportal::Proto::Resources::EnvCheckStatus::CREATED_INSTANCE
       else
         Isuxportal::Proto::Resources::EnvCheckStatus::NOT_STARTED
       end
