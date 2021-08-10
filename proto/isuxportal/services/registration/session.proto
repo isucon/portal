@@ -29,6 +29,7 @@ message GetRegistrationSessionResponse {
   string discord_avatar_url = 6;
   string member_invite_url = 7;
   string discord_server_id = 8;
+  bool env_check_done = 9;
 }
 
 message UpdateRegistrationRequest {
