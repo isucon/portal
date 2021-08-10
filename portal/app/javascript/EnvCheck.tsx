@@ -25,6 +25,8 @@ const stateMap = new Map([
   ],
 ] as const);
 
+const FETCH_INFORMATION_INTERVAL = 60 * 1000; // 1min
+
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
   client: ApiClient;
@@ -34,6 +36,8 @@ export interface State {
   template: string | null;
   checkStatus: isuxportal.proto.resources.EnvCheckStatus | null;
   instanceIP: string | null;
+  isFetching: boolean;
+  intervalId: number | null;
   error: Error | null;
 }
 
@@ -44,22 +48,53 @@ export class EnvCheck extends React.Component<Props, State> {
       template: null,
       checkStatus: null,
       instanceIP: null,
+      isFetching: false,
+      intervalId: null,
       error: null,
     };
   }
 
   public componentDidMount() {
-    this.fetchEnvCheckInformation();
+    this.fetchEnvCheckInformation().then((status) => {
+      if (status === isuxportal.proto.resources.EnvCheckStatus.DONE) return;
+
+      const intervalId = setInterval(async () => {
+        const status = await this.fetchEnvCheckInformation();
+        if (status === isuxportal.proto.resources.EnvCheckStatus.DONE) {
+          if (this.state.intervalId) {
+            clearInterval(this.state.intervalId);
+            this.setState({ intervalId: null });
+          } else {
+            console.warn("intervalId should exist here");
+          }
+        }
+      }, FETCH_INFORMATION_INTERVAL) as unknown as number;
+      this.setState({ intervalId });
+    });
+  }
+
+  public componentWillUnmount() {
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId);
+    }
   }
 
   async fetchEnvCheckInformation() {
     if (!this.props.session.team) return;
+    if (this.state.isFetching) return;
+    this.setState({ isFetching: true });
 
     try {
       const info = await this.props.client.getEnvCheckInformation();
-      this.setState({ template: info.template, checkStatus: info.status, instanceIP: info.instanceIp });
+      this.setState({
+        template: info.template,
+        checkStatus: info.status,
+        instanceIP: info.instanceIp,
+        isFetching: false,
+      });
+      return info.status;
     } catch (err) {
-      this.setState({ error: err });
+      this.setState({ error: err, isFetching: false });
     }
   }
 
@@ -99,6 +134,7 @@ export class EnvCheck extends React.Component<Props, State> {
           <b>必ずSSHの接続まで</b> 行ってください。
         </p>
         {this.renderState()}
+        {this.renderReloadButton()}
         <ol className="block ml-4">
           <li>
             テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>
@@ -151,6 +187,23 @@ export class EnvCheck extends React.Component<Props, State> {
           </span>
           <span>{desc}</span>
         </span>
+      </div>
+    );
+  }
+
+  onReloadButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    this.fetchEnvCheckInformation();
+  }
+
+  renderReloadButton() {
+    return (
+      <div className="block is-flex is-flex-direction-row is-justify-content-flex-end">
+        <button
+          className={`button ${this.state.isFetching ? "is-loading" : ""}`}
+          onClick={this.onReloadButtonClick.bind(this)}
+        >
+          <span className={"material-icons-outlined"}>refresh</span> 情報再取得
+        </button>
       </div>
     );
   }
