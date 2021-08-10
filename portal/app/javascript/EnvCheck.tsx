@@ -7,9 +7,9 @@ import { ErrorMessage } from "./ErrorMessage";
 
 const stateMap = new Map([
   [null, { type: "", icon: "hourglass_top", desc: "状態取得中" }],
-  [isuxportal.proto.resources.EnvCheckStatus.NOT_STARTED, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
-  [isuxportal.proto.resources.EnvCheckStatus.CREATED_INSTANCE, { type: "is-danger", icon: "cancel", desc: "確認未完了" }],
-  [isuxportal.proto.resources.EnvCheckStatus.DONE, { type: "is-info", icon: "check_circle", desc: "確認完了" }],
+  [isuxportal.proto.resources.EnvCheckStatus.NOT_STARTED, { type: "is-danger", icon: "cancel", desc: "確認が未完了です。下記の手順に従って競技環境の確認を行ってください。" }],
+  [isuxportal.proto.resources.EnvCheckStatus.CREATED_INSTANCE, { type: "is-danger", icon: "cancel", desc: "確認が未完了です。下記の手順の通りインスタンスへのSSH接続を行ってください。" }],
+  [isuxportal.proto.resources.EnvCheckStatus.DONE, { type: "is-info", icon: "check_circle", desc: "確認が完了しています。ご協力ありがとうございます。" }],
 ] as const);
 
 export interface Props {
@@ -107,7 +107,7 @@ export class EnvCheck extends React.Component<Props, State> {
           </li>
           <li>画面にしたがって進める。</li>
           <li>
-            インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスにSSHを行う。
+            インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスに対してユーザー名「isucon」でSSHを行う。
             <br />
             {this.renderInstanceIP()}
           </li>
