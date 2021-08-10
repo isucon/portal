@@ -155,13 +155,13 @@ export class RegistrationStatus extends React.Component<Props, State> {
 
     let message: React.ReactNode = "現時点での準備が整っています。次のアナウンスをお待ちください。";
     if (!isDiscordAndSSHDone) {
+      message = "参加準備が整っていません。GitHubへのSSH鍵の登録とDiscordサーバーへの参加をしてください。";
+    } else if (!isEnvCheckDone) {
       message = (
         <>
           参加準備が整っていません。<Link to="/registration/env_check">競技環境確認</Link>を行ってください。
         </>
       );
-    } else if (!isEnvCheckDone) {
-      message = "参加準備が整っていません。GitHubへのSSH鍵の登録とDiscordサーバーへの参加をしてください。";
     }
 
     return (
