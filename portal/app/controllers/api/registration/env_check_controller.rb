@@ -5,7 +5,7 @@ class Api::Registration::EnvCheckController < Api::Registration::ApplicationCont
   def show
     raise ActiveRecord::RecordNotFound unless current_contestant
 
-    template = CloudFormation.test_template(current_team.availability_zone)
+    template = CloudFormation.test_template(current_team)
     instance_ip = EnvCheck.of_team(current_team).test_boot.last&.ip_address
     ssh_done = EnvCheck.of_team(current_team).test_ssh_passed.exists?
 

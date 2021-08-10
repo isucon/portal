@@ -7,7 +7,10 @@ module CloudFormation
     erb.result(b)
   end
 
-  def self.test_template(zone_id)
+  def self.test_template(team)
+    zone_id = team.availability_zone
+    token = CheckerToken.create(team_id: team.id)
+
     unless zone_id.nil?
       template(TEST_ERB, binding)
     else
