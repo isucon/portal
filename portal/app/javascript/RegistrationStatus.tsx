@@ -54,10 +54,6 @@ export class RegistrationStatus extends React.Component<Props, State> {
   }
 
   public render() {
-    const isTeamConditionOk = this.props.registrationSession.team!.members!.every(
-      (member) => member.detail!.isSshKeyRegistered && member.detail!.isDiscordGuildMember
-    );
-
     return (
       <>
         <section className="isux-registration-status-complete mt-2">
@@ -78,13 +74,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <div className="columns">
             <section className="column is-6">
               <h4 className="title is-4">チーム: {this.props.registrationSession.team!.name}</h4>
-              <div className={`notification ${isTeamConditionOk ? "is-info" : "is-danger"}`}>
-                {this.renderConditions(
-                  isTeamConditionOk,
-                  "現時点での準備が整っています。次のアナウンスをお待ちください。",
-                  "参加準備が整っていません。"
-                )}
-              </div>
+              {this.renderStatus()}
               <div className="field">
                 <label className="label">招待URL</label>
                 <div className="field has-addons">
@@ -156,6 +146,30 @@ export class RegistrationStatus extends React.Component<Props, State> {
     return (document.querySelector('meta[name="isux:discord-auth-path"]') as HTMLMetaElement).content;
   }
 
+  renderStatus() {
+    const isDiscordAndSSHDone = this.props.registrationSession.team!.members!.every(
+      (member) => member.detail!.isSshKeyRegistered && member.detail!.isDiscordGuildMember
+    );
+    const isEnvCheckDone = this.props.registrationSession.envCheckDone;
+    const isOk = isDiscordAndSSHDone && isEnvCheckDone;
+
+    let message: React.ReactNode =
+      "参加準備が整っていません。GitHubへのSSH鍵の登録とDiscordサーバーへの参加をしてください。";
+    if (isDiscordAndSSHDone) {
+      message = (
+        <>
+          参加準備が整っていません。<Link to="/registration/env_check">競技環境確認</Link>を行ってください。
+        </>
+      );
+    } else if (isEnvCheckDone) {
+      message = "現時点での準備が整っています。次のアナウンスをお待ちください。";
+    }
+
+    return (
+      <div className={`notification ${isOk ? "is-info" : "is-danger"}`}>{this.renderConditions(isOk, message)}</div>
+    );
+  }
+
   renderTeamMembers() {
     return this.props.registrationSession.team!.members!.map((member) => this.renderTeamMember(member));
   }
@@ -182,12 +196,12 @@ export class RegistrationStatus extends React.Component<Props, State> {
             </div>
           </div>
           <div className="content">
-            {this.renderConditions(
+            {this.renderConditionsBoolean(
               !!member.detail!.isSshKeyRegistered,
               "GitHubにSSH鍵が登録されています",
               "GitHubにSSH鍵が登録されていません"
             )}
-            {this.renderConditions(
+            {this.renderConditionsBoolean(
               !!member.detail!.isDiscordGuildMember,
               "Discordサーバーに参加しています",
               "Discordサーバーに参加していません"
@@ -198,7 +212,11 @@ export class RegistrationStatus extends React.Component<Props, State> {
     );
   }
 
-  renderConditions(isOk: boolean, okString: string, ngString: string) {
+  renderConditionsBoolean(isOk: boolean, okMessage: React.ReactNode, ngMessage: React.ReactNode) {
+    return this.renderConditions(isOk, isOk ? okMessage : ngMessage);
+  }
+
+  renderConditions(isOk: boolean, message: React.ReactNode) {
     return (
       <span className="icon-text">
         <span className="icon">
@@ -206,7 +224,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
             {isOk ? "check_circle" : "cancel"}
           </span>
         </span>
-        <span>{isOk ? okString : ngString}</span>
+        <span>{message}</span>
       </span>
     );
   }
