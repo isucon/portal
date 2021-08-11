@@ -76,3 +76,7 @@ bundle exec rails runner 'Griffin::Server.run(port: 4000)'
 ```
 ./bin/isuxportal-protoc.sh
 ```
+
+### CloudFormationテンプレートについて
+CloudFormationのテンプレートは`/app/models/cf_templates`に存在
+チェッカーでのAMI IDのチェックに使われる値は`/app/controllers/api/env_checks_controller`に別で記載されているので、テンプレートの変更時はそこも変更することが必要
