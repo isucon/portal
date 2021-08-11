@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_023419) do
+ActiveRecord::Schema.define(version: 2021_07_20_174523) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -98,6 +98,18 @@ ActiveRecord::Schema.define(version: 2021_07_15_023419) do
     t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
     t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
     t.index ["team_id"], name: "index_contestants_on_team_id"
+  end
+
+  create_table "env_checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.string "name", null: false
+    t.string "ip_address", null: false
+    t.boolean "passed", null: false
+    t.string "message", null: false
+    t.string "admin_message", null: false
+    t.string "raw_data", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|

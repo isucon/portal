@@ -7,6 +7,12 @@ locals {
     "sapphi_red",
     "kanata",
     "mahito",
+    "tabuchi",
+    "eiya",
+    "ryoha",
+    "oribe",
+    "hattori",
+    "hosshii",
   ])
 }
 
