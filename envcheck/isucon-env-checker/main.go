@@ -20,15 +20,22 @@ func main() {
 		fmt.Println("SSH 接続が成功しました")
 	}
 
+	info, err := p.GetInfo()
+	if err != nil {
+		fmt.Printf("ポータルから情報の取得に失敗しました: %v\n", err)
+		os.Exit(1)
+	}
+
 	fmt.Println("環境をチェックしています...")
 	result := Check(CheckConfig{
 		Name: name,
-		// TODO: Get AMI ID and AZ ID from portal
+		AMI:  info.AMI,
+		AZ:   info.AZ,
 	})
 
 	if err := p.SendResult(result); err != nil {
-		fmt.Println("チェック結果の送信に失敗しました")
-		// os.Exit(1)
+		fmt.Printf("チェック結果の送信に失敗しました: %v\n", err)
+		os.Exit(1)
 	}
 	fmt.Println(result.Message)
 }
