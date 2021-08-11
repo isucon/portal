@@ -59,6 +59,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       secret('ISUXPORTAL_ADMIN_LOGIN'),
       secret('ISUXPORTAL_ADMIN_PASSWORD'),
       secret('ISUXPORTAL_BYPASS_SECRET'),
+      secret('ISUXPORTAL_CHECKER_SECRET'),
       secret('ISUXPORTAL_SSH_KEY_API_SECRET'),
       secret('ISUXPORTAL_BENCH_TOKEN'),
       secret('ISUXPORTAL_VAPID_PRIVATE_KEY'),
