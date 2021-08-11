@@ -22,12 +22,6 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                - logs:CreateLogGroup
-                - logs:CreateLogStream
-                - logs:PutLogEvents
-                Resource: arn:aws:logs:*:*:*
-              - Effect: Allow
-                Action:
                   - ec2:DescribeAvailabilityZones
                 Resource: "*"
   GetAvailabilityZoneFunction:
