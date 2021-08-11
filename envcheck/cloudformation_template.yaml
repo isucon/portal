@@ -119,7 +119,11 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - ec2:Describe*
+                  - ec2:DescribeInstances
+                  - ec2:DescribeVolumes
+                  - ec2:DescribeNetworkInterfaces
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeAvailabilityZones
                 Resource: "*"
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
