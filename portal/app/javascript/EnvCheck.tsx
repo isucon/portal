@@ -185,7 +185,7 @@ export class EnvCheck extends React.Component<Props, State> {
           <p>
             インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスに対してユーザー名「isucon」でSSHを行う。
           </p>
-          {this.renderInstanceIP()}
+          {this.renderInstanceIPAndSSHCommand()}
         </div>
 
         <h3 className="title is-3">4. 状態の確認とスタックの削除</h3>
@@ -233,7 +233,7 @@ export class EnvCheck extends React.Component<Props, State> {
     );
   }
 
-  onInstanceIPClick(event: React.MouseEvent<HTMLInputElement>) {
+  selectAllText(event: React.MouseEvent<HTMLInputElement>) {
     if (event.target instanceof HTMLInputElement) {
       event.target.select();
     }
@@ -246,36 +246,79 @@ export class EnvCheck extends React.Component<Props, State> {
     await navigator.clipboard.writeText(this.state.instanceIP);
   }
 
-  renderInstanceIP() {
+  async onCopySSHCommandButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+
+    if (!this.state.instanceIP) return;
+    await navigator.clipboard.writeText(this.getSSHCommand());
+  }
+
+  private getSSHCommand() {
+    return `ssh -T isucon@${this.state.instanceIP ?? "{IP_ADDRESS}"}`;
+  }
+
+  renderInstanceIPAndSSHCommand() {
+    const ipNotFetched = this.state.instanceIP === null;
+
     return (
-      <div className="field is-horizontal">
-        <div className="field-label is-normal">
-          <label className="label">IPアドレス</label>
-        </div>
-        <div className="field-body">
-          <div className="field has-addons">
-            <div className={`control ${this.state.instanceIP === null ? "is-loading" : ""}`}>
-              <input
-                className="input"
-                type="text"
-                readOnly
-                disabled={this.state.instanceIP === null}
-                value={this.state.instanceIP ?? "取得中"}
-                onClick={this.onInstanceIPClick.bind(this)}
-              />
-            </div>
-            <div className="control">
-              <button
-                className="button"
-                disabled={this.state.instanceIP === null}
-                onClick={this.onCopyInstanceIPButtonClick.bind(this)}
-              >
-                <span className="material-icons">content_copy</span>
-              </button>
+      <>
+        <div className="field is-horizontal">
+          <div className="field-label is-normal">
+            <label className="label">IPアドレス</label>
+          </div>
+          <div className="field-body">
+            <div className="field has-addons">
+              <div className={`control ${ipNotFetched ? "is-loading" : ""}`}>
+                <input
+                  className="input"
+                  type="text"
+                  readOnly
+                  disabled={ipNotFetched}
+                  value={this.state.instanceIP ?? "取得中"}
+                  onClick={this.selectAllText.bind(this)}
+                />
+              </div>
+              <div className="control">
+                <button
+                  className="button"
+                  disabled={ipNotFetched}
+                  onClick={this.onCopySSHCommandButtonClick.bind(this)}
+                >
+                  <span className="material-icons">content_copy</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="field is-horizontal">
+          <div className="field-label is-normal">
+            <label className="label">SSHコマンド例</label>
+          </div>
+          <div className="field-body">
+            <div className="field has-addons">
+              <div className={`control ${ipNotFetched ? "is-loading" : ""}`}>
+                <input
+                  className="input"
+                  type="text"
+                  readOnly
+                  disabled={ipNotFetched}
+                  value={this.getSSHCommand()}
+                  onClick={this.selectAllText.bind(this)}
+                />
+              </div>
+              <div className="control">
+                <button
+                  className="button"
+                  disabled={ipNotFetched}
+                  onClick={this.onCopySSHCommandButtonClick.bind(this)}
+                >
+                  <span className="material-icons">content_copy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 }
