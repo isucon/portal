@@ -130,24 +130,43 @@ export class EnvCheck extends React.Component<Props, State> {
           予選では各チームで AWS アカウントを用意し、その AWS
           アカウントで競技環境を構築して、それを利用して競技に参加します。また、この競技環境の構築には AWS
           CloudFormation
-          を利用します。予選実施前に実際に競技環境が用意できるかのチェックのため、以下の手順で事前チェックを行ってください。
-          <b>必ずSSHの接続まで</b> 行ってください。
+          を利用します。予選実施前に実際に競技環境が用意できるかのチェックのため、以下の手順で競技環境確認を行ってください。
+          <b>必ずSSHの接続まで</b>{" "}
+          行ってください。一回でも行えば確認完了と表示されますが、念の為チーム全員が行うことをお勧めします。
         </p>
         {this.renderState()}
         {this.renderReloadButton()}
-        <ol className="block ml-4">
-          <li>
-            テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>
-            です。このテンプレートを利用すると、EC2インスタンスとそれに付随するVPC、また情報取得用のLambdaなどが作成されます。
-            <br />
-            <a
-              className={`button is-info ${this.state.template === null ? "is-loading" : ""}`}
-              href={templateBase64}
-              download="test_cloudformation.yaml"
-            >
-              CloudFormation テンプレートをダウンロード
-            </a>
-          </li>
+        <h2 className="title is-2">手順</h2>
+
+        <h3 className="title is-3">1. テンプレートのダウンロード</h3>
+        <div className="content">
+          <p>
+            テンプレートをダウンロードする。このテンプレートはチームごとに固有のものなので<b>共有厳禁</b>です。
+          </p>
+          <article className="message">
+            <div className="message-body">
+              このテンプレートでは{" "}
+              <a href="https://aws.amazon.com/jp/free/" target="_blank" rel="noreferrer noopener">
+                AWS 無料利用枠
+              </a>{" "}
+              に収まる範囲で EC2 インスタンス、VPC、インターネットゲートウェイ、セキュリティグループ、また Availability
+              Zone 情報取得に利用する Lambda 関数を作成します。また、EC2 環境の情報取得を行うための IAM
+              ロールを含みます。IAM ロールは EC2 インスタンスおよび Lambda
+              関数でのみ利用されます。また、許可されているアクションは AWS の仕様上、アカウントに存在する他の EC2
+              リソースの情報も閲覧できる設定になっていますが、不要な情報は取得いたしません。
+            </div>
+          </article>
+          <a
+            className={`button is-info ${this.state.template === null ? "is-loading" : ""}`}
+            href={templateBase64}
+            download="test_cloudformation.yaml"
+          >
+            CloudFormation テンプレートをダウンロード
+          </a>
+        </div>
+
+        <h3 className="title is-3">2. テンプレートでのスタックの作成</h3>
+        <ol className="content ml-4" type="i">
           <li>
             <a href="https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/">
               AWS マネジメントコンソールの CloudFormation
@@ -159,15 +178,21 @@ export class EnvCheck extends React.Component<Props, State> {
             「テンプレートの準備完了」、「テンプレートファイルのアップロード」を指定し、ダウンロードしたテンプレートをアップロードする。
           </li>
           <li>画面にしたがって進める。</li>
-          <li>
-            インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスに対してユーザー名「isucon」でSSHを行う。
-            <br />
-            {this.renderInstanceIP()}
-          </li>
-          <li>
-            確認完了が表示された後に、CloudFormationのスタックの削除を行う。確認が完了しない場合は、Discordの#generalにてご連絡ください。
-          </li>
         </ol>
+
+        <h3 className="title is-3">3. インスタンスへのSSH</h3>
+        <div className="content">
+          <p>
+            インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスに対してユーザー名「isucon」でSSHを行う。
+          </p>
+          {this.renderInstanceIP()}
+        </div>
+
+        <h3 className="title is-3">4. 状態の確認とスタックの削除</h3>
+        <p className="content">
+          画面上部の状態が「完了」になっていることを確認する。
+          完了になったら、CloudFormationのスタックの削除を行う。確認が完了しない場合は、Discordの#generalにてご連絡ください。
+        </p>
       </section>
     );
   }
@@ -197,7 +222,7 @@ export class EnvCheck extends React.Component<Props, State> {
 
   renderReloadButton() {
     return (
-      <div className="block is-flex is-flex-direction-row is-justify-content-flex-end">
+      <div className="is-flex is-flex-direction-row is-justify-content-flex-end">
         <button
           className={`button ${this.state.isFetching ? "is-loading" : ""}`}
           onClick={this.onReloadButtonClick.bind(this)}
