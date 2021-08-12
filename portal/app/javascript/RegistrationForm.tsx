@@ -250,7 +250,7 @@ export class RegistrationForm extends React.Component<Props, State> {
       <>
         <div className="field">
           <label className="label" htmlFor="fieldName">
-            {!this.props.registrationSession.team ? "代表者名" : "参加者名"}
+            {!this.props.registrationSession.team ? "代表者名" : "選手名"}
           </label>
           <div className="control">
             <input

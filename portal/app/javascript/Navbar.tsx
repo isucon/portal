@@ -90,7 +90,7 @@ export class Navbar extends React.Component<Props, State> {
         case isuxportal.proto.resources.Contest.Status.FINISHED:
           return (
             <a className="button is-light" href="/contestant">
-              競技参加者向けページ
+              選手向けページ
             </a>
           );
       }

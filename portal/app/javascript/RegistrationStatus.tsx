@@ -122,7 +122,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
                 Discordアカウント変更
               </a>
             </div>
-            参加者名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
+            選手名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
           </p>
           <p className="block">
             <button className="button is-danger" onClick={this.onWithdrawButtonClick.bind(this)}>
