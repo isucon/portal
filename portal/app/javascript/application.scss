@@ -235,8 +235,13 @@ body.isux-session-guest .isux-visibility-guest {
   width: fit-content;
 }
 
+$qAccent: #ff6433;
+$qInfo: #3ce284;
+$qCritical: #ee3a3a;
+$qBackground: #f3f4f5;
+
 .isux-broadcast-clock {
-  background-color: $isuBlack;
+  background-color: $qBackground;
   padding: 2vw 3vw;
   border-radius: 2.5vw;
 
@@ -257,10 +262,59 @@ body.isux-session-guest .isux-visibility-guest {
     text-align: center;
     font-size: 21vw;
     p {
-      color: white;
+      color: $qAccent;
       line-height: 21vw;
       font-weight: 900;
       font-family: "Noto Sans JP", sans-serif;
+    }
+  }
+
+  .isux-broadcast-clock-progress {
+    position: relative;
+
+    progress {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      display: block;
+      height: 0.75rem;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+
+      &::-webkit-progress-bar {
+        background-color: $qBackground;
+      }
+      &::-webkit-progress-value {
+        background-color: $qAccent;
+      }
+      &::-moz-progress-bar {
+        background-color: $qAccent;
+      }
+      &::-ms-fill {
+        background-color: $qAccent;
+        border: none;
+      }
+      &.frozen {
+        &::-webkit-progress-value {
+          background-color: $qCritical;
+        }
+        &::-moz-progress-bar {
+          background-color: $qCritical;
+        }
+        &::-ms-fill {
+          background-color: $qCritical;
+        }
+      }
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: repeating-linear-gradient(90deg, $qBackground, $qBackground 0.15rem, transparent 0.15rem, transparent 0.3rem);
     }
   }
 }
