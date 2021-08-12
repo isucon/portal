@@ -3,8 +3,8 @@ class Api::EnvChecksController < Api::ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :require_valid_checker_token
 
-  TEST_AMI_ID = "__ami_id__"
-  QUALIFY_AMI_ID = "__ami_id_2__"
+  TEST_AMI_ID = "ami-0e22b2e5f011bcb69"
+  QUALIFY_AMI_ID = ""
 
   def create
     @env_check = EnvCheck.new(
