@@ -179,8 +179,8 @@ export class EnvCheck extends React.Component<Props, State> {
           </li>
           <li>
             スタック名は任意のもの、それ以外の箇所は変更せずに画面にしたがって進める。最後の「スタックの作成」の上の「AWS
-            CloudFormation によって IAM
-            リソースが作成される場合があることを承認します。」に<b>チェックを入れた上で</b>、「スタックの作成」をクリック。
+            CloudFormation によって IAM リソースが作成される場合があることを承認します。」に<b>チェックを入れた上で</b>
+            、「スタックの作成」をクリック。
           </li>
         </ol>
 
