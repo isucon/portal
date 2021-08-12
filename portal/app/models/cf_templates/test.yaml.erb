@@ -158,12 +158,12 @@ Resources:
             owner: isucon:isucon
             permissions: '0600'
             encoding: b64
-            content: <%= ssh_keys %>
+            content: '<%= ssh_keys %>'
           - path: /opt/isucon-env-checker/portal_credentials.json
             owner: root:root
             permissions: '0644'
             encoding: b64
-            content: <%= portal_credentials %>
+            content: '<%= portal_credentials %>'
   EnvcheckInstanceIP:
     Type: AWS::EC2::EIP
     Properties:
