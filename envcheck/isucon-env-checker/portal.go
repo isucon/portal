@@ -103,7 +103,7 @@ func (p *Portal) SendResult(r Result) error {
 	}
 	defer res.Body.Close()
 
-	if res.StatusCode != http.StatusOK {
+	if res.StatusCode != http.StatusNoContent {
 		msg, _ := io.ReadAll(res.Body)
 		return fmt.Errorf("http status error: %d (%s)", res.StatusCode, string(msg))
 	}
