@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   scope path: 'registration', module: 'registration' do
     get '/' => 'registration#index', as: 'registration'
+    get '/env_check' => 'registration#index'
+
     resource :team, only: %i(new create)
     resource :user, only: %i(new create)
   end
@@ -59,6 +61,8 @@ Rails.application.routes.draw do
       resource :team, only: %i(create)
       # registration/join JoinTeam: POST /api/registration/contestant
       resource :contestant, only: %i(create)
+      # registration/env_check GetEnvCheckInformation: GET /api/registration/env_check
+      get 'env_check', to: 'env_check#show'
     end
 
     scope path: 'audience', module: 'audience' do
@@ -98,6 +102,9 @@ Rails.application.routes.draw do
       # admin/teams GetTeam: GET /api/admin/teams/:id
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id
       resources :teams, only: %i(index show update)
+
+      # admin/teams/cloud_formation GetCloudFormation: GET /api/admin/teams/:id/cloud_formation
+      get 'teams/:id/cloud_formation', to: 'cloud_formations#show'
 
       # admin/benchmark ListBenchmarkJobs: GET /api/admin/benchmark_jobs
       # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs

@@ -40,6 +40,17 @@ export class AdminApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getCloudFormation(id: number, type: "test" | "qualify") {
+    const klass = isuxportal.proto.services.admin.GetCloudFormationResponse;
+    const resp = await this.request(
+      `${this.baseUrl}/api/admin/teams/${encodeURIComponent(id.toString())}/cloud_formation?type=${encodeURIComponent(type)}`,
+      "GET",
+      null,
+      null
+    );
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listBenchmarkJobs(teamId?: number | null, incompleteOnly?: boolean, page?: number) {
     const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
     const resp = await this.request(

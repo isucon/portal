@@ -83,6 +83,12 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getEnvCheckInformation() {
+    const responseClass = isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+    const resp = await this.request(`${this.baseUrl}/api/registration/env_check`, "GET", null, null);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listBenchmarkJobs(limit?: number) {
     const klass = isuxportal.proto.services.contestant.ListBenchmarkJobsResponse;
     const resp = await this.request(

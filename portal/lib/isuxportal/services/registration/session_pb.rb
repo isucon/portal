@@ -20,6 +20,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :discord_avatar_url, :string, 6
       optional :member_invite_url, :string, 7
       optional :discord_server_id, :string, 8
+      optional :env_check_done, :bool, 9
     end
     add_enum "isuxportal.proto.services.registration.GetRegistrationSessionResponse.Status" do
       value :CLOSED, 0

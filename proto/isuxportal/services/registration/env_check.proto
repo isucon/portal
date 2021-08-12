@@ -1,0 +1,11 @@
+syntax = "proto3";
+package isuxportal.proto.services.registration;
+option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/registration";
+
+import "isuxportal/resources/env_check_status.proto";
+
+message GetEnvCheckInformationResponse {
+  string template = 1;
+  isuxportal.proto.resources.EnvCheckStatus status = 2;
+  string instance_ip = 3;
+}

@@ -8,6 +8,7 @@ import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import { ErrorMessage } from "../ErrorMessage";
 
 import { AdminTeamEdit } from "./AdminTeamEdit";
+import { AdminTeamCloudFormationDownloadButton } from "./AdminTeamCloudFormationDownloadButton";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -90,11 +91,21 @@ export class AdminTeamDetail extends React.Component<Props, State> {
               <a href={`mailto:${this.state.team.detail!.emailAddress}`}>{this.state.team.detail!.emailAddress}</a>
             </p>
 
-            <p>
+            <div className="buttons">
               <Link to={`/admin/teams/${this.state.team.id}/edit`} className="button is-info">
                 編集
               </Link>
-            </p>
+              <AdminTeamCloudFormationDownloadButton
+                client={this.props.client}
+                teamId={this.state.team.id as number}
+                type="test"
+              >事前チェック CloudFormationのダウンロード</AdminTeamCloudFormationDownloadButton>
+              <AdminTeamCloudFormationDownloadButton
+                client={this.props.client}
+                teamId={this.state.team.id as number}
+                type="qualify"
+              >予選 CloudFormationのダウンロード</AdminTeamCloudFormationDownloadButton>
+            </div>
           </div>
         </div>
       </>
@@ -113,9 +124,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
           <div className="media">
             <div className="media-left">
               <figure className="image is-48x48">
-                <img
-                  src={member.detail!.avatarUrl || "https://avatars2.githubusercontent.com/u/10137?s=144"}
-                />
+                <img src={member.detail!.avatarUrl || "https://avatars2.githubusercontent.com/u/10137?s=144"} />
               </figure>
             </div>
             <div className="media-content">
@@ -124,9 +133,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
                 {member.detail!.isStudent ? <span className="tag is-info">学生</span> : null}
                 <span>
                   GitHub:
-                  <a href={`https://github.com/${member.detail!.githubLogin}`}>
-                    @{member.detail!.githubLogin}
-                  </a>
+                  <a href={`https://github.com/${member.detail!.githubLogin}`}>@{member.detail!.githubLogin}</a>
                 </span>
                 <span>
                   Discord:
@@ -141,9 +148,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
   }
 
   teamIsStudent() {
-    return (
-      this.state.team?.members && this.state.team.members.filter((v) => !v.detail!.isStudent).length == 0
-    );
+    return this.state.team?.members && this.state.team.members.filter((v) => !v.detail!.isStudent).length == 0;
   }
 
   public renderError() {

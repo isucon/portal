@@ -77,9 +77,14 @@ export class Navbar extends React.Component<Props, State> {
         case isuxportal.proto.resources.Contest.Status.REGISTRATION:
         case isuxportal.proto.resources.Contest.Status.STANDBY:
           return (
-            <Link className="button is-light" to="/registration">
-              参加登録/修正
-            </Link>
+            <>
+              <Link className="button is-light" to="/registration">
+                参加登録/修正
+              </Link>
+              <Link className="button is-light" to="/registration/preparation">
+                参加準備
+              </Link>
+            </>
           );
         case isuxportal.proto.resources.Contest.Status.STARTED:
         case isuxportal.proto.resources.Contest.Status.FINISHED:

@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2021_07_20_174523) do
     t.boolean "withdrawn", default: false, null: false
     t.boolean "disqualified", default: false, null: false
     t.boolean "student", null: false
+    t.string "availability_zone"
     t.index ["withdrawn", "disqualified", "final_participation"], name: "idx_active_final"
   end
 

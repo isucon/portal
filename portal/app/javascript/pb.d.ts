@@ -1876,6 +1876,13 @@ export namespace isuxportal {
                 }
             }
 
+            /** EnvCheckStatus enum. */
+            enum EnvCheckStatus {
+                NOT_STARTED = 0,
+                CREATED_INSTANCE = 1,
+                DONE = 2
+            }
+
             /** Properties of a Leaderboard. */
             interface ILeaderboard {
 
@@ -5492,6 +5499,108 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
+                /** Properties of a GetEnvCheckInformationResponse. */
+                interface IGetEnvCheckInformationResponse {
+
+                    /** GetEnvCheckInformationResponse template */
+                    template?: (string|null);
+
+                    /** GetEnvCheckInformationResponse status */
+                    status?: (isuxportal.proto.resources.EnvCheckStatus|null);
+
+                    /** GetEnvCheckInformationResponse instanceIp */
+                    instanceIp?: (string|null);
+                }
+
+                /** Represents a GetEnvCheckInformationResponse. */
+                class GetEnvCheckInformationResponse implements IGetEnvCheckInformationResponse {
+
+                    /**
+                     * Constructs a new GetEnvCheckInformationResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.registration.IGetEnvCheckInformationResponse);
+
+                    /** GetEnvCheckInformationResponse template. */
+                    public template: string;
+
+                    /** GetEnvCheckInformationResponse status. */
+                    public status: isuxportal.proto.resources.EnvCheckStatus;
+
+                    /** GetEnvCheckInformationResponse instanceIp. */
+                    public instanceIp: string;
+
+                    /**
+                     * Creates a new GetEnvCheckInformationResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetEnvCheckInformationResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.registration.IGetEnvCheckInformationResponse): isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+
+                    /**
+                     * Encodes the specified GetEnvCheckInformationResponse message. Does not implicitly {@link isuxportal.proto.services.registration.GetEnvCheckInformationResponse.verify|verify} messages.
+                     * @param message GetEnvCheckInformationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.registration.IGetEnvCheckInformationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetEnvCheckInformationResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.GetEnvCheckInformationResponse.verify|verify} messages.
+                     * @param message GetEnvCheckInformationResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.registration.IGetEnvCheckInformationResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetEnvCheckInformationResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetEnvCheckInformationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+
+                    /**
+                     * Decodes a GetEnvCheckInformationResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetEnvCheckInformationResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+
+                    /**
+                     * Verifies a GetEnvCheckInformationResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetEnvCheckInformationResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetEnvCheckInformationResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.registration.GetEnvCheckInformationResponse;
+
+                    /**
+                     * Creates a plain object from a GetEnvCheckInformationResponse message. Also converts values to other types if specified.
+                     * @param message GetEnvCheckInformationResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.registration.GetEnvCheckInformationResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetEnvCheckInformationResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
                 /** Properties of a JoinTeamRequest. */
                 interface IJoinTeamRequest {
 
@@ -5812,6 +5921,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId */
                     discordServerId?: (string|null);
+
+                    /** GetRegistrationSessionResponse envCheckDone */
+                    envCheckDone?: (boolean|null);
                 }
 
                 /** Represents a GetRegistrationSessionResponse. */
@@ -5846,6 +5958,9 @@ export namespace isuxportal {
 
                     /** GetRegistrationSessionResponse discordServerId. */
                     public discordServerId: string;
+
+                    /** GetRegistrationSessionResponse envCheckDone. */
+                    public envCheckDone: boolean;
 
                     /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
