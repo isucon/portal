@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_20_174523) do
+ActiveRecord::Schema.define(version: 2021_08_12_085209) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 2021_07_20_174523) do
     t.string "name", null: false
     t.string "ip_address", null: false
     t.boolean "passed", null: false
-    t.string "message", null: false
-    t.string "admin_message", null: false
-    t.string "raw_data", null: false
+    t.text "message", null: false
+    t.text "admin_message", null: false
+    t.text "raw_data", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
