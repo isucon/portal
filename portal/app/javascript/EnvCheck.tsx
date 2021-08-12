@@ -254,7 +254,7 @@ export class EnvCheck extends React.Component<Props, State> {
   }
 
   private getSSHCommand() {
-    return `ssh -T isucon@${this.state.instanceIP ?? "{IP_ADDRESS}"}`;
+    return `ssh -T isucon@${this.state.instanceIP || "{IP_ADDRESS}"}`;
   }
 
   renderInstanceIPAndSSHCommand() {
