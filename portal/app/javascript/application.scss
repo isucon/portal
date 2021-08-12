@@ -351,7 +351,7 @@ $qBackground: #f3f4f5;
     }
 
     .isux-broadcast-leaderboard-item-position {
-      background: rgba(lighten($isuBlack, 10%), 0.93);
+      background: rgba($qAccent, 0.93);
       flex: none;
       width: 12%;
       p {
@@ -367,8 +367,10 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-leaderboard-item-team {
-      background: rgba($isuBlack, 0.93);
-      color: white;
+      background: rgba($qBackground, 0.93);
+      border-top: solid 0.25vw $qAccent;
+      border-bottom: solid 0.25vw $qAccent;
+      color: $qAccent;
       overflow-x: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -380,8 +382,19 @@ $qBackground: #f3f4f5;
         text-overflow: ellipsis;
       }
     }
+    &:first-child {
+      .isux-broadcast-leaderboard-item-team {
+        border-top: solid 0.5vw $qAccent;
+      }
+    }
+    &:last-child {
+      .isux-broadcast-leaderboard-item-team {
+        border-bottom: solid 0.5vw $qAccent;
+      }
+    }
+
     .isux-broadcast-leaderboard-item-student {
-      background: rgba($isuBlack, 0.93);
+      background: rgba($qAccent, 0.93);
       color: white;
       flex: none;
       width: 10%;
@@ -395,6 +408,7 @@ $qBackground: #f3f4f5;
     }
     .isux-broadcast-leaderboard-item-score {
       background: rgba(255, 255, 255, 0.93);
+      color: $qAccent;
       text-align: right;
       font-weight: 600;
       font-size: 3.5vw;
@@ -415,13 +429,13 @@ $qBackground: #f3f4f5;
 
 @keyframes isux-broadcast-leaderboard-change-up {
   0% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
   25% {
-    background-color: rgba($isuRed, 1);
+    background-color: rgba($qInfo, 1);
   }
   100% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
 }
 
@@ -432,13 +446,13 @@ $qBackground: #f3f4f5;
 
 @keyframes isux-broadcast-leaderboard-change-down {
   0% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
   25% {
-    background-color: rgba($isuBlue, 1);
+    background-color: rgba($qCritical, 1);
   }
   100% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
 }
 
