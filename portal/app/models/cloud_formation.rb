@@ -1,5 +1,6 @@
 require 'erb'
 require 'base64'
+require 'json'
 
 module CloudFormation
   TEST_ERB = ERB.new(File.read(File.join(File.dirname(__FILE__), './cf_templates/test.yaml.erb')))
@@ -39,9 +40,11 @@ module CloudFormation
     token = CheckerToken.create(
       team_id: team.id,
       expiry: expiry,
-      dev: is_for_staging
     )
-    Base64.strict_encode64("{\"token\": \"#{token}\"}")
+    Base64.strict_encode64(JSON.dump(
+      token: token,
+      dev: is_for_staging,
+    ))
   end
 
   def self.create_ssh_keys(team)
