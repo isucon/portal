@@ -113,6 +113,8 @@ Rails.application.configure do
   config.x.ssh_key_api.secret = (ENV['ISUXPORTAL_SSH_KEY_API_SECRET'] || 'himitsudayo')
   config.x.dcim.token = (ENV['ISUXPORTAL_DCIM_TOKEN'] || 'himitsudayo')
 
+  config.x.cloudformation_staging = ENV['ISUXPORTAL_CLOUDFORMATION_STAGING'] == '1'
+
   config.x.terms_url = ENV.fetch('ISUXPORTAL_TERMS_URL', 'https://isucon.net/archives/55857411.html')
   config.x.rules_url = ENV.fetch('ISUXPORTAL_RULES_URL', 'https://isucon.net/archives/55854734.html')
   config.x.docs_url = ENV.fetch('ISUXPORTAL_DOCS_URL', 'https://gist.github.com/progfay/25edb2a9ede4ca478cb3e2422f1f12f6')

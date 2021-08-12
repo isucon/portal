@@ -1,5 +1,6 @@
 require 'erb'
 require 'base64'
+require 'json'
 
 module CloudFormation
   TEST_ERB = ERB.new(File.read(File.join(File.dirname(__FILE__), './cf_templates/test.yaml.erb')))
@@ -12,7 +13,7 @@ module CloudFormation
     zone_id = team.availability_zone
     portal_credentials = create_portal_credentials(
       team,
-      Rails.application.config.x.contest.contest_start.to_i
+      test_token_expiry
     )
     ssh_keys = create_ssh_keys(team)
 
@@ -23,12 +24,27 @@ module CloudFormation
     end
   end
 
+  def self.is_for_staging
+    Rails.application.config.x.cloudformation_staging
+  end
+
+  def self.test_token_expiry
+    if is_for_staging
+      Time.now.to_i + 60 * 60 # 発行時から1時間後
+    else
+      Rails.application.config.x.contest.contest_start.to_i
+    end
+  end
+
   def self.create_portal_credentials(team, expiry)
     token = CheckerToken.create(
       team_id: team.id,
       expiry: expiry,
     )
-    Base64.strict_encode64("{\"token\": \"#{token}\"}")
+    Base64.strict_encode64(JSON.dump(
+      token: token,
+      dev: is_for_staging,
+    ))
   end
 
   def self.create_ssh_keys(team)
