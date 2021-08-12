@@ -20,7 +20,7 @@ func main() {
 		fmt.Println("SSH 接続が成功しました")
 	}
 
-	info, err := p.GetInfo()
+	info, err := p.GetInfo(name)
 	if err != nil {
 		fmt.Printf("ポータルから情報の取得に失敗しました: %v\n", err)
 		os.Exit(1)

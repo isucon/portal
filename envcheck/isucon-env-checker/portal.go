@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 )
 
@@ -43,8 +44,11 @@ func LoadPortalCredentials() (*Portal, error) {
 	}, nil
 }
 
-func (p *Portal) GetInfo() (EnvCheckInfo, error) {
-	req, err := http.NewRequest("GET", p.Endpoint+"/api/env_check_info", nil)
+func (p *Portal) GetInfo(name string) (EnvCheckInfo, error) {
+	q := make(url.Values)
+	q.Set("name", name)
+	q.Set("token", p.Token)
+	req, err := http.NewRequest("GET", p.Endpoint+"/api/env_check_info?"+q.Encode(), nil)
 	if err != nil {
 		return EnvCheckInfo{}, err
 	}
