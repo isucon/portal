@@ -177,12 +177,17 @@ export class EnvCheck extends React.Component<Props, State> {
           <li>
             「テンプレートの準備完了」、「テンプレートファイルのアップロード」を指定し、ダウンロードしたテンプレートをアップロードする。
           </li>
-          <li>スタック名は任意のもの、それ以外の箇所は変更せずに画面にしたがって進める。</li>
+          <li>
+            スタック名は任意のもの、それ以外の箇所は変更せずに画面にしたがって進める。最後の「スタックの作成」の上の「AWS
+            CloudFormation によって IAM
+            リソースが作成される場合があることを承認します。」に<b>チェックを入れた上で</b>、「スタックの作成」をクリック。
+          </li>
         </ol>
 
         <h3 className="title is-3">3. インスタンスへのSSH</h3>
         <div className="content">
           <p>
+            「スタックの作成」を実行後から約5分後、インスタンスが起動します。
             インスタンスの起動後、GitHubに登録してあるSSH鍵によりSSHができるようになるので、インスタンスに対してユーザー名「isucon」でSSHを行う。
           </p>
           {this.renderInstanceIPAndSSHCommand()}
