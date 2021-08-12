@@ -59,7 +59,8 @@ func (p *Portal) GetInfo(name string) (EnvCheckInfo, error) {
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return EnvCheckInfo{}, fmt.Errorf("http status error: %d", res.StatusCode)
+		msg, _ := io.ReadAll(res.Body)
+		return EnvCheckInfo{}, fmt.Errorf("http status error: %d (%s)", res.StatusCode, string(msg))
 	}
 
 	var info EnvCheckInfo
@@ -71,7 +72,23 @@ func (p *Portal) GetInfo(name string) (EnvCheckInfo, error) {
 }
 
 func (p *Portal) SendResult(r Result) error {
-	body, err := json.Marshal(r)
+	body, err := json.Marshal(struct {
+		Token        string `json:"token"`
+		Name         string `json:"name"`
+		Passed       bool   `json:"passed"`
+		IPAddress    string `json:"ip_address"`
+		Message      string `json:"message"`
+		AdminMessage string `json:"admin_message"`
+		RawData      string `json:"raw_data"`
+	}{
+		Token:        p.Token,
+		Name:         r.Name,
+		Passed:       r.Passed,
+		IPAddress:    r.IPAddress,
+		Message:      r.Message,
+		AdminMessage: r.AdminMessage,
+		RawData:      r.RawData,
+	})
 	if err != nil {
 		return err
 	}
@@ -79,6 +96,7 @@ func (p *Portal) SendResult(r Result) error {
 	if err != nil {
 		return err
 	}
+	req.Header.Set("Content-Type", "application/json")
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err
@@ -86,7 +104,8 @@ func (p *Portal) SendResult(r Result) error {
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return fmt.Errorf("http status error: %d", res.StatusCode)
+		msg, _ := io.ReadAll(res.Body)
+		return fmt.Errorf("http status error: %d (%s)", res.StatusCode, string(msg))
 	}
 
 	io.Copy(io.Discard, res.Body)
