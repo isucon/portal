@@ -11,4 +11,8 @@ class EnvCheck < ApplicationRecord
   validates :admin_message, presence: true
   validates :raw_data, presence: true
 
+  scope :of_team, ->(team) { where(team: team) }
+
+  scope :test_boot, -> { where(name: 'test-boot') }
+  scope :test_ssh_passed, -> { where(name: 'test-ssh', passed: true) }
 end
