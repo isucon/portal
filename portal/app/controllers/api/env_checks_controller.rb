@@ -23,7 +23,7 @@ class Api::EnvChecksController < Api::ApplicationController
     team = Team.find(@payload[:team_id])
 
     ami_id = case params[:name]
-      when "test_boot", "test_ssh"
+      when "test-boot", "test-ssh"
         TEST_AMI_ID
       when "qualify"
         QUALIFY_AMI_ID
