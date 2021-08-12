@@ -24,3 +24,13 @@ resource "aws_security_group_rule" "bastion-ingress_wg" {
   ipv6_cidr_blocks  = ["::/0"]
 }
 
+resource "aws_security_group_rule" "bastion-egress_all" {
+  security_group_id = aws_security_group.bastion.id
+  type              = "egress"
+  protocol          = "all"
+  from_port         = 0
+  to_port           = 0
+  cidr_blocks       = ["0.0.0.0/0"]
+  ipv6_cidr_blocks  = ["::/0"]
+}
+
