@@ -171,13 +171,13 @@ export class EnvCheck extends React.Component<Props, State> {
             <a href="https://ap-northeast-1.console.aws.amazon.com/cloudformation/home?region=ap-northeast-1#/">
               AWS マネジメントコンソールの CloudFormation
             </a>{" "}
-            を開く。
+            を開く。右上が「東京」(アジアパシフィック (東京) ap-northeast-1)になっていることを確認。
           </li>
           <li>「スタックを作成」をクリック。</li>
           <li>
             「テンプレートの準備完了」、「テンプレートファイルのアップロード」を指定し、ダウンロードしたテンプレートをアップロードする。
           </li>
-          <li>画面にしたがって進める。</li>
+          <li>スタック名は任意のもの、それ以外の箇所は変更せずに画面にしたがって進める。</li>
         </ol>
 
         <h3 className="title is-3">3. インスタンスへのSSH</h3>
