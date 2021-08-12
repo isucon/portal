@@ -122,7 +122,7 @@ export class EnvCheck extends React.Component<Props, State> {
       return <>未ログインです</>;
     }
 
-    const templateBase64 = `data:text/plain,${encodeURI(this.state.template ?? "")}`;
+    const templateBase64 = `data:text/plain,${encodeURIComponent(this.state.template ?? "")}`;
 
     return (
       <section>
