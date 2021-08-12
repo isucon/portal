@@ -86,7 +86,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
 
             <p>ID: {this.state.team.id}</p>
             <p>
-              代表選手メールアドレス:{" "}
+              代表者メールアドレス:{" "}
               <a href={`mailto:${this.state.team.detail!.emailAddress}`}>{this.state.team.detail!.emailAddress}</a>
             </p>
 

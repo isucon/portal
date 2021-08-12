@@ -64,10 +64,10 @@ export class RegistrationStatus extends React.Component<Props, State> {
           <ol>
             <li>
               必要に応じ、下記より招待 URL をコピー & チームメンバーへ共有し、チームメンバーの参加登録を行ってください
-              (代表選手を含め 3 人まで)。
+              (代表者を含め 3 人まで)。
             </li>
             <li>
-              代表選手・メンバー問わず、Discord サーバーへ <b>必ず</b> 参加してください。各種アナウンスは原則 Discord
+              代表者・メンバー問わず、Discord サーバーへ <b>必ず</b> 参加してください。各種アナウンスは原則 Discord
               もしくは本サイト (ポータル) において行われます。
             </li>
           </ol>
@@ -131,7 +131,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
                 Discordアカウント変更
               </a>
             </div>
-            選手名・学生申告といった登録内容の修正ができます。チーム名は代表選手のみが変更可能です。
+            選手名・学生申告といった登録内容の修正ができます。チーム名は代表者のみが変更可能です。
           </p>
           <p className="block">
             <button className="button is-danger" onClick={this.onWithdrawButtonClick.bind(this)}>
@@ -140,7 +140,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
             <br />
             参加をキャンセルします。
             {this.props.registrationSession.team!.leaderId == this.props.session.contestant!.id ? (
-              <strong>代表選手のため、辞退するとチームとして参加辞退となります。</strong>
+              <strong>代表者のため、辞退するとチームとして参加辞退となります。</strong>
             ) : (
               <span>チームメンバーであるため、チームから離脱します (他のメンバーには影響しません)。</span>
             )}
@@ -173,7 +173,7 @@ export class RegistrationStatus extends React.Component<Props, State> {
               <p className="title is-5">{member.name}</p>
               <p className="subtitle is-6">
                 {this.props.registrationSession.team!.leaderId == member.id ? (
-                  <span className="tag is-danger mr-1">代表選手</span>
+                  <span className="tag is-danger mr-1">代表者</span>
                 ) : null}
                 {member.detail!.isStudent ? <span className="tag is-info mr-1">学生</span> : null}
                 GitHub @{member.detail!.githubLogin}, Discord {member.detail!.discordTag}
