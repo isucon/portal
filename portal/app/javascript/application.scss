@@ -236,7 +236,8 @@ body.isux-session-guest .isux-visibility-guest {
 }
 
 $qAccent: #ff6433;
-$qInfo: #3ce284;
+$qInfo: #1ecc6a;
+$qText: #373634;
 $qCritical: #ee3a3a;
 $qBackground: #f3f4f5;
 
@@ -407,8 +408,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-leaderboard-item-score {
-      background: rgba(255, 255, 255, 0.93);
-      color: $qAccent;
+      background: rgba($qBackground, 0.93);
+      color: $qText;
       text-align: right;
       font-weight: 600;
       font-size: 3.5vw;
@@ -480,10 +481,10 @@ $qBackground: #f3f4f5;
     }
 
     &.isux-broadcast-scorechanges-item--up .isux-broadcast-scorechanges-item-position {
-      background: rgba($isuRed, 0.93);
+      background: rgba($qInfo, 0.93);
     }
     &.isux-broadcast-scorechanges-item--down .isux-broadcast-scorechanges-item-position {
-      background: rgba($isuBlue, 0.93);
+      background: rgba($qCritical, 0.93);
     }
 
     .isux-broadcast-scorechanges-item-position {
@@ -512,8 +513,10 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-team {
-      background: rgba($isuBlack, 0.93);
-      color: white;
+      background: $qBackground;
+      color: $qAccent;
+      border-top: solid 0.5vw $qAccent;
+      border-bottom: solid 0.5vw $qAccent;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 55%;
@@ -532,7 +535,7 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-student {
-      background: rgba($isuBlack, 0.93);
+      background: rgba($qAccent, 0.93);
       color: white;
       flex: none;
       width: 5%;
@@ -545,7 +548,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-score {
-      background: rgba(255, 255, 255, 0.93);
+      background: rgba($qBackground, 0.93);
+      color: $qText;
       text-align: right;
       flex: none;
       width: 20%;
@@ -568,10 +572,10 @@ $qBackground: #f3f4f5;
         font-size: 2.3vw;
 
         &.isux-broadcast-scorechanges-item--up {
-          color: darken($isuRed, 7%);
+          color: darken($qInfo, 7%);
         }
         &.isux-broadcast-scorechanges-item--down {
-          color: darken($isuBlue, 7%);
+          color: darken($qCritical, 7%);
         }
       }
     }
