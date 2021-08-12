@@ -3,6 +3,9 @@ class Api::EnvChecksController < Api::ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :require_valid_checker_token
 
+  TEST_AMI_ID = "__ami_id__"
+  QUALIFY_AMI_ID = "__ami_id_2__"
+
   def create
     @env_check = EnvCheck.new(
       team_id: @payload[:team_id],
@@ -19,7 +22,15 @@ class Api::EnvChecksController < Api::ApplicationController
   def info
     team = Team.find(@payload[:team_id])
 
-    ami_id = "__ami_id__"
+    ami_id = case params[:name]
+      when "test_boot", "test_ssh"
+        TEST_AMI_ID
+      when "qualify"
+        QUALIFY_AMI_ID
+      else
+        return render status: :bad_request, body: "unknown name param"
+      end
+
     az_id = team.availability_zone
 
     render json: {
