@@ -167,4 +167,5 @@ Resources:
   EnvcheckInstanceIP:
     Type: AWS::EC2::EIP
     Properties:
+      Domain: vpc
       InstanceId: !Ref EnvcheckInstance
