@@ -150,7 +150,7 @@ Rails.application.configure do
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
   #config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
-  config.x.cloudformation_staging = ENV.fetch('ISUXPORTAL_CLOUDFORMATION_STAGING') == '1'
+  config.x.cloudformation_staging = false
 
   config.x.terms_url = ENV.fetch('ISUXPORTAL_TERMS_URL', 'https://isucon.net/archives/55857411.html')
   config.x.rules_url = ENV.fetch('ISUXPORTAL_RULES_URL', 'https://isucon.net/archives/55854734.html')
