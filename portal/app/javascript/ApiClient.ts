@@ -89,6 +89,14 @@ export class ApiClient {
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async activateCoupon(payload: isuxportal.proto.services.registration.IActivateCouponRequest) {
+    const responseClass = isuxportal.proto.services.registration.ActivateCouponResponse;
+    const payloadClass = isuxportal.proto.services.registration.UpdateRegistrationRequest;
+    const payloadMessage = payload ? payloadClass.encode(payloadClass.fromObject(payload)).finish() : null;
+    const resp = await this.request(`${this.baseUrl}/api/registration/coupon`, "PUT", null, payloadMessage);
+    return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listBenchmarkJobs(limit?: number) {
     const klass = isuxportal.proto.services.contestant.ListBenchmarkJobsResponse;
     const resp = await this.request(

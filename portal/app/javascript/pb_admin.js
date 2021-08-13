@@ -5203,6 +5203,288 @@ $root.isuxportal = (function() {
                 return Contest;
             })();
 
+            resources.Coupon = (function() {
+
+                /**
+                 * Properties of a Coupon.
+                 * @memberof isuxportal.proto.resources
+                 * @interface ICoupon
+                 * @property {number|Long|null} [id] Coupon id
+                 * @property {number|Long|null} [teamId] Coupon teamId
+                 * @property {string|null} [code] Coupon code
+                 * @property {boolean|null} [activate] Coupon activate
+                 */
+
+                /**
+                 * Constructs a new Coupon.
+                 * @memberof isuxportal.proto.resources
+                 * @classdesc Represents a Coupon.
+                 * @implements ICoupon
+                 * @constructor
+                 * @param {isuxportal.proto.resources.ICoupon=} [properties] Properties to set
+                 */
+                function Coupon(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Coupon id.
+                 * @member {number|Long} id
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @instance
+                 */
+                Coupon.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Coupon teamId.
+                 * @member {number|Long} teamId
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @instance
+                 */
+                Coupon.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * Coupon code.
+                 * @member {string} code
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @instance
+                 */
+                Coupon.prototype.code = "";
+
+                /**
+                 * Coupon activate.
+                 * @member {boolean} activate
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @instance
+                 */
+                Coupon.prototype.activate = false;
+
+                /**
+                 * Creates a new Coupon instance using the specified properties.
+                 * @function create
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {isuxportal.proto.resources.ICoupon=} [properties] Properties to set
+                 * @returns {isuxportal.proto.resources.Coupon} Coupon instance
+                 */
+                Coupon.create = function create(properties) {
+                    return new Coupon(properties);
+                };
+
+                /**
+                 * Encodes the specified Coupon message. Does not implicitly {@link isuxportal.proto.resources.Coupon.verify|verify} messages.
+                 * @function encode
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {isuxportal.proto.resources.ICoupon} message Coupon message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Coupon.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+                    if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int64(message.teamId);
+                    if (message.code != null && Object.hasOwnProperty.call(message, "code"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.code);
+                    if (message.activate != null && Object.hasOwnProperty.call(message, "activate"))
+                        writer.uint32(/* id 4, wireType 0 =*/32).bool(message.activate);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Coupon message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Coupon.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {isuxportal.proto.resources.ICoupon} message Coupon message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Coupon.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Coupon message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {isuxportal.proto.resources.Coupon} Coupon
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Coupon.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.Coupon();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.id = reader.int64();
+                            break;
+                        case 2:
+                            message.teamId = reader.int64();
+                            break;
+                        case 3:
+                            message.code = reader.string();
+                            break;
+                        case 4:
+                            message.activate = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Coupon message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {isuxportal.proto.resources.Coupon} Coupon
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Coupon.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Coupon message.
+                 * @function verify
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Coupon.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                            return "id: integer|Long expected";
+                    if (message.teamId != null && message.hasOwnProperty("teamId"))
+                        if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
+                            return "teamId: integer|Long expected";
+                    if (message.code != null && message.hasOwnProperty("code"))
+                        if (!$util.isString(message.code))
+                            return "code: string expected";
+                    if (message.activate != null && message.hasOwnProperty("activate"))
+                        if (typeof message.activate !== "boolean")
+                            return "activate: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Coupon message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {isuxportal.proto.resources.Coupon} Coupon
+                 */
+                Coupon.fromObject = function fromObject(object) {
+                    if (object instanceof $root.isuxportal.proto.resources.Coupon)
+                        return object;
+                    var message = new $root.isuxportal.proto.resources.Coupon();
+                    if (object.id != null)
+                        if ($util.Long)
+                            (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                        else if (typeof object.id === "string")
+                            message.id = parseInt(object.id, 10);
+                        else if (typeof object.id === "number")
+                            message.id = object.id;
+                        else if (typeof object.id === "object")
+                            message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+                    if (object.teamId != null)
+                        if ($util.Long)
+                            (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
+                        else if (typeof object.teamId === "string")
+                            message.teamId = parseInt(object.teamId, 10);
+                        else if (typeof object.teamId === "number")
+                            message.teamId = object.teamId;
+                        else if (typeof object.teamId === "object")
+                            message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
+                    if (object.code != null)
+                        message.code = String(object.code);
+                    if (object.activate != null)
+                        message.activate = Boolean(object.activate);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Coupon message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @static
+                 * @param {isuxportal.proto.resources.Coupon} message Coupon
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Coupon.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.id = options.longs === String ? "0" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.teamId = options.longs === String ? "0" : 0;
+                        object.code = "";
+                        object.activate = false;
+                    }
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (typeof message.id === "number")
+                            object.id = options.longs === String ? String(message.id) : message.id;
+                        else
+                            object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+                    if (message.teamId != null && message.hasOwnProperty("teamId"))
+                        if (typeof message.teamId === "number")
+                            object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
+                        else
+                            object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
+                    if (message.code != null && message.hasOwnProperty("code"))
+                        object.code = message.code;
+                    if (message.activate != null && message.hasOwnProperty("activate"))
+                        object.activate = message.activate;
+                    return object;
+                };
+
+                /**
+                 * Converts this Coupon to JSON.
+                 * @function toJSON
+                 * @memberof isuxportal.proto.resources.Coupon
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Coupon.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Coupon;
+            })();
+
             /**
              * EnvCheckStatus enum.
              * @name isuxportal.proto.resources.EnvCheckStatus
@@ -19441,6 +19723,367 @@ $root.isuxportal = (function() {
                  */
                 var registration = {};
 
+                registration.ActivateCouponRequest = (function() {
+
+                    /**
+                     * Properties of an ActivateCouponRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IActivateCouponRequest
+                     * @property {number|Long|null} [teamId] ActivateCouponRequest teamId
+                     */
+
+                    /**
+                     * Constructs a new ActivateCouponRequest.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents an ActivateCouponRequest.
+                     * @implements IActivateCouponRequest
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IActivateCouponRequest=} [properties] Properties to set
+                     */
+                    function ActivateCouponRequest(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ActivateCouponRequest teamId.
+                     * @member {number|Long} teamId
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @instance
+                     */
+                    ActivateCouponRequest.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Creates a new ActivateCouponRequest instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponRequest=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponRequest} ActivateCouponRequest instance
+                     */
+                    ActivateCouponRequest.create = function create(properties) {
+                        return new ActivateCouponRequest(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ActivateCouponRequest message. Does not implicitly {@link isuxportal.proto.services.registration.ActivateCouponRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponRequest} message ActivateCouponRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ActivateCouponRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.teamId);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ActivateCouponRequest message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.ActivateCouponRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponRequest} message ActivateCouponRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ActivateCouponRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an ActivateCouponRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponRequest} ActivateCouponRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ActivateCouponRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.ActivateCouponRequest();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.teamId = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an ActivateCouponRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponRequest} ActivateCouponRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ActivateCouponRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an ActivateCouponRequest message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ActivateCouponRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
+                                return "teamId: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an ActivateCouponRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponRequest} ActivateCouponRequest
+                     */
+                    ActivateCouponRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.ActivateCouponRequest)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.registration.ActivateCouponRequest();
+                        if (object.teamId != null)
+                            if ($util.Long)
+                                (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
+                            else if (typeof object.teamId === "string")
+                                message.teamId = parseInt(object.teamId, 10);
+                            else if (typeof object.teamId === "number")
+                                message.teamId = object.teamId;
+                            else if (typeof object.teamId === "object")
+                                message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from an ActivateCouponRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @static
+                     * @param {isuxportal.proto.services.registration.ActivateCouponRequest} message ActivateCouponRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ActivateCouponRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.teamId = options.longs === String ? "0" : 0;
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (typeof message.teamId === "number")
+                                object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
+                            else
+                                object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ActivateCouponRequest to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ActivateCouponRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ActivateCouponRequest;
+                })();
+
+                registration.ActivateCouponResponse = (function() {
+
+                    /**
+                     * Properties of an ActivateCouponResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @interface IActivateCouponResponse
+                     */
+
+                    /**
+                     * Constructs a new ActivateCouponResponse.
+                     * @memberof isuxportal.proto.services.registration
+                     * @classdesc Represents an ActivateCouponResponse.
+                     * @implements IActivateCouponResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.registration.IActivateCouponResponse=} [properties] Properties to set
+                     */
+                    function ActivateCouponResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new ActivateCouponResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponResponse} ActivateCouponResponse instance
+                     */
+                    ActivateCouponResponse.create = function create(properties) {
+                        return new ActivateCouponResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ActivateCouponResponse message. Does not implicitly {@link isuxportal.proto.services.registration.ActivateCouponResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponResponse} message ActivateCouponResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ActivateCouponResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ActivateCouponResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.registration.ActivateCouponResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.IActivateCouponResponse} message ActivateCouponResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ActivateCouponResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes an ActivateCouponResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponResponse} ActivateCouponResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ActivateCouponResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.registration.ActivateCouponResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes an ActivateCouponResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponResponse} ActivateCouponResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ActivateCouponResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies an ActivateCouponResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ActivateCouponResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates an ActivateCouponResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.registration.ActivateCouponResponse} ActivateCouponResponse
+                     */
+                    ActivateCouponResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.registration.ActivateCouponResponse)
+                            return object;
+                        return new $root.isuxportal.proto.services.registration.ActivateCouponResponse();
+                    };
+
+                    /**
+                     * Creates a plain object from an ActivateCouponResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @static
+                     * @param {isuxportal.proto.services.registration.ActivateCouponResponse} message ActivateCouponResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ActivateCouponResponse.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this ActivateCouponResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.registration.ActivateCouponResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ActivateCouponResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ActivateCouponResponse;
+                })();
+
                 registration.CreateTeamRequest = (function() {
 
                     /**
@@ -20857,6 +21500,7 @@ $root.isuxportal = (function() {
                      * @property {string|null} [memberInviteUrl] GetRegistrationSessionResponse memberInviteUrl
                      * @property {string|null} [discordServerId] GetRegistrationSessionResponse discordServerId
                      * @property {boolean|null} [envCheckDone] GetRegistrationSessionResponse envCheckDone
+                     * @property {isuxportal.proto.resources.ICoupon|null} [coupon] GetRegistrationSessionResponse coupon
                      */
 
                     /**
@@ -20947,6 +21591,14 @@ $root.isuxportal = (function() {
                     GetRegistrationSessionResponse.prototype.envCheckDone = false;
 
                     /**
+                     * GetRegistrationSessionResponse coupon.
+                     * @member {isuxportal.proto.resources.ICoupon|null|undefined} coupon
+                     * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
+                     * @instance
+                     */
+                    GetRegistrationSessionResponse.prototype.coupon = null;
+
+                    /**
                      * Creates a new GetRegistrationSessionResponse instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.registration.GetRegistrationSessionResponse
@@ -20988,6 +21640,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 8, wireType 2 =*/66).string(message.discordServerId);
                         if (message.envCheckDone != null && Object.hasOwnProperty.call(message, "envCheckDone"))
                             writer.uint32(/* id 9, wireType 0 =*/72).bool(message.envCheckDone);
+                        if (message.coupon != null && Object.hasOwnProperty.call(message, "coupon"))
+                            $root.isuxportal.proto.resources.Coupon.encode(message.coupon, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                         return writer;
                     };
 
@@ -21048,6 +21702,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 9:
                                 message.envCheckDone = reader.bool();
+                                break;
+                            case 10:
+                                message.coupon = $root.isuxportal.proto.resources.Coupon.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -21123,6 +21780,11 @@ $root.isuxportal = (function() {
                         if (message.envCheckDone != null && message.hasOwnProperty("envCheckDone"))
                             if (typeof message.envCheckDone !== "boolean")
                                 return "envCheckDone: boolean expected";
+                        if (message.coupon != null && message.hasOwnProperty("coupon")) {
+                            var error = $root.isuxportal.proto.resources.Coupon.verify(message.coupon);
+                            if (error)
+                                return "coupon." + error;
+                        }
                         return null;
                     };
 
@@ -21187,6 +21849,11 @@ $root.isuxportal = (function() {
                             message.discordServerId = String(object.discordServerId);
                         if (object.envCheckDone != null)
                             message.envCheckDone = Boolean(object.envCheckDone);
+                        if (object.coupon != null) {
+                            if (typeof object.coupon !== "object")
+                                throw TypeError(".isuxportal.proto.services.registration.GetRegistrationSessionResponse.coupon: object expected");
+                            message.coupon = $root.isuxportal.proto.resources.Coupon.fromObject(object.coupon);
+                        }
                         return message;
                     };
 
@@ -21213,6 +21880,7 @@ $root.isuxportal = (function() {
                             object.memberInviteUrl = "";
                             object.discordServerId = "";
                             object.envCheckDone = false;
+                            object.coupon = null;
                         }
                         if (message.team != null && message.hasOwnProperty("team"))
                             object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
@@ -21232,6 +21900,8 @@ $root.isuxportal = (function() {
                             object.discordServerId = message.discordServerId;
                         if (message.envCheckDone != null && message.hasOwnProperty("envCheckDone"))
                             object.envCheckDone = message.envCheckDone;
+                        if (message.coupon != null && message.hasOwnProperty("coupon"))
+                            object.coupon = $root.isuxportal.proto.resources.Coupon.toObject(message.coupon, options);
                         return object;
                     };
 

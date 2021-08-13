@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_085209) do
+ActiveRecord::Schema.define(version: 2021_08_13_103210) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -98,6 +98,14 @@ ActiveRecord::Schema.define(version: 2021_08_12_085209) do
     t.index ["discord_id"], name: "index_contestants_on_discord_id", unique: true
     t.index ["github_id"], name: "index_contestants_on_github_id", unique: true
     t.index ["team_id"], name: "index_contestants_on_team_id"
+  end
+
+  create_table "coupons", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "team_id", null: false
+    t.string "code", null: false
+    t.boolean "activate", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "env_checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|

@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       resource :contestant, only: %i(create)
       # registration/env_check GetEnvCheckInformation: GET /api/registration/env_check
       get 'env_check', to: 'env_check#show'
+      # registration/activate_coupon ActivateCoupon: PUT /api/registration/coupon
+      put 'coupon' => 'coupons#update'
     end
 
     scope path: 'audience', module: 'audience' do

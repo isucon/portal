@@ -3,6 +3,7 @@ package isuxportal.proto.services.registration;
 option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/registration";
 
 import "isuxportal/resources/team.proto";
+import "isuxportal/resources/coupon.proto";
 
 // query parameter
 message GetRegistrationSessionQuery {
@@ -30,6 +31,7 @@ message GetRegistrationSessionResponse {
   string member_invite_url = 7;
   string discord_server_id = 8;
   bool env_check_done = 9;
+  isuxportal.proto.resources.Coupon coupon = 10;
 }
 
 message UpdateRegistrationRequest {
