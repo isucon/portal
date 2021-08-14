@@ -88,7 +88,7 @@
     subnets: $.publicSubnets,
     security_groups: $.elbSecurityGroups,
     tags: {
-      Project: 'isucon10',
+      Project: 'portal',
     },
     target_group_attributes: {
       'deregistration_delay.timeout_seconds': '20',
