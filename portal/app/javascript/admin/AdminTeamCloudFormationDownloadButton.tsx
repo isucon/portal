@@ -18,7 +18,7 @@ export class AdminTeamCloudFormationDownloadButton extends React.Component<Props
   async downloadCloudFormation() {
     try {
       const cf = await this.props.client.getCloudFormation(this.props.teamId, this.props.type)
-      const templateBase64 = `data:text/plain,${encodeURI(cf.template)}`;
+      const templateBase64 = `data:text/plain,${encodeURIComponent(cf.template)}`;
 
       const linkElement = document.createElement('a')
       linkElement.href = templateBase64
