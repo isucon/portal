@@ -15,7 +15,6 @@ module CloudFormation
       team,
       test_token_expiry
     )
-    ssh_keys = create_ssh_keys(team)
 
     unless zone_id.nil?
       template(TEST_ERB, binding)
@@ -45,15 +44,5 @@ module CloudFormation
       token: token,
       dev: is_for_staging,
     ))
-  end
-
-  def self.create_ssh_keys(team)
-    result = []
-    SshPublicKey.order(contestant_id: :asc, id: :asc).includes(:contestant).where(contestant: Contestant.where(team: team)).each do |key|
-      result << "#{key.public_key} #{key.contestant.id}@#{key.contestant.github_login}"
-    end
-    authorized_keys = "#{result.join(?\n)}\n"
-
-    Base64.strict_encode64(authorized_keys)
   end
 end
