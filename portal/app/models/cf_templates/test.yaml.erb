@@ -154,16 +154,13 @@ Resources:
         Fn::Base64: |
           #cloud-config
           write_files:
-          - path: /home/isucon/.ssh/authorized_keys
-            owner: isucon:isucon
-            permissions: '0600'
-            encoding: b64
-            content: '<%= ssh_keys %>'
           - path: /opt/isucon-env-checker/portal_credentials.json
             owner: root:root
             permissions: '0644'
             encoding: b64
             content: '<%= portal_credentials %>'
+          runcmd:
+            - 'curl --retry 5 --retry-connrefused --max-time 10 --connect-timeout 5 "https://<%= portal_host %>/api/ssh_public_keys?token=<%= token %>" | sudo -u isucon sh -c "umask 077; cat > /home/isucon/.ssh/authorized_keys"'
   EnvcheckInstanceIP:
     Type: AWS::EC2::EIP
     Properties:
