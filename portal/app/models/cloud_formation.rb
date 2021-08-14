@@ -11,10 +11,14 @@ module CloudFormation
 
   def self.test_template(team)
     zone_id = team.availability_zone
-    portal_credentials = create_portal_credentials(
+    token = create_token(
       team,
       test_token_expiry
     )
+    portal_credentials = create_portal_credentials(token)
+
+    portal_host = "portal.isucon.net"
+    portal_host = "portal-dev.isucon.net" if is_for_staging
 
     unless zone_id.nil?
       template(TEST_ERB, binding)
@@ -35,11 +39,14 @@ module CloudFormation
     end
   end
 
-  def self.create_portal_credentials(team, expiry)
-    token = CheckerToken.create(
+  def self.create_token(team, expiry)
+    CheckerToken.create(
       team_id: team.id,
       expiry: expiry,
     )
+  end
+
+  def self.create_portal_credentials(token)
     Base64.strict_encode64(JSON.dump(
       token: token,
       dev: is_for_staging,
