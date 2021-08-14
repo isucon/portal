@@ -130,9 +130,8 @@ Rails.application.routes.draw do
       resources :contestant_instances, only: %i(index)
     end
 
-    get 'ssh_public_keys/:team_id/:signature' => 'ssh_public_keys#index'
-
     get 'env_check_info' => 'env_checks#info'
+    get 'ssh_public_keys' => 'env_checks#ssh_public_keys'
     post 'env_checks' => 'env_checks#create'
   end
 
