@@ -39,6 +39,16 @@ class Api::EnvChecksController < Api::ApplicationController
     }
   end
 
+  def ssh_public_keys
+    team_id = @payload[:team_id]
+
+    result = []
+    SshPublicKey.order(contestant_id: :asc, id: :asc).includes(:contestant).where(contestant: Contestant.where(team_id: team_id)).each do |key|
+      result << "#{key.public_key} #{key.contestant.id}@#{key.contestant.github_login}"
+    end
+    render plain: "#{result.join(?\n)}\n"
+  end
+
   private def require_valid_checker_token
     token = params[:token]
     return render status: :bad_request, body: "request not have token" unless token
