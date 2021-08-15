@@ -1,6 +1,8 @@
 require 'isuxportal/services/common/me_pb'
 
 class Api::SessionsController < Api::ApplicationController
+  skip_before_action :require_staff_when_always_required # for broadcast view
+
   def show
     render protobuf: Isuxportal::Proto::Services::Common::GetCurrentSessionResponse.new(
       contestant: current_contestant&.to_pb(detail: true),
