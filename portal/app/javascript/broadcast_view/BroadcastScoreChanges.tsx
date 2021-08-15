@@ -146,7 +146,7 @@ interface Props {
 }
 
 export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
-  const { client } = props;
+  const { client, showDummy } = props;
 
   const [error, setError] = React.useState<Error | null>(null);
   const [requesting, setRequesting] = React.useState(false);
@@ -174,9 +174,11 @@ export const BroadcastScoreChanges: React.FC<Props> = (props: Props) => {
   };
 
   React.useEffect(() => {
-    if (!dashboard) refresh();
+    if (!dashboard && !showDummy) refresh();
   }, []);
   React.useEffect(() => {
+    if (showDummy) return
+
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 2500);
     return () => clearInterval(timer);
