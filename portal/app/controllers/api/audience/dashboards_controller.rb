@@ -1,8 +1,6 @@
 require 'isuxportal/services/audience/dashboard_pb'
 
 class Api::Audience::DashboardsController < Api::Audience::ApplicationController
-  skip_before_action :require_staff_when_always_required # for broadcast view
-
   pb :show, Isuxportal::Proto::Services::Audience::DashboardQuery
   def show
     expires_in 5.seconds, public: true, 's-maxage' => '10'

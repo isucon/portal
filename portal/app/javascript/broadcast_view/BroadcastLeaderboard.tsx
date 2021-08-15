@@ -69,7 +69,7 @@ interface Props {
 }
 
 export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
-  const { client, limit, mode } = props;
+  const { client, limit, showDummy, mode } = props;
 
   const [error, setError] = React.useState<Error | null>(null);
   const [requesting, setRequesting] = React.useState(false);
@@ -90,9 +90,11 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
       });
   };
   React.useEffect(() => {
-    if (!dashboard) refresh();
+    if (!dashboard && !showDummy) refresh();
   }, [dashboard]);
   React.useEffect(() => {
+    if (showDummy) return
+
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 2500);
     return () => clearInterval(timer);
