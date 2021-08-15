@@ -62,6 +62,7 @@ type Mode = "all" | "general" | "students" | "hidden";
 interface Props {
   client: ApiClient;
   limit: number;
+  showDummy?: boolean;
   mode?: string;
   bottom?: boolean;
   leaderboard?: isuxportal.proto.resources.ILeaderboard;
@@ -151,16 +152,53 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
         throw new Error("unknown mode");
     }
   };
-  const teams = selectTeam()
-    .map((item, idx): TeamStanding => {
-      return {
-        position: idx + 1,
-        lastPosition: prevRanks.get(item.team!.id!),
-        lastScore: prevScores.get(item.team!.id!),
-        item,
-      };
-    })
-    .filter((team) => !!team.item.latestScore);
+  const dummies: TeamStanding[] = [
+    {
+      position: 1,
+      lastPosition: 1,
+      lastScore: 14835,
+      item: {
+        team: { id: 424242, name: "あいうあいうあいう", student: { status: true } },
+        bestScore: { score: 14835 },
+        latestScore: { score: 14835 },
+        scores: [{ score: 100 }, { score: 14835 }],
+      },
+    },
+    {
+      position: 2,
+      lastPosition: 3,
+      lastScore: 11835,
+      item: {
+        team: { id: 424243, name: "なにぬなにぬなにぬ" },
+        bestScore: { score: 11835 },
+        latestScore: { score: 11835 },
+        scores: [{ score: 60 }, { score: 11835 }],
+      },
+    },
+    {
+      position: 3,
+      lastPosition: 2,
+      lastScore: 9835,
+      item: {
+        team: { id: 400000, name: "railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。" },
+        bestScore: { score: 9835 },
+        latestScore: { score: 9835 },
+        scores: [{ score: 80 }, { score: 9835 }],
+      },
+    },
+  ];
+  const teams = props.showDummy
+    ? dummies
+    : selectTeam()
+        .map((item, idx): TeamStanding => {
+          return {
+            position: idx + 1,
+            lastPosition: prevRanks.get(item.team!.id!),
+            lastScore: prevScores.get(item.team!.id!),
+            item,
+          };
+        })
+        .filter((team) => !!team.item.latestScore);
   const renderTeam = (key: string, { item, position, lastPosition, lastScore }: TeamStanding) => {
     return (
       <TeamItem

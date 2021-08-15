@@ -42,21 +42,21 @@ export const BroadcastClock: React.FC<Props> = ({ contest }) => {
     </p>
   );
   let progress = (
-    <progress className="progress is-small is-link" max={100} value={100 - (untilEnd / duration) * 100}></progress>
+    <progress max={100} value={100 - (untilEnd / duration) * 100}></progress>
   );
   if (untilEnd <= 0) {
     status = "end";
     text = <p>00:00:00</p>;
-    progress = <progress className="progress is-small is-danger" max={100} value={100}></progress>;
+    progress = <progress className="frozen" max={100} value={100}></progress>;
   } else if (untilFreeze <= 0) {
     status = "frozen";
     progress = (
-      <progress className="progress is-small is-danger" max={100} value={100 - (untilEnd / duration) * 100}></progress>
+      <progress className="frozen" max={100} value={100 - (untilEnd / duration) * 100}></progress>
     );
   } else if (untilStart > 0) {
     status = "before";
     text = <p>--:--:--</p>;
-    progress = <progress className="progress is-small" max={100} value={0}></progress>;
+    progress = <progress max={100} value={0}></progress>;
   }
 
   return (
@@ -65,7 +65,12 @@ export const BroadcastClock: React.FC<Props> = ({ contest }) => {
         <div className="column is-12 isux-broadcast-clock-text px-0 mx-0 py-0 my-0">{text}</div>
       </div>
       <div className="columns">
-        <div className="column is-12">{progress}</div>
+        <div className="column is-12">
+            <div className="isux-broadcast-clock-progress">
+              {progress}
+              <div className="overlay"></div>
+            </div>
+        </div>
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ export class BroadcastViewApp extends React.Component<Props, State> {
                   <BroadcastLeaderboard
                     client={this.props.client}
                     limit={parseInt(params.get("limit") || "15", 10)}
+                    showDummy={params.get("dummy") === "1"}
                     mode={params.get("mode") || "all"}
                     bottom={params.get("bottom") === "1"}
                   />

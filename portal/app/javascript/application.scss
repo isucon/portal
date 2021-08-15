@@ -235,8 +235,14 @@ body.isux-session-guest .isux-visibility-guest {
   width: fit-content;
 }
 
+$qAccent: #ff6433;
+$qInfo: #1ecc6a;
+$qText: #373634;
+$qCritical: #ee3a3a;
+$qBackground: #f3f4f5;
+
 .isux-broadcast-clock {
-  background-color: $isuBlack;
+  background-color: $qBackground;
   padding: 2vw 3vw;
   border-radius: 2.5vw;
 
@@ -257,10 +263,65 @@ body.isux-session-guest .isux-visibility-guest {
     text-align: center;
     font-size: 21vw;
     p {
-      color: white;
+      color: $qAccent;
       line-height: 21vw;
       font-weight: 900;
       font-family: "Noto Sans JP", sans-serif;
+    }
+  }
+
+  .isux-broadcast-clock-progress {
+    position: relative;
+
+    progress {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
+      display: block;
+      height: 0.75rem;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+
+      &::-webkit-progress-bar {
+        background-color: $qBackground;
+      }
+      &::-webkit-progress-value {
+        background-color: $qAccent;
+      }
+      &::-moz-progress-bar {
+        background-color: $qAccent;
+      }
+      &::-ms-fill {
+        background-color: $qAccent;
+        border: none;
+      }
+      &.frozen {
+        &::-webkit-progress-value {
+          background-color: $qCritical;
+        }
+        &::-moz-progress-bar {
+          background-color: $qCritical;
+        }
+        &::-ms-fill {
+          background-color: $qCritical;
+        }
+      }
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        $qBackground,
+        $qBackground 0.15rem,
+        transparent 0.15rem,
+        transparent 0.3rem
+      );
     }
   }
 }
@@ -297,7 +358,7 @@ body.isux-session-guest .isux-visibility-guest {
     }
 
     .isux-broadcast-leaderboard-item-position {
-      background: rgba(lighten($isuBlack, 10%), 0.93);
+      background: rgba($qAccent, 0.93);
       flex: none;
       width: 12%;
       p {
@@ -313,8 +374,10 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
     .isux-broadcast-leaderboard-item-team {
-      background: rgba($isuBlack, 0.93);
-      color: white;
+      background: rgba($qBackground, 0.93);
+      border-top: solid 0.25vw $qAccent;
+      border-bottom: solid 0.25vw $qAccent;
+      color: $qText;
       overflow-x: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -326,8 +389,19 @@ body.isux-session-guest .isux-visibility-guest {
         text-overflow: ellipsis;
       }
     }
+    &:first-child {
+      .isux-broadcast-leaderboard-item-team {
+        border-top: solid 0.5vw $qAccent;
+      }
+    }
+    &:last-child {
+      .isux-broadcast-leaderboard-item-team {
+        border-bottom: solid 0.5vw $qAccent;
+      }
+    }
+
     .isux-broadcast-leaderboard-item-student {
-      background: rgba($isuBlack, 0.93);
+      background: rgba($qAccent, 0.93);
       color: white;
       flex: none;
       width: 10%;
@@ -340,7 +414,8 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
     .isux-broadcast-leaderboard-item-score {
-      background: rgba(255, 255, 255, 0.93);
+      background: rgba($qBackground, 0.93);
+      color: $qText;
       text-align: right;
       font-weight: 600;
       font-size: 3.5vw;
@@ -361,13 +436,13 @@ body.isux-session-guest .isux-visibility-guest {
 
 @keyframes isux-broadcast-leaderboard-change-up {
   0% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
   25% {
-    background-color: rgba($isuRed, 1);
+    background-color: rgba($qInfo, 1);
   }
   100% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
 }
 
@@ -378,13 +453,13 @@ body.isux-session-guest .isux-visibility-guest {
 
 @keyframes isux-broadcast-leaderboard-change-down {
   0% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
   25% {
-    background-color: rgba($isuBlue, 1);
+    background-color: rgba($qCritical, 1);
   }
   100% {
-    background-color: rgba(lighten($isuBlack, 10%), 0.93);
+    background-color: rgba($qAccent, 0.93);
   }
 }
 
@@ -411,11 +486,23 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
 
-    &.isux-broadcast-scorechanges-item--up .isux-broadcast-scorechanges-item-position {
-      background: rgba($isuRed, 0.93);
+    &.isux-broadcast-scorechanges-item--up {
+      .isux-broadcast-scorechanges-item-position,
+      .isux-broadcast-scorechanges-item-student {
+        background: rgba($qInfo, 0.93);
+      }
+      .isux-broadcast-scorechanges-item-team {
+        border-color: $qInfo;
+      }
     }
-    &.isux-broadcast-scorechanges-item--down .isux-broadcast-scorechanges-item-position {
-      background: rgba($isuBlue, 0.93);
+    &.isux-broadcast-scorechanges-item--down {
+      .isux-broadcast-scorechanges-item-position,
+      .isux-broadcast-scorechanges-item-student {
+        background: rgba($qCritical, 0.93);
+      }
+      .isux-broadcast-scorechanges-item-team {
+        border-color: $qCritical;
+      }
     }
 
     .isux-broadcast-scorechanges-item-position {
@@ -444,8 +531,10 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
     .isux-broadcast-scorechanges-item-team {
-      background: rgba($isuBlack, 0.93);
-      color: white;
+      background: $qBackground;
+      color: $qText;
+      border-top: solid 0.5vw;
+      border-bottom: solid 0.5vw;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 55%;
@@ -455,7 +544,7 @@ body.isux-session-guest .isux-visibility-guest {
         height: auto;
         max-height: 90%;
 
-        margin-left: 2vw;
+        margin: 0 2vw;
 
         overflow: hidden;
         text-overflow: ellipsis;
@@ -464,7 +553,6 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
     .isux-broadcast-scorechanges-item-student {
-      background: rgba($isuBlack, 0.93);
       color: white;
       flex: none;
       width: 5%;
@@ -477,7 +565,8 @@ body.isux-session-guest .isux-visibility-guest {
       }
     }
     .isux-broadcast-scorechanges-item-score {
-      background: rgba(255, 255, 255, 0.93);
+      background: rgba($qBackground, 0.93);
+      color: $qText;
       text-align: right;
       flex: none;
       width: 20%;
@@ -500,10 +589,10 @@ body.isux-session-guest .isux-visibility-guest {
         font-size: 2.3vw;
 
         &.isux-broadcast-scorechanges-item--up {
-          color: darken($isuRed, 7%);
+          color: darken($qInfo, 7%);
         }
         &.isux-broadcast-scorechanges-item--down {
-          color: darken($isuBlue, 7%);
+          color: darken($qCritical, 7%);
         }
       }
     }
