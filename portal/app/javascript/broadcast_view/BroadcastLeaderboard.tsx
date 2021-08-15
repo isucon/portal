@@ -117,22 +117,9 @@ const usePrevious = function <T>(value: T) {
 };
 
 const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
-  const { leaderboard, mode, limit } = props;
+  const { leaderboard, mode, showDummy, limit } = props;
   const prevProps = usePrevious(props);
   const prevLeaderboard = prevProps?.leaderboard;
-
-  if (!leaderboard) return <p>Loading</p>;
-
-  const prevRanks = new Map(
-    (prevLeaderboard?.teams || []).map((t, idx) => {
-      return [t.team!.id, idx + 1];
-    })
-  );
-  const prevScores = new Map(
-    (prevLeaderboard?.teams || []).map((t, idx) => {
-      return [t.team!.id, t.latestScore?.score!];
-    })
-  );
 
   type TeamStanding = {
     position: number;
@@ -140,67 +127,6 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
     lastPosition?: number;
     lastScore?: number | Long;
   };
-  const selectTeam = () => {
-    switch (mode) {
-      case "all":
-        return leaderboard.teams!;
-      case "general":
-        return leaderboard.generalTeams!;
-      case "student":
-        return leaderboard.studentTeams!;
-      case "hidden":
-        return leaderboard.hiddenTeams!;
-      default:
-        throw new Error("unknown mode");
-    }
-  };
-  const dummies: TeamStanding[] = [
-    {
-      position: 1,
-      lastPosition: 1,
-      lastScore: 14835,
-      item: {
-        team: { id: 424242, name: "あいうあいうあいう", student: { status: true } },
-        bestScore: { score: 14835 },
-        latestScore: { score: 14835 },
-        scores: [{ score: 100 }, { score: 14835 }],
-      },
-    },
-    {
-      position: 2,
-      lastPosition: 3,
-      lastScore: 11835,
-      item: {
-        team: { id: 424243, name: "なにぬなにぬなにぬ" },
-        bestScore: { score: 11835 },
-        latestScore: { score: 11835 },
-        scores: [{ score: 60 }, { score: 11835 }],
-      },
-    },
-    {
-      position: 3,
-      lastPosition: 2,
-      lastScore: 9835,
-      item: {
-        team: { id: 400000, name: "railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。" },
-        bestScore: { score: 9835 },
-        latestScore: { score: 9835 },
-        scores: [{ score: 80 }, { score: 9835 }],
-      },
-    },
-  ];
-  const teams = props.showDummy
-    ? dummies
-    : selectTeam()
-        .map((item, idx): TeamStanding => {
-          return {
-            position: idx + 1,
-            lastPosition: prevRanks.get(item.team!.id!),
-            lastScore: prevScores.get(item.team!.id!),
-            item,
-          };
-        })
-        .filter((team) => !!team.item.latestScore);
   const renderTeam = (key: string, { item, position, lastPosition, lastScore }: TeamStanding) => {
     return (
       <TeamItem
@@ -212,6 +138,85 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
       />
     );
   };
+
+  let teams: TeamStanding[]
+
+  if (showDummy) {
+    teams = [
+      {
+        position: 1,
+        lastPosition: 1,
+        lastScore: 14835,
+        item: {
+          team: { id: 424242, name: "あいうあいうあいう", student: { status: true } },
+          bestScore: { score: 14835 },
+          latestScore: { score: 14835 },
+          scores: [{ score: 100 }, { score: 14835 }],
+        },
+      },
+      {
+        position: 2,
+        lastPosition: 3,
+        lastScore: 11835,
+        item: {
+          team: { id: 424243, name: "なにぬなにぬなにぬ" },
+          bestScore: { score: 11835 },
+          latestScore: { score: 11835 },
+          scores: [{ score: 60 }, { score: 11835 }],
+        },
+      },
+      {
+        position: 3,
+        lastPosition: 2,
+        lastScore: 9835,
+        item: {
+          team: { id: 400000, name: "railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。" },
+          bestScore: { score: 9835 },
+          latestScore: { score: 9835 },
+          scores: [{ score: 80 }, { score: 9835 }],
+        },
+      },
+    ];
+  } else {
+    if (!leaderboard) return <p>Loading</p>;
+
+    const prevRanks = new Map(
+      (prevLeaderboard?.teams || []).map((t, idx) => {
+        return [t.team!.id, idx + 1];
+      })
+    );
+    const prevScores = new Map(
+      (prevLeaderboard?.teams || []).map((t, idx) => {
+        return [t.team!.id, t.latestScore?.score!];
+      })
+    );
+
+    const selectTeam = () => {
+      switch (mode) {
+        case "all":
+          return leaderboard.teams!;
+        case "general":
+          return leaderboard.generalTeams!;
+        case "student":
+          return leaderboard.studentTeams!;
+        case "hidden":
+          return leaderboard.hiddenTeams!;
+        default:
+          throw new Error("unknown mode");
+      }
+    };
+    teams = selectTeam()
+          .map((item, idx): TeamStanding => {
+            return {
+              position: idx + 1,
+              lastPosition: prevRanks.get(item.team!.id!),
+              lastScore: prevScores.get(item.team!.id!),
+              item,
+            };
+          })
+          .filter((team) => !!team.item.latestScore);
+  }
+
   return (
     <div className={`isux-broadcast-leaderboard ${props.bottom ? "isux-broadcast-bottomflex" : ""}`}>
       {teams.slice(0, limit || undefined).map((v) => renderTeam("standings", v))}
