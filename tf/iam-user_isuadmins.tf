@@ -13,6 +13,7 @@ locals {
     "oribe",
     "hattori",
     "hosshii",
+    "takahashi",
   ])
 }
 
