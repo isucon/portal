@@ -15,6 +15,7 @@ locals {
     "hosshii",
     "takahashi",
     "toki",
+    "Osumi",
   ])
 }
 
