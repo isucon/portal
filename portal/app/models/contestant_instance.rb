@@ -9,11 +9,19 @@ class ContestantInstance < ApplicationRecord
   validates :number, presence: true
   validates :private_ipv4_address, presence: true
 
+  validate :validate_number_in_range
+
   enum(status: Isuxportal::Proto::Resources::ContestantInstance::Status.descriptor.to_enum.sort_by(&:last).map do |k,v|
     [k.to_s.downcase.to_sym, v]
   end.to_h)
 
   scope :active, -> { where.not(status: :terminated) }
+
+  def validate_number_in_range
+    unless 0 <= number && number <= 2
+      errors.add :number, 'インスタンス番号(number)が範囲外です。0以上2以下で指定してください。'
+    end
+  end
 
   def to_pb(team: false)
     Isuxportal::Proto::Resources::ContestantInstance.new(
@@ -23,7 +31,7 @@ class ContestantInstance < ApplicationRecord
       status: status_before_type_cast,
       number: number,
       public_ipv4_address: public_ipv4_address,
-      private_ipv4_address: private_ipv4_address, 
+      private_ipv4_address: private_ipv4_address,
       team: team ? self.team&.to_pb : nil,
     )
   end
