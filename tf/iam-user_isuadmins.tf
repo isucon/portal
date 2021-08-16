@@ -18,6 +18,7 @@ locals {
     "Osumi",
     "hkws",
     "okimoto",
+    "iwashi",
   ])
 }
 
