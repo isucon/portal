@@ -38,7 +38,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
       raise "undeterminable status"
     end
 
-    coupon = Coupon.find_by(team_id: @team.id)
+    coupon = @team&.yield_self{ |team| Coupon.find_by(team_id: @team.id) }
 
     render protobuf: Isuxportal::Proto::Services::Registration::GetRegistrationSessionResponse.new(
       team: @team&.to_pb(detail: current_contestant_include_disqualified&.id == current_team&.leader_id, member_detail: true, members: true),
