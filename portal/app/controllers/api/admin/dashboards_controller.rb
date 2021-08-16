@@ -4,7 +4,7 @@ require 'isuxportal/services/admin/dashboard_pb'
 class Api::Admin::DashboardsController < Api::Admin::ApplicationController
   pb :show, Isuxportal::Proto::Services::Admin::DashboardQuery
   def show
-    final = Rails.application.config.x.final ? "final" : "qualify"
+    final = Rails.application.config.x.contest.final ? "final" : "qualify"
     clar_count = Clarification.unanswered.requested.count
     cached_lb = Rails.cache.read("leaderboard:#{final}:admin")&.yield_self { |_| Isuxportal::Proto::Resources::Leaderboard.decode(_) }
     render protobuf: Isuxportal::Proto::Services::Admin::DashboardResponse.new(
