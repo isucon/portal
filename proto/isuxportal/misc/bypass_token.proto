@@ -9,6 +9,7 @@ message BypassTokenPayload {
     CREATE_TEAM = 0;
     JOIN_TEAM = 1;
     HIDDEN_TEAM = 2;
+    LEAVE_TEAM = 3;
   }
   repeated Usage usages = 3;
 }
