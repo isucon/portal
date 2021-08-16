@@ -17,6 +17,7 @@ locals {
     "toki",
     "Osumi",
     "hkws",
+    "okimoto",
   ])
 }
 
