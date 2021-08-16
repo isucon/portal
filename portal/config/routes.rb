@@ -94,6 +94,9 @@ Rails.application.routes.draw do
       # contestant/notifications SubscribeNotification: POST /api/contestant/push_subscriptions
       # contestant/notifications UnsubscribeNotification: DELETE /api/contestant/push_subscriptions
       resource :push_subscriptions, only: %i(create destroy)
+
+      # contestant/cloud_formation GetCloudFormation: GET /api/contestant/cloud_formation
+      get 'cloud_formation', to: 'cloud_formations#show'
     end
 
     scope path: 'admin', module: 'admin' do
