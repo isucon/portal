@@ -7,17 +7,20 @@ pub struct Process {
     pub stdout_path: String,
     pub stderr_path: String,
     pub target_address: String,
+    pub all_addresses: [String; 3],
 }
 
 impl Process {
     pub async fn spawn(self) -> Result<ProcessHandle, Box<dyn std::error::Error>> {
+        let all_addresses_string = self.all_addresses.join(",");
         log::trace!(
-            "spawning cmd={} {}, stdout_path={}, stderr_path={}, target_address={}",
+            "spawning cmd={} {}, stdout_path={}, stderr_path={}, target_address={}, all_addresses={}",
             &self.exec,
             self.args.clone().join(" "),
             &self.stdout_path,
             &self.stderr_path,
-            &self.target_address
+            &self.target_address,
+            &all_addresses_string,
         );
 
         use nix::fcntl::{fcntl, FdFlag, OFlag, F_GETFD, F_GETFL, F_SETFD, F_SETFL};
@@ -34,6 +37,7 @@ impl Process {
             .args(self.args.clone())
             .env("ISUXBENCH_REPORT_FD", format!("{}", pipe_o))
             .env("ISUXBENCH_TARGET", self.target_address.clone())
+            .env("ISUXBENCH_ALL_ADDRESSES", all_addresses_string)
             .stdin(std::process::Stdio::null())
             .stdout(stdout.into_std().await)
             .stderr(stderr.into_std().await)
