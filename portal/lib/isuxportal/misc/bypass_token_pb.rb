@@ -14,6 +14,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :CREATE_TEAM, 0
       value :JOIN_TEAM, 1
       value :HIDDEN_TEAM, 2
+      value :LEAVE_TEAM, 3
     end
   end
 end
