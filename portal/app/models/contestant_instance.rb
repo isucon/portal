@@ -6,7 +6,7 @@ class ContestantInstance < ApplicationRecord
   has_many :benchmark_jobs, inverse_of: :target
 
   validates :cloud_id, presence: true
-  validates :number, presence: true
+  validates :number, presence: true, uniqueness: { scope: :team_id }
   validates :private_ipv4_address, presence: true
 
   validate :validate_number_in_range
