@@ -82,8 +82,8 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     was_leader = current_contestant.leader?
 
     if was_leader || !current_bypass_allowed?(:LEAVE_TEAM)
-      raise Api::ApplicationController::Errors::Forbidden.new("You cannot withdraw after start") if Contest.contest_started?
-      raise Api::ApplicationController::Errors::Forbidden.new("You cannot withdraw at this moment") if Contest.registration_update_closed?
+      raise Api::ApplicationController::Error::Forbidden.new("You cannot withdraw after start") if Contest.contest_started?
+      raise Api::ApplicationController::Error::Forbidden.new("You cannot withdraw at this moment") if Contest.registration_update_closed?
     end
 
     contestants = []
