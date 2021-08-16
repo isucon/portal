@@ -18,6 +18,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :handle, :string, 2
       optional :target_ipv4_address, :string, 3
       optional :description_human, :string, 4
+      repeated :all_ipv4_addresses, :string, 5
     end
     add_message "isuxportal.proto.services.bench.CancelOwnedBenchmarkJobRequest" do
       optional :token, :string, 1
