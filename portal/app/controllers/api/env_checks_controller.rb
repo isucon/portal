@@ -43,7 +43,7 @@ class Api::EnvChecksController < Api::ApplicationController
     ami_id = case params[:name]
       when "test-boot", "test-ssh"
         TEST_AMI_ID
-      when "qualify"
+      when "qualify1", "qualify2", "qualify3"
         QUALIFY_AMI_ID
       else
         return render status: :bad_request, body: "unknown name param"
