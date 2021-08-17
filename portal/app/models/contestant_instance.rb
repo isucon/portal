@@ -19,7 +19,7 @@ class ContestantInstance < ApplicationRecord
 
   def validate_number_in_range
     unless 1 <= number && number <= 3
-      errors.add :number, 'インスタンス番号(number)が範囲外です。0以上2以下で指定してください。'
+      errors.add :number, 'インスタンス番号(number)が範囲外です。1以上3以下で指定してください。'
     end
   end
 
