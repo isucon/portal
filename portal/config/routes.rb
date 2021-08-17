@@ -106,10 +106,14 @@ Rails.application.routes.draw do
       # admin/teams ListTeams: GET /api/admin/teams
       # admin/teams GetTeam: GET /api/admin/teams/:id
       # admin/teams UpdateTeam: PUT /api/admin/teams/:id
-      resources :teams, only: %i(index show update)
+      resources :teams, only: %i(index show update) do
+        # admin/cloud_formation GetCloudFormation: GET /api/admin/teams/:team_id/cloud_formation
+        get 'cloud_formation', to: 'cloud_formations#show'
 
-      # admin/teams/cloud_formation GetCloudFormation: GET /api/admin/teams/:id/cloud_formation
-      get 'teams/:id/cloud_formation', to: 'cloud_formations#show'
+        # admin/env_checks ListEnvChecks: GET /api/admin/teams/:team_id/env_checks
+        resources :env_checks, only: %i(index)
+      end
+
 
       # admin/benchmark ListBenchmarkJobs: GET /api/admin/benchmark_jobs
       # admin/benchmark EnqueueBenchmarkJob: POST /api/admin/benchmark_jobs

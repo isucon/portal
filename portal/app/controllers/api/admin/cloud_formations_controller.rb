@@ -3,7 +3,7 @@ require 'isuxportal/services/admin/cloud_formation_pb'
 class Api::Admin::CloudFormationsController < Api::Admin::ApplicationController
   pb :show, Isuxportal::Proto::Services::Admin::GetCloudFormationQuery
   def show
-    team = Team.find(params[:id])
+    team = Team.find(params[:team_id])
     raise ActiveRecord::RecordNotFound if team.nil?
 
     template = case params[:type]
