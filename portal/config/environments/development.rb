@@ -111,7 +111,6 @@ Rails.application.configure do
   config.x.bypass_token.secret = (ENV['ISUXPORTAL_BYPASS_SECRET'] || '5AQQyz/7oFnJYrxnq/HiLKYmh7QrdIrpCDpKlfvkYAg=').unpack1('m0') #dummy
   config.x.checker_token.secret = (ENV['ISUXPORTAL_CHECKER_SECRET'] || '2RHAlLoifERG1EEc/5dwyzcZGitfUn1k9YkHTwk7HiRO').unpack1('m0') #dummy
   config.x.ssh_key_api.secret = (ENV['ISUXPORTAL_SSH_KEY_API_SECRET'] || 'himitsudayo')
-  config.x.dcim.token = (ENV['ISUXPORTAL_DCIM_TOKEN'] || 'himitsudayo')
 
   config.x.cloudformation_staging = ENV['ISUXPORTAL_CLOUDFORMATION_STAGING'] == '1'
 
