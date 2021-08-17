@@ -18,7 +18,7 @@ class ContestantInstance < ApplicationRecord
   scope :active, -> { where.not(status: :terminated) }
 
   def validate_number_in_range
-    unless 0 <= number && number <= 2
+    unless 1 <= number && number <= 3
       errors.add :number, 'インスタンス番号(number)が範囲外です。0以上2以下で指定してください。'
     end
   end
