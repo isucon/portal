@@ -1991,6 +1991,150 @@ export namespace isuxportal {
                 DONE = 2
             }
 
+            /** Properties of an EnvCheck. */
+            interface IEnvCheck {
+
+                /** EnvCheck id */
+                id?: (number|Long|null);
+
+                /** EnvCheck teamId */
+                teamId?: (number|Long|null);
+
+                /** EnvCheck name */
+                name?: (string|null);
+
+                /** EnvCheck ipAddress */
+                ipAddress?: (string|null);
+
+                /** EnvCheck passed */
+                passed?: (boolean|null);
+
+                /** EnvCheck message */
+                message?: (string|null);
+
+                /** EnvCheck adminMessage */
+                adminMessage?: (string|null);
+
+                /** EnvCheck rawData */
+                rawData?: (string|null);
+
+                /** EnvCheck createdAt */
+                createdAt?: (google.protobuf.ITimestamp|null);
+
+                /** EnvCheck updatedAt */
+                updatedAt?: (google.protobuf.ITimestamp|null);
+            }
+
+            /** Represents an EnvCheck. */
+            class EnvCheck implements IEnvCheck {
+
+                /**
+                 * Constructs a new EnvCheck.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.IEnvCheck);
+
+                /** EnvCheck id. */
+                public id: (number|Long);
+
+                /** EnvCheck teamId. */
+                public teamId: (number|Long);
+
+                /** EnvCheck name. */
+                public name: string;
+
+                /** EnvCheck ipAddress. */
+                public ipAddress: string;
+
+                /** EnvCheck passed. */
+                public passed: boolean;
+
+                /** EnvCheck message. */
+                public message: string;
+
+                /** EnvCheck adminMessage. */
+                public adminMessage: string;
+
+                /** EnvCheck rawData. */
+                public rawData: string;
+
+                /** EnvCheck createdAt. */
+                public createdAt?: (google.protobuf.ITimestamp|null);
+
+                /** EnvCheck updatedAt. */
+                public updatedAt?: (google.protobuf.ITimestamp|null);
+
+                /**
+                 * Creates a new EnvCheck instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns EnvCheck instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.IEnvCheck): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Encodes the specified EnvCheck message. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @param message EnvCheck message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.IEnvCheck, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified EnvCheck message, length delimited. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @param message EnvCheck message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.IEnvCheck, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Verifies an EnvCheck message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an EnvCheck message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns EnvCheck
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Creates a plain object from an EnvCheck message. Also converts values to other types if specified.
+                 * @param message EnvCheck
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.EnvCheck, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this EnvCheck to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
             /** Properties of a Leaderboard. */
             interface ILeaderboard {
 
@@ -4975,6 +5119,186 @@ export namespace isuxportal {
 
                     /**
                      * Converts this DashboardResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a ListEnvChecksQuery. */
+                interface IListEnvChecksQuery {
+
+                    /** ListEnvChecksQuery teamId */
+                    teamId?: (number|Long|null);
+                }
+
+                /** Represents a ListEnvChecksQuery. */
+                class ListEnvChecksQuery implements IListEnvChecksQuery {
+
+                    /**
+                     * Constructs a new ListEnvChecksQuery.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IListEnvChecksQuery);
+
+                    /** ListEnvChecksQuery teamId. */
+                    public teamId: (number|Long);
+
+                    /**
+                     * Creates a new ListEnvChecksQuery instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns ListEnvChecksQuery instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IListEnvChecksQuery): isuxportal.proto.services.admin.ListEnvChecksQuery;
+
+                    /**
+                     * Encodes the specified ListEnvChecksQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksQuery.verify|verify} messages.
+                     * @param message ListEnvChecksQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IListEnvChecksQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified ListEnvChecksQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksQuery.verify|verify} messages.
+                     * @param message ListEnvChecksQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListEnvChecksQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a ListEnvChecksQuery message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns ListEnvChecksQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListEnvChecksQuery;
+
+                    /**
+                     * Decodes a ListEnvChecksQuery message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns ListEnvChecksQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListEnvChecksQuery;
+
+                    /**
+                     * Verifies a ListEnvChecksQuery message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a ListEnvChecksQuery message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns ListEnvChecksQuery
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListEnvChecksQuery;
+
+                    /**
+                     * Creates a plain object from a ListEnvChecksQuery message. Also converts values to other types if specified.
+                     * @param message ListEnvChecksQuery
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.ListEnvChecksQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this ListEnvChecksQuery to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a ListEnvChecksResponse. */
+                interface IListEnvChecksResponse {
+
+                    /** ListEnvChecksResponse envChecks */
+                    envChecks?: (isuxportal.proto.resources.IEnvCheck[]|null);
+                }
+
+                /** Represents a ListEnvChecksResponse. */
+                class ListEnvChecksResponse implements IListEnvChecksResponse {
+
+                    /**
+                     * Constructs a new ListEnvChecksResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IListEnvChecksResponse);
+
+                    /** ListEnvChecksResponse envChecks. */
+                    public envChecks: isuxportal.proto.resources.IEnvCheck[];
+
+                    /**
+                     * Creates a new ListEnvChecksResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns ListEnvChecksResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IListEnvChecksResponse): isuxportal.proto.services.admin.ListEnvChecksResponse;
+
+                    /**
+                     * Encodes the specified ListEnvChecksResponse message. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksResponse.verify|verify} messages.
+                     * @param message ListEnvChecksResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IListEnvChecksResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified ListEnvChecksResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksResponse.verify|verify} messages.
+                     * @param message ListEnvChecksResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IListEnvChecksResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a ListEnvChecksResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns ListEnvChecksResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.ListEnvChecksResponse;
+
+                    /**
+                     * Decodes a ListEnvChecksResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns ListEnvChecksResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.ListEnvChecksResponse;
+
+                    /**
+                     * Verifies a ListEnvChecksResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a ListEnvChecksResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns ListEnvChecksResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.ListEnvChecksResponse;
+
+                    /**
+                     * Creates a plain object from a ListEnvChecksResponse message. Also converts values to other types if specified.
+                     * @param message ListEnvChecksResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.ListEnvChecksResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this ListEnvChecksResponse to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
