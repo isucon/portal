@@ -7,16 +7,34 @@ class Api::EnvChecksController < Api::ApplicationController
   QUALIFY_AMI_ID = ""
 
   def create
+    team_id = @payload[:team_id]
+    name = params[:name]
+    public_ip_address = params[:ip_address]
     @env_check = EnvCheck.new(
-      team_id: @payload[:team_id],
-      name: params[:name],
-      ip_address: params[:ip_address],
+      team_id: team_id,
+      name: name,
+      ip_address: public_ip_address,
       passed: params[:passed],
       message: params[:message],
       admin_message: params[:admin_message],
       raw_data: params[:raw_data],
     )
     @env_check.save!
+
+    if name.starts_with("qualify")
+      nameNum = name.delete_prefix("qualify").to_i
+
+      instance = ContestantInstance.find_or_initialize_by(
+        team_id: team_id,
+        number: nameNum,
+      )
+      instance.update_attributes!(
+        cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
+        status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
+        private_ipv4_address: "192.168.0.1#{nameNum}",
+        public_ipv4_address: public_ip_address,
+      )
+    end
   end
 
   def info
@@ -25,7 +43,7 @@ class Api::EnvChecksController < Api::ApplicationController
     ami_id = case params[:name]
       when "test-boot", "test-ssh"
         TEST_AMI_ID
-      when "qualify"
+      when "qualify1", "qualify2", "qualify3"
         QUALIFY_AMI_ID
       else
         return render status: :bad_request, body: "unknown name param"
