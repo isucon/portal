@@ -1,7 +1,7 @@
 import type { isuxportal } from "../pb";
 import { ApiError, ApiClient } from "../ApiClient";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ContestantInstanceStatus } from "../ContestantInstanceStatus";
 
@@ -10,7 +10,17 @@ export interface Props {
   client: ApiClient;
 }
 
-export const ContestantContestantInstanceList: React.FC<Props> = ({ session }) => {
+export const ContestantContestantInstanceList: React.FC<Props> = ({ session, client }) => {
+  const [template, setTemplate] = useState("");
+  useEffect(() => {
+    (async () => {
+      const res = await client.getCloudFormation();
+      setTemplate(res.template);
+    })();
+  }, []);
+
+  const templateBase64 = `data:text/plain,${encodeURIComponent(template)}`;
+
   const renderRow = (ci: isuxportal.proto.resources.IContestantInstance) => {
     return (
       <tr>
@@ -39,6 +49,18 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session }) =
 
         <tbody>{(session.contestantInstances || []).map((ci) => renderRow(ci))}</tbody>
       </table>
+
+      <header>
+        <h1 className="title is-1">CloudFormation テンプレート</h1>
+      </header>
+
+      <a
+        className={`button is-info ${template === "" ? "is-loading" : ""}`}
+        href={templateBase64}
+        download="qualify_cloudformation.yaml"
+      >
+        CloudFormation テンプレートをダウンロード
+      </a>
     </>
   );
 };
