@@ -24,12 +24,19 @@ fn main() {
 async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
     use isuxportal_supervisor::process::Message;
 
+    let all_addresses_str = std::env::var("ISUXBENCH_ALL_ADDRESSES").expect("Specify $ISUXBENCH_ALL_ADDRESSES");
+    let all_addresses: Vec<&str> = all_addresses_str.split(',').collect();
+    if all_addresses.len() != 3 {
+        panic!("ISUXBENCH_ALL_ADDRESSES length must be 3")
+    }
+
     let process = Process {
         exec: command_exec,
         args: command_args,
         stdout_path: format!("/tmp/isuxbench-oneshot-{}.out.log", std::process::id()),
         stderr_path: format!("/tmp/isuxbench-oneshot-{}.err.log", std::process::id()),
         target_address: std::env::var("ISUXBENCH_TARGET").expect("Specify $ISUXBENCH_TARGET"),
+        all_addresses: [all_addresses[0].to_string(), all_addresses[1].to_string(), all_addresses[2].to_string()],
     };
     let mut handle = process.spawn().await.unwrap();
     let mut deadline = tokio::time::delay_for(std::time::Duration::from_secs(config.hard_timeout));

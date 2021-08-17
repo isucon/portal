@@ -44,12 +44,15 @@ impl Worker {
     }
 
     pub fn process(&self) -> Process {
+        let all_addesses = &self.job_handle.all_ipv4_addresses;
+
         Process {
             exec: self.command_exec.clone(),
             args: self.command_args.clone(),
             stdout_path: self.stdout_path(),
             stderr_path: self.stderr_path(),
             target_address: self.job_handle.target_ipv4_address.clone(),
+            all_addresses: [all_addesses[0].clone(), all_addesses[1].clone(), all_addesses[2].clone()],
         }
     }
 

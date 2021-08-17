@@ -35,6 +35,27 @@ services:
     ports:
       - '3000:3000'
 
+  appgrpc:
+    build: .
+    command: 'bundle exec rails runner "Griffin::Server.run(port: 4000)"'
+    environment:
+      RACK_ENV: development
+      RAILS_ENV: development
+      DATABASE_URL: 'mysql2://isuxportal_dev@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci'
+      DATABASE_PASSWORD: dbpass
+      REDIS_URL: 'redis://redis:6379'
+      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-01T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2021-07-01T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2021-07-31T09:00:00Z'
+      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2021-07-31T09:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_START: '2021-07-01T09:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-07-14T18:00:00Z'
+      ISUXPORTAL_TIMING_CONTEST_END: '2021-07-14T19:00:00Z'
+      ISUXPORTAL_ADMIN_LOGIN: admin
+      ISUXPORTAL_ADMIN_PASSWORD: pass
+    ports:
+      - '4000:4000'
+
   redis:
     image: redis:latest
     expose:
