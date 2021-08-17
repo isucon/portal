@@ -51,6 +51,17 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async listEnvChecks(id: number) {
+    const klass = isuxportal.proto.services.admin.ListEnvChecksResponse;
+    const resp = await this.request(
+      `${this.baseUrl}/api/admin/teams/${encodeURIComponent(id.toString())}/env_checks`,
+      "GET",
+      null,
+      null
+    );
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listBenchmarkJobs(teamId?: number | null, incompleteOnly?: boolean, page?: number) {
     const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
     const resp = await this.request(
