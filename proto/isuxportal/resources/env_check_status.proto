@@ -1,9 +1,0 @@
-syntax = "proto3";
-package isuxportal.proto.resources;
-option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resources";
-
-enum EnvCheckStatus {
-  NOT_STARTED = 0;
-  CREATED_INSTANCE = 1; // obtained instance ip successfully
-  DONE = 2; // confirmed ssh
-}
