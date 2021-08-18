@@ -15,6 +15,7 @@ import { ContestantDashboard } from "./contestant/ContestantDashboard";
 import { ContestantDiscordPage } from "./contestant/ContestantDiscordPage";
 
 import { ContestantNotificationsObserver } from "./contestant/ContestantNotificationsObserver";
+import { ContestantCloudFormationMessage } from "./contestant/ContestantCloudFormationMessage";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -159,6 +160,8 @@ export class ContestantApp extends React.Component<Props, State> {
         <ContestantNavbar session={this.props.session} client={this.props.client} unreadNotificationExists={this.state.lastAnsweredClarificationIdObserved && this.state.lastClarificationIdSeen !== this.state.lastAnsweredClarificationId} />
 
         <div className="container px-5 py-5">
+          <ContestantCloudFormationMessage instances={this.props.session.contestantInstances} />
+
           <Switch>
             <Route
               exact
