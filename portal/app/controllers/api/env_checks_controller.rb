@@ -21,7 +21,7 @@ class Api::EnvChecksController < Api::ApplicationController
     )
     @env_check.save!
 
-    if name.starts_with("qualify") && name != "qualify-unknown"
+    if name.start_with?("qualify") && name != "qualify-unknown"
       nameNum = name.delete_prefix("qualify").to_i
 
       instance = ContestantInstance.find_or_initialize_by(
