@@ -27,7 +27,7 @@ export const ContestantCloudFormationMessage = ({ instances }: Props) => {
   return (
     <div className="notification is-info is-light">
       <button className="delete" onClick={onCloseButtonClick}></button>
-      インスタンスの登録が完了していません。CloudFormationは
+      インスタンスの登録が完了していません。CloudFormationのテンプレートは
       <Link to="/contestant/contestant_instances">サーバーリスト</Link>からダウンロードできます。
       インスタンスの起動後には画面のリロードが必要です。
     </div>
