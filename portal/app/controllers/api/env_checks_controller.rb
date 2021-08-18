@@ -31,7 +31,7 @@ class Api::EnvChecksController < Api::ApplicationController
       instance.update_attributes!(
         cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
         status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
-        private_ipv4_address: "192.168.0.1#{nameNum}",
+        private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
         public_ipv4_address: public_ip_address,
       )
     end
