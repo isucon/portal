@@ -7,6 +7,7 @@ import { BenchmarkJobDetail } from "../BenchmarkJobDetail";
 
 import { ErrorMessage } from "../ErrorMessage";
 import { ReloadButton } from "../ReloadButton";
+import { ContestantBenchmarkJobForm } from "./ContestantBenchmarkJobForm";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -59,7 +60,7 @@ export class ContestantBenchmarkJobDetail extends React.Component<Props, State> 
   public render() {
     return (
       <>
-        <header>
+        <header className="block">
           <div className="level">
             <div className="level-left">
               <h1 className="title is-1">Job #{this.props.id}</h1>
@@ -69,10 +70,13 @@ export class ContestantBenchmarkJobDetail extends React.Component<Props, State> 
             </div>
           </div>
         </header>
-        <main>
+        <main className="block">
           {this.renderError()}
           {this.renderJob()}
         </main>
+        <aside className="block">
+          {this.renderForm()}
+        </aside>
       </>
     );
   }
@@ -87,6 +91,15 @@ export class ContestantBenchmarkJobDetail extends React.Component<Props, State> 
     return (
       <>
         <BenchmarkJobDetail job={this.state.job} admin={false} />
+      </>
+    );
+  }
+
+  renderForm() {
+    return (
+      <>
+        <h2 className="title is-2">Job Enqueue Form</h2>
+        <ContestantBenchmarkJobForm session={this.props.session} client={this.props.client} />
       </>
     );
   }
