@@ -6,7 +6,7 @@ local base = import './isuxportal-prd-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 3,
-    elb_v2: utils.grpcNlbInternetFacing {
+    elb_v2: utils.grpcNlbInternal {
       protocol: 'TLS',
     },
     capacity_provider_strategy: [
