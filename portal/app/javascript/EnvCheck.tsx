@@ -287,7 +287,7 @@ export class EnvCheck extends React.Component<Props, State> {
                 <button
                   className="button"
                   disabled={ipNotFetched}
-                  onClick={this.onCopySSHCommandButtonClick.bind(this)}
+                  onClick={this.onCopyInstanceIPButtonClick.bind(this)}
                 >
                   <span className="material-icons">content_copy</span>
                 </button>
