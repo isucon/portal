@@ -1991,6 +1991,150 @@ export namespace isuxportal {
                 DONE = 2
             }
 
+            /** Properties of an EnvCheck. */
+            interface IEnvCheck {
+
+                /** EnvCheck id */
+                id?: (number|Long|null);
+
+                /** EnvCheck teamId */
+                teamId?: (number|Long|null);
+
+                /** EnvCheck name */
+                name?: (string|null);
+
+                /** EnvCheck ipAddress */
+                ipAddress?: (string|null);
+
+                /** EnvCheck passed */
+                passed?: (boolean|null);
+
+                /** EnvCheck message */
+                message?: (string|null);
+
+                /** EnvCheck adminMessage */
+                adminMessage?: (string|null);
+
+                /** EnvCheck rawData */
+                rawData?: (string|null);
+
+                /** EnvCheck createdAt */
+                createdAt?: (google.protobuf.ITimestamp|null);
+
+                /** EnvCheck updatedAt */
+                updatedAt?: (google.protobuf.ITimestamp|null);
+            }
+
+            /** Represents an EnvCheck. */
+            class EnvCheck implements IEnvCheck {
+
+                /**
+                 * Constructs a new EnvCheck.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.IEnvCheck);
+
+                /** EnvCheck id. */
+                public id: (number|Long);
+
+                /** EnvCheck teamId. */
+                public teamId: (number|Long);
+
+                /** EnvCheck name. */
+                public name: string;
+
+                /** EnvCheck ipAddress. */
+                public ipAddress: string;
+
+                /** EnvCheck passed. */
+                public passed: boolean;
+
+                /** EnvCheck message. */
+                public message: string;
+
+                /** EnvCheck adminMessage. */
+                public adminMessage: string;
+
+                /** EnvCheck rawData. */
+                public rawData: string;
+
+                /** EnvCheck createdAt. */
+                public createdAt?: (google.protobuf.ITimestamp|null);
+
+                /** EnvCheck updatedAt. */
+                public updatedAt?: (google.protobuf.ITimestamp|null);
+
+                /**
+                 * Creates a new EnvCheck instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns EnvCheck instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.IEnvCheck): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Encodes the specified EnvCheck message. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @param message EnvCheck message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.IEnvCheck, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified EnvCheck message, length delimited. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @param message EnvCheck message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.IEnvCheck, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Verifies an EnvCheck message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an EnvCheck message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns EnvCheck
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.EnvCheck;
+
+                /**
+                 * Creates a plain object from an EnvCheck message. Also converts values to other types if specified.
+                 * @param message EnvCheck
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.EnvCheck, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this EnvCheck to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
             /** Properties of a Leaderboard. */
             interface ILeaderboard {
 

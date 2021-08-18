@@ -1,4 +1,4 @@
-require 'isuxportal/resources/env_check_status_pb'
+require 'isuxportal/resources/env_check_pb'
 require 'isuxportal/services/registration/env_check_pb'
 
 class Api::Registration::EnvCheckController < Api::Registration::ApplicationController

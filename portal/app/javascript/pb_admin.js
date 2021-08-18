@@ -5501,6 +5501,430 @@ $root.isuxportal = (function() {
                 return values;
             })();
 
+            resources.EnvCheck = (function() {
+
+                /**
+                 * Properties of an EnvCheck.
+                 * @memberof isuxportal.proto.resources
+                 * @interface IEnvCheck
+                 * @property {number|Long|null} [id] EnvCheck id
+                 * @property {number|Long|null} [teamId] EnvCheck teamId
+                 * @property {string|null} [name] EnvCheck name
+                 * @property {string|null} [ipAddress] EnvCheck ipAddress
+                 * @property {boolean|null} [passed] EnvCheck passed
+                 * @property {string|null} [message] EnvCheck message
+                 * @property {string|null} [adminMessage] EnvCheck adminMessage
+                 * @property {string|null} [rawData] EnvCheck rawData
+                 * @property {google.protobuf.ITimestamp|null} [createdAt] EnvCheck createdAt
+                 * @property {google.protobuf.ITimestamp|null} [updatedAt] EnvCheck updatedAt
+                 */
+
+                /**
+                 * Constructs a new EnvCheck.
+                 * @memberof isuxportal.proto.resources
+                 * @classdesc Represents an EnvCheck.
+                 * @implements IEnvCheck
+                 * @constructor
+                 * @param {isuxportal.proto.resources.IEnvCheck=} [properties] Properties to set
+                 */
+                function EnvCheck(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * EnvCheck id.
+                 * @member {number|Long} id
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.id = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * EnvCheck teamId.
+                 * @member {number|Long} teamId
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                /**
+                 * EnvCheck name.
+                 * @member {string} name
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.name = "";
+
+                /**
+                 * EnvCheck ipAddress.
+                 * @member {string} ipAddress
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.ipAddress = "";
+
+                /**
+                 * EnvCheck passed.
+                 * @member {boolean} passed
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.passed = false;
+
+                /**
+                 * EnvCheck message.
+                 * @member {string} message
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.message = "";
+
+                /**
+                 * EnvCheck adminMessage.
+                 * @member {string} adminMessage
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.adminMessage = "";
+
+                /**
+                 * EnvCheck rawData.
+                 * @member {string} rawData
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.rawData = "";
+
+                /**
+                 * EnvCheck createdAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} createdAt
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.createdAt = null;
+
+                /**
+                 * EnvCheck updatedAt.
+                 * @member {google.protobuf.ITimestamp|null|undefined} updatedAt
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 */
+                EnvCheck.prototype.updatedAt = null;
+
+                /**
+                 * Creates a new EnvCheck instance using the specified properties.
+                 * @function create
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {isuxportal.proto.resources.IEnvCheck=} [properties] Properties to set
+                 * @returns {isuxportal.proto.resources.EnvCheck} EnvCheck instance
+                 */
+                EnvCheck.create = function create(properties) {
+                    return new EnvCheck(properties);
+                };
+
+                /**
+                 * Encodes the specified EnvCheck message. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @function encode
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {isuxportal.proto.resources.IEnvCheck} message EnvCheck message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                EnvCheck.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.id != null && Object.hasOwnProperty.call(message, "id"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int64(message.id);
+                    if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int64(message.teamId);
+                    if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+                    if (message.ipAddress != null && Object.hasOwnProperty.call(message, "ipAddress"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.ipAddress);
+                    if (message.passed != null && Object.hasOwnProperty.call(message, "passed"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).bool(message.passed);
+                    if (message.message != null && Object.hasOwnProperty.call(message, "message"))
+                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.message);
+                    if (message.adminMessage != null && Object.hasOwnProperty.call(message, "adminMessage"))
+                        writer.uint32(/* id 7, wireType 2 =*/58).string(message.adminMessage);
+                    if (message.rawData != null && Object.hasOwnProperty.call(message, "rawData"))
+                        writer.uint32(/* id 8, wireType 2 =*/66).string(message.rawData);
+                    if (message.createdAt != null && Object.hasOwnProperty.call(message, "createdAt"))
+                        $root.google.protobuf.Timestamp.encode(message.createdAt, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    if (message.updatedAt != null && Object.hasOwnProperty.call(message, "updatedAt"))
+                        $root.google.protobuf.Timestamp.encode(message.updatedAt, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified EnvCheck message, length delimited. Does not implicitly {@link isuxportal.proto.resources.EnvCheck.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {isuxportal.proto.resources.IEnvCheck} message EnvCheck message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                EnvCheck.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {isuxportal.proto.resources.EnvCheck} EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                EnvCheck.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.resources.EnvCheck();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.id = reader.int64();
+                            break;
+                        case 2:
+                            message.teamId = reader.int64();
+                            break;
+                        case 3:
+                            message.name = reader.string();
+                            break;
+                        case 4:
+                            message.ipAddress = reader.string();
+                            break;
+                        case 5:
+                            message.passed = reader.bool();
+                            break;
+                        case 6:
+                            message.message = reader.string();
+                            break;
+                        case 7:
+                            message.adminMessage = reader.string();
+                            break;
+                        case 8:
+                            message.rawData = reader.string();
+                            break;
+                        case 9:
+                            message.createdAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        case 10:
+                            message.updatedAt = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an EnvCheck message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {isuxportal.proto.resources.EnvCheck} EnvCheck
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                EnvCheck.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an EnvCheck message.
+                 * @function verify
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                EnvCheck.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (!$util.isInteger(message.id) && !(message.id && $util.isInteger(message.id.low) && $util.isInteger(message.id.high)))
+                            return "id: integer|Long expected";
+                    if (message.teamId != null && message.hasOwnProperty("teamId"))
+                        if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
+                            return "teamId: integer|Long expected";
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        if (!$util.isString(message.name))
+                            return "name: string expected";
+                    if (message.ipAddress != null && message.hasOwnProperty("ipAddress"))
+                        if (!$util.isString(message.ipAddress))
+                            return "ipAddress: string expected";
+                    if (message.passed != null && message.hasOwnProperty("passed"))
+                        if (typeof message.passed !== "boolean")
+                            return "passed: boolean expected";
+                    if (message.message != null && message.hasOwnProperty("message"))
+                        if (!$util.isString(message.message))
+                            return "message: string expected";
+                    if (message.adminMessage != null && message.hasOwnProperty("adminMessage"))
+                        if (!$util.isString(message.adminMessage))
+                            return "adminMessage: string expected";
+                    if (message.rawData != null && message.hasOwnProperty("rawData"))
+                        if (!$util.isString(message.rawData))
+                            return "rawData: string expected";
+                    if (message.createdAt != null && message.hasOwnProperty("createdAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.createdAt);
+                        if (error)
+                            return "createdAt." + error;
+                    }
+                    if (message.updatedAt != null && message.hasOwnProperty("updatedAt")) {
+                        var error = $root.google.protobuf.Timestamp.verify(message.updatedAt);
+                        if (error)
+                            return "updatedAt." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates an EnvCheck message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {isuxportal.proto.resources.EnvCheck} EnvCheck
+                 */
+                EnvCheck.fromObject = function fromObject(object) {
+                    if (object instanceof $root.isuxportal.proto.resources.EnvCheck)
+                        return object;
+                    var message = new $root.isuxportal.proto.resources.EnvCheck();
+                    if (object.id != null)
+                        if ($util.Long)
+                            (message.id = $util.Long.fromValue(object.id)).unsigned = false;
+                        else if (typeof object.id === "string")
+                            message.id = parseInt(object.id, 10);
+                        else if (typeof object.id === "number")
+                            message.id = object.id;
+                        else if (typeof object.id === "object")
+                            message.id = new $util.LongBits(object.id.low >>> 0, object.id.high >>> 0).toNumber();
+                    if (object.teamId != null)
+                        if ($util.Long)
+                            (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
+                        else if (typeof object.teamId === "string")
+                            message.teamId = parseInt(object.teamId, 10);
+                        else if (typeof object.teamId === "number")
+                            message.teamId = object.teamId;
+                        else if (typeof object.teamId === "object")
+                            message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
+                    if (object.name != null)
+                        message.name = String(object.name);
+                    if (object.ipAddress != null)
+                        message.ipAddress = String(object.ipAddress);
+                    if (object.passed != null)
+                        message.passed = Boolean(object.passed);
+                    if (object.message != null)
+                        message.message = String(object.message);
+                    if (object.adminMessage != null)
+                        message.adminMessage = String(object.adminMessage);
+                    if (object.rawData != null)
+                        message.rawData = String(object.rawData);
+                    if (object.createdAt != null) {
+                        if (typeof object.createdAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.EnvCheck.createdAt: object expected");
+                        message.createdAt = $root.google.protobuf.Timestamp.fromObject(object.createdAt);
+                    }
+                    if (object.updatedAt != null) {
+                        if (typeof object.updatedAt !== "object")
+                            throw TypeError(".isuxportal.proto.resources.EnvCheck.updatedAt: object expected");
+                        message.updatedAt = $root.google.protobuf.Timestamp.fromObject(object.updatedAt);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an EnvCheck message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @static
+                 * @param {isuxportal.proto.resources.EnvCheck} message EnvCheck
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                EnvCheck.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.id = options.longs === String ? "0" : 0;
+                        if ($util.Long) {
+                            var long = new $util.Long(0, 0, false);
+                            object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.teamId = options.longs === String ? "0" : 0;
+                        object.name = "";
+                        object.ipAddress = "";
+                        object.passed = false;
+                        object.message = "";
+                        object.adminMessage = "";
+                        object.rawData = "";
+                        object.createdAt = null;
+                        object.updatedAt = null;
+                    }
+                    if (message.id != null && message.hasOwnProperty("id"))
+                        if (typeof message.id === "number")
+                            object.id = options.longs === String ? String(message.id) : message.id;
+                        else
+                            object.id = options.longs === String ? $util.Long.prototype.toString.call(message.id) : options.longs === Number ? new $util.LongBits(message.id.low >>> 0, message.id.high >>> 0).toNumber() : message.id;
+                    if (message.teamId != null && message.hasOwnProperty("teamId"))
+                        if (typeof message.teamId === "number")
+                            object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
+                        else
+                            object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
+                    if (message.name != null && message.hasOwnProperty("name"))
+                        object.name = message.name;
+                    if (message.ipAddress != null && message.hasOwnProperty("ipAddress"))
+                        object.ipAddress = message.ipAddress;
+                    if (message.passed != null && message.hasOwnProperty("passed"))
+                        object.passed = message.passed;
+                    if (message.message != null && message.hasOwnProperty("message"))
+                        object.message = message.message;
+                    if (message.adminMessage != null && message.hasOwnProperty("adminMessage"))
+                        object.adminMessage = message.adminMessage;
+                    if (message.rawData != null && message.hasOwnProperty("rawData"))
+                        object.rawData = message.rawData;
+                    if (message.createdAt != null && message.hasOwnProperty("createdAt"))
+                        object.createdAt = $root.google.protobuf.Timestamp.toObject(message.createdAt, options);
+                    if (message.updatedAt != null && message.hasOwnProperty("updatedAt"))
+                        object.updatedAt = $root.google.protobuf.Timestamp.toObject(message.updatedAt, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this EnvCheck to JSON.
+                 * @function toJSON
+                 * @memberof isuxportal.proto.resources.EnvCheck
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                EnvCheck.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return EnvCheck;
+            })();
+
             resources.Leaderboard = (function() {
 
                 /**
@@ -12573,6 +12997,415 @@ $root.isuxportal = (function() {
                     };
 
                     return DashboardResponse;
+                })();
+
+                admin.ListEnvChecksQuery = (function() {
+
+                    /**
+                     * Properties of a ListEnvChecksQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface IListEnvChecksQuery
+                     * @property {number|Long|null} [teamId] ListEnvChecksQuery teamId
+                     */
+
+                    /**
+                     * Constructs a new ListEnvChecksQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a ListEnvChecksQuery.
+                     * @implements IListEnvChecksQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksQuery=} [properties] Properties to set
+                     */
+                    function ListEnvChecksQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ListEnvChecksQuery teamId.
+                     * @member {number|Long} teamId
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @instance
+                     */
+                    ListEnvChecksQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * Creates a new ListEnvChecksQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksQuery} ListEnvChecksQuery instance
+                     */
+                    ListEnvChecksQuery.create = function create(properties) {
+                        return new ListEnvChecksQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListEnvChecksQuery message. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksQuery} message ListEnvChecksQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListEnvChecksQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
+                            writer.uint32(/* id 1, wireType 0 =*/8).int64(message.teamId);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListEnvChecksQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksQuery} message ListEnvChecksQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListEnvChecksQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListEnvChecksQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksQuery} ListEnvChecksQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListEnvChecksQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListEnvChecksQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.teamId = reader.int64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListEnvChecksQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksQuery} ListEnvChecksQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListEnvChecksQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListEnvChecksQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListEnvChecksQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
+                                return "teamId: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListEnvChecksQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksQuery} ListEnvChecksQuery
+                     */
+                    ListEnvChecksQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.ListEnvChecksQuery)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.admin.ListEnvChecksQuery();
+                        if (object.teamId != null)
+                            if ($util.Long)
+                                (message.teamId = $util.Long.fromValue(object.teamId)).unsigned = false;
+                            else if (typeof object.teamId === "string")
+                                message.teamId = parseInt(object.teamId, 10);
+                            else if (typeof object.teamId === "number")
+                                message.teamId = object.teamId;
+                            else if (typeof object.teamId === "object")
+                                message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a ListEnvChecksQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ListEnvChecksQuery} message ListEnvChecksQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListEnvChecksQuery.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.teamId = options.longs === String ? "0" : 0;
+                        if (message.teamId != null && message.hasOwnProperty("teamId"))
+                            if (typeof message.teamId === "number")
+                                object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
+                            else
+                                object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ListEnvChecksQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListEnvChecksQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListEnvChecksQuery;
+                })();
+
+                admin.ListEnvChecksResponse = (function() {
+
+                    /**
+                     * Properties of a ListEnvChecksResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface IListEnvChecksResponse
+                     * @property {Array.<isuxportal.proto.resources.IEnvCheck>|null} [envChecks] ListEnvChecksResponse envChecks
+                     */
+
+                    /**
+                     * Constructs a new ListEnvChecksResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a ListEnvChecksResponse.
+                     * @implements IListEnvChecksResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksResponse=} [properties] Properties to set
+                     */
+                    function ListEnvChecksResponse(properties) {
+                        this.envChecks = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * ListEnvChecksResponse envChecks.
+                     * @member {Array.<isuxportal.proto.resources.IEnvCheck>} envChecks
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @instance
+                     */
+                    ListEnvChecksResponse.prototype.envChecks = $util.emptyArray;
+
+                    /**
+                     * Creates a new ListEnvChecksResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksResponse} ListEnvChecksResponse instance
+                     */
+                    ListEnvChecksResponse.create = function create(properties) {
+                        return new ListEnvChecksResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified ListEnvChecksResponse message. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksResponse} message ListEnvChecksResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListEnvChecksResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.envChecks != null && message.envChecks.length)
+                            for (var i = 0; i < message.envChecks.length; ++i)
+                                $root.isuxportal.proto.resources.EnvCheck.encode(message.envChecks[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified ListEnvChecksResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.ListEnvChecksResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IListEnvChecksResponse} message ListEnvChecksResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    ListEnvChecksResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a ListEnvChecksResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksResponse} ListEnvChecksResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListEnvChecksResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.ListEnvChecksResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.envChecks && message.envChecks.length))
+                                    message.envChecks = [];
+                                message.envChecks.push($root.isuxportal.proto.resources.EnvCheck.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a ListEnvChecksResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksResponse} ListEnvChecksResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    ListEnvChecksResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a ListEnvChecksResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    ListEnvChecksResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.envChecks != null && message.hasOwnProperty("envChecks")) {
+                            if (!Array.isArray(message.envChecks))
+                                return "envChecks: array expected";
+                            for (var i = 0; i < message.envChecks.length; ++i) {
+                                var error = $root.isuxportal.proto.resources.EnvCheck.verify(message.envChecks[i]);
+                                if (error)
+                                    return "envChecks." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a ListEnvChecksResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.ListEnvChecksResponse} ListEnvChecksResponse
+                     */
+                    ListEnvChecksResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.ListEnvChecksResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.admin.ListEnvChecksResponse();
+                        if (object.envChecks) {
+                            if (!Array.isArray(object.envChecks))
+                                throw TypeError(".isuxportal.proto.services.admin.ListEnvChecksResponse.envChecks: array expected");
+                            message.envChecks = [];
+                            for (var i = 0; i < object.envChecks.length; ++i) {
+                                if (typeof object.envChecks[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.ListEnvChecksResponse.envChecks: object expected");
+                                message.envChecks[i] = $root.isuxportal.proto.resources.EnvCheck.fromObject(object.envChecks[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a ListEnvChecksResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ListEnvChecksResponse} message ListEnvChecksResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    ListEnvChecksResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.envChecks = [];
+                        if (message.envChecks && message.envChecks.length) {
+                            object.envChecks = [];
+                            for (var j = 0; j < message.envChecks.length; ++j)
+                                object.envChecks[j] = $root.isuxportal.proto.resources.EnvCheck.toObject(message.envChecks[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this ListEnvChecksResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.ListEnvChecksResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    ListEnvChecksResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return ListEnvChecksResponse;
                 })();
 
                 admin.ListTeamsQuery = (function() {
