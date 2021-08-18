@@ -6,7 +6,7 @@ class Api::Admin::EnvChecksController < Api::Admin::ApplicationController
     @env_checks = EnvCheck.of_team(params[:team_id].to_i)
 
     render protobuf: Isuxportal::Proto::Services::Admin::ListEnvChecksResponse.new(
-      env_checks: @env_checks.map { |_| _.to_pb() },
+      env_checks: @env_checks.map(&:to_pb),
     )
   end
 end
