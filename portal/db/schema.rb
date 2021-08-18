@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_08_13_103210) do
     t.index ["cloud_id"], name: "index_contestant_instances_on_cloud_id"
     t.index ["private_ipv4_address"], name: "index_contestant_instances_on_private_ipv4_address"
     t.index ["status"], name: "index_contestant_instances_on_status"
-    t.index ["team_id", "number"], name: "index_contestant_instances_on_team_id_and_number"
+    t.index ["team_id", "number"], name: "index_contestant_instances_on_team_id_and_number", unique: true
   end
 
   create_table "contestants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|

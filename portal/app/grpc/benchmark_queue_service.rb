@@ -18,12 +18,17 @@ class BenchmarkQueueService < Isuxportal::Proto::Services::Bench::BenchmarkQueue
           job.lock!
           next unless job.pending?
           job.start!(request.instance_name)
+
+          instances = ContestantInstance.where(team_id: job.team_id).order(number: :asc).index_by(&:number)
+          all_addresses = (1..3).map{|number| instances[number]&.public_ipv4_address || ''}
+
           return Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobResponse.new(
             job_handle: Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobResponse::JobHandle.new(
               job_id: job.id,
               handle: job.handle,
               target_ipv4_address: job.target.public_ipv4_address, # TODO:
-              description_human: "", # TODO: 
+              description_human: "", # TODO:
+              all_ipv4_addresses: all_addresses,
             ),
           )
         else

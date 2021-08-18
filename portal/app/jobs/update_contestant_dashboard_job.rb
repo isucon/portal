@@ -4,7 +4,7 @@ require 'isuxportal/services/audience/dashboard_pb'
 
 class UpdateContestantDashboardJob < ApplicationJob
   def perform(team: nil, frozen: false)
-    final = Rails.application.config.x.final ? "final" : "qualify"
+    final = Rails.application.config.x.contest.final ? "final" : "qualify"
 
     Rails.logger.info("leaderboard")
     lb = Contest.leaderboard(admin: false, team: nil, progresses: false)

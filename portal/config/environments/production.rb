@@ -148,7 +148,6 @@ Rails.application.configure do
   config.x.bypass_token.secret = ENV.fetch('ISUXPORTAL_BYPASS_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
   config.x.checker_token.secret = ENV.fetch('ISUXPORTAL_CHECKER_SECRET').unpack1('m0') # ruby -rsecurerandom -e 'puts SecureRandom.base64(96)'
   config.x.ssh_key_api.secret = ENV.fetch('ISUXPORTAL_SSH_KEY_API_SECRET')
-  #config.x.dcim.token = ENV.fetch('ISUXPORTAL_DCIM_TOKEN')
 
   config.x.cloudformation_staging = false
 

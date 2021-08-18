@@ -18,6 +18,8 @@ locals {
     "Osumi",
     "hkws",
     "okimoto",
+    "iwashi",
+    "nana4gonta",
   ])
 }
 
