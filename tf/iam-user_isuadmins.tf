@@ -19,6 +19,7 @@ locals {
     "hkws",
     "okimoto",
     "iwashi",
+    "nana4gonta",
   ])
 }
 
