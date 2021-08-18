@@ -13408,6 +13408,711 @@ $root.isuxportal = (function() {
                     return ListEnvChecksResponse;
                 })();
 
+                admin.GetLeaderboardDumpQuery = (function() {
+
+                    /**
+                     * Properties of a GetLeaderboardDumpQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface IGetLeaderboardDumpQuery
+                     * @property {string|null} [when] GetLeaderboardDumpQuery when
+                     */
+
+                    /**
+                     * Constructs a new GetLeaderboardDumpQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a GetLeaderboardDumpQuery.
+                     * @implements IGetLeaderboardDumpQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpQuery=} [properties] Properties to set
+                     */
+                    function GetLeaderboardDumpQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetLeaderboardDumpQuery when.
+                     * @member {string} when
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @instance
+                     */
+                    GetLeaderboardDumpQuery.prototype.when = "";
+
+                    /**
+                     * Creates a new GetLeaderboardDumpQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpQuery} GetLeaderboardDumpQuery instance
+                     */
+                    GetLeaderboardDumpQuery.create = function create(properties) {
+                        return new GetLeaderboardDumpQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpQuery message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpQuery} message GetLeaderboardDumpQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetLeaderboardDumpQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.when != null && Object.hasOwnProperty.call(message, "when"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.when);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpQuery} message GetLeaderboardDumpQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetLeaderboardDumpQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetLeaderboardDumpQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpQuery} GetLeaderboardDumpQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetLeaderboardDumpQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.when = reader.string();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetLeaderboardDumpQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpQuery} GetLeaderboardDumpQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetLeaderboardDumpQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetLeaderboardDumpQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetLeaderboardDumpQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.when != null && message.hasOwnProperty("when"))
+                            if (!$util.isString(message.when))
+                                return "when: string expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetLeaderboardDumpQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpQuery} GetLeaderboardDumpQuery
+                     */
+                    GetLeaderboardDumpQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.GetLeaderboardDumpQuery)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpQuery();
+                        if (object.when != null)
+                            message.when = String(object.when);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetLeaderboardDumpQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.GetLeaderboardDumpQuery} message GetLeaderboardDumpQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetLeaderboardDumpQuery.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.when = "";
+                        if (message.when != null && message.hasOwnProperty("when"))
+                            object.when = message.when;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetLeaderboardDumpQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetLeaderboardDumpQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return GetLeaderboardDumpQuery;
+                })();
+
+                admin.GetLeaderboardDumpResponse = (function() {
+
+                    /**
+                     * Properties of a GetLeaderboardDumpResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface IGetLeaderboardDumpResponse
+                     * @property {Array.<isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem>|null} [items] GetLeaderboardDumpResponse items
+                     */
+
+                    /**
+                     * Constructs a new GetLeaderboardDumpResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a GetLeaderboardDumpResponse.
+                     * @implements IGetLeaderboardDumpResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpResponse=} [properties] Properties to set
+                     */
+                    function GetLeaderboardDumpResponse(properties) {
+                        this.items = [];
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * GetLeaderboardDumpResponse items.
+                     * @member {Array.<isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem>} items
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @instance
+                     */
+                    GetLeaderboardDumpResponse.prototype.items = $util.emptyArray;
+
+                    /**
+                     * Creates a new GetLeaderboardDumpResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse} GetLeaderboardDumpResponse instance
+                     */
+                    GetLeaderboardDumpResponse.create = function create(properties) {
+                        return new GetLeaderboardDumpResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpResponse message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpResponse} message GetLeaderboardDumpResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetLeaderboardDumpResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.items != null && message.items.length)
+                            for (var i = 0; i < message.items.length; ++i)
+                                $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.encode(message.items[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.IGetLeaderboardDumpResponse} message GetLeaderboardDumpResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    GetLeaderboardDumpResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a GetLeaderboardDumpResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse} GetLeaderboardDumpResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetLeaderboardDumpResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                if (!(message.items && message.items.length))
+                                    message.items = [];
+                                message.items.push($root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.decode(reader, reader.uint32()));
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a GetLeaderboardDumpResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse} GetLeaderboardDumpResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    GetLeaderboardDumpResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a GetLeaderboardDumpResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    GetLeaderboardDumpResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.items != null && message.hasOwnProperty("items")) {
+                            if (!Array.isArray(message.items))
+                                return "items: array expected";
+                            for (var i = 0; i < message.items.length; ++i) {
+                                var error = $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.verify(message.items[i]);
+                                if (error)
+                                    return "items." + error;
+                            }
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a GetLeaderboardDumpResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse} GetLeaderboardDumpResponse
+                     */
+                    GetLeaderboardDumpResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse();
+                        if (object.items) {
+                            if (!Array.isArray(object.items))
+                                throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.items: array expected");
+                            message.items = [];
+                            for (var i = 0; i < object.items.length; ++i) {
+                                if (typeof object.items[i] !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.items: object expected");
+                                message.items[i] = $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.fromObject(object.items[i]);
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a GetLeaderboardDumpResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse} message GetLeaderboardDumpResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    GetLeaderboardDumpResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.arrays || options.defaults)
+                            object.items = [];
+                        if (message.items && message.items.length) {
+                            object.items = [];
+                            for (var j = 0; j < message.items.length; ++j)
+                                object.items[j] = $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.toObject(message.items[j], options);
+                        }
+                        return object;
+                    };
+
+                    /**
+                     * Converts this GetLeaderboardDumpResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    GetLeaderboardDumpResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    GetLeaderboardDumpResponse.LeaderboardDumpItem = (function() {
+
+                        /**
+                         * Properties of a LeaderboardDumpItem.
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                         * @interface ILeaderboardDumpItem
+                         * @property {number|Long|null} [position] LeaderboardDumpItem position
+                         * @property {isuxportal.proto.resources.ITeam|null} [team] LeaderboardDumpItem team
+                         * @property {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null} [bestScore] LeaderboardDumpItem bestScore
+                         * @property {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null} [latestScore] LeaderboardDumpItem latestScore
+                         * @property {isuxportal.proto.resources.IContestantInstance|null} [target] LeaderboardDumpItem target
+                         */
+
+                        /**
+                         * Constructs a new LeaderboardDumpItem.
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse
+                         * @classdesc Represents a LeaderboardDumpItem.
+                         * @implements ILeaderboardDumpItem
+                         * @constructor
+                         * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem=} [properties] Properties to set
+                         */
+                        function LeaderboardDumpItem(properties) {
+                            if (properties)
+                                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * LeaderboardDumpItem position.
+                         * @member {number|Long} position
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         */
+                        LeaderboardDumpItem.prototype.position = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                        /**
+                         * LeaderboardDumpItem team.
+                         * @member {isuxportal.proto.resources.ITeam|null|undefined} team
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         */
+                        LeaderboardDumpItem.prototype.team = null;
+
+                        /**
+                         * LeaderboardDumpItem bestScore.
+                         * @member {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null|undefined} bestScore
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         */
+                        LeaderboardDumpItem.prototype.bestScore = null;
+
+                        /**
+                         * LeaderboardDumpItem latestScore.
+                         * @member {isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null|undefined} latestScore
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         */
+                        LeaderboardDumpItem.prototype.latestScore = null;
+
+                        /**
+                         * LeaderboardDumpItem target.
+                         * @member {isuxportal.proto.resources.IContestantInstance|null|undefined} target
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         */
+                        LeaderboardDumpItem.prototype.target = null;
+
+                        /**
+                         * Creates a new LeaderboardDumpItem instance using the specified properties.
+                         * @function create
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem=} [properties] Properties to set
+                         * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem} LeaderboardDumpItem instance
+                         */
+                        LeaderboardDumpItem.create = function create(properties) {
+                            return new LeaderboardDumpItem(properties);
+                        };
+
+                        /**
+                         * Encodes the specified LeaderboardDumpItem message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.verify|verify} messages.
+                         * @function encode
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem} message LeaderboardDumpItem message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        LeaderboardDumpItem.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.position != null && Object.hasOwnProperty.call(message, "position"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int64(message.position);
+                            if (message.team != null && Object.hasOwnProperty.call(message, "team"))
+                                $root.isuxportal.proto.resources.Team.encode(message.team, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                            if (message.bestScore != null && Object.hasOwnProperty.call(message, "bestScore"))
+                                $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.bestScore, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.latestScore != null && Object.hasOwnProperty.call(message, "latestScore"))
+                                $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.encode(message.latestScore, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                            if (message.target != null && Object.hasOwnProperty.call(message, "target"))
+                                $root.isuxportal.proto.resources.ContestantInstance.encode(message.target, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified LeaderboardDumpItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem} message LeaderboardDumpItem message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        LeaderboardDumpItem.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a LeaderboardDumpItem message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem} LeaderboardDumpItem
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        LeaderboardDumpItem.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem();
+                            while (reader.pos < end) {
+                                var tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.position = reader.int64();
+                                    break;
+                                case 2:
+                                    message.team = $root.isuxportal.proto.resources.Team.decode(reader, reader.uint32());
+                                    break;
+                                case 3:
+                                    message.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32());
+                                    break;
+                                case 4:
+                                    message.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.decode(reader, reader.uint32());
+                                    break;
+                                case 5:
+                                    message.target = $root.isuxportal.proto.resources.ContestantInstance.decode(reader, reader.uint32());
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a LeaderboardDumpItem message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem} LeaderboardDumpItem
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        LeaderboardDumpItem.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a LeaderboardDumpItem message.
+                         * @function verify
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        LeaderboardDumpItem.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.position != null && message.hasOwnProperty("position"))
+                                if (!$util.isInteger(message.position) && !(message.position && $util.isInteger(message.position.low) && $util.isInteger(message.position.high)))
+                                    return "position: integer|Long expected";
+                            if (message.team != null && message.hasOwnProperty("team")) {
+                                var error = $root.isuxportal.proto.resources.Team.verify(message.team);
+                                if (error)
+                                    return "team." + error;
+                            }
+                            if (message.bestScore != null && message.hasOwnProperty("bestScore")) {
+                                var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify(message.bestScore);
+                                if (error)
+                                    return "bestScore." + error;
+                            }
+                            if (message.latestScore != null && message.hasOwnProperty("latestScore")) {
+                                var error = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify(message.latestScore);
+                                if (error)
+                                    return "latestScore." + error;
+                            }
+                            if (message.target != null && message.hasOwnProperty("target")) {
+                                var error = $root.isuxportal.proto.resources.ContestantInstance.verify(message.target);
+                                if (error)
+                                    return "target." + error;
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a LeaderboardDumpItem message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem} LeaderboardDumpItem
+                         */
+                        LeaderboardDumpItem.fromObject = function fromObject(object) {
+                            if (object instanceof $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem)
+                                return object;
+                            var message = new $root.isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem();
+                            if (object.position != null)
+                                if ($util.Long)
+                                    (message.position = $util.Long.fromValue(object.position)).unsigned = false;
+                                else if (typeof object.position === "string")
+                                    message.position = parseInt(object.position, 10);
+                                else if (typeof object.position === "number")
+                                    message.position = object.position;
+                                else if (typeof object.position === "object")
+                                    message.position = new $util.LongBits(object.position.low >>> 0, object.position.high >>> 0).toNumber();
+                            if (object.team != null) {
+                                if (typeof object.team !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.team: object expected");
+                                message.team = $root.isuxportal.proto.resources.Team.fromObject(object.team);
+                            }
+                            if (object.bestScore != null) {
+                                if (typeof object.bestScore !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.bestScore: object expected");
+                                message.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.bestScore);
+                            }
+                            if (object.latestScore != null) {
+                                if (typeof object.latestScore !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.latestScore: object expected");
+                                message.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.fromObject(object.latestScore);
+                            }
+                            if (object.target != null) {
+                                if (typeof object.target !== "object")
+                                    throw TypeError(".isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.target: object expected");
+                                message.target = $root.isuxportal.proto.resources.ContestantInstance.fromObject(object.target);
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a LeaderboardDumpItem message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @static
+                         * @param {isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem} message LeaderboardDumpItem
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        LeaderboardDumpItem.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            var object = {};
+                            if (options.defaults) {
+                                if ($util.Long) {
+                                    var long = new $util.Long(0, 0, false);
+                                    object.position = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                                } else
+                                    object.position = options.longs === String ? "0" : 0;
+                                object.team = null;
+                                object.bestScore = null;
+                                object.latestScore = null;
+                                object.target = null;
+                            }
+                            if (message.position != null && message.hasOwnProperty("position"))
+                                if (typeof message.position === "number")
+                                    object.position = options.longs === String ? String(message.position) : message.position;
+                                else
+                                    object.position = options.longs === String ? $util.Long.prototype.toString.call(message.position) : options.longs === Number ? new $util.LongBits(message.position.low >>> 0, message.position.high >>> 0).toNumber() : message.position;
+                            if (message.team != null && message.hasOwnProperty("team"))
+                                object.team = $root.isuxportal.proto.resources.Team.toObject(message.team, options);
+                            if (message.bestScore != null && message.hasOwnProperty("bestScore"))
+                                object.bestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.bestScore, options);
+                            if (message.latestScore != null && message.hasOwnProperty("latestScore"))
+                                object.latestScore = $root.isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.toObject(message.latestScore, options);
+                            if (message.target != null && message.hasOwnProperty("target"))
+                                object.target = $root.isuxportal.proto.resources.ContestantInstance.toObject(message.target, options);
+                            return object;
+                        };
+
+                        /**
+                         * Converts this LeaderboardDumpItem to JSON.
+                         * @function toJSON
+                         * @memberof isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        LeaderboardDumpItem.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return LeaderboardDumpItem;
+                    })();
+
+                    return GetLeaderboardDumpResponse;
+                })();
+
                 admin.ListTeamsQuery = (function() {
 
                     /**
