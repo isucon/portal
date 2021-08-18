@@ -29,6 +29,7 @@ export const ContestantCloudFormationMessage = ({ instances }: Props) => {
       <button className="delete" onClick={onCloseButtonClick}></button>
       インスタンスの登録が完了していません。CloudFormationは
       <Link to="/contestant/contestant_instances">サーバーリスト</Link>からダウンロードできます。
+      インスタンスの起動後には画面のリロードが必要です。
     </div>
   );
 };
