@@ -100,11 +100,13 @@ export class AdminTeamDetail extends React.Component<Props, State> {
               {this.state.team.hidden ? <span className="tag is-black">非表示</span> : null}
             </p>
 
-            <p>ID: {this.state.team.id}</p>
-            <p>
-              代表者メールアドレス:{" "}
-              <a href={`mailto:${this.state.team.detail!.emailAddress}`}>{this.state.team.detail!.emailAddress}</a>
-            </p>
+            <div className="content">
+              <p>ID: {this.state.team.id}</p>
+              <p>
+                代表者メールアドレス:{" "}
+                <a href={`mailto:${this.state.team.detail!.emailAddress}`}>{this.state.team.detail!.emailAddress}</a>
+              </p>
+            </div>
 
             <div className="buttons">
               <Link to={`/admin/teams/${this.state.team.id}/edit`} className="button is-info">
@@ -196,6 +198,9 @@ export class AdminTeamDetail extends React.Component<Props, State> {
           <h5 className="card-header-title is-5">チェッカー結果</h5>
         </div>
         <div className="card-content">
+          <p className="subtitle">
+            {this.teamHasPassedPreCheck() ? <span className="tag is-success">競技環境確認完了済み</span> : <span className="tag is-danger">競技環境確認未完了</span>}
+          </p>
           <table className="table is-striped is-fullwidth">
             <thead>
               <tr>
@@ -222,6 +227,10 @@ export class AdminTeamDetail extends React.Component<Props, State> {
         </div>
       </div>
     );
+  }
+
+  teamHasPassedPreCheck() {
+    return this.state.envChecks?.some(envCheck => envCheck.name === 'test-ssh' && envCheck.passed)
   }
 
   public renderError() {
