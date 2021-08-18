@@ -47,7 +47,7 @@ module CloudFormation
   end
 
   def self.get_portal_host
-    if is_for_staging
+    if !is_for_staging
       "portal.isucon.net"
     else
       "portal-dev.isucon.net"
