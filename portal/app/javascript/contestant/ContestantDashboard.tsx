@@ -131,7 +131,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
               teamId={session.team!.id!}
               teamPins={teamPinsMap}
               onPin={teamPins.set}
-              enableHiddenTeamsMode={true}
+              enableHiddenTeamsMode={false}
             />
           </section>
         </div>
