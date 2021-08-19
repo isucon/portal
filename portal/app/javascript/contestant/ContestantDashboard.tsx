@@ -28,7 +28,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
   const { session, client } = props;
   const [requestingDashboard, setRequestingDashboard] = React.useState(false);
   const [requestingJobs, setRequestingJobs] = React.useState(false);
-  const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.contestant.DashboardResponse | null>(null);
+  const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.contestant.IDashboardResponse | null>(null);
   const [jobs, setJobs] = React.useState<isuxportal.proto.resources.IBenchmarkJob[] | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
 
@@ -40,7 +40,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
     if (requestingDashboard) return;
     setRequestingDashboard(true);
     return client
-      .getDashboard()
+      .getContestantMergedDashboard(session.team!.id! as number)
       .then((db) => {
         setDashboard(db);
         setError(null);
