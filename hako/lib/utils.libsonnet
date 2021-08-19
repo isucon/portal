@@ -94,6 +94,29 @@
       'deregistration_delay.timeout_seconds': '20',
     },
   },
+  grpcNlbInternal:: {
+    vpc_id: $.vpcId,
+    type: 'network',
+    scheme: 'internal',
+    listeners: [
+      {
+        port: 443,
+        protocol: 'TLS',
+        certificate_arn: $.acmCertificateWildDev,
+        ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
+      },
+    ],
+    container_name: 'front',
+    container_port: 8000,
+    subnets: $.privateSubnets,
+    security_groups: $.elbSecurityGroups,
+    tags: {
+      Project: 'portal',
+    },
+    target_group_attributes: {
+      'deregistration_delay.timeout_seconds': '20',
+    },
+  },
 
   //serviceDiscovery(container_name, name, port=80):: {
   //  container_name: container_name,
