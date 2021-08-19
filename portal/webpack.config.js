@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const { NODE_ENV } = process.env;
 const isProd = NODE_ENV === "production";
-const devTool = isProd ? {} : {devtool: "eval-source-map"};
+const devTool = isProd ? {} : {devtool: "source-map"};
 
 const entries = {};
 glob.sync("app/javascript/packs/*.{ts,tsx}").forEach(filePath => {
