@@ -5304,6 +5304,303 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
+                /** Properties of a GetLeaderboardDumpQuery. */
+                interface IGetLeaderboardDumpQuery {
+
+                    /** GetLeaderboardDumpQuery when */
+                    when?: (string|null);
+                }
+
+                /** Represents a GetLeaderboardDumpQuery. */
+                class GetLeaderboardDumpQuery implements IGetLeaderboardDumpQuery {
+
+                    /**
+                     * Constructs a new GetLeaderboardDumpQuery.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IGetLeaderboardDumpQuery);
+
+                    /** GetLeaderboardDumpQuery when. */
+                    public when: string;
+
+                    /**
+                     * Creates a new GetLeaderboardDumpQuery instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetLeaderboardDumpQuery instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IGetLeaderboardDumpQuery): isuxportal.proto.services.admin.GetLeaderboardDumpQuery;
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpQuery message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpQuery.verify|verify} messages.
+                     * @param message GetLeaderboardDumpQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IGetLeaderboardDumpQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpQuery.verify|verify} messages.
+                     * @param message GetLeaderboardDumpQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetLeaderboardDumpQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetLeaderboardDumpQuery message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetLeaderboardDumpQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetLeaderboardDumpQuery;
+
+                    /**
+                     * Decodes a GetLeaderboardDumpQuery message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetLeaderboardDumpQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetLeaderboardDumpQuery;
+
+                    /**
+                     * Verifies a GetLeaderboardDumpQuery message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetLeaderboardDumpQuery message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetLeaderboardDumpQuery
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetLeaderboardDumpQuery;
+
+                    /**
+                     * Creates a plain object from a GetLeaderboardDumpQuery message. Also converts values to other types if specified.
+                     * @param message GetLeaderboardDumpQuery
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.GetLeaderboardDumpQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetLeaderboardDumpQuery to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a GetLeaderboardDumpResponse. */
+                interface IGetLeaderboardDumpResponse {
+
+                    /** GetLeaderboardDumpResponse items */
+                    items?: (isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem[]|null);
+                }
+
+                /** Represents a GetLeaderboardDumpResponse. */
+                class GetLeaderboardDumpResponse implements IGetLeaderboardDumpResponse {
+
+                    /**
+                     * Constructs a new GetLeaderboardDumpResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.admin.IGetLeaderboardDumpResponse);
+
+                    /** GetLeaderboardDumpResponse items. */
+                    public items: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem[];
+
+                    /**
+                     * Creates a new GetLeaderboardDumpResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns GetLeaderboardDumpResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.admin.IGetLeaderboardDumpResponse): isuxportal.proto.services.admin.GetLeaderboardDumpResponse;
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpResponse message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.verify|verify} messages.
+                     * @param message GetLeaderboardDumpResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.admin.IGetLeaderboardDumpResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified GetLeaderboardDumpResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.verify|verify} messages.
+                     * @param message GetLeaderboardDumpResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.admin.IGetLeaderboardDumpResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a GetLeaderboardDumpResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns GetLeaderboardDumpResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetLeaderboardDumpResponse;
+
+                    /**
+                     * Decodes a GetLeaderboardDumpResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns GetLeaderboardDumpResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetLeaderboardDumpResponse;
+
+                    /**
+                     * Verifies a GetLeaderboardDumpResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a GetLeaderboardDumpResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns GetLeaderboardDumpResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetLeaderboardDumpResponse;
+
+                    /**
+                     * Creates a plain object from a GetLeaderboardDumpResponse message. Also converts values to other types if specified.
+                     * @param message GetLeaderboardDumpResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.admin.GetLeaderboardDumpResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this GetLeaderboardDumpResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                namespace GetLeaderboardDumpResponse {
+
+                    /** Properties of a LeaderboardDumpItem. */
+                    interface ILeaderboardDumpItem {
+
+                        /** LeaderboardDumpItem position */
+                        position?: (number|Long|null);
+
+                        /** LeaderboardDumpItem team */
+                        team?: (isuxportal.proto.resources.ITeam|null);
+
+                        /** LeaderboardDumpItem bestScore */
+                        bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                        /** LeaderboardDumpItem latestScore */
+                        latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                        /** LeaderboardDumpItem target */
+                        target?: (isuxportal.proto.resources.IContestantInstance|null);
+                    }
+
+                    /** Represents a LeaderboardDumpItem. */
+                    class LeaderboardDumpItem implements ILeaderboardDumpItem {
+
+                        /**
+                         * Constructs a new LeaderboardDumpItem.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem);
+
+                        /** LeaderboardDumpItem position. */
+                        public position: (number|Long);
+
+                        /** LeaderboardDumpItem team. */
+                        public team?: (isuxportal.proto.resources.ITeam|null);
+
+                        /** LeaderboardDumpItem bestScore. */
+                        public bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                        /** LeaderboardDumpItem latestScore. */
+                        public latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
+
+                        /** LeaderboardDumpItem target. */
+                        public target?: (isuxportal.proto.resources.IContestantInstance|null);
+
+                        /**
+                         * Creates a new LeaderboardDumpItem instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns LeaderboardDumpItem instance
+                         */
+                        public static create(properties?: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem): isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem;
+
+                        /**
+                         * Encodes the specified LeaderboardDumpItem message. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.verify|verify} messages.
+                         * @param message LeaderboardDumpItem message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified LeaderboardDumpItem message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem.verify|verify} messages.
+                         * @param message LeaderboardDumpItem message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.ILeaderboardDumpItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a LeaderboardDumpItem message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns LeaderboardDumpItem
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem;
+
+                        /**
+                         * Decodes a LeaderboardDumpItem message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns LeaderboardDumpItem
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem;
+
+                        /**
+                         * Verifies a LeaderboardDumpItem message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a LeaderboardDumpItem message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns LeaderboardDumpItem
+                         */
+                        public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem;
+
+                        /**
+                         * Creates a plain object from a LeaderboardDumpItem message. Also converts values to other types if specified.
+                         * @param message LeaderboardDumpItem
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this LeaderboardDumpItem to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
+
                 /** Properties of a ListTeamsQuery. */
                 interface IListTeamsQuery {
                 }

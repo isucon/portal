@@ -1,8 +1,14 @@
 import { isuxportal } from "../pb_admin";
 import { AdminApiClient } from "./AdminApiClient";
 import { TeamPinsMap, TeamPins } from "../TeamPins";
+import dayjs from "dayjs";
+import utcPlugin from "dayjs/plugin/utc";
+import timezonePlugin from "dayjs/plugin/timezone";
+dayjs.extend(utcPlugin);
+dayjs.extend(timezonePlugin);
+dayjs.tz.setDefault("Asia/Tokyo");
 
-import React from "react";
+import React, { useState } from "react";
 
 import { ErrorMessage } from "../ErrorMessage";
 import { TimeDuration } from "../TimeDuration";
@@ -110,6 +116,50 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
           </section>
         </div>
       </div>
+      <div className="columns mt-3">
+        <div className="column is-12">
+          <section className="py-5">
+            <p className="title"> Dump Leaderboard </p>
+            <DumpLeaderboard client={client} />
+            <p>Dev consoleに出力されます</p>
+          </section>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const DumpLeaderboard = ({ client }: { client: AdminApiClient }) => {
+  const [when, setWhen] = useState(dayjs());
+
+  const getWhenString = () => {
+    const isoString = when.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    return isoString.substring(0, ((isoString.indexOf("T") | 0) + 6) | 0);
+  };
+  const setWhenString = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWhen(dayjs(`${e.target.value}:00`));
+  };
+
+  const onDumpClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const res = await client.getDumpLeaderboard(when.toDate());
+    console.table(
+      res.items.map((item) => ({
+        position: item.position,
+        teamName: item.team?.name,
+        latestScore: item.latestScore?.score,
+        bestScore: item.bestScore?.score,
+      }))
+    );
+    console.log(res.items);
+    console.log(JSON.stringify(res.items));
+  };
+
+  return (
+    <>
+      <input type="datetime-local" value={getWhenString()} onChange={setWhenString} />
+      <button onClick={onDumpClick}>Dump</button>
     </>
   );
 };

@@ -135,6 +135,9 @@ Rails.application.routes.draw do
 
       # admin/contestant_instances ListContestantInstances: GET /api/admin/contestant_instances
       resources :contestant_instances, only: %i(index)
+
+      # admin/dump_leaderboard GetDumpLeaderboard: GET /api/admin/dump_leaderboard
+      get 'dump_leaderboard' => 'leaderboard#dump'
     end
 
     get 'env_check_info' => 'env_checks#info'

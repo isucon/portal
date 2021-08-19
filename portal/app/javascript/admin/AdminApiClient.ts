@@ -167,6 +167,18 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getDumpLeaderboard(date: Date | "qualify-end") {
+    const klass = isuxportal.proto.services.admin.GetLeaderboardDumpResponse;
+    const resp = await this.request(
+      `${this.baseUrl}/api/admin/dump_leaderboard`,
+      "GET",
+      { when: typeof date === 'string' ? date : date.toISOString() },
+      null
+    );
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
+
   public request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     return this.apiClient.request(path, method, query, payload);
   }
