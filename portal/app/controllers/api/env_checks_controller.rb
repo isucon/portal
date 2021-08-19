@@ -31,6 +31,11 @@ class Api::EnvChecksController < Api::ApplicationController
             team_id: team_id,
             number: nameNum,
           )
+
+          if !instance.public_ipv4_address.nil? && instance.public_ipv4_address != public_ip_address
+            SlackWebhookJob.perform_later(text: ":face_with_monocle: *Updated server IP:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+          end
+
           instance.update_attributes!(
             cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
             status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
@@ -40,7 +45,7 @@ class Api::EnvChecksController < Api::ApplicationController
         else
           instance = ContestantInstance.find(team_id: team_id, number: nameNum)
           if instance&.public_ipv4_address != public_ip_address
-            SlackWebhookJob.perform_later(text: ":thinking_face: *Tried to update IP after contest finished:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+            SlackWebhookJob.perform_later(text: ":thinking_face: *Tried to update server IP after contest finished:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
           end
         end
       end
