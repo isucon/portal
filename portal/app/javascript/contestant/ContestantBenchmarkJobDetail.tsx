@@ -8,6 +8,7 @@ import { BenchmarkJobDetail } from "../BenchmarkJobDetail";
 import { ErrorMessage } from "../ErrorMessage";
 import { ReloadButton } from "../ReloadButton";
 import { ContestantBenchmarkJobForm } from "./ContestantBenchmarkJobForm";
+import { Redirect } from "react-router-dom";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -74,9 +75,7 @@ export class ContestantBenchmarkJobDetail extends React.Component<Props, State> 
           {this.renderError()}
           {this.renderJob()}
         </main>
-        <aside className="block">
-          {this.renderForm()}
-        </aside>
+        <aside className="block">{this.renderForm()}</aside>
       </>
     );
   }
@@ -98,9 +97,63 @@ export class ContestantBenchmarkJobDetail extends React.Component<Props, State> 
   renderForm() {
     return (
       <>
-        <h2 className="title is-2">Job Enqueue Form</h2>
-        <ContestantBenchmarkJobForm session={this.props.session} client={this.props.client} />
+        <ContestantBenchmarkReEnqueueForm job={this.state.job} client={this.props.client} />
       </>
     );
   }
 }
+
+const ContestantBenchmarkReEnqueueForm = ({
+  job,
+  client,
+}: {
+  job: isuxportal.proto.resources.IBenchmarkJob | null;
+  client: ApiClient;
+}) => {
+  const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
+  const [requesting, setRequesting] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<Error | null>(null);
+  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const jobId = job?.target?.id
+    if (!jobId) return
+
+    try {
+      setRequesting(true);
+      const resp = await client.enqueueBenchmarkJob({
+        targetId: jobId,
+      });
+      setRedirect(
+        <Redirect
+          push={true}
+          to={{
+            pathname: `/contestant/benchmark_jobs/${encodeURIComponent(resp.job!.id!.toString())}`,
+          }}
+        />
+      );
+    } catch (e) {
+      setError(e);
+      setRequesting(false);
+    }
+  };
+
+  if (!job?.result?.execution) return null;
+
+  return (
+    <div className="card mt-5">
+      {redirect}
+      <header className="card-header">
+        <h4 className="is-4 card-header-title">Re-Enqueue</h4>
+      </header>
+      <div className="card-content">
+        <div className="field has-addons">
+          <div className="control">
+            <button className="button is-primary" type="submit" disabled={requesting} onClick={onClick}>
+              Re-Enqueue
+            </button>
+          </div>
+        </div>
+        {error ? <ErrorMessage error={error} /> : null}
+      </div>
+    </div>
+  )
+};
