@@ -25,9 +25,16 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
     return (
       <tr>
         <td>{ci.number}</td>
-        <td>{ci.publicIpv4Address}</td>
+        <td>
+          {ci.publicIpv4Address}
+          <SmallCopyButton content={ci.publicIpv4Address!} />
+        </td>
         <td>
           <ContestantInstanceStatus status={ci.status!} />
+        </td>
+        <td>
+          <code>ssh isucon@{ci.publicIpv4Address}</code>
+          <SmallCopyButton content={`ssh isucon@${ci.publicIpv4Address}`} />
         </td>
       </tr>
     );
@@ -44,6 +51,7 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
             <th>#</th>
             <th>IPv4 Address</th>
             <th>Status</th>
+            <th>SSH Command Example</th>
           </tr>
         </thead>
 
@@ -64,3 +72,16 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
     </>
   );
 };
+
+const SmallCopyButton = ({content}: {content: string}) => {
+  const onClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await navigator.clipboard.writeText(content);
+  }
+
+  return (
+    <button className="button is-small ml-2" onClick={onClick}>
+      <span className="material-icons-outlined is-size-6">content_copy</span>
+    </button>
+  )
+}
