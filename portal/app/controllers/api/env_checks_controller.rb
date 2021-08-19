@@ -25,17 +25,23 @@ class Api::EnvChecksController < Api::ApplicationController
     if name.start_with?("qualify")
       if name != "qualify-unknown"
         nameNum = name.delete_prefix("qualify").to_i
-
         instance = ContestantInstance.find_or_initialize_by(
           team_id: team_id,
           number: nameNum,
         )
-        instance.update_attributes!(
-          cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
-          status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
-          private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
-          public_ipv4_address: public_ip_address,
-        )
+
+        if !instance.public_ipv4_address.nil? && instance.public_ipv4_address != public_ip_address
+          SlackWebhookJob.perform_later(text: ":face_with_monocle: *Updated server IP:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+        end
+
+        unless Contest.contest_end?
+          instance.update_attributes!(
+            cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
+            status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
+            private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
+            public_ipv4_address: public_ip_address,
+          )
+        end
       end
 
       if !passed
