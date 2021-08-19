@@ -176,7 +176,7 @@ module Contest
     #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
     #teams = results
     #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
-    team_objs = Team.active.promoted.order(id: :asc).map { |t| [t.id, t] }.to_h
+    team_objs = team ? {team.id => team} : Team.active.promoted.order(id: :asc).map { |t| [t.id, t] }.to_h
     team_exists = {}
     #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|

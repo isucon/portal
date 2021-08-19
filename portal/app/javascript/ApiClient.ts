@@ -188,6 +188,66 @@ export class ApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  // contestant getDashboard API returns only informations of a team logged in, so need to combine with getAudienceDashboard and merge them at a client side.
+  public async getContestantMergedDashboard(id: number) {
+    const [contestantBoard, audienceBoard] = await Promise.all<
+      isuxportal.proto.services.contestant.IDashboardResponse,
+      isuxportal.proto.services.audience.IDashboardResponse
+    >([this.getDashboard(), this.getAudienceDashboard()]);
+
+    const contestantLeaderboard = contestantBoard.leaderboard!;
+    const audienceLeaderboard = audienceBoard.leaderboard!;
+
+    const board: isuxportal.proto.services.contestant.IDashboardResponse = {};
+    board.leaderboard =  {
+      teams: [],
+      generalTeams: [],
+      studentTeams: [],
+      hiddenTeams: [],
+      progresses: contestantLeaderboard.progresses,
+      contest: contestantLeaderboard.contest,
+    };
+
+    const listPairs = [
+      [board.leaderboard.teams!, audienceLeaderboard.teams || [], contestantLeaderboard.teams || []],
+      [board.leaderboard.generalTeams!, audienceLeaderboard.generalTeams || [], contestantLeaderboard.generalTeams || []],
+      [board.leaderboard.studentTeams!, audienceLeaderboard.studentTeams || [], contestantLeaderboard.studentTeams || []],
+      [board.leaderboard.hiddenTeams!, audienceLeaderboard.hiddenTeams || [], contestantLeaderboard.hiddenTeams || []],
+    ];
+
+    listPairs.forEach(([dest, audienceSrc, contestantSrc]) => {
+      audienceSrc.forEach((t) => {
+        if (t.team!.id !== id) {
+          dest.push(t);
+        }
+      });
+      contestantSrc.forEach((t) => dest.push(t));
+
+      dest.sort((a, b) => {
+        const as = (a.latestScore?.score ?? 0) as number;
+        const bs = (b.latestScore?.score ?? 0) as number;
+        const scoreComparision =  bs - as;
+        if (scoreComparision !== 0) return scoreComparision;
+
+        const ats = (a.latestScore?.markedAt?.seconds! ?? 0) as number;
+        const bts = (b.latestScore?.markedAt?.seconds! ?? 0) as number;
+        const timeSecondsComparison = bts - ats;
+        if (timeSecondsComparison !== 0) return timeSecondsComparison;
+
+        const atn = (a.latestScore?.markedAt?.nanos! ?? 0) as number;
+        const btn = (b.latestScore?.markedAt?.nanos! ?? 0) as number;
+        const timeNanosComparison = btn - atn;
+        if (timeNanosComparison !== 0) return timeNanosComparison;
+
+        return 0;
+      })
+    });
+
+    return board;
+  } 
+
+
+
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == "/" ? `${this.baseUrl}${path}` : path;
     const headers = new Headers();
