@@ -37,6 +37,11 @@ class Api::EnvChecksController < Api::ApplicationController
             private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
             public_ipv4_address: public_ip_address,
           )
+        else
+          instance = ContestantInstance.find(team_id: team_id, number: nameNum)
+          if instance&.public_ipv4_address != public_ip_address
+            SlackWebhookJob.perform_later(text: ":thinking_face: *Tried to update IP after contest finished:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+          end
         end
       end
 
