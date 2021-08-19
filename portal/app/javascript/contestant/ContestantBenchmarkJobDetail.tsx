@@ -152,6 +152,9 @@ const ContestantBenchmarkReEnqueueForm = ({
             </button>
           </div>
         </div>
+        <p className="is-size-7">
+          同一ベンチ対象サーバーで再度 Enqueue できます。
+        </p>
         {error ? <ErrorMessage error={error} /> : null}
       </div>
     </div>
