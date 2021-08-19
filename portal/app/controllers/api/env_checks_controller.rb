@@ -39,7 +39,7 @@ class Api::EnvChecksController < Api::ApplicationController
       end
 
       if !passed
-        SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* team_id=#{team_id} name=#{name}")
+        SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
       end
     end
   end
