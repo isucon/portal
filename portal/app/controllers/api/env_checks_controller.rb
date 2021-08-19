@@ -26,7 +26,7 @@ class Api::EnvChecksController < Api::ApplicationController
       if name != "qualify-unknown"
         nameNum = name.delete_prefix("qualify").to_i
 
-        if Contest.contest_running?
+        if !Contest.contest_end?
           instance = ContestantInstance.find_or_initialize_by(
             team_id: team_id,
             number: nameNum,
