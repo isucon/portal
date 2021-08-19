@@ -10,30 +10,37 @@ class Api::EnvChecksController < Api::ApplicationController
     team_id = @payload[:team_id]
     name = params[:name]
     public_ip_address = params[:ip_address]
+    passed = params[:passed]
     @env_check = EnvCheck.new(
       team_id: team_id,
       name: name,
       ip_address: public_ip_address,
-      passed: params[:passed],
+      passed: passed,
       message: params[:message],
       admin_message: params[:admin_message],
       raw_data: params[:raw_data],
     )
     @env_check.save!
 
-    if name.start_with?("qualify") && name != "qualify-unknown"
-      nameNum = name.delete_prefix("qualify").to_i
+    if name.start_with?("qualify")
+      if name != "qualify-unknown"
+        nameNum = name.delete_prefix("qualify").to_i
 
-      instance = ContestantInstance.find_or_initialize_by(
-        team_id: team_id,
-        number: nameNum,
-      )
-      instance.update_attributes!(
-        cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
-        status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
-        private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
-        public_ipv4_address: public_ip_address,
-      )
+        instance = ContestantInstance.find_or_initialize_by(
+          team_id: team_id,
+          number: nameNum,
+        )
+        instance.update_attributes!(
+          cloud_id: "qualify-#{team_id}-#{nameNum}", # dummy
+          status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
+          private_ipv4_address: "isucondition-#{nameNum}.t.isucon.dev",
+          public_ipv4_address: public_ip_address,
+        )
+      end
+
+      if !passed
+        SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* team_id=#{team_id} name=#{name}")
+      end
     end
   end
 
