@@ -44,7 +44,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-prd');
       ISUXPORTAL_SHORYUKEN_QUEUE: 'isuxportal-activejob-prd',
       ISUXPORTAL_TERMS_URL: 'https://isucon.net/archives/55857411.html',
       ISUXPORTAL_RULES_URL: 'https://isucon.net/archives/55854734.html',
-      ISUXPORTAL_DOCS_URL: '',
+      ISUXPORTAL_DOCS_URL: 'https://gist.github.com/ockie1729/53589a0e8c979198b6231d8599153c70',
     },
     secrets: [
       secret('SECRET_KEY_BASE'),
