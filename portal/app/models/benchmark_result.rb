@@ -90,8 +90,10 @@ class BenchmarkResult < ApplicationRecord
   end
 
   private def validate_immutable_after_finish
-    if finished && !finished_changed? && changed?
-      errors.add :finished, "records must not be changed"
+    unless Rails.env.development?
+      if finished && !finished_changed? && changed?
+        errors.add :finished, "records must not be changed"
+      end
     end
   end
 
