@@ -5,7 +5,9 @@ local base = import './isuxportal-prd-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 3,
+    desired_count: 15,
+    cpu: '512',
+    memory: '1024',
     elb_v2: utils.grpcNlbInternal {
       protocol: 'TLS',
     },
@@ -14,6 +16,8 @@ base {
     ],
   },
   app+: {
+    cpu: 512 - 64,
+    memory: 1024 - 128,
     command: ['bundle', 'exec', 'rails', 'runner', 'Griffin::Server.run(port: 4000)'],
     env+: {
       GRIFFIN_POOL_MIN: '20',
