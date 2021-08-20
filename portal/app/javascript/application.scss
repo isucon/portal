@@ -318,9 +318,9 @@ $qBackground: #f3f4f5;
       background: repeating-linear-gradient(
         90deg,
         $qBackground,
-        $qBackground 0.15rem,
-        transparent 0.15rem,
-        transparent 0.3rem
+        $qBackground 1vw,
+        transparent 1vw,
+        transparent 2vw
       );
     }
   }
