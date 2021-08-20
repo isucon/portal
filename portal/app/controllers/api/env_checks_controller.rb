@@ -11,6 +11,7 @@ class Api::EnvChecksController < Api::ApplicationController
     name = params[:name]
     public_ip_address = params[:ip_address]
     passed = params[:passed]
+    previous_check = EnvCheck.where(team_id: team_id, name: name).last
     @env_check = EnvCheck.new(
       team_id: team_id,
       name: name,
@@ -44,7 +45,7 @@ class Api::EnvChecksController < Api::ApplicationController
         end
       end
 
-      if !passed
+      if !passed && (previous_check.nil? || previous_check.passed || (previous_check.created_at+5.minute) < Time.now)
         SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* <https://#{Rails.application.config.x.public_url_host}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
       end
     end
