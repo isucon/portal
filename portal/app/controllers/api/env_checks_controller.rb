@@ -4,7 +4,7 @@ class Api::EnvChecksController < Api::ApplicationController
   before_action :require_valid_checker_token
 
   TEST_AMI_IDS = ["ami-0e22b2e5f011bcb69"]
-  QUALIFY_AMI_IDS = []
+  QUALIFY_AMI_IDS = ["ami-0be3f7cce0ddfa2a3"]
 
   def create
     team_id = @payload[:team_id]
