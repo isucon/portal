@@ -8,7 +8,7 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
 
     expires_in 0.seconds, public: false, must_revalidate: true
 
-    cache_sum, cache = Rails.cache.read("dashboard:#{round}:contestant:contestant-solo:team-#{current_team.id}")
+    cache_sum, cache = Rails.cache.read("dashboard:#{round}:contestant-solo:team-#{current_team.id}")
     if cache && cache_sum
       if stale?(etag: cache_sum)
         return render protobuf: cache
