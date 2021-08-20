@@ -31,7 +31,7 @@ class Api::EnvChecksController < Api::ApplicationController
         )
 
         if !instance.public_ipv4_address.nil? && instance.public_ipv4_address != public_ip_address
-          SlackWebhookJob.perform_later(text: ":face_with_monocle: *Updated server IP:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+          SlackWebhookJob.perform_later(text: ":face_with_monocle: *Updated server IP:* <https://#{Rails.application.config.x.public_url_host}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
         end
 
         unless Contest.contest_end?
@@ -45,7 +45,7 @@ class Api::EnvChecksController < Api::ApplicationController
       end
 
       if !passed
-        SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* <https://#{default_url_options.fetch(:host)}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
+        SlackWebhookJob.perform_later(text: ":shocked_face_with_exploding_head: *Checker failed:* <https://#{Rails.application.config.x.public_url_host}/admin/teams/#{team_id}|team_id=#{team_id}> name=#{name}")
       end
     end
   end
