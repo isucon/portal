@@ -33,6 +33,8 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
 
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
+  const [scoreFilterForm, setScoreFilterForm] = React.useState('');
+  const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
 
   const elem = React.useRef<HTMLDivElement>(null);
   const [data, setData] = React.useState<Array<Array<number | null>>>([]);
@@ -43,9 +45,9 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
   const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
   //console.log("render", cacheKey);
 
-  const targetTeams = showPinnedOnly
-    ? teams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId)
-    : teams;
+  let targetTeams = teams;
+  if (showPinnedOnly) targetTeams = targetTeams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
+  if (scoreFilter) targetTeams = targetTeams.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
 
   React.useEffect(() => {
     //console.log("ScoreGraph: setData", cacheKey);
@@ -95,7 +97,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
   React.useEffect(() => {
     if (!elem.current) return;
     if (!(data[0] && (data[0].length-1) >= teamIdCount)) return;
-    //console.log("ScoreGraph: setChart");
+    console.log("ScoreGraph: setChart");
 
     const opts: uPlot.Options = {
       width: width || 950,
@@ -135,7 +137,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     const newChart = new uPlot(opts, data, elem.current);
     setChart(newChart);
     return () => newChart.destroy();
-  }, [setChart, elem.current, data[0] && data[0].length, teamIds, teamIdCount, showPinnedOnly ? teamPins : null]);
+  }, [setChart, elem.current, data[0] && data[0].length, teamIds, teamIdCount, showPinnedOnly ? teamPins : null, scoreFilter]);
 
   React.useEffect(() => {
     if (!chart || !data) return;
@@ -147,6 +149,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
+  if (scoreFilter) classNames.push("isux-scoregraph-pinnedonly");
 
   return (
     <section>
@@ -156,10 +159,14 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         </div>
 
         <div className="level-right has-text-right">
+          <form onSubmit={(e) => { e.preventDefault(); setScoreFilter(scoreFilterForm.length === 0 ? null : parseInt(scoreFilterForm,10));  }}>
+            <input className="input is-small" type="text" placeholder="Filter by best score" size={15} onChange={(e) => { setScoreFilterForm(e.target.value);  }} value={scoreFilterForm} />
+          </form>
           <label className="checkbox">
             <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
             Show pinned only
           </label>
+
         </div>
       </div>
       <div className={classNames.join(" ")} ref={elem} />
