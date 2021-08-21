@@ -6,12 +6,16 @@ local base = import './isuxportal-prd-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 30,
+    cpu: '512',
+    memory: '1024',
     elb_v2: utils.albInternetFacing,
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
   },
   app+: {
+    cpu: 512 - 64,
+    memory: 1024 - 32,
     env+: {
       RACK_TIMEOUT_SERVICE_TIMEOUT: '8',
       WORKER_NUM: '1',
