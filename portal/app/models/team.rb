@@ -9,6 +9,7 @@ class Team < ApplicationRecord
   has_many :clarifications, dependent: :destroy
   has_many :contestant_instances, dependent: :destroy
   has_many :env_checks, dependent: :destroy
+  has_many :extra_time_assignments, dependent: :destroy
 
   has_one :survey_response, dependent: :destroy
 
