@@ -6,7 +6,8 @@ class Api::Contestant::DashboardsController < Api::Contestant::ApplicationContro
     # See also: UpdateContestantDashboardJob
     round = Rails.application.config.x.contest.final ? "final" : "qualify"
 
-    expires_in 0.seconds, public: false, must_revalidate: true
+    expires_in 15.seconds, public: true, must_revalidate: true
+    response.cache_control[:extras] << 'no-cache="Set-Cookie"'
 
     cache_sum, cache = Rails.cache.read("dashboard:#{round}:contestant-solo:team-#{current_team.id}")
     if cache && cache_sum
