@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
       session[:contestant_id] = contestant.id
       SyncSshKeysOfContestantJob.perform_later(contestant, auth['credentials']['token'])
       SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
-      redirect_to session[:back_to] || (Contest.contest_running? ? '/contestant' : '/')
+      redirect_to session[:back_to] || (Contest.contest_open_for_team?(team: contestant.team) ? '/contestant' : '/')
     else
       redirect_to session[:back_to] || registration_path
     end

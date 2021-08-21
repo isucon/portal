@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_103210) do
+ActiveRecord::Schema.define(version: 2021_08_21_035746) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -118,6 +118,16 @@ ActiveRecord::Schema.define(version: 2021_08_13_103210) do
     t.text "raw_data", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "extra_time_assignments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.boolean "final", null: false
+    t.integer "seconds", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["team_id", "final"], name: "index_extra_time_assignments_on_team_id_and_final", unique: true
+    t.index ["team_id"], name: "index_extra_time_assignments_on_team_id"
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|

@@ -54,6 +54,21 @@ module Contest
     end
   end
 
+  def self.contest_open_for_team?(team:, now: Time.zone.now, final: Rails.application.config.x.contest.final)
+    general = !Contest.contest_end?(now) && Contest.contest_running?(now)
+    return true if general
+    return false unless team
+
+    start = Rails.application.config.x.contest.contest_start
+    finish = Rails.application.config.x.contest.contest_end
+    return false unless start && finish
+
+    extra_time_in_seconds = team.extra_time_assignments.where(final: final).first&.seconds
+    return false unless extra_time_in_seconds
+
+    (start...finish+extra_time_in_seconds).cover?(now)
+  end
+
   def self.registration_invitation_closed?(now=Time.zone.now)
     close = Rails.application.config.x.contest.registration_invitation_close
     if close
@@ -75,7 +90,7 @@ module Contest
     Rails.application.config.x.contest.max_teams || 0
   end
 
-  def self.to_pb(now: Time.zone.now)
+  def self.to_pb(now: Time.zone.now, team: nil)
     auto_contest_epoch = now.utc.hour/8*8
     Isuxportal::Proto::Resources::Contest.new(
       registration_opens_at: Rails.application.config.x.contest.registration_open,
@@ -85,6 +100,8 @@ module Contest
       ends_at: Rails.application.config.x.contest.contest_end || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch+8, 0, 0),
       frozen: Rails.application.config.x.contest.contest_freeze&.yield_self{ |_| now >= _ } || false,
       status: case
+      when team && contest_open_for_team?(now: now, team: team)
+        Isuxportal::Proto::Resources::Contest::Status::STARTED
       when contest_running?(now)
         Isuxportal::Proto::Resources::Contest::Status::STARTED
       when contest_end?(now)
