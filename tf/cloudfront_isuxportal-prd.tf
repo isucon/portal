@@ -50,45 +50,45 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
-  #ordered_cache_behavior {
-  #  path_pattern     = "/api/audience/*"
-  #  allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-  #  cached_methods   = ["GET", "HEAD"]
-  #  target_origin_id = "portal-prd"
-  #  forwarded_values {
-  #    query_string = true
-  #    headers      = ["Host", "Accept"]
-  #    cookies {
-  #      forward = "none"
-  #    }
+  ordered_cache_behavior {
+    path_pattern     = "/api/audience/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "portal-prd"
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Accept"]
+      cookies {
+        forward = "none"
+      }
 
-  #  }
-  #  min_ttl                = 0
-  #  default_ttl            = 0
-  #  max_ttl                = 300
-  #  compress               = true
-  #  viewer_protocol_policy = "redirect-to-https"
-  #}
+    }
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 300
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
-  #ordered_cache_behavior {
-  #  path_pattern     = "/api/contestant/dashboard"
-  #  allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-  #  cached_methods   = ["GET", "HEAD"]
-  #  target_origin_id = "portal-prd"
-  #  forwarded_values {
-  #    query_string = true
-  #    headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
-  #    cookies {
-  #      forward           = "whitelist"
-  #      whitelisted_names = ["__Host-isuxportal_sess"]
-  #    }
-  #  }
-  #  min_ttl                = 0
-  #  default_ttl            = 0
-  #  max_ttl                = 0
-  #  compress               = true
-  #  viewer_protocol_policy = "redirect-to-https"
-  #}
+  ordered_cache_behavior {
+    path_pattern     = "/api/contestant/dashboard"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "portal-prd"
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
+      cookies {
+        forward           = "whitelist"
+        whitelisted_names = ["__Host-isuxportal_sess"]
+      }
+    }
+    min_ttl                = 0
+    default_ttl            = 15
+    max_ttl                = 15
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+  }
 
 
   default_cache_behavior {
