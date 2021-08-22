@@ -90,6 +90,26 @@ resource "aws_cloudfront_distribution" "isuxportal-prd" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
+  ordered_cache_behavior {
+    path_pattern     = "/api/admin/dashboard"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "portal-prd"
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Accept", "X-Csrf-Token", "User-Agent"]
+      cookies {
+        forward           = "whitelist"
+        whitelisted_names = ["__Host-isuxportal_sess"]
+      }
+    }
+    min_ttl                = 0
+    default_ttl            = 15
+    max_ttl                = 15
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
