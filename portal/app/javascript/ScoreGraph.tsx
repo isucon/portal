@@ -22,6 +22,27 @@ const usePrevious = <T extends unknown>(value: T) => {
   return ref.current;
 }
 
+const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+  let numTeams = teams.length;
+  let numScores = teams.map((item) => (item.scores || []).length).reduce((a, b) => a + b, 0);
+  let latestTimestamp = 0;
+  teams.forEach((item) => {
+    (item.scores || []).forEach((score) => {
+      const ts = score.markedAt!.seconds! as number;
+      if (latestTimestamp < ts) latestTimestamp = ts;
+    });
+  });
+  return JSON.stringify([numTeams, numScores, latestTimestamp]);
+};
+
+const calculateTargetTeamLegendCacheKey = (targetTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+  return JSON.stringify(
+    [...targetTeams]
+      .sort((a, b) => (a.team!.id as number) - (b.team!.id as number))
+      .map(t => [t.team!.name, t.team!.id])
+  )
+}
+
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
@@ -34,8 +55,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     if (showPinnedOnly) t = t.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
     if (scoreFilter) t = t.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
     return t;
-    // TODO: teams? teamPins?
-  }, [JSON.stringify(teams), JSON.stringify([...teamPins.keys()]), teamId, showPinnedOnly, scoreFilter])
+  }, [calculateGraphCacheKey(teams), [...teamPins.keys()].join(','), teamId, showPinnedOnly, scoreFilter])
 
   const uplotOpts = React.useMemo((): uPlot.Options => ({
     width: width || 950,
@@ -73,7 +93,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     legend: {
       show: showPinnedOnly || scoreFilter !== null
     }
-  }), [width, contest.startsAt!.seconds!, contest.endsAt!.seconds!, showPinnedOnly || scoreFilter !== null, JSON.stringify([...targetTeams].sort((a, b) => (a.team!.id as number) - (b.team!.id as number)).map(t => ({name: t.team!.name, id: t.team!.id})))])
+  }), [width, contest.startsAt!.seconds!, contest.endsAt!.seconds!, showPinnedOnly || scoreFilter !== null, calculateTargetTeamLegendCacheKey(targetTeams)])
 
   const data = React.useMemo(() => {
     //console.log("ScoreGraph: setData", cacheKey);
