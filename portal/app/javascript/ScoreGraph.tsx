@@ -1,11 +1,9 @@
 import type { isuxportal } from "./pb";
 
 import React from "react";
-import dayjs from "dayjs";
-
 import uPlot from "uplot";
 
-import type { TeamPinsMap, TeamPins } from "./TeamPins";
+import type { TeamPinsMap } from "./TeamPins";
 import { COLORS } from "./ScoreGraphColors";
 
 interface Props {
@@ -16,6 +14,14 @@ interface Props {
   teamId?: number | Long;
 }
 
+const usePrevious = <T extends unknown>(value: T) => {
+  const ref = React.useRef<T | undefined>();
+  React.useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
@@ -23,19 +29,58 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
   const elem = React.useRef<HTMLDivElement>(null);
   const [chart, setChart] = React.useState<uPlot | null>(null);
 
-  let targetTeams = teams;
-  if (showPinnedOnly) targetTeams = targetTeams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
-  if (scoreFilter) targetTeams = targetTeams.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
+  const targetTeams = React.useMemo(() => {
+    let t = teams;
+    if (showPinnedOnly) t = t.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
+    if (scoreFilter) t = t.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
+    return t;
+    // TODO: teams? teamPins?
+  }, [JSON.stringify(teams), JSON.stringify([...teamPins.keys()]), teamId, showPinnedOnly, scoreFilter])
 
-  React.useEffect(() => {
-    if (!elem.current) return;
-    console.log("ScoreGraph: setChart");
+  const uplotOpts = React.useMemo((): uPlot.Options => ({
+    width: width || 950,
+    height: 500,
+    scales: {
+      x: {
+        auto: false,
+        range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number) + 3600],
+      },
+      pt: {
+        auto: true,
+      },
+    },
+    series: [
+      {
+        scale: "x",
+      },
+      ...targetTeams.map((item) => {
+        return {
+          label: item.team!.name!,
+          stroke: COLORS[(item.team!.id! as number) % COLORS.length],
+          scale: "pt",
+          id: 0
+        };
+      }),
+    ],
+    axes: [
+      {},
+      {
+        label: "Score",
+        scale: "pt",
+        show: true,
+      },
+    ],
+    legend: {
+      show: showPinnedOnly || scoreFilter !== null
+    }
+  }), [width, contest.startsAt!.seconds!, contest.endsAt!.seconds!, showPinnedOnly || scoreFilter !== null, JSON.stringify([...targetTeams].sort((a, b) => (a.team!.id as number) - (b.team!.id as number)).map(t => ({name: t.team!.name, id: t.team!.id})))])
 
+  const data = React.useMemo(() => {
     //console.log("ScoreGraph: setData", cacheKey);
     const timestamps: number[] = [
       ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
     ].sort((a, b) => a - b);
-    const data: [number[], ...Array<Array<number | null>>] = [timestamps];
+    const d: [number[], ...Array<Array<number | null>>] = [timestamps];
 
     targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
@@ -69,48 +114,29 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
         tsPtr++;
       }
-      data.push(series);
+      d.push(series);
     });
 
-    const opts: uPlot.Options = {
-      width: width || 950,
-      height: 500,
-      scales: {
-        x: {
-          auto: false,
-          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number) + 3600],
-        },
-        pt: {
-          auto: true,
-        },
-      },
-      series: [
-        {
-          scale: "x",
-        },
-        ...targetTeams.map((item) => {
-          return {
-            label: item.team!.name!,
-            stroke: COLORS[(item.team!.id! as number) % COLORS.length],
-            scale: "pt",
-          };
-        }),
-      ],
-      axes: [
-        {},
-        {
-          label: "Score",
-          scale: "pt",
-          show: true,
-        },
-      ],
-    };
+    return d;
+  }, [targetTeams])
 
-    chart?.destroy();
-    const newChart = new uPlot(opts, data, elem.current);
-    setChart(newChart);
-    return () => newChart.destroy();
-  }, [setChart, elem.current, JSON.stringify(targetTeams), showPinnedOnly ? JSON.stringify([...teamPins.keys()]) : null, scoreFilter]);
+  const prevValues = usePrevious({ setChart, elemCurrent: elem.current, uplotOpts, data })
+  React.useEffect(() => {
+    if (!elem.current) return;
+
+    if (!prevValues || prevValues.setChart !== setChart || prevValues.elemCurrent !== elem.current || prevValues.uplotOpts !== uplotOpts) {
+      console.log("ScoreGraph: setChart");
+      chart?.destroy();
+      const newChart = new uPlot(uplotOpts, data, elem.current);
+      setChart(newChart);
+    } else if (prevValues.data !== data) {
+      console.log("ScoreGraph: setData");
+      chart?.setData(data)
+    }
+    return () => {
+      chart?.destroy();
+    }
+  }, [setChart, elem.current, uplotOpts, data]);
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
