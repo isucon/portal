@@ -35,7 +35,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     const timestamps: number[] = [
       ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
     ].sort((a, b) => a - b);
-    const data: Array<Array<number | null>> = [timestamps];
+    const data: [number[], ...Array<Array<number | null>>] = [timestamps];
 
     targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
