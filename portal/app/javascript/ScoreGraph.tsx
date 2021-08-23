@@ -33,7 +33,6 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
 
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
-  const [scoreFilterForm, setScoreFilterForm] = React.useState('');
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
 
   const elem = React.useRef<HTMLDivElement>(null);
@@ -159,13 +158,8 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         </div>
 
         <div className="level-right has-text-right">
-          <form onSubmit={(e) => { e.preventDefault(); setScoreFilter(scoreFilterForm.length === 0 ? null : parseInt(scoreFilterForm,10));  }}>
-            <input className="input is-small" type="text" placeholder="Filter by best score" size={15} onChange={(e) => { setScoreFilterForm(e.target.value);  }} value={scoreFilterForm} />
-          </form>
-          <label className="checkbox">
-            <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
-            Show pinned only
-          </label>
+          <ScoreGraphScoreFilter onChange={setScoreFilter} />
+          <ScoreGraphPinFilter showPinnedOnly={showPinnedOnly} onChange={setShowPinnedOnly} />
 
         </div>
       </div>
@@ -173,3 +167,29 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     </section>
   );
 };
+
+const ScoreGraphPinFilter = ({ showPinnedOnly, onChange }: { showPinnedOnly: boolean, onChange: (showPinnedOnly: boolean) => void }) => {
+  return (
+    <label className="checkbox">
+      <input type="checkbox" checked={showPinnedOnly} onChange={(e) => onChange(e.target.checked)} />
+      Show pinned only
+    </label>
+  )
+}
+
+const ScoreGraphScoreFilter = ({ onChange }: { onChange: (scoreFilter: number | null) => void }) => {
+  const [scoreFilterForm, setScoreFilterForm] = React.useState('');
+  const onSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onChange(scoreFilterForm.length === 0 ? null : parseInt(scoreFilterForm,10));
+  }, [onChange, scoreFilterForm])
+  const onScoreFilterFormChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setScoreFilterForm(e.target.value);
+  }, [setScoreFilterForm])
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input className="input is-small" type="text" placeholder="Filter by best score" size={15} onChange={onScoreFilterFormChange} value={scoreFilterForm} />
+    </form>
+  )
+}
