@@ -16,44 +16,26 @@ interface Props {
   teamId?: number | Long;
 }
 
-const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
-  let numTeams = teams.length;
-  let numScores = teams.map((item) => (item.scores || []).length).reduce((a, b) => a + b, 0);
-
-  let latestTimestamp = 0;
-  teams.forEach((item) => {
-    (item.scores || []).forEach((score) => {
-      const ts = score.markedAt!.seconds! as number;
-      if (latestTimestamp < ts) latestTimestamp = ts;
-    });
-  });
-
-  return [numTeams, numScores, latestTimestamp];
-};
-
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
 
   const elem = React.useRef<HTMLDivElement>(null);
-  const [data, setData] = React.useState<Array<Array<number | null>>>([]);
   const [chart, setChart] = React.useState<uPlot | null>(null);
-
-  const teamIds = teams.map((i) => i.team!.id).join(",");
-  const teamIdCount = teams.length;
-  const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
-  //console.log("render", cacheKey);
 
   let targetTeams = teams;
   if (showPinnedOnly) targetTeams = targetTeams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
   if (scoreFilter) targetTeams = targetTeams.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
 
   React.useEffect(() => {
+    if (!elem.current) return;
+    console.log("ScoreGraph: setChart");
+
     //console.log("ScoreGraph: setData", cacheKey);
     const timestamps: number[] = [
       ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
     ].sort((a, b) => a - b);
-    const newData: Array<Array<number | null>> = [timestamps];
+    const data: Array<Array<number | null>> = [timestamps];
 
     targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
@@ -87,16 +69,8 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
         tsPtr++;
       }
-      newData.push(series);
+      data.push(series);
     });
-
-    setData(newData);
-  }, [setData, cacheKey]);
-
-  React.useEffect(() => {
-    if (!elem.current) return;
-    if (!(data[0] && (data[0].length-1) >= teamIdCount)) return;
-    console.log("ScoreGraph: setChart");
 
     const opts: uPlot.Options = {
       width: width || 950,
@@ -131,20 +105,12 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         },
       ],
     };
-    //console.log(data);
 
+    chart?.destroy();
     const newChart = new uPlot(opts, data, elem.current);
     setChart(newChart);
     return () => newChart.destroy();
-  }, [setChart, elem.current, data[0] && data[0].length, teamIds, teamIdCount, showPinnedOnly ? teamPins : null, scoreFilter]);
-
-  React.useEffect(() => {
-    if (!chart || !data) return;
-    console.log(`ScoreGraph: chart.setData data=${data[0] && data[0].length}, series=${chart.series.length}, teamids=${teamIdCount}`);
-    if (data[0] && (data[0].length-1) >= teamIdCount && (chart.series.length-1) >= teamIdCount) {
-      chart.setData(data);
-    }
-  }, [chart, teamIds, teamIdCount, data]);
+  }, [setChart, elem.current, JSON.stringify(targetTeams), showPinnedOnly ? JSON.stringify([...teamPins.keys()]) : null, scoreFilter]);
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
