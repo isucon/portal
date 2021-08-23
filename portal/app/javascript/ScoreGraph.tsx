@@ -167,10 +167,13 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
       console.log("ScoreGraph: setData");
       chart?.setData(data);
     }
+  }, [setChart, elem.current, uplotOpts, data]);
+
+  React.useEffect(() => {
     return () => {
       chart?.destroy();
     };
-  }, [setChart, elem.current, uplotOpts, data]);
+  }, [])
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
