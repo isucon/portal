@@ -10,6 +10,7 @@ import { ErrorMessage } from "../ErrorMessage";
 import { AdminTeamEdit } from "./AdminTeamEdit";
 import { AdminTeamCloudFormationDownloadButton } from "./AdminTeamCloudFormationDownloadButton";
 import { Timestamp } from "../Timestamp";
+import { AdminTeamTagList } from "./AdminTeamTagList";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -94,10 +95,13 @@ export class AdminTeamDetail extends React.Component<Props, State> {
           </div>
           <div className="card-content">
             <p className="subtitle">
-              {this.teamIsStudent() ? <span className="tag is-info">学生チーム</span> : null}
-              {this.state.team.withdrawn ? <span className="tag is-warning">辞退</span> : null}
-              {this.state.team.disqualified ? <span className="tag is-danger">失格</span> : null}
-              {this.state.team.hidden ? <span className="tag is-black">非表示</span> : null}
+              <AdminTeamTagList
+                isStudent={this.state.team.student?.status ?? false}
+                withdrawn={this.state.team.withdrawn!}
+                disqualified={this.state.team.disqualified!}
+                hidden={this.state.team.hidden!}
+                finalParticipation={this.state.team.finalParticipation!}
+              />
             </p>
 
             <div className="content">
@@ -168,10 +172,6 @@ export class AdminTeamDetail extends React.Component<Props, State> {
     );
   }
 
-  teamIsStudent() {
-    return this.state.team?.members && this.state.team.members.filter((v) => !v.detail!.isStudent).length == 0;
-  }
-
   public renderEnvChecks() {
     const envChecks = this.state.envChecks;
 
@@ -199,7 +199,11 @@ export class AdminTeamDetail extends React.Component<Props, State> {
         </div>
         <div className="card-content">
           <p className="subtitle">
-            {this.teamHasPassedPreCheck() ? <span className="tag is-success">競技環境確認完了済み</span> : <span className="tag is-danger">競技環境確認未完了</span>}
+            {this.teamHasPassedPreCheck() ? (
+              <span className="tag is-success">競技環境確認完了済み</span>
+            ) : (
+              <span className="tag is-danger">競技環境確認未完了</span>
+            )}
           </p>
           <table className="table is-striped is-fullwidth">
             <thead>
@@ -230,7 +234,7 @@ export class AdminTeamDetail extends React.Component<Props, State> {
   }
 
   teamHasPassedPreCheck() {
-    return this.state.envChecks?.some(envCheck => envCheck.name === 'test-ssh' && envCheck.passed)
+    return this.state.envChecks?.some((envCheck) => envCheck.name === "test-ssh" && envCheck.passed);
   }
 
   public renderError() {
