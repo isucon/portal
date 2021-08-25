@@ -94,13 +94,13 @@ export const Clarification: React.FC<Props> = (props: Props) => {
             {originalQuestionAvailable ? (
               <div className="tabs">
                 <ul>
-                  <li className={showOriginalQuestion ? "" : "is-active"}>
-                    <a href="#" onClick={onQuestionTabClick(false)}>
+                  <li className={showOriginalQuestion ? "is-active" : ""}>
+                    <a href="#" onClick={onQuestionTabClick(true)}>
                       原文
                     </a>
                   </li>
-                  <li className={showOriginalQuestion ? "is-active" : ""}>
-                    <a href="#" onClick={onQuestionTabClick(true)}>
+                  <li className={showOriginalQuestion ? "" : "is-active"}>
+                    <a href="#" onClick={onQuestionTabClick(false)}>
                       校正版
                     </a>
                   </li>
