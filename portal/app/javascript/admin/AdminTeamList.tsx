@@ -6,6 +6,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
 import { ErrorMessage } from "../ErrorMessage";
+import { AdminTeamTagList } from "./AdminTeamTagList";
 
 export interface Props {
   session: isuxportal.proto.services.common.GetCurrentSessionResponse;
@@ -89,11 +90,13 @@ export class AdminTeamList extends React.Component<Props, State> {
           ))}
         </td>
         <td>
-          {team.isStudent ? <span className="tag is-info">学生</span> : null}
-          {team.withdrawn ? <span className="tag is-warning">辞退</span> : null}
-          {team.disqualified ? <span className="tag is-danger">失格</span> : null}
-          {team.hidden ? <span className="tag is-black">非表示</span> : null}
-          {team.finalParticipation ? <span className="tag is-success">本選</span> : null}
+          <AdminTeamTagList
+            isStudent={team.isStudent!}
+            withdrawn={team.withdrawn!}
+            disqualified={team.disqualified!}
+            hidden={team.hidden!}
+            finalParticipation={team.finalParticipation!}
+          />
         </td>
       </tr>
     );
