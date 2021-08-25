@@ -2,12 +2,12 @@
 # license_key: ENV['NEW_RELIC_LICENSE_KEY']
 
 common: &default_settings
-  app_name: ISUCON 10 Portal
+  app_name: ISUCON 11 Portal
   log_level: info
 
 development:
   <<: *default_settings
-  app_name: ISUCON 10 Portal (Development)
+  app_name: ISUCON 11 Portal (Development)
   agent_enabled: true
 
 test:
