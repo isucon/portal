@@ -55,7 +55,7 @@ local secret = utils.makeSecretParameterStore('isuxportal-dev');
     secrets: [
       secret('SECRET_KEY_BASE'),
       secret('DATABASE_PASSWORD'),
-      // secret('NEW_RELIC_LICENSE_KEY'),
+      secret('NEW_RELIC_LICENSE_KEY'),
       secret('ISUXPORTAL_SLACK_WEBHOOK_URL'),
       secret('ISUXPORTAL_GITHUB_CLIENT_ID'),
       secret('ISUXPORTAL_GITHUB_CLIENT_SECRET'),
