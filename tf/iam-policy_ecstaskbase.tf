@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "EcsTaskBase" {
-  name = "EcsTaskBase"
+  name        = "EcsTaskBase"
   description = "ecstaskbase"
-  policy = data.aws_iam_policy_document.EcsTaskBase.json
+  policy      = data.aws_iam_policy_document.EcsTaskBase.json
 }
 
 data "aws_iam_policy_document" "EcsTaskBase" {

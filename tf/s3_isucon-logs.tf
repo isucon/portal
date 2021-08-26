@@ -1,11 +1,5 @@
 resource "aws_s3_bucket" "isucon-logs" {
   bucket = "isucon11-logs"
-
-  grant {
-   id          = "809c053be6795100a6fb06810c8a3ddf944f086e209cddcf82102fc3174e869b"
-   type        = "CanonicalUser"
-   permissions = ["FULL_CONTROL"]
- }
 }
 
 resource "aws_s3_bucket_policy" "isucon-logs" {

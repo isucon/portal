@@ -1,6 +1,12 @@
 resource "aws_key_pair" "prometheus" {
   key_name   = "isucon-prometheus"
   public_key = file("~/.ssh/id_rsa.pub")
+
+  lifecycle {
+    ignore_changes = [
+      public_key,
+    ]
+  }
 }
 
 resource "aws_instance" "prometheus" {
@@ -10,4 +16,8 @@ resource "aws_instance" "prometheus" {
   key_name               = aws_key_pair.prometheus.id
   instance_type          = "m5.large"
   iam_instance_profile   = aws_iam_instance_profile.ec2-monitoring-profile.name
+
+  tags = {
+    Name = "isucon11-monitoring"
+  }
 }

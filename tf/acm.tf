@@ -49,8 +49,8 @@ resource "aws_route53_record" "acm-validation_use1_wild-xi-isucon-dev" {
       type   = dvo.resource_record_type
     }
   }
-  name            = each.value.name
-  records         = [each.value.record]
-  type            = each.value.type
-  ttl             = 5
+  name    = each.value.name
+  records = [each.value.record]
+  type    = each.value.type
+  ttl     = 5
 }

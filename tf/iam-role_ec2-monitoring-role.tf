@@ -22,7 +22,7 @@ data "aws_iam_policy_document" "ec2-monitoring-role-policy" {
   statement {
     effect = "Allow"
     actions = [
-        "ec2:DescribeInstances",
+      "ec2:DescribeInstances",
     ]
     resources = [
       "*",
@@ -37,6 +37,6 @@ resource "aws_iam_role_policy" "ec2-monitoring-role-policy" {
 }
 
 resource "aws_iam_instance_profile" "ec2-monitoring-profile" {
-  name  = "ec2-monitoring-profile"
-  role  = aws_iam_role.ec2-monitoring-role.id
+  name = "ec2-monitoring-profile"
+  role = aws_iam_role.ec2-monitoring-role.id
 }

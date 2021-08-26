@@ -35,16 +35,16 @@ variable "availability_zones" {
 }
 
 resource "aws_subnet" "public" {
-  count = 3
-  availability_zone = var.availability_zones[count.index]
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 3, 2 * count.index + 1)
-  ipv6_cidr_block   = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, 176 + count.index * 16)
+  count                           = 3
+  availability_zone               = var.availability_zones[count.index]
+  vpc_id                          = aws_vpc.main.id
+  cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 3, 2 * count.index + 1)
+  ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, 176 + count.index * 16)
   assign_ipv6_address_on_creation = true
   map_public_ip_on_launch         = true
   tags = {
-    Name    = "${var.availability_zones[count.index]}-public"
-    Tier    = "public"
+    Name = "${var.availability_zones[count.index]}-public"
+    Tier = "public"
   }
 }
 
@@ -52,8 +52,8 @@ resource "aws_subnet" "public" {
 # Private Subnets
 ##########################################
 resource "aws_subnet" "private" {
-  count = 3
-  availability_zone = var.availability_zones[count.index]
+  count                           = 3
+  availability_zone               = var.availability_zones[count.index]
   vpc_id                          = aws_vpc.main.id
   cidr_block                      = cidrsubnet(aws_vpc.main.cidr_block, 3, 2 * (count.index + 1))
   ipv6_cidr_block                 = cidrsubnet(aws_vpc.main.ipv6_cidr_block, 8, 177 + count.index * 16)
@@ -61,8 +61,8 @@ resource "aws_subnet" "private" {
   map_public_ip_on_launch         = false
 
   tags = {
-    Name    = "${var.availability_zones[count.index]}-private"
-    Tier    = "private"
+    Name = "${var.availability_zones[count.index]}-private"
+    Tier = "private"
   }
 }
 
@@ -72,8 +72,8 @@ resource "aws_subnet" "private" {
 resource "aws_route_table" "public_rtb" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name    = "isucon11-public"
-    Tier    = "public"
+    Name = "isucon11-public"
+    Tier = "public"
   }
 }
 resource "aws_route" "public_v4_default" {
@@ -90,8 +90,8 @@ resource "aws_route" "public_v6_default" {
 resource "aws_route_table" "private_rtb" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name    = "isucon11-private"
-    Tier    = "private"
+    Name = "isucon11-private"
+    Tier = "private"
   }
 }
 resource "aws_route" "private_v6_default" {
@@ -104,13 +104,13 @@ resource "aws_route" "private_v6_default" {
 # Route Table Associations
 ##########################################
 resource "aws_route_table_association" "public" {
-  count = 3
+  count          = 3
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public_rtb.id
 }
 
 resource "aws_route_table_association" "private" {
-  count = 3
+  count          = 3
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private_rtb.id
 }
