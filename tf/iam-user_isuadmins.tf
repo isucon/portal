@@ -20,7 +20,6 @@ locals {
     "okimoto",
     "iwashi",
     "nana4gonta",
-    "941",
   ])
 }
 
