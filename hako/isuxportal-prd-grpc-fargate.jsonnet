@@ -8,9 +8,7 @@ base {
     desired_count: 2,
     cpu: '512',
     memory: '1024',
-    elb_v2: utils.grpcNlbInternal {
-      protocol: 'TLS',
-    },
+    elb_v2: utils.grpcAlbInternal,
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
