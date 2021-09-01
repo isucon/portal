@@ -8364,6 +8364,7 @@ $root.isuxportal = (function() {
                      * @property {number|Long|null} [teamId] ListBenchmarkJobsQuery teamId
                      * @property {isuxportal.proto.resources.BenchmarkJob.Status|null} [status] ListBenchmarkJobsQuery status
                      * @property {number|Long|null} [page] ListBenchmarkJobsQuery page
+                     * @property {boolean|null} [onlyFailed] ListBenchmarkJobsQuery onlyFailed
                      */
 
                     /**
@@ -8406,6 +8407,14 @@ $root.isuxportal = (function() {
                     ListBenchmarkJobsQuery.prototype.page = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
+                     * ListBenchmarkJobsQuery onlyFailed.
+                     * @member {boolean} onlyFailed
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
+                     * @instance
+                     */
+                    ListBenchmarkJobsQuery.prototype.onlyFailed = false;
+
+                    /**
                      * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
                      * @function create
                      * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
@@ -8435,6 +8444,8 @@ $root.isuxportal = (function() {
                             writer.uint32(/* id 2, wireType 0 =*/16).int32(message.status);
                         if (message.page != null && Object.hasOwnProperty.call(message, "page"))
                             writer.uint32(/* id 3, wireType 0 =*/24).int64(message.page);
+                        if (message.onlyFailed != null && Object.hasOwnProperty.call(message, "onlyFailed"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.onlyFailed);
                         return writer;
                     };
 
@@ -8477,6 +8488,9 @@ $root.isuxportal = (function() {
                                 break;
                             case 3:
                                 message.page = reader.int64();
+                                break;
+                            case 4:
+                                message.onlyFailed = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -8530,6 +8544,9 @@ $root.isuxportal = (function() {
                         if (message.page != null && message.hasOwnProperty("page"))
                             if (!$util.isInteger(message.page) && !(message.page && $util.isInteger(message.page.low) && $util.isInteger(message.page.high)))
                                 return "page: integer|Long expected";
+                        if (message.onlyFailed != null && message.hasOwnProperty("onlyFailed"))
+                            if (typeof message.onlyFailed !== "boolean")
+                                return "onlyFailed: boolean expected";
                         return null;
                     };
 
@@ -8585,6 +8602,8 @@ $root.isuxportal = (function() {
                                 message.page = object.page;
                             else if (typeof object.page === "object")
                                 message.page = new $util.LongBits(object.page.low >>> 0, object.page.high >>> 0).toNumber();
+                        if (object.onlyFailed != null)
+                            message.onlyFailed = Boolean(object.onlyFailed);
                         return message;
                     };
 
@@ -8613,6 +8632,7 @@ $root.isuxportal = (function() {
                                 object.page = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.page = options.longs === String ? "0" : 0;
+                            object.onlyFailed = false;
                         }
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (typeof message.teamId === "number")
@@ -8626,6 +8646,8 @@ $root.isuxportal = (function() {
                                 object.page = options.longs === String ? String(message.page) : message.page;
                             else
                                 object.page = options.longs === String ? $util.Long.prototype.toString.call(message.page) : options.longs === Number ? new $util.LongBits(message.page.low >>> 0, message.page.high >>> 0).toNumber() : message.page;
+                        if (message.onlyFailed != null && message.hasOwnProperty("onlyFailed"))
+                            object.onlyFailed = message.onlyFailed;
                         return object;
                     };
 

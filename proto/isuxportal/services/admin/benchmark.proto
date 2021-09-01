@@ -11,6 +11,8 @@ message ListBenchmarkJobsQuery {
   isuxportal.proto.resources.BenchmarkJob.Status status = 2;
   // optional paganation
   int64 page = 3;
+  // return only failed
+  bool failed_only = 4;
 }
 
 message ListBenchmarkJobsResponse {
