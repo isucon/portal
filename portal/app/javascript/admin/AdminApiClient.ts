@@ -62,11 +62,12 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async listBenchmarkJobs(teamId?: number | null, status?: isuxportal.proto.resources.BenchmarkJob.Status, page?: number) {
+  public async listBenchmarkJobs(teamId?: number | null, status?: isuxportal.proto.resources.BenchmarkJob.Status, failedOnly?: boolean, page?: number) {
     const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
     const query: Record<string, string> = {
       teamId: teamId?.toString() ?? '',
       status: status?.toString() ?? '',
+      failedOnly: failedOnly ? '1' : '0',
       page: page?.toString() ?? ''
     }
 

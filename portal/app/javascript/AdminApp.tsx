@@ -121,6 +121,7 @@ export class AdminApp extends React.Component<Props, State> {
                           client={this.state.adminClient}
                           teamId={query.get("team_id")}
                           status={parseBenchmarkJobStatus(query.get("status"))}
+                          failedOnly={query.get("failed_only") === "1"}
                         />
                       );
                     }}

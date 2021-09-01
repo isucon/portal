@@ -18,6 +18,7 @@ import ReactPaginate from "react-paginate";
 type ListFilterProps = {
   teamId: string | null;
   status: string | null;
+  failedOnly: boolean;
 };
 const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   const [redirect, setRedirect] = React.useState<JSX.Element | null>(null);
@@ -34,6 +35,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
     const search = new URLSearchParams();
     search.set("team_id", data.teamId || "");
     search.set("status", data.status ?? "");
+    search.set("failed_only", data.failedOnly ? "1" : "0");
     setRedirect(
       <Redirect
         push={true}
@@ -70,10 +72,20 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
                     <option value={isuxportal.proto.resources.BenchmarkJob.Status.PENDING.toString()}>PENDING</option>
                     <option value={isuxportal.proto.resources.BenchmarkJob.Status.RUNNING.toString()}>RUNNING</option>
                     <option value={isuxportal.proto.resources.BenchmarkJob.Status.ERRORED.toString()}>ERRORED</option>
-                    <option value={isuxportal.proto.resources.BenchmarkJob.Status.CANCELLED.toString()}>CANCELLED</option>
+                    <option value={isuxportal.proto.resources.BenchmarkJob.Status.CANCELLED.toString()}>
+                      CANCELLED
+                    </option>
                     <option value={isuxportal.proto.resources.BenchmarkJob.Status.FINISHED.toString()}>FINISHED</option>
                   </select>
                 </div>
+              </div>
+            </div>
+            <div className="column is-3 field">
+              <label className="label" htmlFor="AdminBenchmarkJobListFilter-failedOnly">
+                Failed only
+              </label>
+              <div className="control">
+                <input type="checkbox" id="AdminBenchmarkJobListFilter-failedOnly" {...register("failedOnly")} />
               </div>
             </div>
             <div className="column is-3 field">
@@ -93,6 +105,7 @@ export interface Props {
   client: AdminApiClient;
   teamId: string | null;
   status: isuxportal.proto.resources.BenchmarkJob.Status | null;
+  failedOnly: boolean;
 }
 
 export interface State {
@@ -127,6 +140,7 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
       const list = await this.props.client.listBenchmarkJobs(
         this.props.teamId ? parseInt(this.props.teamId, 10) : null,
         this.props.status ?? undefined,
+        this.props.failedOnly,
         page
       );
       const pageCount = list.maxPage as number;
@@ -167,7 +181,13 @@ export class AdminBenchmarkJobList extends React.Component<Props, State> {
   }
 
   renderFilter() {
-    return <ListFilter teamId={this.props.teamId} status={this.props.status?.toString() ?? null} />;
+    return (
+      <ListFilter
+        teamId={this.props.teamId}
+        status={this.props.status?.toString() ?? null}
+        failedOnly={this.props.failedOnly}
+      />
+    );
   }
 
   renderPaginate() {
