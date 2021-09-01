@@ -16,6 +16,10 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
       @benchmark_jobs = @benchmark_jobs.where(status: status_uppper_symbol.to_s.downcase.to_sym)
     end
 
+    if params[:failed_only] == '1'
+      @benchmark_jobs = @benchmark_jobs.joins(:benchmark_result).where(benchmark_results: { passed: false })
+    end
+
     max_page = (@benchmark_jobs.count(:id) / JOBS_PER_PAGE.to_f).ceil
 
     if params[:page] && params[:page].to_i >= 0
