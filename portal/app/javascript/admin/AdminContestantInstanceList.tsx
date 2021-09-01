@@ -41,13 +41,13 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   });
 
   return (
-    <div className="card mt-5">
+    <div className="block has-background-info-light card mt-5">
       {redirect}
       <div className="card-content">
         <form onSubmit={onSubmit}>
           <div className="columns">
             <div className="column is-3 field">
-              <label className="label" htmlFor="AdminContestantInstanceListFilter-teamId">
+              <label className="has-text-info-dark label" htmlFor="AdminContestantInstanceListFilter-teamId">
                 Team ID
               </label>
               <div className="control">
