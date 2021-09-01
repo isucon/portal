@@ -132,6 +132,7 @@ const ContestantBenchmarkReEnqueueForm = ({
       );
     } catch (e) {
       setError(e);
+    } finally {
       setRequesting(false);
     }
   };

@@ -47,6 +47,7 @@ export const AdminBenchmarkJobForm: React.FC<Props> = (props: Props) => {
       );
     } catch (e) {
       setError(e);
+    } finally {
       setRequesting(false);
     }
   });
