@@ -7,7 +7,14 @@ class Api::Admin::BenchmarkJobsController < Api::Admin::ApplicationController
   def index
     @benchmark_jobs = BenchmarkJob.all.order(id: :desc).includes(:team).joins_score
     @benchmark_jobs = @benchmark_jobs.where(team_id: params[:team_id]) if params[:team_id].present?
-    @benchmark_jobs = @benchmark_jobs.where.not(status: %i(errored cancelled finished)) if params[:incomplete_only] == '1'
+
+    status = params[:status]
+    if status.present?
+      status_uppper_symbol = Isuxportal::Proto::Resources::BenchmarkJob::Status.lookup(status.to_i)
+      raise Api::ApplicationController::Error::BadRequest.new("Invalid status") if status_uppper_symbol.nil?
+
+      @benchmark_jobs = @benchmark_jobs.where(status: status_uppper_symbol.to_s.downcase.to_sym)
+    end
 
     max_page = (@benchmark_jobs.count(:id) / JOBS_PER_PAGE.to_f).ceil
 
