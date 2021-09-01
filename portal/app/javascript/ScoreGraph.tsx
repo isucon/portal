@@ -1,11 +1,9 @@
 import type { isuxportal } from "./pb";
 
 import React from "react";
-import dayjs from "dayjs";
-
 import uPlot from "uplot";
 
-import type { TeamPinsMap, TeamPins } from "./TeamPins";
+import type { TeamPinsMap } from "./TeamPins";
 import { COLORS } from "./ScoreGraphColors";
 
 interface Props {
@@ -16,10 +14,17 @@ interface Props {
   teamId?: number | Long;
 }
 
+const usePrevious = <T extends unknown>(value: T) => {
+  const ref = React.useRef<T | undefined>();
+  React.useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+};
+
 const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
   let numTeams = teams.length;
   let numScores = teams.map((item) => (item.scores || []).length).reduce((a, b) => a + b, 0);
-
   let latestTimestamp = 0;
   teams.forEach((item) => {
     (item.scores || []).forEach((score) => {
@@ -27,34 +32,84 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
       if (latestTimestamp < ts) latestTimestamp = ts;
     });
   });
+  return JSON.stringify([numTeams, numScores, latestTimestamp]);
+};
 
-  return [numTeams, numScores, latestTimestamp];
+const calculateTargetTeamLegendCacheKey = (targetTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+  return JSON.stringify(
+    [...targetTeams]
+      .sort((a, b) => (a.team!.id as number) - (b.team!.id as number))
+      .map((t) => [t.team!.name, t.team!.id])
+  );
 };
 
 export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
   const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
-  const [scoreFilterForm, setScoreFilterForm] = React.useState('');
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
 
   const elem = React.useRef<HTMLDivElement>(null);
-  const [data, setData] = React.useState<Array<Array<number | null>>>([]);
   const [chart, setChart] = React.useState<uPlot | null>(null);
 
-  const teamIds = teams.map((i) => i.team!.id).join(",");
-  const teamIdCount = teams.length;
-  const cacheKey = JSON.stringify(calculateGraphCacheKey(teams));
-  //console.log("render", cacheKey);
+  const targetTeams = React.useMemo(() => {
+    let t = teams;
+    if (showPinnedOnly) t = t.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
+    if (scoreFilter) t = t.filter((item) => ((item.bestScore?.score! as number) ?? 0) >= scoreFilter);
+    return t;
+  }, [calculateGraphCacheKey(teams), [...teamPins.keys()].join(","), teamId, showPinnedOnly, scoreFilter]);
 
-  let targetTeams = teams;
-  if (showPinnedOnly) targetTeams = targetTeams.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
-  if (scoreFilter) targetTeams = targetTeams.filter((item) => (item.bestScore?.score! as number ?? 0) >= scoreFilter);
+  const uplotOpts = React.useMemo(
+    (): uPlot.Options => ({
+      width: width || 950,
+      height: 500,
+      scales: {
+        x: {
+          auto: false,
+          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number) + 3600],
+        },
+        pt: {
+          auto: true,
+        },
+      },
+      series: [
+        {
+          scale: "x",
+        },
+        ...targetTeams.map((item) => {
+          return {
+            label: item.team!.name!,
+            stroke: COLORS[(item.team!.id! as number) % COLORS.length],
+            scale: "pt",
+            id: 0,
+          };
+        }),
+      ],
+      axes: [
+        {},
+        {
+          label: "Score",
+          scale: "pt",
+          show: true,
+        },
+      ],
+      legend: {
+        show: showPinnedOnly || scoreFilter !== null,
+      },
+    }),
+    [
+      width,
+      contest.startsAt!.seconds!,
+      contest.endsAt!.seconds!,
+      showPinnedOnly || scoreFilter !== null,
+      calculateTargetTeamLegendCacheKey(targetTeams),
+    ]
+  );
 
-  React.useEffect(() => {
+  const data = React.useMemo(() => {
     //console.log("ScoreGraph: setData", cacheKey);
     const timestamps: number[] = [
       ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
     ].sort((a, b) => a - b);
-    const newData: Array<Array<number | null>> = [timestamps];
+    const d: [number[], ...Array<Array<number | null>>] = [timestamps];
 
     targetTeams.forEach((item, idx) => {
       const scores = item.scores || [];
@@ -88,64 +143,37 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
         tsPtr++;
       }
-      newData.push(series);
+      d.push(series);
     });
 
-    setData(newData);
-  }, [setData, cacheKey]);
+    return d;
+  }, [targetTeams]);
 
+  const prevValues = usePrevious({ setChart, elemCurrent: elem.current, uplotOpts, data });
   React.useEffect(() => {
     if (!elem.current) return;
-    if (!(data[0] && (data[0].length-1) >= teamIdCount)) return;
-    console.log("ScoreGraph: setChart");
 
-    const opts: uPlot.Options = {
-      width: width || 950,
-      height: 500,
-      scales: {
-        x: {
-          auto: false,
-          range: (min, max) => [contest.startsAt!.seconds! as number, (contest.endsAt!.seconds! as number) + 3600],
-        },
-        pt: {
-          auto: true,
-        },
-      },
-      series: [
-        {
-          scale: "x",
-        },
-        ...targetTeams.map((item) => {
-          return {
-            label: item.team!.name!,
-            stroke: COLORS[(item.team!.id! as number) % COLORS.length],
-            scale: "pt",
-          };
-        }),
-      ],
-      axes: [
-        {},
-        {
-          label: "Score",
-          scale: "pt",
-          show: true,
-        },
-      ],
-    };
-    //console.log(data);
-
-    const newChart = new uPlot(opts, data, elem.current);
-    setChart(newChart);
-    return () => newChart.destroy();
-  }, [setChart, elem.current, data[0] && data[0].length, teamIds, teamIdCount, showPinnedOnly ? teamPins : null, scoreFilter]);
+    if (
+      !prevValues ||
+      prevValues.setChart !== setChart ||
+      prevValues.elemCurrent !== elem.current ||
+      prevValues.uplotOpts !== uplotOpts
+    ) {
+      console.log("ScoreGraph: setChart");
+      chart?.destroy();
+      const newChart = new uPlot(uplotOpts, data, elem.current);
+      setChart(newChart);
+    } else if (prevValues.data !== data) {
+      console.log("ScoreGraph: setData");
+      chart?.setData(data);
+    }
+  }, [setChart, elem.current, uplotOpts, data]);
 
   React.useEffect(() => {
-    if (!chart || !data) return;
-    console.log(`ScoreGraph: chart.setData data=${data[0] && data[0].length}, series=${chart.series.length}, teamids=${teamIdCount}`);
-    if (data[0] && (data[0].length-1) >= teamIdCount && (chart.series.length-1) >= teamIdCount) {
-      chart.setData(data);
-    }
-  }, [chart, teamIds, teamIdCount, data]);
+    return () => {
+      chart?.destroy();
+    };
+  }, [])
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
@@ -159,17 +187,56 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         </div>
 
         <div className="level-right has-text-right">
-          <form onSubmit={(e) => { e.preventDefault(); setScoreFilter(scoreFilterForm.length === 0 ? null : parseInt(scoreFilterForm,10));  }}>
-            <input className="input is-small" type="text" placeholder="Filter by best score" size={15} onChange={(e) => { setScoreFilterForm(e.target.value);  }} value={scoreFilterForm} />
-          </form>
-          <label className="checkbox">
-            <input type="checkbox" checked={showPinnedOnly} onChange={(e) => setShowPinnedOnly(e.target.checked)} />
-            Show pinned only
-          </label>
-
+          <ScoreGraphScoreFilter onChange={setScoreFilter} />
+          <ScoreGraphPinFilter showPinnedOnly={showPinnedOnly} onChange={setShowPinnedOnly} />
         </div>
       </div>
       <div className={classNames.join(" ")} ref={elem} />
     </section>
+  );
+};
+
+const ScoreGraphPinFilter = ({
+  showPinnedOnly,
+  onChange,
+}: {
+  showPinnedOnly: boolean;
+  onChange: (showPinnedOnly: boolean) => void;
+}) => {
+  return (
+    <label className="checkbox">
+      <input type="checkbox" checked={showPinnedOnly} onChange={(e) => onChange(e.target.checked)} />
+      Show pinned only
+    </label>
+  );
+};
+
+const ScoreGraphScoreFilter = ({ onChange }: { onChange: (scoreFilter: number | null) => void }) => {
+  const [scoreFilterForm, setScoreFilterForm] = React.useState("");
+  const onSubmit = React.useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      onChange(scoreFilterForm.length === 0 ? null : parseInt(scoreFilterForm, 10));
+    },
+    [onChange, scoreFilterForm]
+  );
+  const onScoreFilterFormChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setScoreFilterForm(e.target.value);
+    },
+    [setScoreFilterForm]
+  );
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input
+        className="input is-small"
+        type="text"
+        placeholder="Filter by best score"
+        size={15}
+        onChange={onScoreFilterFormChange}
+        value={scoreFilterForm}
+      />
+    </form>
   );
 };

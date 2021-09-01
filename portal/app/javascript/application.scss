@@ -195,6 +195,7 @@ body.isux-session-guest .isux-visibility-guest {
   }
 
   table.u-legend {
+    display: flex;
     font-size: 0.6em;
     flex-wrap: wrap;
     width: 100%;
@@ -202,12 +203,6 @@ body.isux-session-guest .isux-visibility-guest {
     .u-series > * {
       padding: 0;
     }
-
-    display: none;
-  }
-
-  &.isux-scoregraph-pinnedonly table.u-legend {
-    display: flex;
   }
 }
 
