@@ -30,6 +30,10 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
           <SmallCopyButton content={ci.publicIpv4Address!} />
         </td>
         <td>
+          {ci.privateIpv4Address}
+          <SmallCopyButton content={ci.privateIpv4Address!} />
+        </td>
+        <td>
           <ContestantInstanceStatus status={ci.status!} />
         </td>
         <td>
@@ -49,7 +53,8 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
         <thead>
           <tr>
             <th>#</th>
-            <th>IPv4 Address</th>
+            <th>Public IPv4</th>
+            <th>Private IPv4</th>
             <th>Status</th>
             <th>SSH Command Example</th>
           </tr>
