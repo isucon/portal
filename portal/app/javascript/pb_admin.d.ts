@@ -3084,8 +3084,11 @@ export namespace isuxportal {
                     /** ListBenchmarkJobsQuery teamId */
                     teamId?: (number|Long|null);
 
-                    /** ListBenchmarkJobsQuery incompleteOnly */
-                    incompleteOnly?: (boolean|null);
+                    /** ListBenchmarkJobsQuery status */
+                    status?: (isuxportal.proto.resources.BenchmarkJob.Status|null);
+
+                    /** ListBenchmarkJobsQuery page */
+                    page?: (number|Long|null);
                 }
 
                 /** Represents a ListBenchmarkJobsQuery. */
@@ -3100,8 +3103,11 @@ export namespace isuxportal {
                     /** ListBenchmarkJobsQuery teamId. */
                     public teamId: (number|Long);
 
-                    /** ListBenchmarkJobsQuery incompleteOnly. */
-                    public incompleteOnly: boolean;
+                    /** ListBenchmarkJobsQuery status. */
+                    public status: isuxportal.proto.resources.BenchmarkJob.Status;
+
+                    /** ListBenchmarkJobsQuery page. */
+                    public page: (number|Long);
 
                     /**
                      * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
