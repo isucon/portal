@@ -6,9 +6,7 @@ local base = import './isuxportal-dev-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
-    elb_v2: utils.grpcNlbInternetFacing {
-      protocol: 'TLS',
-    },
+    elb_v2: utils.grpcAlbInternetFacing,
   },
   app+: {
     command: ['bundle', 'exec', 'rails', 'runner', 'Griffin::Server.run(port: 4000)'],

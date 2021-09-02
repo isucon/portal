@@ -71,14 +71,15 @@
       'deregistration_delay.timeout_seconds': '20',
     },
   },
-  grpcNlbInternetFacing:: {
+  grpcAlbInternetFacing:: {
     vpc_id: $.vpcId,
-    type: 'network',
     scheme: 'internet-facing',
+    protocol_version: 'GRPC',
+    health_check_path: '/AWS.ELB/healthcheck',
     listeners: [
       {
         port: 443,
-        protocol: 'TLS',
+        protocol: 'HTTPS',
         certificate_arn: $.acmCertificateWildDev,
         ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
       },
@@ -90,18 +91,24 @@
     tags: {
       Project: 'portal',
     },
+    load_balancer_attributes: {
+      'access_logs.s3.enabled': 'true',
+      'access_logs.s3.bucket': 'isucon11-logs',
+      'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
+    },
     target_group_attributes: {
       'deregistration_delay.timeout_seconds': '20',
     },
   },
-  grpcNlbInternal:: {
+  grpcAlbInternal:: {
     vpc_id: $.vpcId,
-    type: 'network',
     scheme: 'internal',
+    protocol_version: 'GRPC',
+    health_check_path: '/AWS.ELB/healthcheck',
     listeners: [
       {
         port: 443,
-        protocol: 'TLS',
+        protocol: 'HTTPS',
         certificate_arn: $.acmCertificateWildDev,
         ssl_policy: 'ELBSecurityPolicy-FS-1-2-Res-2019-08',
       },
@@ -112,6 +119,11 @@
     security_groups: $.elbSecurityGroups,
     tags: {
       Project: 'portal',
+    },
+    load_balancer_attributes: {
+      'access_logs.s3.enabled': 'true',
+      'access_logs.s3.bucket': 'isucon11-logs',
+      'access_logs.s3.prefix': std.format('hako-%s', std.extVar('appId')),
     },
     target_group_attributes: {
       'deregistration_delay.timeout_seconds': '20',

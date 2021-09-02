@@ -32,12 +32,12 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
   });
 
   return (
-    <div className="card mt-5">
+    <div className="has-background-info-light card mt-5">
       <div className="card-content">
         <form onSubmit={onSubmit}>
           <div className="columns">
             <div className="column is-3 field">
-              <label className="label" htmlFor="AdminClarificationListFilter-teamId">
+              <label className="has-text-info-dark label" htmlFor="AdminClarificationListFilter-teamId">
                 Team ID
               </label>
               <div className="control">
@@ -45,7 +45,7 @@ const ListFilter: React.FC<ListFilterProps> = (props: ListFilterProps) => {
               </div>
             </div>
             <div className="column is-3 field">
-              <label className="label" htmlFor="AdminClarificationListFilter-unansweredOnly">
+              <label className="has-text-info-dark label" htmlFor="AdminClarificationListFilter-unansweredOnly">
                 Unanswered Only
               </label>
               <div className="control">

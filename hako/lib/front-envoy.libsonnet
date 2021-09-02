@@ -11,7 +11,6 @@ local utils = import './utils.libsonnet';
       ADDRESS: '127.0.0.1',
       PORT: appPort,
       HTTP2: '1',
-      TLS: '1',
       ENVOY_CONCURRENCY: '1',
     },
     port_mappings: [

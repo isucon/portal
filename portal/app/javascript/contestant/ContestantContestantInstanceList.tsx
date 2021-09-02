@@ -30,6 +30,10 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
           <SmallCopyButton content={ci.publicIpv4Address!} />
         </td>
         <td>
+          {ci.privateIpv4Address}
+          <SmallCopyButton content={ci.privateIpv4Address!} />
+        </td>
+        <td>
           <ContestantInstanceStatus status={ci.status!} />
         </td>
         <td>
@@ -49,7 +53,8 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
         <thead>
           <tr>
             <th>#</th>
-            <th>IPv4 Address</th>
+            <th>Public IPv4</th>
+            <th>Private IPv4</th>
             <th>Status</th>
             <th>SSH Command Example</th>
           </tr>
@@ -58,30 +63,34 @@ export const ContestantContestantInstanceList: React.FC<Props> = ({ session, cli
         <tbody>{(session.contestantInstances || []).map((ci) => renderRow(ci))}</tbody>
       </table>
 
-      <header>
-        <h1 className="title is-1">CloudFormation テンプレート</h1>
-      </header>
+      {false && (
+        <>
+          <header>
+            <h1 className="title is-1">CloudFormation テンプレート</h1>
+          </header>
 
-      <a
-        className={`button is-info ${template === "" ? "is-loading" : ""}`}
-        href={templateBase64}
-        download="qualify_cloudformation.yaml"
-      >
-        CloudFormation テンプレートをダウンロード
-      </a>
+          <a
+            className={`button is-info ${template === "" ? "is-loading" : ""}`}
+            href={templateBase64}
+            download="qualify_cloudformation.yaml"
+          >
+            CloudFormation テンプレートをダウンロード
+          </a>
+        </>
+      )}
     </>
   );
 };
 
-const SmallCopyButton = ({content}: {content: string}) => {
+const SmallCopyButton = ({ content }: { content: string }) => {
   const onClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     await navigator.clipboard.writeText(content);
-  }
+  };
 
   return (
     <button className="button is-small ml-2" onClick={onClick}>
       <span className="material-icons-outlined is-size-6">content_copy</span>
     </button>
-  )
-}
+  );
+};

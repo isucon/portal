@@ -4,6 +4,8 @@
 common: &default_settings
   app_name: ISUCON 11 Portal
   log_level: info
+  browser_monitoring:
+    auto_instrument: false
 
 development:
   <<: *default_settings
