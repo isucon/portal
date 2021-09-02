@@ -105,3 +105,39 @@ resource "aws_route53_record" "cname_isuxportal-prd-grpc-xi-isucon-dev" {
   ttl     = "300"
   records = [data.aws_lb.hako-isuxportal-prd-grpc-fargate.dns_name]
 }
+
+data "aws_lb" "hako-isuxportal-pre-grpc-fargate" {
+  name = "hako-isuxportal-pre-grpc-fargate"
+}
+
+resource "aws_route53_record" "cname_isuxportal-pre-grpc-xi-isucon-dev" {
+  for_each = {
+    for k in [
+      aws_route53_zone.public.zone_id,
+      #aws_route53_zone.private.zone_id,
+    ] : k => k
+  }
+  zone_id = each.value
+  name    = "isuxportal-pre-grpc.xi.isucon.dev"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [data.aws_lb.hako-isuxportal-pre-grpc-fargate.dns_name]
+}
+
+data "aws_lb" "hako-isuxportal-pre-fargate" {
+  name = "hako-isuxportal-pre-fargate"
+}
+
+resource "aws_route53_record" "cname_pre-portal-xi-isucon-dev" {
+  for_each = {
+    for k in [
+      aws_route53_zone.public.zone_id,
+      #aws_route53_zone.private.zone_id,
+    ] : k => k
+  }
+  zone_id = each.value
+  name    = "pre-portal.xi.isucon.dev"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [data.aws_lb.hako-isuxportal-pre-fargate.dns_name]
+}
