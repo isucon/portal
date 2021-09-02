@@ -48,6 +48,8 @@ data "aws_iam_policy_document" "IsuxportalDev" {
     resources = [
       aws_sqs_queue.isuxportal-activejob-dev.arn,
       aws_sqs_queue.isuxportal-activejob-dlq-dev.arn,
+      aws_sqs_queue.isuxportal-activejob-pre.arn,
+      aws_sqs_queue.isuxportal-activejob-dlq-pre.arn,
     ]
   }
 }
