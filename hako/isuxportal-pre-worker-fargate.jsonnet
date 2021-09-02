@@ -1,7 +1,7 @@
 local front = import 'lib/front.libsonnet';
 local utils = import 'lib/utils.libsonnet';
 
-local base = import './isuxportal-dev-base.libsonnet';
+local base = import './isuxportal-pre-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {

@@ -1,12 +1,12 @@
 local frontEnvoy = import 'lib/front-envoy.libsonnet';
 local utils = import 'lib/utils.libsonnet';
 
-local base = import './isuxportal-dev-base.libsonnet';
+local base = import './isuxportal-pre-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 1,
-    elb_v2: utils.grpcAlbInternetFacing,
+    elb_v2: utils.grpcAlbInternal,
   },
   app+: {
     command: ['bundle', 'exec', 'rails', 'runner', 'Griffin::Server.run(port: 4000)'],
@@ -19,7 +19,7 @@ base {
     },
   },
   additional_containers: {
-    front: frontEnvoy.container('isuxportal-dev-grpc-fargate', '4000') {
+    front: frontEnvoy.container('isuxportal-pre-grpc-fargate', '4000') {
       env+: {
         HTTP2_MAX_CONCURRENT_STREAMS: '20',
       },
