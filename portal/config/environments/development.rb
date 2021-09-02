@@ -37,7 +37,7 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-  config.hosts << "portal-dev.isucon.net"
+  config.hosts << ENV.fetch('DEFAULT_URL_HOST', 'localhost:3000')
 
   if ENV['ISUXPORTAL_DEV_REDIS'] == '1'
     config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL') }
