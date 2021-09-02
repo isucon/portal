@@ -160,7 +160,7 @@ export class ContestantApp extends React.Component<Props, State> {
         <ContestantNavbar session={this.props.session} client={this.props.client} unreadNotificationExists={this.state.lastAnsweredClarificationIdObserved && this.state.lastClarificationIdSeen !== this.state.lastAnsweredClarificationId} />
 
         <div className="container px-5 py-5">
-          <ContestantCloudFormationMessage instances={this.props.session.contestantInstances} />
+          { false && <ContestantCloudFormationMessage instances={this.props.session.contestantInstances} /> }
 
           <Switch>
             <Route
