@@ -6,7 +6,13 @@ local base = import './isuxportal-pre-base.libsonnet';
 base {
   scheduler+: utils.ecsSchedulerFargate {
     desired_count: 2,
+    cpu: '512',
+    memory: '1024',
     elb_v2: utils.albInternetFacing,
+  },
+  app+: {
+    cpu: 512 - 64,
+    memory: 1024 - 32,
   },
   additional_containers: {
     front: front.container,
