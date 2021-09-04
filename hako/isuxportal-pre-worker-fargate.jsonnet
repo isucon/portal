@@ -5,7 +5,7 @@ local base = import './isuxportal-pre-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 1,
+    desired_count: 3,
     env+: {
       ISUXPORTAL_SHORYUKEN_CONCURRENCY: '5',
     },
