@@ -17,4 +17,35 @@ base {
   },
   volumes: {
   },
+  autoscaling: {
+    role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
+    min_capacity: 1,
+    max_capacity: 4,
+    policies: [
+      {
+        alarms: ['ecs-scaling-out-worker-autoscaling-service-dev'],
+        cooldown: 300,
+        adjustment_type: 'ChangeInCapacity',
+        scaling_adjustment: 1,
+        metric_interval_lower_bound: 20,
+        metric_aggregation_type: 'Average',
+      },
+      {
+        alarms: ['ecs-scaling-in-worker-autoscaling-service-dev'],
+        cooldown: 300,
+        adjustment_type: 'ChangeInCapacity',
+        scaling_adjustment: -1,
+        metric_interval_upper_bound: 20,
+        metric_aggregation_type: 'Average',
+      },
+      {
+        policy_type: 'TargetTrackingScaling',
+        name: 'ecs-target-tracking-scaling-worker-autoscaling-service-dev',
+        target_value: 60,
+        predefined_metric_type: 'ECSServiceAverageCPUUtilization',
+        scale_out_cooldown: 300,
+        scale_in_cooldown: 300,
+      },
+    ]
+  },
 }
