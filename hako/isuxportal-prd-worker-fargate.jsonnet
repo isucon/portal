@@ -11,8 +11,8 @@ base {
     ],
     autoscaling: {
       role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
-      min_capacity: 1,
-      max_capacity: 4,
+      min_capacity: 2,
+      max_capacity: 20,
       policies: [
         {
           alarms: ['ecs-scaling-out-worker-autoscaling-service-prd'],
