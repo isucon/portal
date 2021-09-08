@@ -19,7 +19,7 @@ base {
           cooldown: 300,
           adjustment_type: 'ChangeInCapacity',
           scaling_adjustment: 1,
-          metric_interval_lower_bound: 20,
+          metric_interval_lower_bound: 0,
           metric_aggregation_type: 'Average',
         },
         {
@@ -27,7 +27,7 @@ base {
           cooldown: 300,
           adjustment_type: 'ChangeInCapacity',
           scaling_adjustment: -1,
-          metric_interval_upper_bound: 20,
+          metric_interval_upper_bound: 0,
           metric_aggregation_type: 'Average',
         },
       ]
