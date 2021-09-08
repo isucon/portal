@@ -38,14 +38,6 @@ base {
         metric_interval_upper_bound: 20,
         metric_aggregation_type: 'Average',
       },
-      {
-        policy_type: 'TargetTrackingScaling',
-        name: 'ecs-target-tracking-scaling-worker-autoscaling-service-dev',
-        target_value: 60,
-        predefined_metric_type: 'ECSServiceAverageCPUUtilization',
-        scale_out_cooldown: 300,
-        scale_in_cooldown: 300,
-      },
     ]
   },
 }
