@@ -15,7 +15,7 @@ base {
       max_capacity: 4,
       policies: [
         {
-          alarms: ['ecs-scaling-out-worker-autoscaling-service-dev'],
+          alarms: ['ecs-scaling-out-worker-autoscaling-service-prd'],
           cooldown: 300,
           adjustment_type: 'ChangeInCapacity',
           scaling_adjustment: 1,
@@ -23,7 +23,7 @@ base {
           metric_aggregation_type: 'Average',
         },
         {
-          alarms: ['ecs-scaling-in-worker-autoscaling-service-dev'],
+          alarms: ['ecs-scaling-in-worker-autoscaling-service-prd'],
           cooldown: 300,
           adjustment_type: 'ChangeInCapacity',
           scaling_adjustment: -1,
