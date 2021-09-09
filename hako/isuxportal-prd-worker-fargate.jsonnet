@@ -9,6 +9,29 @@ base {
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
+    autoscaling: {
+      role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
+      min_capacity: 2,
+      max_capacity: 20,
+      policies: [
+        {
+          alarms: ['ecs-scaling-out-worker-autoscaling-service-prd'],
+          cooldown: 300,
+          adjustment_type: 'ChangeInCapacity',
+          scaling_adjustment: 1,
+          metric_interval_lower_bound: 0,
+          metric_aggregation_type: 'Average',
+        },
+        {
+          alarms: ['ecs-scaling-in-worker-autoscaling-service-prd'],
+          cooldown: 300,
+          adjustment_type: 'ChangeInCapacity',
+          scaling_adjustment: -1,
+          metric_interval_upper_bound: 0,
+          metric_aggregation_type: 'Average',
+        },
+      ]
+    },
   },
   app+: {
     cpu: 256,
