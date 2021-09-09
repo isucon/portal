@@ -91,6 +91,9 @@ GEM
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
+    aws-sdk-ec2 (1.197.0)
+      aws-sdk-core (~> 3, >= 3.99.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-sqs (1.31.0)
       aws-sdk-core (~> 3, >= 3.99.0)
       aws-sigv4 (~> 1.1)
@@ -305,6 +308,7 @@ PLATFORMS
 DEPENDENCIES
   active_record_mysql_xverify
   addressable
+  aws-sdk-ec2
   aws-sdk-sqs
   blouson
   discordrb!
