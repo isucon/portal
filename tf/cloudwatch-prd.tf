@@ -11,9 +11,12 @@ resource "aws_cloudwatch_metric_alarm" "ecs-scaling-out-worker-autoscaling-servi
   statistic                 = "Average"
   threshold                 = "20"
   alarm_description         = "This metric monitors sqs ApproximateNumberOfMessagesVisible count"
-  alarm_actions             = [
-    aws_sns_topic.isuxportal-topic-prd.arn
-  ]
+
+  lifecycle {
+    ignore_changes = [
+      alarm_actions, // Ignore changes by hako
+    ]
+  }
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs-scaling-in-worker-autoscaling-service-prd" {
@@ -29,4 +32,10 @@ resource "aws_cloudwatch_metric_alarm" "ecs-scaling-in-worker-autoscaling-servic
   statistic                 = "Average"
   threshold                 = "20"
   alarm_description         = "This metric monitors sqs ApproximateNumberOfMessagesVisible count"
+
+  lifecycle {
+    ignore_changes = [
+      alarm_actions, // Ignore changes by hako
+    ]
+  }
 }
