@@ -52,5 +52,14 @@ data "aws_iam_policy_document" "IsuxportalDev" {
       aws_sqs_queue.isuxportal-activejob-dlq-pre.arn,
     ]
   }
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:DescribeInstances",
+    ]
+    resources = [
+      "*",
+    ]
+  }
 }
 
