@@ -8,6 +8,7 @@ class SyncContestantInstancesJob < ApplicationJob
     ec2 = Aws::EC2::Resource.new(region: "ap-northeast-1")
     instances = ec2.instances(filters: [ { name: "tag:Project", values: [project] }, { name: "tag:Role", values: ["contestant"] } ])
     instances.each do |i|
+      next if i.state.name == "terminated"
       team_id = i.tags.find {|tag| tag.key == "IsuconTeamID" }&.value&.to_i
       number = i.tags.find {|tag| tag.key == "IsuconInstanceNum" }&.value&.to_i
       next if team_id.nil? || team_id <= 0 || number.nil? || number <= 0
