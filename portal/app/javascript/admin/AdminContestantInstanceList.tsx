@@ -159,7 +159,11 @@ export class AdminContestantInstanceList extends React.Component<Props, State> {
     return (
       <tr key={id}>
         <td>{id}</td>
-        <td>{ci.cloudId}</td>
+        <td>
+          <a href={`https://ap-northeast-1.console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#InstanceDetails:instanceId=${ci.cloudId}`}>
+            {ci.cloudId}
+          </a>
+        </td>
         <td>
           <Link to={`/admin/teams/${ci.team!.id!.toString()}`}>
             {ci.team!.name} (#{ci.team!.id})
