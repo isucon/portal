@@ -102,6 +102,12 @@ export class AdminTeamDetail extends React.Component<Props, State> {
               <Link to={`/admin/teams/${this.state.team.id}/edit`} className="button is-info">
                 編集
               </Link>
+              <Link to={`/admin/contestant_instances?team_id=${this.state.team.id}`} className="button">
+                Contestant Instances
+              </Link>
+              <Link to={`/admin/benchmark_jobs?team_id=${this.state.team.id}`} className="button">
+                Benchmark Jobs
+              </Link>
             </div>
           </div>
         </div>
