@@ -101,6 +101,17 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
     try {
       setRequesting(true);
       console.log(data);
+
+      const teamIdString = data.teamId;
+      let teamId;
+      if (teamIdString === "") {
+        teamId = 0;
+      } else if (/^\d+$/.test(teamIdString)) {
+        teamId = parseInt(teamIdString, 10);
+      } else {
+        throw new Error(`Invalid teamId: ${teamIdString}`);
+      }
+
       const resp = await props.client.createClarification({
         answer: data.answer,
         question: data.question,
@@ -108,9 +119,10 @@ const ClarForm: React.FC<FormProps> = (props: FormProps) => {
       });
       props.onSubmit(resp.clarification!);
       e!.target.reset();
-      setRequesting(false);
+      setError(null);
     } catch (e) {
       setError(e);
+    } finally {
       setRequesting(false);
     }
   });
