@@ -120,7 +120,8 @@ export class AdminApp extends React.Component<Props, State> {
                           session={this.props.session}
                           client={this.state.adminClient}
                           teamId={query.get("team_id")}
-                          incompleteOnly={query.get("incomplete_only") === "1"}
+                          status={parseBenchmarkJobStatus(query.get("status"))}
+                          failedOnly={query.get("failed_only") === "1"}
                         />
                       );
                     }}
@@ -187,4 +188,20 @@ export class AdminApp extends React.Component<Props, State> {
       </BrowserRouter>
     );
   }
+}
+
+const parseBenchmarkJobStatus = (statusString: string | null): isuxportal.proto.resources.BenchmarkJob.Status | null => {
+  if (statusString === null || statusString === '') return null
+
+  const status = +statusString
+
+  switch(status) {
+  case isuxportal.proto.resources.BenchmarkJob.Status.PENDING: return isuxportal.proto.resources.BenchmarkJob.Status.PENDING
+  case isuxportal.proto.resources.BenchmarkJob.Status.RUNNING: return isuxportal.proto.resources.BenchmarkJob.Status.RUNNING
+  case isuxportal.proto.resources.BenchmarkJob.Status.ERRORED: return isuxportal.proto.resources.BenchmarkJob.Status.ERRORED
+  case isuxportal.proto.resources.BenchmarkJob.Status.CANCELLED: return isuxportal.proto.resources.BenchmarkJob.Status.CANCELLED
+  case isuxportal.proto.resources.BenchmarkJob.Status.FINISHED: return isuxportal.proto.resources.BenchmarkJob.Status.FINISHED
+  }
+  console.warn('Unexpected status', status)
+  return null
 }

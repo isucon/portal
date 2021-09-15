@@ -7,10 +7,12 @@ import "isuxportal/resources/benchmark_job.proto";
 message ListBenchmarkJobsQuery {
   // optional filter by team_id
   int64 team_id = 1;
-  // return only incomplete jobs
-  bool incomplete_only = 2;
-
-  // TODO: pagination
+  // optional filter by status
+  isuxportal.proto.resources.BenchmarkJob.Status status = 2;
+  // optional paganation
+  int64 page = 3;
+  // return only failed
+  bool failed_only = 4;
 }
 
 message ListBenchmarkJobsResponse {

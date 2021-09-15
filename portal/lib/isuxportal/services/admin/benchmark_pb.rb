@@ -8,7 +8,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/benchmark.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.admin.ListBenchmarkJobsQuery" do
       optional :team_id, :int64, 1
-      optional :incomplete_only, :bool, 2
+      optional :status, :enum, 2, "isuxportal.proto.resources.BenchmarkJob.Status"
+      optional :page, :int64, 3
+      optional :only_failed, :bool, 4
     end
     add_message "isuxportal.proto.services.admin.ListBenchmarkJobsResponse" do
       repeated :jobs, :message, 1, "isuxportal.proto.resources.BenchmarkJob"

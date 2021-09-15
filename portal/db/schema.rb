@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_21_035746) do
+ActiveRecord::Schema.define(version: 2021_09_01_153127) do
 
   create_table "benchmark_executions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2021_08_21_035746) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["benchmark_job_id"], name: "index_benchmark_results_on_benchmark_job_id", unique: true
     t.index ["finished", "exit_status", "exit_signal", "marked_at", "team_id"], name: "idx_leaderboard"
+    t.index ["passed"], name: "index_benchmark_results_on_passed"
     t.index ["team_id"], name: "index_benchmark_results_on_team_id"
     t.index ["updated_at"], name: "index_benchmark_results_on_updated_at"
   end

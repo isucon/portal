@@ -8362,7 +8362,9 @@ $root.isuxportal = (function() {
                      * @memberof isuxportal.proto.services.admin
                      * @interface IListBenchmarkJobsQuery
                      * @property {number|Long|null} [teamId] ListBenchmarkJobsQuery teamId
-                     * @property {boolean|null} [incompleteOnly] ListBenchmarkJobsQuery incompleteOnly
+                     * @property {isuxportal.proto.resources.BenchmarkJob.Status|null} [status] ListBenchmarkJobsQuery status
+                     * @property {number|Long|null} [page] ListBenchmarkJobsQuery page
+                     * @property {boolean|null} [onlyFailed] ListBenchmarkJobsQuery onlyFailed
                      */
 
                     /**
@@ -8389,12 +8391,28 @@ $root.isuxportal = (function() {
                     ListBenchmarkJobsQuery.prototype.teamId = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
                     /**
-                     * ListBenchmarkJobsQuery incompleteOnly.
-                     * @member {boolean} incompleteOnly
+                     * ListBenchmarkJobsQuery status.
+                     * @member {isuxportal.proto.resources.BenchmarkJob.Status} status
                      * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
                      * @instance
                      */
-                    ListBenchmarkJobsQuery.prototype.incompleteOnly = false;
+                    ListBenchmarkJobsQuery.prototype.status = 0;
+
+                    /**
+                     * ListBenchmarkJobsQuery page.
+                     * @member {number|Long} page
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
+                     * @instance
+                     */
+                    ListBenchmarkJobsQuery.prototype.page = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+                    /**
+                     * ListBenchmarkJobsQuery onlyFailed.
+                     * @member {boolean} onlyFailed
+                     * @memberof isuxportal.proto.services.admin.ListBenchmarkJobsQuery
+                     * @instance
+                     */
+                    ListBenchmarkJobsQuery.prototype.onlyFailed = false;
 
                     /**
                      * Creates a new ListBenchmarkJobsQuery instance using the specified properties.
@@ -8422,8 +8440,12 @@ $root.isuxportal = (function() {
                             writer = $Writer.create();
                         if (message.teamId != null && Object.hasOwnProperty.call(message, "teamId"))
                             writer.uint32(/* id 1, wireType 0 =*/8).int64(message.teamId);
-                        if (message.incompleteOnly != null && Object.hasOwnProperty.call(message, "incompleteOnly"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).bool(message.incompleteOnly);
+                        if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.status);
+                        if (message.page != null && Object.hasOwnProperty.call(message, "page"))
+                            writer.uint32(/* id 3, wireType 0 =*/24).int64(message.page);
+                        if (message.onlyFailed != null && Object.hasOwnProperty.call(message, "onlyFailed"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.onlyFailed);
                         return writer;
                     };
 
@@ -8462,7 +8484,13 @@ $root.isuxportal = (function() {
                                 message.teamId = reader.int64();
                                 break;
                             case 2:
-                                message.incompleteOnly = reader.bool();
+                                message.status = reader.int32();
+                                break;
+                            case 3:
+                                message.page = reader.int64();
+                                break;
+                            case 4:
+                                message.onlyFailed = reader.bool();
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -8502,9 +8530,23 @@ $root.isuxportal = (function() {
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (!$util.isInteger(message.teamId) && !(message.teamId && $util.isInteger(message.teamId.low) && $util.isInteger(message.teamId.high)))
                                 return "teamId: integer|Long expected";
-                        if (message.incompleteOnly != null && message.hasOwnProperty("incompleteOnly"))
-                            if (typeof message.incompleteOnly !== "boolean")
-                                return "incompleteOnly: boolean expected";
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            switch (message.status) {
+                            default:
+                                return "status: enum value expected";
+                            case 0:
+                            case 1:
+                            case 2:
+                            case 3:
+                            case 4:
+                                break;
+                            }
+                        if (message.page != null && message.hasOwnProperty("page"))
+                            if (!$util.isInteger(message.page) && !(message.page && $util.isInteger(message.page.low) && $util.isInteger(message.page.high)))
+                                return "page: integer|Long expected";
+                        if (message.onlyFailed != null && message.hasOwnProperty("onlyFailed"))
+                            if (typeof message.onlyFailed !== "boolean")
+                                return "onlyFailed: boolean expected";
                         return null;
                     };
 
@@ -8529,8 +8571,39 @@ $root.isuxportal = (function() {
                                 message.teamId = object.teamId;
                             else if (typeof object.teamId === "object")
                                 message.teamId = new $util.LongBits(object.teamId.low >>> 0, object.teamId.high >>> 0).toNumber();
-                        if (object.incompleteOnly != null)
-                            message.incompleteOnly = Boolean(object.incompleteOnly);
+                        switch (object.status) {
+                        case "PENDING":
+                        case 0:
+                            message.status = 0;
+                            break;
+                        case "RUNNING":
+                        case 1:
+                            message.status = 1;
+                            break;
+                        case "ERRORED":
+                        case 2:
+                            message.status = 2;
+                            break;
+                        case "CANCELLED":
+                        case 3:
+                            message.status = 3;
+                            break;
+                        case "FINISHED":
+                        case 4:
+                            message.status = 4;
+                            break;
+                        }
+                        if (object.page != null)
+                            if ($util.Long)
+                                (message.page = $util.Long.fromValue(object.page)).unsigned = false;
+                            else if (typeof object.page === "string")
+                                message.page = parseInt(object.page, 10);
+                            else if (typeof object.page === "number")
+                                message.page = object.page;
+                            else if (typeof object.page === "object")
+                                message.page = new $util.LongBits(object.page.low >>> 0, object.page.high >>> 0).toNumber();
+                        if (object.onlyFailed != null)
+                            message.onlyFailed = Boolean(object.onlyFailed);
                         return message;
                     };
 
@@ -8553,15 +8626,28 @@ $root.isuxportal = (function() {
                                 object.teamId = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                             } else
                                 object.teamId = options.longs === String ? "0" : 0;
-                            object.incompleteOnly = false;
+                            object.status = options.enums === String ? "PENDING" : 0;
+                            if ($util.Long) {
+                                var long = new $util.Long(0, 0, false);
+                                object.page = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.page = options.longs === String ? "0" : 0;
+                            object.onlyFailed = false;
                         }
                         if (message.teamId != null && message.hasOwnProperty("teamId"))
                             if (typeof message.teamId === "number")
                                 object.teamId = options.longs === String ? String(message.teamId) : message.teamId;
                             else
                                 object.teamId = options.longs === String ? $util.Long.prototype.toString.call(message.teamId) : options.longs === Number ? new $util.LongBits(message.teamId.low >>> 0, message.teamId.high >>> 0).toNumber() : message.teamId;
-                        if (message.incompleteOnly != null && message.hasOwnProperty("incompleteOnly"))
-                            object.incompleteOnly = message.incompleteOnly;
+                        if (message.status != null && message.hasOwnProperty("status"))
+                            object.status = options.enums === String ? $root.isuxportal.proto.resources.BenchmarkJob.Status[message.status] : message.status;
+                        if (message.page != null && message.hasOwnProperty("page"))
+                            if (typeof message.page === "number")
+                                object.page = options.longs === String ? String(message.page) : message.page;
+                            else
+                                object.page = options.longs === String ? $util.Long.prototype.toString.call(message.page) : options.longs === Number ? new $util.LongBits(message.page.low >>> 0, message.page.high >>> 0).toNumber() : message.page;
+                        if (message.onlyFailed != null && message.hasOwnProperty("onlyFailed"))
+                            object.onlyFailed = message.onlyFailed;
                         return object;
                     };
 
