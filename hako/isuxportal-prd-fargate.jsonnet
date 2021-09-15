@@ -12,6 +12,21 @@ base {
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
+    autoscaling: {
+      role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
+      min_capacity: 3,
+      max_capacity: 20,
+      policies: [
+        {
+          policy_type: 'TargetTrackingScaling',
+          name: 'ecs-target-tracking-scaling-isuxportal-prd-fargate',
+          target_value: 60,
+          predefined_metric_type: 'ECSServiceAverageCPUUtilization',
+          scale_out_cooldown: 300,
+          scale_in_cooldown: 300,
+        },
+      ],
+    },
   },
   app+: {
     cpu: 512 - 64,
