@@ -230,14 +230,15 @@ body.isux-session-guest .isux-visibility-guest {
   width: fit-content;
 }
 
-$qAccent: #ff6433;
-$qInfo: #1ecc6a;
-$qText: #373634;
-$qCritical: #ee3a3a;
-$qBackground: #f3f4f5;
+$fPrimary: #19935c;
+$fSecondary: #da4f7b;
+$fText: #374151;
+$fBackground: #ffffff;
+$fBackground2: #e5e7eb;
+$studentBackground: #6b7280;
 
 .isux-broadcast-clock {
-  background-color: $qBackground;
+  background-color: $fBackground;
   padding: 2vw 3vw;
   border-radius: 2.5vw;
 
@@ -258,7 +259,7 @@ $qBackground: #f3f4f5;
     text-align: center;
     font-size: 21vw;
     p {
-      color: $qAccent;
+      color: $fPrimary;
       line-height: 21vw;
       font-weight: 900;
       font-family: "Noto Sans JP", sans-serif;
@@ -279,28 +280,30 @@ $qBackground: #f3f4f5;
       padding: 0;
       width: 100%;
 
+      border-radius: 999vw;
+
       &::-webkit-progress-bar {
-        background-color: $qBackground;
+        background-color: $fBackground2;
       }
       &::-webkit-progress-value {
-        background-color: $qAccent;
+        background-color: $fPrimary;
       }
       &::-moz-progress-bar {
-        background-color: $qAccent;
+        background-color: $fPrimary;
       }
       &::-ms-fill {
-        background-color: $qAccent;
+        background-color: $fPrimary;
         border: none;
       }
       &.frozen {
         &::-webkit-progress-value {
-          background-color: $qCritical;
+          background-color: $isuRed;
         }
         &::-moz-progress-bar {
-          background-color: $qCritical;
+          background-color: $isuRed;
         }
         &::-ms-fill {
-          background-color: $qCritical;
+          background-color: $isuRed;
         }
       }
     }
@@ -310,13 +313,7 @@ $qBackground: #f3f4f5;
       left: 0;
       bottom: 0;
       right: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        $qBackground,
-        $qBackground 1vw,
-        transparent 1vw,
-        transparent 2vw
-      );
+      background: transparent;
     }
   }
 }
@@ -329,14 +326,19 @@ $qBackground: #f3f4f5;
   justify-content: flex-end;
 }
 
-.isux-broadcast-leaderboard {
+.isux-broadcast-leaderboard-wrapper {
   padding: 5px;
+
+  padding-left: calc(2vw + 5px);
+  padding-right: calc(2vw + 5px);
+}
+.isux-broadcast-leaderboard {
+  border-radius: 1vw;
+  overflow: hidden;
 
   .isux-broadcast-leaderboard-item {
     height: 8vw;
 
-    padding-left: 2vw;
-    padding-right: 2vw;
     padding-top: 1vw;
     padding-bottom: 1vw;
     margin-bottom: 0 !important;
@@ -353,7 +355,7 @@ $qBackground: #f3f4f5;
     }
 
     .isux-broadcast-leaderboard-item-position {
-      background: rgba($qAccent, 0.93);
+      background: rgba($fPrimary, 0.93);
       flex: none;
       width: 12%;
       p {
@@ -369,10 +371,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-leaderboard-item-team {
-      background: rgba($qBackground, 0.93);
-      border-top: solid 0.25vw $qAccent;
-      border-bottom: solid 0.25vw $qAccent;
-      color: $qText;
+      background: rgba($fBackground, 0.93);
+      color: $fText;
       overflow-x: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -384,19 +384,9 @@ $qBackground: #f3f4f5;
         text-overflow: ellipsis;
       }
     }
-    &:first-child {
-      .isux-broadcast-leaderboard-item-team {
-        border-top: solid 0.5vw $qAccent;
-      }
-    }
-    &:last-child {
-      .isux-broadcast-leaderboard-item-team {
-        border-bottom: solid 0.5vw $qAccent;
-      }
-    }
 
     .isux-broadcast-leaderboard-item-student {
-      background: rgba($qAccent, 0.93);
+      background: rgba($studentBackground, 0.93);
       color: white;
       flex: none;
       width: 10%;
@@ -409,8 +399,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-leaderboard-item-score {
-      background: rgba($qBackground, 0.93);
-      color: $qText;
+      background: rgba($fBackground, 0.93);
+      color: $fText;
       text-align: right;
       font-weight: 600;
       font-size: 3.5vw;
@@ -431,13 +421,13 @@ $qBackground: #f3f4f5;
 
 @keyframes isux-broadcast-leaderboard-change-up {
   0% {
-    background-color: rgba($qAccent, 0.93);
+    background-color: rgba($fPrimary, 0.93);
   }
   25% {
-    background-color: rgba($qInfo, 1);
+    background-color: rgba($isuRed, 1);
   }
   100% {
-    background-color: rgba($qAccent, 0.93);
+    background-color: rgba($fPrimary, 0.93);
   }
 }
 
@@ -448,27 +438,30 @@ $qBackground: #f3f4f5;
 
 @keyframes isux-broadcast-leaderboard-change-down {
   0% {
-    background-color: rgba($qAccent, 0.93);
+    background-color: rgba($fPrimary, 0.93);
   }
   25% {
-    background-color: rgba($qCritical, 1);
+    background-color: rgba($isuBlue, 1);
   }
   100% {
-    background-color: rgba($qAccent, 0.93);
+    background-color: rgba($fPrimary, 0.93);
   }
 }
 
 .isux-broadcast-scorechanges {
   padding: 5px;
+  padding-left: calc(2vw + 5px);
+  padding-right: calc(2vw + 5px);
 
   .isux-broadcast-scorechanges-item {
     height: 10vw;
 
-    padding-left: 2vw;
-    padding-right: 2vw;
     padding-top: 1vw;
     padding-bottom: 1vw;
     margin-bottom: 1vw !important;
+
+    border-radius: 1vw;
+    overflow: hidden;
 
     font-size: 2.8vw;
 
@@ -482,21 +475,13 @@ $qBackground: #f3f4f5;
     }
 
     &.isux-broadcast-scorechanges-item--up {
-      .isux-broadcast-scorechanges-item-position,
-      .isux-broadcast-scorechanges-item-student {
-        background: rgba($qInfo, 0.93);
-      }
-      .isux-broadcast-scorechanges-item-team {
-        border-color: $qInfo;
+      .isux-broadcast-scorechanges-item-position {
+        background: rgba($isuRed, 0.93);
       }
     }
     &.isux-broadcast-scorechanges-item--down {
-      .isux-broadcast-scorechanges-item-position,
-      .isux-broadcast-scorechanges-item-student {
-        background: rgba($qCritical, 0.93);
-      }
-      .isux-broadcast-scorechanges-item-team {
-        border-color: $qCritical;
+      .isux-broadcast-scorechanges-item-position {
+        background: rgba($isuBlue, 0.93);
       }
     }
 
@@ -526,10 +511,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-team {
-      background: $qBackground;
-      color: $qText;
-      border-top: solid 0.5vw;
-      border-bottom: solid 0.5vw;
+      background: rgba($fBackground, 0.93);
+      color: $fText;
       overflow: hidden;
       text-overflow: ellipsis;
       width: 55%;
@@ -548,6 +531,7 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-student {
+      background: rgba($studentBackground, 0.93);
       color: white;
       flex: none;
       width: 5%;
@@ -560,8 +544,8 @@ $qBackground: #f3f4f5;
       }
     }
     .isux-broadcast-scorechanges-item-score {
-      background: rgba($qBackground, 0.93);
-      color: $qText;
+      background: rgba($fBackground, 0.93);
+      color: $fText;
       text-align: right;
       flex: none;
       width: 20%;
@@ -584,10 +568,10 @@ $qBackground: #f3f4f5;
         font-size: 2.3vw;
 
         &.isux-broadcast-scorechanges-item--up {
-          color: darken($qInfo, 7%);
+          color: darken($isuRed, 7%);
         }
         &.isux-broadcast-scorechanges-item--down {
-          color: darken($qCritical, 7%);
+          color: darken($isuBlue, 7%);
         }
       }
     }

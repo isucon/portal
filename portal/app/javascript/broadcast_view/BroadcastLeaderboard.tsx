@@ -218,8 +218,10 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <div className={`isux-broadcast-leaderboard ${props.bottom ? "isux-broadcast-bottomflex" : ""}`}>
-      {teams.slice(0, limit || undefined).map((v) => renderTeam("standings", v))}
+    <div className="isux-broadcast-leaderboard-wrapper">
+      <div className={`isux-broadcast-leaderboard ${props.bottom ? "isux-broadcast-bottomflex" : ""}`}>
+        {teams.slice(0, limit || undefined).map((v) => renderTeam("standings", v))}
+      </div>
     </div>
   );
 };
