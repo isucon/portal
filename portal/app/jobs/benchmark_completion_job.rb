@@ -4,16 +4,18 @@ class BenchmarkCompletionJob < ApplicationJob
   def perform(job)
     UpdateContestantDashboardJob.perform_now(team: job.team, frozen: Contest.contest_frozen?(job.finished_at))
 
-    job.team.members.each do |contestant|
-      n = Notification.create!(
-        contestant: contestant,
-        message: Isuxportal::Proto::Resources::Notification.new(
-          content_benchmark_job: Isuxportal::Proto::Resources::Notification::BenchmarkJobMessage.new(
-            benchmark_job_id: job.id,
+    if Contest.contest_open_for_team?(team: job.team)
+      job.team.members.each do |contestant|
+        n = Notification.create!(
+          contestant: contestant,
+          message: Isuxportal::Proto::Resources::Notification.new(
+            content_benchmark_job: Isuxportal::Proto::Resources::Notification::BenchmarkJobMessage.new(
+              benchmark_job_id: job.id,
+            ),
           ),
-        ),
-      )
-      DeliverPushNotificationJob.perform_later(n)
+        )
+        DeliverPushNotificationJob.perform_later(n)
+      end
     end
 
     slack_messages = [
