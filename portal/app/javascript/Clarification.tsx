@@ -29,7 +29,7 @@ export const Clarification: React.FC<Props> = (props: Props) => {
     const text = [
       ` ${clar.originalQuestion}`,
       `  ${clar.answer}`,
-      `  ${location.origin}/admin/clarifications/${encodeURIComponent(clar.team!.id!.toString())}`,
+      `  ${location.origin}/admin/clarifications/${encodeURIComponent(clar.id!.toString())}`,
     ];
     await navigator.clipboard.writeText(text.join("\n"));
   };
