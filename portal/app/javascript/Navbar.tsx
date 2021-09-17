@@ -61,13 +61,13 @@ export class Navbar extends React.Component<Props, State> {
   }
 
   public renderRulesButton() {
-    if (this.props.session.contest?.status !== isuxportal.proto.resources.Contest.Status.STANDBY) {
-      return (
-        <a className="navbar-item" href="/rules" target="_blank" rel="noreferrer noopener">
-          レギュレーション
-        </a>
-      );
-    }
+    // if (this.props.session.contest?.status !== isuxportal.proto.resources.Contest.Status.STANDBY) {
+    //   return (
+    //     <a className="navbar-item" href="/rules" target="_blank" rel="noreferrer noopener">
+    //       レギュレーション
+    //     </a>
+    //   );
+    // }
     return null;
   }
 

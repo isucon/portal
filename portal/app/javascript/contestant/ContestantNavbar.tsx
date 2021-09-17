@@ -75,9 +75,6 @@ export class ContestantNavbar extends React.Component<Props, State> {
                   <a className="navbar-item" href="/terms">
                     規約
                   </a>
-                  <a className="navbar-item" href="/rules">
-                    レギュレーション
-                  </a>
                   <a className="navbar-item" href="/docs">
                     当日マニュアル
                   </a>
