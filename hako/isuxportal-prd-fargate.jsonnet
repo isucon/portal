@@ -5,7 +5,7 @@ local base = import './isuxportal-prd-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 3,
+    desired_count: 10,
     cpu: '512',
     memory: '1024',
     elb_v2: utils.albInternetFacing,
@@ -14,8 +14,8 @@ base {
     ],
     autoscaling: {
       role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
-      min_capacity: 3,
-      max_capacity: 20,
+      min_capacity: 10,
+      max_capacity: 30,
       policies: [
         {
           policy_type: 'TargetTrackingScaling',
