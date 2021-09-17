@@ -23,11 +23,26 @@ export const Clarification: React.FC<Props> = (props: Props) => {
       setShowOriginalQuestion(flag);
     };
   };
+  const onClarCopyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // scrapboxの記法では先頭スペースがインデント
+    const text = [
+      ` ${clar.originalQuestion}`,
+      `  ${clar.answer}`,
+      `  ${location.origin}/admin/clarifications/${encodeURIComponent(clar.id!.toString())}`,
+    ];
+    await navigator.clipboard.writeText(text.join("\n"));
+  };
 
   return (
     <article className="message mt-5">
       <div className="message-header">
         <h4 className="is-4 message-header-title">Clarification #{clar.id!.toString()}</h4>
+        {props.admin && (
+          <button className="button" onClick={onClarCopyClick}>
+            Copy
+          </button>
+        )}
       </div>
       <div className="message-body">
         <div className="level">
