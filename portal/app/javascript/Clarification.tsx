@@ -38,9 +38,11 @@ export const Clarification: React.FC<Props> = (props: Props) => {
     <article className="message mt-5">
       <div className="message-header">
         <h4 className="is-4 message-header-title">Clarification #{clar.id!.toString()}</h4>
-        <button className="button" onClick={onClarCopyClick}>
-          Copy
-        </button>
+        {props.admin && (
+          <button className="button" onClick={onClarCopyClick}>
+            Copy
+          </button>
+        )}
       </div>
       <div className="message-body">
         <div className="level">
