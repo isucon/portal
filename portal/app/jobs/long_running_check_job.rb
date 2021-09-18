@@ -8,7 +8,7 @@ class LongRunningCheckJob < ApplicationJob
       messages << ":warning: Remaining *unanswered clarification* ##{clar.id} from #{clar.team.name} (##{clar.team.id}), #{distance_of_time_in_words_to_now(clar.created_at, include_seconds: true)} <https://#{default_url_options.fetch(:host)}/admin/clarifications/#{clar.id}|Open>"
     end
 
-    BenchmarkJob.includes(:team).active.where('created_at <= ?', 90.seconds.ago).each do |job|
+    BenchmarkJob.includes(:team).active.where('created_at <= ?', 150.seconds.ago).each do |job|
       messages << ":warning: *Long running benchmark* job ##{job.id} _#{job.status}_ from #{job.team.name} (##{job.team.id}), #{distance_of_time_in_words_to_now(job.created_at, include_seconds: true)} <https://#{default_url_options.fetch(:host)}/admin/benchmark_jobs/#{job.id}|Open>"
 
     end
