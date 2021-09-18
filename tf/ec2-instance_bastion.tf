@@ -14,7 +14,7 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids = [aws_security_group.bastion.id]
   subnet_id              = aws_subnet.public[0].id
   key_name               = aws_key_pair.bastion.id
-  instance_type          = "t2.micro"
+  instance_type          = "t3.medium"
 
   tags = {
     Name = "isucon11-bastion"
