@@ -5,14 +5,14 @@ local base = import './isuxportal-prd-base.libsonnet';
 
 base {
   scheduler+: utils.ecsSchedulerFargate {
-    desired_count: 10,
+    desired_count: 2,
     capacity_provider_strategy: [
       { capacity_provider: 'FARGATE_SPOT', weight: 1 },
     ],
     autoscaling: {
       role_arn: 'arn:aws:iam::245943874622:role/ecsAutoscaleRole',
-      min_capacity: 10,
-      max_capacity: 30,
+      min_capacity: 2,
+      max_capacity: 20,
       policies: [
         {
           alarms: ['ecs-scaling-out-worker-autoscaling-service-prd'],
