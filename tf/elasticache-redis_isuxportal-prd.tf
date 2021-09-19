@@ -1,7 +1,7 @@
 resource "aws_elasticache_replication_group" "isuxportal-prd" {
   replication_group_id          = "isuxportal-prd"
   replication_group_description = "Redis for isuxportal-prd"
-  node_type                     = "cache.t3.small"
+  node_type                     = "cache.t3.micro"
   engine_version                = "5.0.6"
   number_cache_clusters         = 2
   port                          = 6379
