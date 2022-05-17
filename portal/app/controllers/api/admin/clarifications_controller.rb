@@ -47,7 +47,7 @@ class Api::Admin::ClarificationsController < Api::Admin::ApplicationController
     was_answered = @clarification.answered?
     was_disclosed = @clarification.disclosed?
     @clarification.answered = true
-    @clarification.update_attributes!(
+    @clarification.update!(
       disclosed: pb.disclose,
       answer: pb.answer,
       question: pb.question.presence || @clarification.original_question,

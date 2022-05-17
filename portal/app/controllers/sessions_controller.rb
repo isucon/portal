@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
       session[:contestant_id] = contestant.id
       redirect_to session[:back_to] || registration_path
     when contestant
-      contestant.update_attributes!(
+      contestant.update!(
         github_login: auth['info']['nickname'],
       )
       session[:contestant_id] = contestant.id
@@ -65,7 +65,7 @@ class SessionsController < ApplicationController
       session[:contestant_id] = contestant.id
       redirect_to session[:back_to] || registration_path
     when contestant # 紐づくdiscordアカウントが既に存在していたらそのアカウントに切り替える
-      contestant.update_attributes!(
+      contestant.update!(
         discord_tag: tag,
       )
       session[:contestant_id] = contestant.id
@@ -83,7 +83,7 @@ class SessionsController < ApplicationController
       MaintainDiscordContestantRolesJob.perform_later(nil, force_discord_id: contestant.discord_id)
       SyncDiscordMemberStateOfContestantJob.perform_later(contestant)
 
-      contestant.update_attributes!(
+      contestant.update!(
         discord_id: newId,
         discord_tag: tag,
       )

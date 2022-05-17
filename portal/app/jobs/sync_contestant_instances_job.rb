@@ -17,7 +17,7 @@ class SyncContestantInstancesJob < ApplicationJob
         team_id: team_id,
         number: number,
       )
-      ci.update_attributes!(
+      ci.update!(
         cloud_id: i.id,
         status: Isuxportal::Proto::Resources::ContestantInstance::Status::RUNNING,
         private_ipv4_address: i.private_ip_address,

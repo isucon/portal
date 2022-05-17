@@ -66,7 +66,7 @@ class Contestant < ApplicationRecord
       team.update_student_status
       team.save!
     else
-      team.update_attributes!(student: false)
+      team.update!(student: false)
     end
   end
 end

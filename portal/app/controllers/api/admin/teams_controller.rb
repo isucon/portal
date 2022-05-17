@@ -39,7 +39,7 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
       contestants = team.members.where(id: pb.contestants.map(&:id))
       raise Api::ApplicationController::Error::NotFound if contestants.size != pb.contestants.size
 
-      team.update_attributes!(
+      team.update!(
         name: pb.team.name,
         leader_id: pb.team.leader_id,
         final_participation: pb.team.final_participation,
@@ -51,7 +51,7 @@ class Api::Admin::TeamsController < Api::Admin::ApplicationController
 
       contestants.each do |contestant|
         cpb = pb.contestants.find { |_| _.id == contestant.id }
-        contestant.update_attributes!(
+        contestant.update!(
           name: cpb.name,
           student: cpb.detail.is_student,
           github_id: cpb.detail.github_id,

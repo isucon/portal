@@ -61,12 +61,12 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     raise Api::ApplicationController::Error::Forbidden.new("You cannot update at this moment") if Contest.registration_update_closed?
 
     ApplicationRecord.transaction do
-      current_contestant.update_attributes!(
+      current_contestant.update!(
         name: pb.name,
         student: pb.is_student,
       )
       if current_team.leader_id == current_contestant.id
-        current_team.update_attributes!(
+        current_team.update!(
           name: pb.team_name,
           email_address: pb.email_address,
         )
@@ -89,7 +89,7 @@ class Api::Registration::SessionsController < Api::Registration::ApplicationCont
     contestants = []
     ApplicationRecord.transaction do
       if was_leader
-        current_team.update_attributes!(
+        current_team.update!(
           withdrawn: true,
           leader_id: nil,
         )

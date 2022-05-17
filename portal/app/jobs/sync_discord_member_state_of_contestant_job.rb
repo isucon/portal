@@ -13,7 +13,7 @@ class SyncDiscordMemberStateOfContestantJob < ApplicationJob
       false
     end
 
-    contestant.update_attributes!(
+    contestant.update!(
       is_discord_guild_member: is_member,
     )
   end

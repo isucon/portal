@@ -6,7 +6,7 @@ class Api::Registration::CouponsController < Api::Registration::ApplicationContr
     raise ActiveRecord::RecordNotFound unless current_team
 
     coupon = Coupon.find_by(team_id: current_team.id)
-    coupon.update_attributes!(activate: true)
+    coupon.update!(activate: true)
 
     Isuxportal::Proto::Services::Registration::ActivateCouponResponse.new()
   end
