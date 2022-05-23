@@ -46,4 +46,5 @@ ENV RAILS_LOG_TO_STDOUT 1
 ENV RAILS_SERVE_STATIC_FILES 1
 ENV RAILS_SERVE_STATIC_FILES_CC public,max-age=31536000
 ENV PORT 3000
+VOLUME [ "/app" ]
 CMD ["bundle", "exec", "puma", "-C", "/etc/puma.rb"]
