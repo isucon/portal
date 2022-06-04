@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'google/protobuf/timestamp_pb'
 require 'isuxportal/resources/survey_response_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/resources/benchmark_result.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.resources.BenchmarkResult" do

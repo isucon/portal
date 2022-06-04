@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'isuxportal/resources/benchmark_job_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/contestant/benchmark.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.contestant.ListBenchmarkJobsQuery" do

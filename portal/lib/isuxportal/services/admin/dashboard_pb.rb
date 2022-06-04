@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'isuxportal/resources/leaderboard_pb'
 require 'google/protobuf/timestamp_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/dashboard.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.admin.DashboardQuery" do

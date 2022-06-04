@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'isuxportal/resources/env_check_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/registration/env_check.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.registration.GetEnvCheckInformationResponse" do

@@ -7,6 +7,7 @@ require 'isuxportal/resources/benchmark_result_pb'
 require 'isuxportal/resources/contestant_instance_pb'
 require 'isuxportal/resources/team_pb'
 require 'google/protobuf/timestamp_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/resources/benchmark_job.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.resources.BenchmarkJob" do

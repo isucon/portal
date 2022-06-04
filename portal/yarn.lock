@@ -964,10 +964,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@rails/ujs@^6.0.3-2":
-  version "6.0.3-7"
-  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.0.3-7.tgz#8be007e500baafed256895830ae446178511773b"
-  integrity sha512-J7dvCTkZ/zaQLge1mttypoE/1j5YDcSAuu4fun8CoTqVGkcbwZu4f4jy+HKxdomtrZzXWSHlSeIe9vOtLnhmeA==
+"@rails/ujs@^6.1.6":
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.6.tgz#de486ae0a663e1bed637a012cbb2739bfcfa2031"
+  integrity sha512-2M4zlthYmOC6X/tcPcFd//sIL26a7JbCpGNl8uIrQf+pR1Z47uhYt9cOwVqJTJZPurdy2k+YY3Pn64pqruAPEA==
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.0"

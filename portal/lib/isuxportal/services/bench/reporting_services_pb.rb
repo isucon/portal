@@ -11,14 +11,14 @@ module Isuxportal
         module BenchmarkReport
           class Service
 
-            include GRPC::GenericService
+            include ::GRPC::GenericService
 
             self.marshal_class_method = :encode
             self.unmarshal_class_method = :decode
             self.service_name = 'isuxportal.proto.services.bench.BenchmarkReport'
 
-            rpc :ReportBenchmarkResult, stream(Isuxportal::Proto::Services::Bench::ReportBenchmarkResultRequest), stream(Isuxportal::Proto::Services::Bench::ReportBenchmarkResultResponse)
-            rpc :CompleteBenchmarkJob, Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobRequest, Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse
+            rpc :ReportBenchmarkResult, stream(::Isuxportal::Proto::Services::Bench::ReportBenchmarkResultRequest), stream(::Isuxportal::Proto::Services::Bench::ReportBenchmarkResultResponse)
+            rpc :CompleteBenchmarkJob, ::Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobRequest, ::Isuxportal::Proto::Services::Bench::CompleteBenchmarkJobResponse
           end
 
           Stub = Service.rpc_stub_class

@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'isuxportal/resources/clarification_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/clarifications.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.admin.ListClarificationsQuery" do

@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'google/protobuf/timestamp_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/misc/leaderboard_etag.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.misc.LeaderboardEtag" do

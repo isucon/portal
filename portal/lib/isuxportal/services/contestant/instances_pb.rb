@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'isuxportal/resources/contestant_instance_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/contestant/instances.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.contestant.ListContestantInstancesRequest" do

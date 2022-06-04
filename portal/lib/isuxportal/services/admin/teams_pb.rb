@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'isuxportal/resources/team_pb'
 require 'isuxportal/resources/contestant_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/admin/teams.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.admin.ListTeamsQuery" do

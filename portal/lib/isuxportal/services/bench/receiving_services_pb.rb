@@ -11,14 +11,14 @@ module Isuxportal
         module BenchmarkQueue
           class Service
 
-            include GRPC::GenericService
+            include ::GRPC::GenericService
 
             self.marshal_class_method = :encode
             self.unmarshal_class_method = :decode
             self.service_name = 'isuxportal.proto.services.bench.BenchmarkQueue'
 
-            rpc :ReceiveBenchmarkJob, Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobRequest, Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobResponse
-            rpc :CancelOwnedBenchmarkJob, Isuxportal::Proto::Services::Bench::CancelOwnedBenchmarkJobRequest, Isuxportal::Proto::Services::Bench::CancelOwnedBenchmarkJobResponse
+            rpc :ReceiveBenchmarkJob, ::Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobRequest, ::Isuxportal::Proto::Services::Bench::ReceiveBenchmarkJobResponse
+            rpc :CancelOwnedBenchmarkJob, ::Isuxportal::Proto::Services::Bench::CancelOwnedBenchmarkJobRequest, ::Isuxportal::Proto::Services::Bench::CancelOwnedBenchmarkJobResponse
           end
 
           Stub = Service.rpc_stub_class

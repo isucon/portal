@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'isuxportal/resources/notification_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/services/contestant/notifications.proto", :syntax => :proto3) do
     add_message "isuxportal.proto.services.contestant.ListNotificationsQuery" do
