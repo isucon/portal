@@ -47,11 +47,7 @@ module CloudFormation
   end
 
   def self.get_portal_host
-    if !is_for_staging
-      "portal.isucon.net"
-    else
-      "portal-dev.isucon.net"
-    end
+    Rails.application.config.x.public_url_host
   end
 
   def self.test_token_expiry

@@ -28,7 +28,10 @@
 /public/packs
 
 node_modules/
+vendor/
 
 /public/sw.js
 /public/sw.js.map
 /REVISION
+
+docker-compose-local.yaml
