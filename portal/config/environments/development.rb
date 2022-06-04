@@ -41,7 +41,7 @@ Rails.application.configure do
 
   if ENV['ISUXPORTAL_DEV_REDIS'] == '1'
     config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL') }
-    config.session_store :redis_store, {
+    config.session_store :redis_store,
       servers: [
         {
           url: ENV.fetch('REDIS_URL'),
@@ -52,8 +52,7 @@ Rails.application.configure do
       key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', 'isuxportaldev_sess'),
       same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
       threadsafe: true,
-      secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '0') == '1',
-    }
+      secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '0') == '1'
   end
 
   config.active_job.queue_adapter = ENV.fetch('DISABLE_SHORYUKEN', '1') == '1' ? :inline : :shoryuken

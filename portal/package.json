@@ -21,7 +21,7 @@
     "workbox-webpack-plugin": "^6.1.5"
   },
   "dependencies": {
-    "@rails/ujs": "^6.0.3-2",
+    "@rails/ujs": "^6.1.6",
     "@sentry/browser": "^5.19.0",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.7",

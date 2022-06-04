@@ -50,7 +50,7 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = ENV.fetch('DISABLE_SHORYUKEN', '0') == '1' ? :inline : :shoryuken
 
-  config.session_store :redis_store, {
+  config.session_store :redis_store,
     servers: [
       {
         url: ENV.fetch('REDIS_URL'),
@@ -61,9 +61,7 @@ Rails.application.configure do
     key: ENV.fetch('ISUXPORTAL_SESSION_COOKIE', '__Host-isuxportal_sess'),
     same_site: ENV.fetch('ISUXPORTAL_SESSION_SAMESITE', :lax).to_sym,
     threadsafe: true,
-    secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1',
-  }
-
+    secure: ENV.fetch('ISUXPORTAL_SESSION_SECURE', '1') == '1'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1.6'
 gem 'blouson'
 gem 'revision_plate'
 
+gem 'net-ftp'
 gem 'puma'
 gem 'griffin'
 gem 'griffin-interceptors'
-gem 'grpc_kit', git: 'https://isucon10-public.s3.dualstack.ap-northeast-1.amazonaws.com/git/6MGgQp9lDmsK6G0CNa0DCOWHkOXID9-1davWxzKzI28/grpc_kit.git', ref: 'blocking-recv-buffer'
-#gem 'grpc_kit', path: '~/git/github.com/cookpad/grpc_kit'
+gem 'grpc_kit', '~> 0.5.1'
 gem 'google-protobuf'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
 gem 'hiredis'
@@ -22,9 +22,9 @@ gem 'aws-sdk-sqs'
 
 gem 'simpacker'
 
-gem 'mysql2', '>= 0.4.4'
+gem 'mysql2', '>= 0.5.4'
 
-gem 'omniauth'
+gem 'omniauth', '< 2.0.0'
 gem 'omniauth-github'
 gem 'omniauth-discord'
 
@@ -34,6 +34,7 @@ gem 'discordrb', git: 'https://github.com/discordrb/discordrb'
 gem 'octokit'
 gem 'webpush'
 gem 'aws-sdk-ec2'
+gem 'listen'
 
 gem 'rack-timeout'
 gem 'newrelic_rpm'
