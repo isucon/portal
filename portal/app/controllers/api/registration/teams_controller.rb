@@ -26,6 +26,11 @@ class Api::Registration::TeamsController < Api::Registration::ApplicationControl
         github_login: github_login.fetch('login'),
       )
       @team.save!
+
+      # AZはidの剰余で割り当てる
+      zones = Rails.application.config.x.availability_zones
+      @team.update!(availability_zone: zones[@team.id % zones.size])
+
       @contestant.team = @team
       @contestant.save!
       @team.leader_id = @contestant.id

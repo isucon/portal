@@ -122,4 +122,6 @@ Rails.application.configure do
   config.x.webpush.subject = ENV['ISUXPORTAL_VAPID_SUBJECT'] || 'isucon10@googlegroups.com'
 
   config.x.sentry.dsn = ENV['SENTRY_DSN']
+
+  config.x.availability_zones = ['apne1-az1', 'apne1-az2', 'apne1-az4']
 end
