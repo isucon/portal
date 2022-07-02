@@ -1886,7 +1886,7 @@ export namespace isuxportal {
                 teamId?: (number|Long|null);
 
                 /** Coupon code */
-                code?: (string|null);
+                code?: (string[]|null);
 
                 /** Coupon activate */
                 activate?: (boolean|null);
@@ -1908,7 +1908,7 @@ export namespace isuxportal {
                 public teamId: (number|Long);
 
                 /** Coupon code. */
-                public code: string;
+                public code: string[];
 
                 /** Coupon activate. */
                 public activate: boolean;

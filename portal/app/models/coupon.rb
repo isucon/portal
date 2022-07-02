@@ -6,7 +6,7 @@ class Coupon < ApplicationRecord
   def to_pb()
     Isuxportal::Proto::Resources::Coupon.new(
       id: id,
-      code: activate ? code : '',
+      code: activate ? code.split(',') : nil,
       activate: activate
     )
   end

@@ -5,6 +5,6 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/resou
 message Coupon {
     int64 id = 1;
     int64 team_id = 2;
-    string code = 3;
+    repeated string code = 3;
     bool activate = 4;
 }

@@ -8,7 +8,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.resources.Coupon" do
       optional :id, :int64, 1
       optional :team_id, :int64, 2
-      optional :code, :string, 3
+      repeated :code, :string, 3
       optional :activate, :bool, 4
     end
   end
