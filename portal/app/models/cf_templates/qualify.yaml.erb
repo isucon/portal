@@ -44,7 +44,7 @@ Resources:
             elif event['RequestType'] == "Delete":
               cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
       Handler: index.handler
-      Runtime: python3.8
+      Runtime: python3.9
       Timeout: 30
       Role: !GetAtt GetAvailabilityZoneFunctionExecutionRole.Arn
   GetAvailabilityZone:

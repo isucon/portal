@@ -79,6 +79,7 @@ module CloudFormation
     Base64.strict_encode64(JSON.dump(
       token: token,
       dev: is_for_staging,
+      host: Rails.application.config.x.public_url_host,
     ))
   end
 end
