@@ -54,7 +54,7 @@ module CloudFormation
 
   def self.test_token_expiry
     if is_for_staging
-      Time.now.to_i + 60 * 60 # 発行時から1時間後
+      Time.now.to_i + 24 * 60 * 60 # 発行時から24時間後
     else
       Rails.application.config.x.contest.contest_start.to_i
     end
