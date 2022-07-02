@@ -135,7 +135,7 @@ Resources:
   EnvcheckInstance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0e22b2e5f011bcb69
+      ImageId: <%= ami_id %>
       InstanceType: t3.micro
       SecurityGroupIds:
         - !Ref SecurityGroup

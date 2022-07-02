@@ -141,7 +141,7 @@ Resources:
   QualifyInstance1:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0be3f7cce0ddfa2a3
+      ImageId: <%= ami_id %>
       InstanceType: c5.large
       SecurityGroupIds:
         - !Ref SecurityGroup
@@ -176,7 +176,7 @@ Resources:
   QualifyInstance2:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0be3f7cce0ddfa2a3
+      ImageId: <%= ami_id %>
       InstanceType: c5.large
       SecurityGroupIds:
         - !Ref SecurityGroup
@@ -211,7 +211,7 @@ Resources:
   QualifyInstance3:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-0be3f7cce0ddfa2a3
+      ImageId: <%= ami_id %>
       InstanceType: c5.large
       SecurityGroupIds:
         - !Ref SecurityGroup

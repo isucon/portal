@@ -124,4 +124,7 @@ Rails.application.configure do
   config.x.sentry.dsn = ENV['SENTRY_DSN']
 
   config.x.availability_zones = ['apne1-az1', 'apne1-az2', 'apne1-az4']
+
+  config.x.ami.test_id = ENV['ISUXPORTAL_TEST_AMI_ID']
+  config.x.ami.qualify_id = ENV['ISUXPORTAL_QUALIFY_AMI_ID']
 end
