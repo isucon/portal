@@ -81,7 +81,7 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                         worker.perform(channel.clone()).await.unwrap();
                     }
                     None => {
-                        tokio::time::delay_for(std::time::Duration::new(
+                        tokio::time::sleep(std::time::Duration::new(
                             config.interval_after_empty_receive,
                             0,
                         ))
@@ -94,7 +94,7 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                 if shutdown_rx.try_recv().is_ok() {
                     break;
                 }
-                tokio::time::delay_for(std::time::Duration::new(config.interval_after_empty_receive, 0))
+                tokio::time::sleep(std::time::Duration::new(config.interval_after_empty_receive, 0))
                     .await;
             }
             Err(_) => {

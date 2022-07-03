@@ -1,5 +1,6 @@
 use std::os::unix::process::ExitStatusExt;
 use tokio::io::AsyncReadExt;
+use tokio::io::AsyncSeekExt;
 
 use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::api::isuxportal::proto::resources::BenchmarkResult;
@@ -70,7 +71,7 @@ impl Worker {
         let process = self.process();
         let mut handle = process.spawn().await?;
 
-        let mut deadline = tokio::time::delay_for(std::time::Duration::from_secs(self.hard_timeout));
+        let mut deadline = Box::pin(tokio::time::sleep(std::time::Duration::from_secs(self.hard_timeout)));
         self.report_first(&mut reporter).await;
 
         let mut process_exit_status: Option<std::process::ExitStatus> = None;
@@ -225,7 +226,7 @@ impl Worker {
                     last_status = Some(tonic::Status::deadline_exceeded("timed out"));
                 }
             }
-            tokio::time::delay_for(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry
+            tokio::time::sleep(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry
         }
         return Err(last_status.unwrap());
     }

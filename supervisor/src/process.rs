@@ -1,5 +1,5 @@
 use crate::error::Error;
-use tokio::stream::StreamExt;
+use tokio_stream::StreamExt;
 
 pub struct Process {
     pub exec: String,
@@ -50,19 +50,20 @@ impl Process {
         fcntl(pipe_i, F_SETFL(flopts)).unwrap();
 
         log::info!(
-            "spawned cmd={} {}, stdout_path={}, stderr_path={}, target_address={}, pid={}",
+            "spawned cmd={} {}, stdout_path={}, stderr_path={}, target_address={}, pid={:?}",
             &self.exec,
             self.args.clone().join(" "),
             &self.stdout_path,
             &self.stderr_path,
             &self.target_address,
-            child.id()
+            child.id(),
         );
 
-        let channel = Channel { fd: pipe_i };
-        let codec = tokio_util::codec::LengthDelimitedCodec::builder()
-            .length_field_length(2)
-            .new_read(tokio::io::PollEvented::new(channel).unwrap());
+        let pipe_async_i = tokio::io::unix::AsyncFd::new(pipe_i)?;
+
+        let channel = Channel::new(pipe_async_i);
+        let codec =
+            tokio_util::codec::LengthDelimitedCodec::builder().length_field_length(2).new_read(channel);
 
         Ok(ProcessHandle { child, codec, child_alive: true, channel_open: true })
     }
@@ -70,10 +71,7 @@ impl Process {
 
 pub struct ProcessHandle {
     child: tokio::process::Child,
-    codec: tokio_util::codec::FramedRead<
-        tokio::io::PollEvented<Channel>,
-        tokio_util::codec::LengthDelimitedCodec,
-    >,
+    codec: tokio_util::codec::FramedRead<Channel, tokio_util::codec::LengthDelimitedCodec>,
 
     child_alive: bool,
     channel_open: bool,
@@ -87,11 +85,11 @@ pub enum Message<T> {
 }
 
 impl ProcessHandle {
-    pub fn kill(&mut self) -> tokio::io::Result<()> {
+    pub fn kill(&mut self) -> std::io::Result<()> {
         if self.child_alive {
-            self.child.kill()
+            self.child.start_kill()
         } else {
-            tokio::io::Result::Ok(())
+            std::io::Result::Ok(())
         }
     }
 
@@ -115,7 +113,7 @@ impl ProcessHandle {
                     Some(Message::DataFinished)
                 },
             },
-            result = &mut self.child, if self.child_alive => {
+            result = self.child.wait(), if self.child_alive => {
                 self.child_alive = false;
                 match result {
                     Ok(exit_status) => Some(Message::ProcessExit(exit_status)),
@@ -127,59 +125,62 @@ impl ProcessHandle {
 }
 
 struct Channel {
-    fd: std::os::unix::io::RawFd, // TODO: close on drop
+    inner: Option<tokio::io::unix::AsyncFd<std::os::unix::io::RawFd>>,
+}
+
+impl Channel {
+    fn new(inner: tokio::io::unix::AsyncFd<std::os::unix::io::RawFd>) -> Self {
+        Self { inner: Some(inner) }
+    }
+}
+
+impl tokio::io::AsyncRead for Channel {
+    fn poll_read(
+        self: std::pin::Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+        buf: &mut tokio::io::ReadBuf<'_>,
+    ) -> std::task::Poll<std::io::Result<()>> {
+        loop {
+            let mut guard = futures::ready!(self
+                .inner
+                .as_ref()
+                .expect("inner is consumed or not given")
+                .poll_read_ready(cx))?;
+            match guard.try_io(|inner| match nix::unistd::read(*inner.get_ref(), buf.initialize_unfilled()) {
+                Ok(s) => std::io::Result::Ok(s),
+                Err(e) => std::io::Result::Err(std::io::Error::from(e)),
+            }) {
+                Ok(Ok(n)) => {
+                    buf.advance(n);
+                    return std::task::Poll::Ready(Ok(()));
+                }
+                Ok(Err(e)) => {
+                    return std::task::Poll::Ready(Err(e));
+                }
+                Err(_would_block) => continue,
+            }
+        }
+    }
 }
 
 impl Drop for Channel {
     fn drop(&mut self) {
-        log::trace!("channel#drop");
-        loop {
-            match nix::unistd::close(self.fd) {
-                Ok(_) => break,
-                Err(nix::Error::Sys(nix::errno::Errno::EBADF)) => break,
-                Err(nix::Error::Sys(nix::errno::Errno::EINTR)) => {
-                    log::warn!("channel#drop: EINTR");
+        match self.inner.take() {
+            Some(i) => {
+                let fd = i.into_inner();
+                loop {
+                    match nix::unistd::close(fd) {
+                        Ok(_) => break,
+                        Err(nix::errno::Errno::EBADF) => break,
+                        Err(nix::errno::Errno::EINTR) => {
+                            log::warn!("channel#drop: EINTR");
+                            continue;
+                        }
+                        Err(e) => panic!("{}", e),
+                    }
                 }
-                Err(e) => panic!("{}", e),
             }
+            None => {}
         }
-        log::trace!("channel#drop: done");
-    }
-}
-
-impl std::io::Read for Channel {
-    fn read(&mut self, bytes: &mut [u8]) -> std::io::Result<usize> {
-        log::trace!("channel#read");
-        match nix::unistd::read(self.fd, bytes) {
-            Ok(s) => std::io::Result::Ok(s),
-            Err(nix::Error::Sys(e)) => std::io::Result::Err(std::io::Error::from(e)),
-            Err(e) => panic!("{}", e),
-        }
-    }
-}
-
-impl mio::event::Evented for Channel {
-    fn register(
-        &self,
-        poll: &mio::Poll,
-        token: mio::Token,
-        interest: mio::Ready,
-        opts: mio::PollOpt,
-    ) -> std::io::Result<()> {
-        mio::unix::EventedFd(&self.fd).register(poll, token, interest | mio::unix::UnixReady::hup(), opts)
-    }
-
-    fn reregister(
-        &self,
-        poll: &mio::Poll,
-        token: mio::Token,
-        interest: mio::Ready,
-        opts: mio::PollOpt,
-    ) -> std::io::Result<()> {
-        mio::unix::EventedFd(&self.fd).reregister(poll, token, interest | mio::unix::UnixReady::hup(), opts)
-    }
-
-    fn deregister(&self, poll: &mio::Poll) -> std::io::Result<()> {
-        mio::unix::EventedFd(&self.fd).deregister(poll)
     }
 }

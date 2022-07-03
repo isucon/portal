@@ -83,7 +83,7 @@ impl Reporter {
 
         while !context.shutdown {
             if num_requests > 0 {
-                tokio::time::delay_for(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
+                tokio::time::sleep(std::time::Duration::new(1, 0)).await; // TODO: more appropriate retry
             }
             num_requests += 1;
             let (inner_outbound_txi, inner_outbound_rx) = tokio::sync::mpsc::unbounded_channel();
@@ -103,7 +103,9 @@ impl Reporter {
 
             let response = match tokio::time::timeout(
                 std::time::Duration::new(15, 0),
-                client.report_benchmark_result(tonic::Request::new(inner_outbound_rx)),
+                client.report_benchmark_result(tokio_stream::wrappers::UnboundedReceiverStream::new(
+                    inner_outbound_rx,
+                )),
             )
             .await
             {
