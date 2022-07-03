@@ -118,7 +118,7 @@ impl Worker {
                 result = &mut reporter_task => {
                     match result {
                         Ok(_) => {
-                            panic!(Error::UnexpectedReporterShutdown);
+                            panic!("{}", Error::UnexpectedReporterShutdown);
                         }
                         Err(e) => {
                             log::error!("Reporter was errored: {:?}", e);

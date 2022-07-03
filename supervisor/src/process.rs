@@ -140,7 +140,7 @@ impl Drop for Channel {
                 Err(nix::Error::Sys(nix::errno::Errno::EINTR)) => {
                     log::warn!("channel#drop: EINTR");
                 }
-                Err(e) => panic!(e),
+                Err(e) => panic!("{}", e),
             }
         }
         log::trace!("channel#drop: done");
@@ -153,7 +153,7 @@ impl std::io::Read for Channel {
         match nix::unistd::read(self.fd, bytes) {
             Ok(s) => std::io::Result::Ok(s),
             Err(nix::Error::Sys(e)) => std::io::Result::Err(std::io::Error::from(e)),
-            Err(e) => panic!(e),
+            Err(e) => panic!("{}", e),
         }
     }
 }
