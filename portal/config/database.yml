@@ -9,6 +9,8 @@
 # And be sure to use new-style password hashing:
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
+<% docker_port = (ENV['DATABASE_URL'].nil? ? IO.popen([*%w(docker-compose port mysql 3306), err: File::NULL], 'r', &:read).chomp.split(?:)&.last : nil) || '' %>
+
 default: &default
   adapter: mysql2
   encoding: utf8mb4
@@ -22,6 +24,12 @@ development:
 <% if ENV['DATABASE_URL'] %>
   url: <%= ENV['DATABASE_URL']&.yield_self {|_| %("#{_}") } %>
   password: "<%= ENV['DATABASE_PASSWORD'] %>"
+<% elsif !docker_port.empty? %>
+  host: 127.0.0.1
+  port: <%= docker_port %>
+  database: isuxportal_dev
+  username: isuxportal
+  password: himitsu
 <% else %>
   database: isuxportal_development
 <% end %>
@@ -31,7 +39,15 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+<% if !docker_port.empty? %>
+  host: 127.0.0.1
+  port: <%= docker_port %>
   database: isuxportal_test
+  username: isuxportal
+  password: himitsu
+<% else %>
+  database: isuxportal_test
+<% end %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

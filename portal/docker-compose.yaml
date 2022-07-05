@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   app:
@@ -6,16 +6,16 @@ services:
     environment:
       RACK_ENV: development
       RAILS_ENV: development
-      DATABASE_URL: 'mysql2://isuxportal_dev@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci'
-      DATABASE_PASSWORD: dbpass
-      REDIS_URL: 'redis://redis:6379'
-      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-01T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2021-06-31T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2021-06-31T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2021-06-31T09:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_START: '2021-07-14T09:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-07-14T18:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_END: '2021-07-14T19:00:00Z'
+      DATABASE_URL: "mysql2://isuxportal@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci"
+      DATABASE_PASSWORD: himitsu
+      REDIS_URL: "redis://redis:6379"
+      ISUXPORTAL_TIMING_REGISTRATION_OPEN: "2021-06-01T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: "2021-06-31T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: "2021-06-31T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: "2021-06-31T09:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_START: "2021-07-14T09:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_FREEZE: "2021-07-14T18:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_END: "2021-07-14T19:00:00Z"
       ISUXPORTAL_GITHUB_CLIENT_ID:
       ISUXPORTAL_GITHUB_CLIENT_SECRET:
       ISUXPORTAL_DISCORD_CLIENT_ID:
@@ -33,7 +33,7 @@ services:
       ISUXPORTAL_ADMIN_LOGIN: admin
       ISUXPORTAL_ADMIN_PASSWORD: pass
     ports:
-      - '3000:3000'
+      - "3000:3000"
 
   appgrpc:
     build: .
@@ -41,33 +41,39 @@ services:
     environment:
       RACK_ENV: development
       RAILS_ENV: development
-      DATABASE_URL: 'mysql2://isuxportal_dev@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci'
-      DATABASE_PASSWORD: dbpass
-      REDIS_URL: 'redis://redis:6379'
-      ISUXPORTAL_TIMING_REGISTRATION_OPEN: '2021-06-01T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: '2021-07-01T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: '2021-07-31T09:00:00Z'
-      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: '2021-07-31T09:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_START: '2021-07-01T09:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_FREEZE: '2021-07-14T18:00:00Z'
-      ISUXPORTAL_TIMING_CONTEST_END: '2021-07-14T19:00:00Z'
+      DATABASE_URL: "mysql2://isuxportal@mysql/isuxportal_dev?encoding=utf8mb4&charset=utf8mb4&collation=utf8mb4_general_ci"
+      DATABASE_PASSWORD: himitsu
+      REDIS_URL: "redis://redis:6379"
+      ISUXPORTAL_TIMING_REGISTRATION_OPEN: "2021-06-01T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_CLOSE: "2021-07-01T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_INVITATION_CLOSE: "2021-07-31T09:00:00Z"
+      ISUXPORTAL_TIMING_REGISTRATION_UPDATE_CLOSE: "2021-07-31T09:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_START: "2021-07-01T09:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_FREEZE: "2021-07-14T18:00:00Z"
+      ISUXPORTAL_TIMING_CONTEST_END: "2021-07-14T19:00:00Z"
       ISUXPORTAL_ADMIN_LOGIN: admin
       ISUXPORTAL_ADMIN_PASSWORD: pass
     ports:
-      - '4000:4000'
+      - "4000:4000"
 
   redis:
     image: redis:latest
     expose:
-      - '6379'
+      - "6379"
+    ports:
+      - "127.0.0.1::6379"
 
   mysql:
     image: mysql:latest
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     environment:
-      MYSQL_ROOT_PASSWORD: passsss
-      MYSQL_USER: isuxportal_dev
-      MYSQL_PASSWORD: dbpass
+      MYSQL_ROOT_PASSWORD: himitsu
+      MYSQL_USER: isuxportal
+      MYSQL_PASSWORD: himitsu
       MYSQL_DATABASE: isuxportal_dev
+    volumes:
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     expose:
-      - '3306'
+      - "3306"
+    ports:
+      - "127.0.0.1::3306"
