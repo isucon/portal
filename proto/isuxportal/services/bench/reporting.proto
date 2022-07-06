@@ -5,19 +5,21 @@ option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/servi
 import "isuxportal/resources/benchmark_result.proto";
 
 service BenchmarkReport {
-  rpc ReportBenchmarkResult(stream ReportBenchmarkResultRequest) returns (stream ReportBenchmarkResultResponse);
-  rpc CompleteBenchmarkJob(CompleteBenchmarkJobRequest) returns (CompleteBenchmarkJobResponse);
+  rpc ReportBenchmarkResult(stream ReportBenchmarkResultRequest)
+      returns (stream ReportBenchmarkResultResponse);
+  rpc CompleteBenchmarkJob(CompleteBenchmarkJobRequest)
+      returns (CompleteBenchmarkJobResponse);
 }
 
 message ReportBenchmarkResultRequest {
   int64 job_id = 1;
   string handle = 2;
-  int64 nonce = 3;
+  int64 nonce = 3 [ deprecated = true ];
   isuxportal.proto.resources.BenchmarkResult result = 4;
 }
 
 message ReportBenchmarkResultResponse {
-  int64 acked_nonce = 1;
+  int64 acked_nonce = 1 [ deprecated = true ];
 }
 
 message CompleteBenchmarkJobRequest {
@@ -26,5 +28,4 @@ message CompleteBenchmarkJobRequest {
   isuxportal.proto.resources.BenchmarkResult result = 4;
 }
 
-message CompleteBenchmarkJobResponse {
-}
+message CompleteBenchmarkJobResponse {}

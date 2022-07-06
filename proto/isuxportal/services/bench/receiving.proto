@@ -33,5 +33,4 @@ message CancelOwnedBenchmarkJobRequest {
   string instance_name = 2;
 }
 
-message CancelOwnedBenchmarkJobResponse {
-}
+message CancelOwnedBenchmarkJobResponse {}

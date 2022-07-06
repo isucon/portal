@@ -19,23 +19,12 @@ fn main() {
 
 #[tokio::main]
 async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
-    let mut channel_build = tonic::transport::Channel::from_shared(config.endpoint_url.clone()).unwrap();
-    if config.endpoint_url.starts_with("https://") {
-        channel_build = channel_build.tls_config(tonic::transport::ClientTlsConfig::new()).unwrap();
-    }
-
-    let channel = channel_build.connect().await.unwrap();
-    // let channel = channel_build.connect_lazy().unwrap();
-
-    let mut queue_client =
-        api::isuxportal::proto::services::bench::benchmark_queue_client::BenchmarkQueueClient::new(
-            channel.clone(),
-        );
+    let client = api::Client::new(reqwest::Url::parse(&config.endpoint_url).unwrap());
 
     tokio::time::timeout(
         std::time::Duration::new(15, 0),
-        queue_client.cancel_owned_benchmark_job(
-            api::isuxportal::proto::services::bench::CancelOwnedBenchmarkJobRequest {
+        client.cancel_owned_benchmark_job(
+            &api::isuxportal::proto::services::bench::CancelOwnedBenchmarkJobRequest {
                 token: config.token.clone(),
                 instance_name: config.instance_name.clone(),
             },
@@ -47,7 +36,8 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
 
     let (shutdown_tx, mut shutdown_rx) = tokio::sync::oneshot::channel();
     tokio::spawn(async {
-        let mut sigterm = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate()).expect("cannot handle signals");
+        let mut sigterm = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+            .expect("cannot handle signals");
         sigterm.recv().await;
         log::info!("received sigterm");
         shutdown_tx.send(()).unwrap();
@@ -57,35 +47,27 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
         if shutdown_rx.try_recv().is_ok() {
             break;
         }
-        let job_req =
-            tonic::Request::new(api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {
-                token: config.token.clone(),
-                instance_name: config.instance_name.clone(),
-                team_id: config.team_id.unwrap_or(0),
-            });
+        let job_req = api::isuxportal::proto::services::bench::ReceiveBenchmarkJobRequest {
+            token: config.token.clone(),
+            instance_name: config.instance_name.clone(),
+            team_id: config.team_id.unwrap_or(0),
+        };
         log::info!("ReceiveBenchmarkJob(Request): {:?}", job_req);
 
-        match tokio::time::timeout(
-            std::time::Duration::new(15, 0),
-            queue_client.receive_benchmark_job(job_req),
-        )
-        .await
+        match tokio::time::timeout(std::time::Duration::new(15, 0), client.receive_benchmark_job(&job_req))
+            .await
         {
-            Ok(Ok(resp)) => {
-                log::info!("ReceiveBenchmarkJob(Response): {:?}", resp);
-                let job_resp = resp.into_inner();
+            Ok(Ok(job_resp)) => {
+                log::info!("ReceiveBenchmarkJob(Response): {:?}", job_resp);
                 match job_resp.job_handle {
                     Some(job) => {
                         log::trace!("job {:?}", job);
                         let worker = Worker::new(job, &config, command_exec.clone(), command_args.clone());
-                        worker.perform(channel.clone()).await.unwrap();
+                        worker.perform(client.clone()).await.unwrap();
                     }
                     None => {
-                        tokio::time::sleep(std::time::Duration::new(
-                            config.interval_after_empty_receive,
-                            0,
-                        ))
-                        .await;
+                        tokio::time::sleep(std::time::Duration::new(config.interval_after_empty_receive, 0))
+                            .await;
                     }
                 }
             }
@@ -94,8 +76,7 @@ async fn run(config: Config, command_exec: String, command_args: Vec<String>) {
                 if shutdown_rx.try_recv().is_ok() {
                     break;
                 }
-                tokio::time::sleep(std::time::Duration::new(config.interval_after_empty_receive, 0))
-                    .await;
+                tokio::time::sleep(std::time::Duration::new(config.interval_after_empty_receive, 0)).await;
             }
             Err(_) => {
                 log::error!("ReceiveBenchmarkJob(Error): Timed out");

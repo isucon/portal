@@ -4,7 +4,6 @@ use tokio::io::AsyncSeekExt;
 
 use crate::api::isuxportal::proto::resources::benchmark_result;
 use crate::api::isuxportal::proto::resources::BenchmarkResult;
-use crate::api::isuxportal::proto::services::bench::benchmark_report_client::BenchmarkReportClient;
 use crate::api::isuxportal::proto::services::bench::receive_benchmark_job_response::JobHandle;
 use crate::api::isuxportal::proto::services::bench::CompleteBenchmarkJobRequest;
 use crate::config::Config;
@@ -57,15 +56,12 @@ impl Worker {
         }
     }
 
-    pub async fn perform(
-        &self,
-        channel: tonic::transport::Channel,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn perform(&self, client: crate::api::Client) -> Result<(), Box<dyn std::error::Error>> {
         use crate::process::Message;
 
         log::info!("Performing job: {:?}", self.job_handle);
 
-        let (mut reporter, reporter_task) = Reporter::new(channel.clone(), self.job_handle.clone()).start();
+        let (mut reporter, reporter_task) = Reporter::new(client.clone(), self.job_handle.clone()).start();
         tokio::pin!(reporter_task);
 
         let process = self.process();
@@ -151,7 +147,7 @@ impl Worker {
             "".to_string()
         });
 
-        self.send_final_result(channel, last_report, error.as_ref(), process_exit_status, stdout, stderr)
+        self.send_final_result(client, last_report, error.as_ref(), process_exit_status, stdout, stderr)
             .await?;
 
         if let Some(e) = error {
@@ -184,15 +180,15 @@ impl Worker {
     const MAX_RETRIES: u32 = 5;
     async fn send_final_result(
         &self,
-        channel: tonic::transport::Channel,
+        client: crate::api::Client,
         last_report: BenchmarkResult,
         known_error: Option<&Error>,
         exit_status: Option<std::process::ExitStatus>,
         stdout: String,
         stderr: String,
-    ) -> Result<(), tonic::Status> {
+    ) -> Result<(), crate::api::Error> {
         let result = self.generate_final_result(last_report, known_error, exit_status, stdout, stderr);
-        let mut last_status: Option<tonic::Status> = None;
+        let mut last_status: Option<crate::api::Error> = None;
 
         let req = CompleteBenchmarkJobRequest {
             job_id: self.job_handle.job_id,
@@ -206,10 +202,9 @@ impl Worker {
                 num_attempt,
                 get_report_request_for_log(req.clone())
             );
-            let mut client = BenchmarkReportClient::new(channel.clone());
             let r = tokio::time::timeout(
                 std::time::Duration::new(18, 0),
-                client.complete_benchmark_job(req.clone()),
+                client.complete_benchmark_job(&req.clone()),
             )
             .await;
             match r {
@@ -223,7 +218,7 @@ impl Worker {
                 }
                 Err(e) => {
                     log::error!("send_final_result(attempt={}): Err {:?}", num_attempt, e);
-                    last_status = Some(tonic::Status::deadline_exceeded("timed out"));
+                    last_status = Some(crate::api::Error::TimeoutError);
                 }
             }
             tokio::time::sleep(std::time::Duration::new(2, 0)).await; // TODO: more appropriate retry

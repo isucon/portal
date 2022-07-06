@@ -1,7 +1,7 @@
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error(transparent)]
-    RequestFailure(#[from] tonic::Status),
+    ApiError(#[from] crate::api::Error),
 
     #[error("Final report was not acknowledged")]
     NotAcknowledged,

@@ -6,6 +6,7 @@ class Api::ApplicationController < ApplicationController
   module Error
     class NotFound < StandardError; end
     class BadRequest < StandardError; end
+    class Unauthorized < StandardError; end
     class Forbidden < StandardError; end
   end
 
@@ -32,6 +33,24 @@ class Api::ApplicationController < ApplicationController
       code: 403,
       name: err.class.name,
       human_message: err.message.presence || "Forbidden",
+      human_descriptions: [],
+    )
+  end
+
+  rescue_from Error::Unauthorized do |err|
+    render status: 400, protobuf: Isuxportal::Proto::Error.new(
+      code: 403,
+      name: err.class.name,
+      human_message: err.message.presence || "Unauthorized",
+      human_descriptions: [],
+    )
+  end
+
+  rescue_from ActiveRecord::RecordNotFound do |err|
+    render status: 404, protobuf: Isuxportal::Proto::Error.new(
+      code: 404,
+      name: "ActiveRecord::RecordNotFound",
+      human_message: "The requested resource was not found",
       human_descriptions: [],
     )
   end

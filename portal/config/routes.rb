@@ -140,6 +140,22 @@ Rails.application.routes.draw do
       get 'dump_leaderboard' => 'leaderboard#dump'
     end
 
+    scope path: 'bench', module: 'bench' do
+      # bench/receiving ReceiveBenchmarkJob: POST /api/bench/receive
+      post 'receive' => 'queue#receive'
+      # bench/receiving CancelOwnedBenchmarkJob: POST /api/bench/cancel_owned
+      post 'cancel_owned' => 'queue#cancel_owned'
+
+
+      # bench/reporting ReportBenchmarkResult: POST /api/bench/benchmark_results
+      resources :benchmark_results, only: %i(create) do
+        collection do
+          # bench/reporting CompleteBenchmarkResult: POST /api/bench/benchmark_results/completion
+          post 'completion' => :complete, as: :complete
+        end
+      end
+    end
+
     get 'env_check_info' => 'env_checks#info'
     get 'ssh_public_keys' => 'env_checks#ssh_public_keys'
     post 'env_checks' => 'env_checks#create'
