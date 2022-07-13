@@ -3,7 +3,11 @@ require 'isuxportal/resources/notification_pb'
 class BenchmarkCompletionJob < ApplicationJob
   def perform(job)
     UpdateContestantDashboardJob.perform_now(team: job.team, frozen: Contest.contest_frozen?(job.finished_at))
+    perform_webpush(job)
+    perform_slack(job)
+  end
 
+  def perform_webpush(job)
     if Contest.contest_open_for_team?(team: job.team)
       job.team.members.each do |contestant|
         n = Notification.create!(
@@ -17,7 +21,9 @@ class BenchmarkCompletionJob < ApplicationJob
         DeliverPushNotificationJob.perform_later(n)
       end
     end
+  end
 
+  def perform_slack(job)
     slack_messages = [
       ":hourglass: Benchmark Job ##{job.id} completed for #{job.team.name} (##{job.team.id}) <https://#{default_url_options.fetch(:host)}/admin/benchmark_jobs/#{job.id}|Open>",
     ]
@@ -33,6 +39,5 @@ class BenchmarkCompletionJob < ApplicationJob
     end
 
     SlackWebhookJob.perform_now(text: slack_messages.join(?\n)) if job.errored?
-
   end
 end
