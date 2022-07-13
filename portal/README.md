@@ -18,11 +18,15 @@ bundle install
 bundle exec rake db:migrate
 ```
 
-## Run
+## Run server
+
+- `npx webpack --progress --watch`
+- `bundle exec rails s`
+
+## Test
 
 ```
-npx webpack --progress --watch
-bundle exec rails s
+bundle exec rspec -fd
 ```
 
 ## Environment Variables
