@@ -31,24 +31,24 @@ RSpec.describe Contest, type: :model do
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].started_at&.seconds).to eq(team1.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].marked_at&.seconds).to eq(team1.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(200)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].started_at&.seconds).to eq(team1.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].marked_at&.seconds).to eq(team1.benchmark_jobs.first.benchmark_result.marked_at.to_i)
 
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(150)
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(150)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(150)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].started_at&.seconds).to eq(team2.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].marked_at&.seconds).to eq(team2.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(150)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].started_at&.seconds).to eq(team2.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].marked_at&.seconds).to eq(team2.benchmark_jobs.first.benchmark_result.marked_at.to_i)
 
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(100)
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(100)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(100)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].started_at&.seconds).to eq(team3.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].marked_at&.seconds).to eq(team3.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(100)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].started_at&.seconds).to eq(team3.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].marked_at&.seconds).to eq(team3.benchmark_jobs.first.benchmark_result.marked_at.to_i)
       end
     end
 
@@ -74,21 +74,21 @@ RSpec.describe Contest, type: :model do
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(10)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(2)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(10)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(2)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(200)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(10)
 
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(800)
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(0)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(2)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(800)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(2)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(800)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
 
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(500)
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(500)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(2)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(100)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[1].score).to eq(500)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(2)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(100)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[1].score).to eq(500)
       end
     end
 
@@ -104,8 +104,8 @@ RSpec.describe Contest, type: :model do
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(200)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(200)
       end
     end
 
@@ -124,11 +124,11 @@ RSpec.describe Contest, type: :model do
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(501)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(300)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(4)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(501)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[2].score).to eq(0)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[3].score).to eq(300)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(4)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(200)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(501)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[2].score).to eq(0)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[3].score).to eq(300)
       end
     end
 
@@ -170,24 +170,24 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(500)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(500)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(3)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(101)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[2].score).to eq(500)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(3)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(101)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[2].score).to eq(500)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(600)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(600)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(4)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[2].score).to eq(201)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[3].score).to eq(600)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(4)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[2].score).to eq(201)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[3].score).to eq(600)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(301)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(301)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(2)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[1].score).to eq(301)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(2)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[1].score).to eq(301)
         end
       end
 
@@ -199,19 +199,19 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(100)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(200)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(2)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(2)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(300)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
         end
       end
 
@@ -224,21 +224,21 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(500)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(500)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(3)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(101)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[2].score).to eq(500)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(3)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(101)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[2].score).to eq(500)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(200)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(2)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(2)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(300)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
         end
       end
     end
@@ -272,27 +272,27 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(500)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(4)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(101)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[2].score).to eq(500)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[3].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(4)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(101)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[2].score).to eq(500)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[3].score).to eq(0)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(800)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(800)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(5)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[2].score).to eq(201)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[3].score).to eq(600)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[4].score).to eq(800)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(5)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[2].score).to eq(201)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[3].score).to eq(600)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[4].score).to eq(800)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(900)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(900)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(3)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[1].score).to eq(301)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[2].score).to eq(900)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(3)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[1].score).to eq(301)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[2].score).to eq(900)
         end
       end
 
@@ -304,19 +304,19 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(100)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(200)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(2)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(2)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(300)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
         end
       end
 
@@ -329,21 +329,21 @@ RSpec.describe Contest, type: :model do
 
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(500)
           expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(500)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(3)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(100)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[1].score).to eq(101)
-          expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[2].score).to eq(500)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(3)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(100)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[1].score).to eq(101)
+          expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[2].score).to eq(500)
 
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(200)
           expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(0)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(2)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(200)
-          expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[1].score).to eq(0)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(2)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(200)
+          expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[1].score).to eq(0)
 
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(300)
           expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(300)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-          expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(300)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+          expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(300)
         end
       end
     end
@@ -363,13 +363,13 @@ RSpec.describe Contest, type: :model do
         expect(subject.teams.map { |_| _.team&.id }.sort).to eq([team1.id, team2.id, team3.id].sort)
         expect(subject.progresses.map { |_| _.team&.id }.sort).to eq([team1.id, team3.id].sort)
 
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.scores.size).to eq(0)
+        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(0)
         expect(subject.progresses.find{ |_| _.team&.id == team1.id }.best_score).to eq(nil)
         expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(20)
         expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.started_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.created_at.to_i)
         expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.marked_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.marked_at.to_i)
 
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.scores.size).to eq(0)
+        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(0)
         expect(subject.progresses.find{ |_| _.team&.id == team3.id }.best_score).to eq(nil)
         expect(subject.progresses.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(20)
         expect(subject.progresses.find{ |_| _.team&.id == team3.id }.latest_score.started_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.created_at.to_i)
@@ -377,24 +377,24 @@ RSpec.describe Contest, type: :model do
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].score).to eq(200)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].started_at&.seconds).to eq(team1.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team1.id }.scores[0].marked_at&.seconds).to eq(team1.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].score).to eq(200)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].started_at&.seconds).to eq(team1.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team1.id }.score_history.scores[0].marked_at&.seconds).to eq(team1.benchmark_jobs.first.benchmark_result.marked_at.to_i)
 
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.best_score.score).to eq(150)
         expect(subject.teams.find{ |_| _.team&.id == team2.id }.latest_score.score).to eq(150)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].score).to eq(150)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].started_at&.seconds).to eq(team2.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team2.id }.scores[0].marked_at&.seconds).to eq(team2.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].score).to eq(150)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].started_at&.seconds).to eq(team2.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team2.id }.score_history.scores[0].marked_at&.seconds).to eq(team2.benchmark_jobs.first.benchmark_result.marked_at.to_i)
 
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.best_score.score).to eq(100)
         expect(subject.teams.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(100)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores.size).to eq(1)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].score).to eq(100)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].started_at&.seconds).to eq(team3.benchmark_jobs.first.created_at.to_i)
-        expect(subject.teams.find{ |_| _.team&.id == team3.id }.scores[0].marked_at&.seconds).to eq(team3.benchmark_jobs.first.benchmark_result.marked_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(1)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].score).to eq(100)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].started_at&.seconds).to eq(team3.benchmark_jobs.first.created_at.to_i)
+        expect(subject.teams.find{ |_| _.team&.id == team3.id }.score_history.scores[0].marked_at&.seconds).to eq(team3.benchmark_jobs.first.benchmark_result.marked_at.to_i)
 
       end
     end

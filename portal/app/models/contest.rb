@@ -204,7 +204,7 @@ module Contest
       best_score = nil
       scores = rs.map do |(_tid, score, passed, created_at, marked_at)|
         score = 0 if passed == 0
-        i = Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+        i = Isuxportal::Proto::Resources::LeaderboardItem::LeaderboardScore.new(
           score: score,
           started_at: created_at, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
           marked_at: marked_at,
@@ -213,9 +213,9 @@ module Contest
         i
       end
       team_exists[team_id] = true
-      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+      Isuxportal::Proto::Resources::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
-        scores: scores,
+        score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: scores),
         best_score: best_score,
         latest_score: scores[-1],
       )
@@ -223,16 +223,16 @@ module Contest
     #t_b = Time.now; p leaderboard_time_itemmap: t_b-t_a; t_a = t_b
 
     items.compact!
-    items.sort_by! { |li| s = li.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+    items.sort_by! { |li| s = li.score_history.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     #t_b = Time.now; p leaderboard_time_sort: t_b-t_a; t_a = t_b
     items.reverse!
     #t_b = Time.now; p leaderboard_time_rev: t_b-t_a; t_a = t_b
 
     items.concat(team_objs.map do |tid, team|
       next if team_exists[tid]
-      Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+      Isuxportal::Proto::Resources::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
-        scores: [],
+        score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: []),
         best_score: nil,
         latest_score: nil,
       )
@@ -256,15 +256,15 @@ module Contest
 
       progresses_items = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
         score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
-          Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem::LeaderboardScore.new(
+          Isuxportal::Proto::Resources::LeaderboardItem::LeaderboardScore.new(
             score: r.score,
             started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
             marked_at: r.marked_at.to_time,
           )
         end
-        Isuxportal::Proto::Resources::Leaderboard::LeaderboardItem.new(
+        Isuxportal::Proto::Resources::LeaderboardItem.new(
           team: rs[0].team.to_pb(detail: false, members: false),
-          scores: [],
+          score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: []),
           best_score: nil,
           latest_score: score,
         )

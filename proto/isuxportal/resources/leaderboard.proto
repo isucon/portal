@@ -6,18 +6,25 @@ import "google/protobuf/timestamp.proto";
 import "isuxportal/resources/team.proto";
 import "isuxportal/resources/contest.proto";
 
-message Leaderboard {
-  message LeaderboardItem {
-    message LeaderboardScore {
-      int64 score = 1;
-      google.protobuf.Timestamp started_at = 2;
-      google.protobuf.Timestamp marked_at = 3;
-    }
-    repeated LeaderboardScore scores = 1;
-    LeaderboardScore best_score = 2;
-    LeaderboardScore latest_score = 3;
-    Team team = 16;
+message LeaderboardItem {
+  message LeaderboardScore {
+    int64 score = 1;
+    google.protobuf.Timestamp started_at = 2;
+    google.protobuf.Timestamp marked_at = 3;
   }
+
+  message History {
+    repeated LeaderboardScore scores = 1;
+  }
+
+  LeaderboardScore best_score = 2;
+  LeaderboardScore latest_score = 3;
+  Team team = 16;
+
+  History score_history = 17;
+}
+
+message Leaderboard {
   repeated LeaderboardItem teams = 1;
   repeated LeaderboardItem general_teams = 2;
   repeated LeaderboardItem student_teams = 3;
@@ -27,3 +34,5 @@ message Leaderboard {
 
   Contest contest = 5;
 }
+
+

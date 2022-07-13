@@ -8,7 +8,7 @@ import { ErrorMessage } from "../ErrorMessage";
 interface TeamItemProps {
   position: number;
   lastPosition?: number;
-  item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+  item: isuxportal.proto.resources.ILeaderboardItem;
   changed: boolean;
 }
 
@@ -93,7 +93,7 @@ export const BroadcastLeaderboard: React.FC<Props> = (props: Props) => {
     if (!dashboard && !showDummy) refresh();
   }, [dashboard]);
   React.useEffect(() => {
-    if (showDummy) return
+    if (showDummy) return;
 
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 2500);
@@ -123,7 +123,7 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
 
   type TeamStanding = {
     position: number;
-    item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+    item: isuxportal.proto.resources.ILeaderboardItem;
     lastPosition?: number;
     lastScore?: number | Long;
   };
@@ -139,7 +139,7 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
     );
   };
 
-  let teams: TeamStanding[]
+  let teams: TeamStanding[];
 
   if (showDummy) {
     teams = [
@@ -151,7 +151,6 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
           team: { id: 424242, name: "あいうあいうあいう", student: { status: true } },
           bestScore: { score: 14835 },
           latestScore: { score: 14835 },
-          scores: [{ score: 100 }, { score: 14835 }],
         },
       },
       {
@@ -162,7 +161,6 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
           team: { id: 424243, name: "なにぬなにぬなにぬ" },
           bestScore: { score: 11835 },
           latestScore: { score: 11835 },
-          scores: [{ score: 60 }, { score: 11835 }],
         },
       },
       {
@@ -173,7 +171,6 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
           team: { id: 400000, name: "railsへの執着はもはや煩悩の域であり、開発者一同は瞑想したほうがいいと思います。" },
           bestScore: { score: 9835 },
           latestScore: { score: 9835 },
-          scores: [{ score: 80 }, { score: 9835 }],
         },
       },
     ];
@@ -206,15 +203,15 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
       }
     };
     teams = selectTeam()
-          .map((item, idx): TeamStanding => {
-            return {
-              position: idx + 1,
-              lastPosition: prevRanks.get(item.team!.id!),
-              lastScore: prevScores.get(item.team!.id!),
-              item,
-            };
-          })
-          .filter((team) => !!team.item.latestScore);
+      .map((item, idx): TeamStanding => {
+        return {
+          position: idx + 1,
+          lastPosition: prevRanks.get(item.team!.id!),
+          lastScore: prevScores.get(item.team!.id!),
+          item,
+        };
+      })
+      .filter((team) => !!team.item.latestScore);
   }
 
   return (

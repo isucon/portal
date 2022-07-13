@@ -11,7 +11,7 @@ interface ChangeItemProps {
   lastPosition: number;
   lastScore: number;
   lastBestScore: number;
-  item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+  item: isuxportal.proto.resources.ILeaderboardItem;
 }
 
 type ChangeDirection = "up" | "down" | undefined;
@@ -81,7 +81,7 @@ const onLeaderboardUpdate = (
 ) => {
   type TeamStanding = {
     position: number;
-    item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+    item: isuxportal.proto.resources.ILeaderboardItem;
     lastPosition?: number;
     lastScore?: number | Long;
     lastBestScore?: number | Long;
