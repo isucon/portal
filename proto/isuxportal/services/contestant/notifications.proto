@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto.services.contestant;
-option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal/services/contestant";
+option go_package = "github.com/isucon/portal/proto.go/isuxportal/services/contestant";
 
 import "isuxportal/resources/notification.proto";
 

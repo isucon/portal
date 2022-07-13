@@ -1,6 +1,6 @@
 syntax = "proto3";
 package isuxportal.proto;
-option go_package = "github.com/isucon/isucon10-portal/proto.go/isuxportal";
+option go_package = "github.com/isucon/portal/proto.go/isuxportal";
 
 message Error {
   int32 code = 1;

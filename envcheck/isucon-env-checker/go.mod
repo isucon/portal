@@ -1,4 +1,4 @@
-module github.com/isucon/isucon11-portal/envcheck/isucon-env-checker
+module github.com/isucon/portal/envcheck/isucon-env-checker
 
 go 1.16
 
