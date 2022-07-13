@@ -7,8 +7,6 @@ gem 'revision_plate'
 
 gem 'net-ftp'
 gem 'puma'
-gem 'griffin'
-gem 'griffin-interceptors'
 gem 'grpc_kit', '~> 0.5.1'
 gem 'google-protobuf'
 gem 'redis', require: ["redis", "redis/connection/hiredis"]
