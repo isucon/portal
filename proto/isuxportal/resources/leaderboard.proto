@@ -26,8 +26,6 @@ message LeaderboardItem {
 
 message Leaderboard {
   repeated LeaderboardItem teams = 1;
-  repeated LeaderboardItem general_teams = 2;
-  repeated LeaderboardItem student_teams = 3;
   repeated LeaderboardItem hidden_teams = 7;
   repeated LeaderboardItem progresses = 4;
   google.protobuf.Timestamp generated_at = 6;

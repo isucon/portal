@@ -2444,12 +2444,6 @@ export namespace isuxportal {
                 /** Leaderboard teams */
                 teams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
 
-                /** Leaderboard generalTeams */
-                generalTeams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
-
-                /** Leaderboard studentTeams */
-                studentTeams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
-
                 /** Leaderboard hiddenTeams */
                 hiddenTeams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
 
@@ -2474,12 +2468,6 @@ export namespace isuxportal {
 
                 /** Leaderboard teams. */
                 public teams: isuxportal.proto.resources.ILeaderboardItem[];
-
-                /** Leaderboard generalTeams. */
-                public generalTeams: isuxportal.proto.resources.ILeaderboardItem[];
-
-                /** Leaderboard studentTeams. */
-                public studentTeams: isuxportal.proto.resources.ILeaderboardItem[];
 
                 /** Leaderboard hiddenTeams. */
                 public hiddenTeams: isuxportal.proto.resources.ILeaderboardItem[];

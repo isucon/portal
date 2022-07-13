@@ -95,14 +95,15 @@ const usePrevious = function <T>(value: T) {
   return ref.current;
 };
 
+// XXX: logic duplicate with selectTeam in BroadcastLeaderboard.tsx
 const chooseTeamList = (mode: Mode, leaderboard: isuxportal.proto.resources.ILeaderboard) => {
   switch (mode) {
     case "all":
       return leaderboard.teams || [];
     case "general":
-      return leaderboard.generalTeams || [];
+      return (leaderboard.teams || []).filter((i) => !i.team!.student!.status);
     case "students":
-      return leaderboard.studentTeams || [];
+      return (leaderboard.teams || []).filter((i) => i.team!.student!.status);
     case "hidden":
       return leaderboard.hiddenTeams || [];
     default:

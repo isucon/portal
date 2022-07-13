@@ -155,19 +155,28 @@ export class ApiClient {
 
   public async listNotifications(after?: number) {
     const klass = isuxportal.proto.services.contestant.ListNotificationsResponse;
-    const resp = await this.request(`${this.baseUrl}/api/contestant/notifications?after=${after ? encodeURIComponent(after.toString()) : ''}`, "GET", null, null);
+    const resp = await this.request(
+      `${this.baseUrl}/api/contestant/notifications?after=${after ? encodeURIComponent(after.toString()) : ""}`,
+      "GET",
+      null,
+      null
+    );
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
   public async subscribeNotification(subscription: PushSubscription) {
     const responseClass = isuxportal.proto.services.contestant.SubscribeNotificationResponse;
     const payloadClass = isuxportal.proto.services.contestant.SubscribeNotificationRequest;
-    const b64 = (buf: ArrayBuffer | null) => buf ? btoa(String.fromCharCode(...new Uint8Array(buf))) : null;
-    const payloadMessage = payloadClass.encode(payloadClass.fromObject({
-      endpoint: subscription.endpoint,
-      p256dh: b64(subscription.getKey('p256dh')),
-      auth: b64(subscription.getKey('auth')),
-    })).finish();
+    const b64 = (buf: ArrayBuffer | null) => (buf ? btoa(String.fromCharCode(...new Uint8Array(buf))) : null);
+    const payloadMessage = payloadClass
+      .encode(
+        payloadClass.fromObject({
+          endpoint: subscription.endpoint,
+          p256dh: b64(subscription.getKey("p256dh")),
+          auth: b64(subscription.getKey("auth")),
+        })
+      )
+      .finish();
     const resp = await this.request(`${this.baseUrl}/api/contestant/push_subscriptions`, "POST", null, payloadMessage);
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
@@ -175,10 +184,19 @@ export class ApiClient {
   public async unsubscribeNotification(subscription: PushSubscription) {
     const responseClass = isuxportal.proto.services.contestant.UnsubscribeNotificationResponse;
     const payloadClass = isuxportal.proto.services.contestant.UnsubscribeNotificationRequest;
-    const payloadMessage = payloadClass.encode(payloadClass.fromObject({
-      endpoint: subscription.endpoint,
-    })).finish();
-    const resp = await this.request(`${this.baseUrl}/api/contestant/push_subscriptions`, "DELETE", null, payloadMessage);
+    const payloadMessage = payloadClass
+      .encode(
+        payloadClass.fromObject({
+          endpoint: subscription.endpoint,
+        })
+      )
+      .finish();
+    const resp = await this.request(
+      `${this.baseUrl}/api/contestant/push_subscriptions`,
+      "DELETE",
+      null,
+      payloadMessage
+    );
     return responseClass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
@@ -199,10 +217,8 @@ export class ApiClient {
     const audienceLeaderboard = audienceBoard.leaderboard!;
 
     const board: isuxportal.proto.services.contestant.IDashboardResponse = {};
-    board.leaderboard =  {
+    board.leaderboard = {
       teams: [],
-      generalTeams: [],
-      studentTeams: [],
       hiddenTeams: [],
       progresses: contestantLeaderboard.progresses,
       contest: contestantLeaderboard.contest,
@@ -210,8 +226,6 @@ export class ApiClient {
 
     const listPairs = [
       [board.leaderboard.teams!, audienceLeaderboard.teams || [], contestantLeaderboard.teams || []],
-      [board.leaderboard.generalTeams!, audienceLeaderboard.generalTeams || [], contestantLeaderboard.generalTeams || []],
-      [board.leaderboard.studentTeams!, audienceLeaderboard.studentTeams || [], contestantLeaderboard.studentTeams || []],
       [board.leaderboard.hiddenTeams!, audienceLeaderboard.hiddenTeams || [], contestantLeaderboard.hiddenTeams || []],
     ];
 
@@ -226,7 +240,7 @@ export class ApiClient {
       dest.sort((a, b) => {
         const as = (a.latestScore?.score ?? 0) as number;
         const bs = (b.latestScore?.score ?? 0) as number;
-        const scoreComparision =  bs - as;
+        const scoreComparision = bs - as;
         if (scoreComparision !== 0) return scoreComparision;
 
         const ats = (a.latestScore?.markedAt?.seconds! ?? 0) as number;
@@ -240,13 +254,11 @@ export class ApiClient {
         if (timeNanosComparison !== 0) return timeNanosComparison;
 
         return 0;
-      })
+      });
     });
 
     return board;
-  } 
-
-
+  }
 
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     let url = path[0] == "/" ? `${this.baseUrl}${path}` : path;

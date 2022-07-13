@@ -26,8 +26,6 @@ RSpec.describe Contest, type: :model do
       specify do
         expect(subject.progresses).to be_empty
         expect(subject.teams.map { |_| _.team&.id }).to eq([team1.id, team2.id, team3.id])
-        expect(subject.general_teams.map { |_| _.team&.id }).to eq([team1.id, team2.id])
-        expect(subject.student_teams.map { |_| _.team&.id }).to eq([team3.id])
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(200)
@@ -66,11 +64,6 @@ RSpec.describe Contest, type: :model do
       specify do
         expect(subject.progresses).to be_empty
         expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id, team1.id, team2.id])
-        expect(subject.general_teams.map { |_| _.team&.id }).to eq([team1.id, team2.id])
-        expect(subject.student_teams.map { |_| _.team&.id }).to eq([team3.id])
-
-        expect(subject.teams[1]).to eq(subject.general_teams[0])
-        expect(subject.teams[0]).to eq(subject.student_teams[0])
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(10)

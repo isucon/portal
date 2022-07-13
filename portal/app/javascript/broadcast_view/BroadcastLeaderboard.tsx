@@ -188,14 +188,15 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
       })
     );
 
+    // XXX: duplicate with chooseTeamList in Leaderboard.tsx
     const selectTeam = () => {
       switch (mode) {
         case "all":
           return leaderboard.teams!;
         case "general":
-          return leaderboard.generalTeams!;
-        case "student":
-          return leaderboard.studentTeams!;
+          return (leaderboard.teams || []).filter((i) => !i.team!.student!.status);
+        case "students":
+          return (leaderboard.teams || []).filter((i) => i.team!.student!.status);
         case "hidden":
           return leaderboard.hiddenTeams!;
         default:

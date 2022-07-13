@@ -279,8 +279,6 @@ module Contest
 
     r = Isuxportal::Proto::Resources::Leaderboard.new(
       teams: visible_items,
-      general_teams: visible_items.reject { |_| _.team.student.status },
-      student_teams: visible_items.select { |_| _.team.student.status },
       hidden_teams: hidden_items,
       progresses: progresses_items || [],
       contest: Contest.to_pb,
