@@ -31,6 +31,24 @@ class BenchmarkResult < ApplicationRecord
     end
   }
 
+  scope :of_visibility, -> (visibility, team = nil) do
+    s = self
+    s = case visibility
+    when :audience
+      s.marked_before_contest_ended
+       .visible_not_frozen(nil)
+    when :contestant
+      raise ArgumentError, "team now given for :contestant visibility" unless team
+      s.marked_before_contest_ended
+       .visible_not_frozen(team)
+    when :admin
+      s
+    else
+      raise ArgumentError, "unknown visibility #{visibility.inspect}"
+    end
+    s
+  end
+
   def errored?
     finished? && (signaled? || !successfully_exited?)
   end

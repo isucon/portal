@@ -169,17 +169,24 @@ module Contest
   def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
     #p :___
     #t0 = t_a = Time.now
+    raise ArgumentError, "solo requested but no team given" if solo && !team
+    visibility = case
+                 when admin
+                   :admin
+                 when team
+                   :contestant
+                 else
+                   :audience
+                 end
+
     benchmark_results = BenchmarkResult
       .successfully_finished
       .order(marked_at: :asc)
-    unless admin
-      benchmark_results = benchmark_results.marked_before_contest_ended
-      benchmark_results = benchmark_results.visible_not_frozen(team)
-    end
+      .of_visibility(visibility, team)
     if now
       benchmark_results = benchmark_results.where('marked_at <= ?', now)
     end
-    if solo && team
+    if solo
       benchmark_results = benchmark_results.where(team_id: team.id)
     end
 
@@ -193,7 +200,7 @@ module Contest
     #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
     #teams = results
     #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
-    team_objs = solo && team ? {team.id => team} : Team.active.promoted.order(id: :asc).map { |t| [t.id, t] }.to_h
+    team_objs = solo ? {team.id => team} : Team.active.promoted.order(id: :asc).map { |t| [t.id, t] }.to_h
     team_exists = {}
     #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|
@@ -250,7 +257,7 @@ module Contest
         benchmark_progresses = benchmark_progresses.marked_before_contest_ended
         benchmark_progresses = benchmark_progresses.visible_not_frozen(team)
       end
-      if solo && team
+      if solo
         benchmark_progresses = benchmark_progresses.where(team_id: team.id)
       end
 
