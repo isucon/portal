@@ -2,6 +2,7 @@ require 'isuxportal/resources/notification_pb'
 
 class BenchmarkCompletionJob < ApplicationJob
   def perform(job)
+    MaintainBestBenchmarkResultOfTeamJob.perform_now(team: job.team)
     UpdateContestantDashboardJob.perform_now(team: job.team, frozen: Contest.contest_frozen?(job.finished_at))
     perform_webpush(job)
     perform_slack(job)

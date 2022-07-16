@@ -18,7 +18,7 @@ class BenchmarkResult < ApplicationRecord
   scope :successfully_finished, -> { where(finished: true).where('exit_status = 0 and exit_signal is null') }
   scope :marked_before_contest_ended, -> {
     if Rails.application.config.x.contest.contest_end
-      where('marked_at < ?', Rails.application.config.x.contest.contest_end) 
+      where('benchmark_results.marked_at < ?', Rails.application.config.x.contest.contest_end) 
     else
       where('1=1')
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_01_153127) do
+ActiveRecord::Schema.define(version: 2022_07_13_221210) do
 
   create_table "benchmark_executions", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -182,6 +182,12 @@ ActiveRecord::Schema.define(version: 2021_09_01_153127) do
     t.boolean "disqualified", default: false, null: false
     t.boolean "student", null: false
     t.string "availability_zone"
+    t.bigint "best_benchmark_result_id"
+    t.bigint "best_benchmark_result_for_audience_id"
+    t.bigint "best_benchmark_result_for_admin_id"
+    t.index ["best_benchmark_result_for_admin_id"], name: "index_teams_on_best_benchmark_result_for_admin_id"
+    t.index ["best_benchmark_result_for_audience_id"], name: "index_teams_on_best_benchmark_result_for_audience_id"
+    t.index ["best_benchmark_result_id"], name: "index_teams_on_best_benchmark_result_id"
     t.index ["withdrawn", "disqualified", "final_participation"], name: "idx_active_final"
   end
 

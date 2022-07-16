@@ -153,6 +153,7 @@ module Contest
   end
 
   def self.leaderboard(admin: false, team: nil, solo: false, now: nil)
+    view_as_team = team
     #p :___
     #t0 = t_a = Time.now
     raise ArgumentError, "solo requested but no team given" if solo && !team
@@ -186,7 +187,7 @@ module Contest
     #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
     #teams = results
     #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
-    team_objs = solo ? {team.id => team} : Team.active.promoted.order(id: :asc).map { |t| [t.id, t] }.to_h
+    team_objs = solo ? {team.id => team} : Team.active.promoted.eager_load(admin ? :best_benchmark_result_for_admin : :best_benchmark_result).order(id: :asc).map { |t| [t.id, t] }.to_h
     team_exists = {}
     #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|
@@ -209,7 +210,13 @@ module Contest
       Isuxportal::Proto::Resources::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
         score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: scores),
-        best_score: best_score,
+        best_score: now ? best_score : (team.best_benchmark_result_of_visibility(visibility, view_as_team)&.then do |i|
+          Isuxportal::Proto::Resources::LeaderboardItem::LeaderboardScore.new(
+            score: i.score,
+            started_at: i.created_at.to_time,
+            marked_at: i.marked_at&.to_time,
+          )
+        end),
         latest_score: scores[-1],
       )
     end

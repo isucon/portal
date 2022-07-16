@@ -147,3 +147,9 @@ q.close
     end
   end
 end.each(&:join)
+
+Team.find_in_batches do |b|
+  b.each do |t|
+    MaintainBestBenchmarkResultOfTeamJob.perform_now(team: t)
+  end
+end

@@ -8,7 +8,16 @@ RSpec.describe Contest, type: :model do
     let!(:team2) { create(:team) }
     let!(:team3) { create(:team, :student) }
 
+    def update_best_score
+      Team.find_in_batches do |b|
+        b.each do |t|
+          MaintainBestBenchmarkResultOfTeamJob.perform_now(team: t)
+        end
+      end
+    end
+
     before do
+      Rails.application.config.x.contest.testxxx = true
       allow(Rails.application.config.x.contest).to receive(:contest_start).and_return(now - 3600)
       allow(Rails.application.config.x.contest).to receive(:contest_freeze).and_return(now + 60)
       allow(Rails.application.config.x.contest).to receive(:contest_end).and_return(now + 120)
@@ -21,6 +30,7 @@ RSpec.describe Contest, type: :model do
         create(:benchmark_job, :passed, scored: 100, team: team3)
         create(:benchmark_job, :passed, scored: 150, team: team2)
         create(:benchmark_job, :passed, scored: 200, team: team1)
+        update_best_score()
       end
 
       specify do
@@ -58,6 +68,7 @@ RSpec.describe Contest, type: :model do
         create(:benchmark_job, :passed, scored: 100, team: team3, marked_at: now+1)
         create(:benchmark_job, :passed, scored: 10, team: team1, marked_at: now+2)
         create(:benchmark_job, :passed, scored: 500, team: team3, marked_at: now+3)
+        update_best_score()
       end
 
 
@@ -89,6 +100,7 @@ RSpec.describe Contest, type: :model do
       before do
         create(:benchmark_job, :passed, scored: 200, team: team1, marked_at: now)
         create(:benchmark_job, :errored, scored: 10, team: team1, marked_at: now+2)
+        update_best_score()
       end
 
 
@@ -109,6 +121,7 @@ RSpec.describe Contest, type: :model do
         create(:benchmark_job, :passed, scored: 501, team: team1, marked_at: now+3)
         create(:benchmark_job, :failed, scored: 15, team: team1, marked_at: now+4)
         create(:benchmark_job, :passed, scored: 300, team: team1, marked_at: now+5)
+        update_best_score()
       end
 
 
@@ -131,6 +144,7 @@ RSpec.describe Contest, type: :model do
         create(:benchmark_job, :passed, scored: 100, team: team2, marked_at: now+2)
         create(:benchmark_job, :passed, scored: 500, team: team2, marked_at: now+3)
         create(:benchmark_job, :passed, scored: 500, team: team1, marked_at: now+4)
+        update_best_score()
       end
 
       specify 'team scored earlier wins' do
@@ -153,6 +167,8 @@ RSpec.describe Contest, type: :model do
 
         create(:benchmark_job, :passed, scored: 500, team: team1, marked_at: now+69)
         create(:benchmark_job, :passed, scored: 600, team: team2, marked_at: now+69)
+
+        update_best_score()
       end
 
       context "when admin" do
@@ -255,6 +271,8 @@ RSpec.describe Contest, type: :model do
         create(:benchmark_job, :passed, scored: 900, team: team3, marked_at: now+121)
         create(:benchmark_job, :passed, scored: 800, team: team2, marked_at: now+121)
         create(:benchmark_job, :failed, scored: 300, team: team1, marked_at: now+121)
+
+        update_best_score()
       end
 
       context "when admin" do
@@ -349,6 +367,7 @@ RSpec.describe Contest, type: :model do
 
         create(:benchmark_job, :progress, scored: 20, team: team1, marked_at: now+10)
         create(:benchmark_job, :progress, scored: 20, team: team3, marked_at: now+10)
+        update_best_score()
       end
 
       specify do
