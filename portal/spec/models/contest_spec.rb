@@ -14,7 +14,7 @@ RSpec.describe Contest, type: :model do
       allow(Rails.application.config.x.contest).to receive(:contest_end).and_return(now + 120)
     end
 
-    subject { Contest.leaderboard(progresses: true) }
+    subject { Contest.leaderboard() }
 
     describe "simple ranking" do
       before do
@@ -156,7 +156,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when admin" do
-        subject { Contest.leaderboard(admin: true, team: nil, progresses: true) }
+        subject { Contest.leaderboard(admin: true, team: nil) }
 
         it "should include all results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team2.id, team1.id, team3.id])
@@ -185,7 +185,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when anonymous" do
-        subject { Contest.leaderboard(admin: false, team: nil, progresses: true) }
+        subject { Contest.leaderboard(admin: false, team: nil) }
 
         it "should not include any post-freeze results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id, team1.id, team2.id])
@@ -210,7 +210,7 @@ RSpec.describe Contest, type: :model do
 
 
       context "when team" do
-        subject { Contest.leaderboard(admin: false, team: team1, progresses: true) }
+        subject { Contest.leaderboard(admin: false, team: team1) }
 
         it "should not include post-freeze results of other teams" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team1.id, team3.id, team2.id])
@@ -258,7 +258,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when admin" do
-        subject { Contest.leaderboard(admin: true, team: nil, progresses: true) }
+        subject { Contest.leaderboard(admin: true, team: nil) }
 
         it "should include all results" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id,team2.id,team1.id])
@@ -290,7 +290,7 @@ RSpec.describe Contest, type: :model do
       end
 
       context "when anonymous" do
-        subject { Contest.leaderboard(admin: false, team: nil, progresses: true) }
+        subject { Contest.leaderboard(admin: false, team: nil) }
 
         it "should not include post-freeze/close results of any teams" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team3.id, team1.id, team2.id])
@@ -315,7 +315,7 @@ RSpec.describe Contest, type: :model do
 
 
       context "when team" do
-        subject { Contest.leaderboard(admin: false, team: team1, progresses: true) }
+        subject { Contest.leaderboard(admin: false, team: team1) }
 
         it "should not include post-freeze results of any teams, including theirselves" do
           expect(subject.teams.map { |_| _.team&.id }).to eq([team1.id, team3.id, team2.id])
@@ -352,21 +352,8 @@ RSpec.describe Contest, type: :model do
       end
 
       specify do
-        expect(subject.progresses).not_to be_empty
+        expect(subject.progresses).to be_empty
         expect(subject.teams.map { |_| _.team&.id }.sort).to eq([team1.id, team2.id, team3.id].sort)
-        expect(subject.progresses.map { |_| _.team&.id }.sort).to eq([team1.id, team3.id].sort)
-
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.score_history.scores.size).to eq(0)
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.best_score).to eq(nil)
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(20)
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.started_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.created_at.to_i)
-        expect(subject.progresses.find{ |_| _.team&.id == team1.id }.latest_score.marked_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.marked_at.to_i)
-
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.score_history.scores.size).to eq(0)
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.best_score).to eq(nil)
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.latest_score.score).to eq(20)
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.latest_score.started_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.created_at.to_i)
-        expect(subject.progresses.find{ |_| _.team&.id == team3.id }.latest_score.marked_at&.seconds).to eq(team1.benchmark_jobs.order(id: :desc).first.benchmark_result.marked_at.to_i)
 
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.best_score.score).to eq(200)
         expect(subject.teams.find{ |_| _.team&.id == team1.id }.latest_score.score).to eq(200)

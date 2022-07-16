@@ -114,7 +114,7 @@ module Contest
     )
   end
 
-  def self.leaderboard_etag(admin: false, team: nil, progresses: false)
+  def self.leaderboard_etag(admin: false, team: nil)
     teams = Team.active.promoted.count
     team_last_updated = Team.active.promoted.pluck(:updated_at).max
 
@@ -126,20 +126,6 @@ module Contest
     unless admin
       latest_result = latest_result.marked_before_contest_ended
       latest_result = latest_result.visible_not_frozen(team)
-    end
-
-    if progresses
-      latest_progress = BenchmarkResult
-        .joins(:benchmark_job)
-        .where(benchmark_jobs: {status: :running})
-        .where(finished: false)
-        .where('exit_status is null AND exit_signal is null') # XXX: adhoc
-        .order(updated_at: :desc)
-        .limit(1)
-      unless admin
-        latest_progress = latest_progress.marked_before_contest_ended
-        latest_progress = latest_progress.visible_not_frozen(team)
-      end
     end
 
     latest_result_id, latest_result_at = latest_result.pluck(:id, :marked_at)[0]
@@ -155,18 +141,18 @@ module Contest
         latest_result_at: latest_result_at&.to_time,
         latest_progress_id: latest_progress_id || 0,
         latest_progress_at: latest_progress_at&.to_time,
-        has_progress: progresses,
+        has_progress: false,
       )
     )
   end
 
-  def self.leaderboard_cached(admin: false, team: nil, progresses: false)
-    Rails.cache.fetch("leaderboard-#{!admin}-t#{team&.id}-#{progresses}", expires_in: 30.seconds) do
-      leaderboard(admin: admin, team: team, progresses: progresses).to_pb
+  def self.leaderboard_cached(admin: false, team: nil)
+    Rails.cache.fetch("leaderboard-#{!admin}-t#{team&.id}", expires_in: 30.seconds) do
+      leaderboard(admin: admin, team: team).to_pb
     end
   end
 
-  def self.leaderboard(admin: false, team: nil, progresses: false, solo: false, now: nil)
+  def self.leaderboard(admin: false, team: nil, solo: false, now: nil)
     #p :___
     #t0 = t_a = Time.now
     raise ArgumentError, "solo requested but no team given" if solo && !team
@@ -245,40 +231,6 @@ module Contest
       )
     end.compact)
 
-    if progresses
-      benchmark_progresses = BenchmarkResult
-        .select(:team_id, :score, :created_at, :marked_at)
-        .joins(:benchmark_job)
-        .where(benchmark_jobs: {status: :running})
-        .where(finished: false)
-        .where('exit_status is null AND exit_signal is null') # XXX: adhoc
-        .preload(:team)
-      unless admin
-        benchmark_progresses = benchmark_progresses.marked_before_contest_ended
-        benchmark_progresses = benchmark_progresses.visible_not_frozen(team)
-      end
-      if solo
-        benchmark_progresses = benchmark_progresses.where(team_id: team.id)
-      end
-
-      progresses_items = benchmark_progresses.group_by(&:team_id).map do |team_id, rs|
-        score = rs.sort_by(&:marked_at)[-1].yield_self do |r|
-          Isuxportal::Proto::Resources::LeaderboardItem::LeaderboardScore.new(
-            score: r.score,
-            started_at: r.created_at.to_time, # XXX: benchmark_results.created_at != benchmark_jobs.started_at ?
-            marked_at: r.marked_at.to_time,
-          )
-        end
-        Isuxportal::Proto::Resources::LeaderboardItem.new(
-          team: rs[0].team.to_pb(detail: false, members: false),
-          score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: []),
-          best_score: nil,
-          latest_score: score,
-        )
-      end
-
-    end
-
     #t_b = Time.now; p leaderboard_time_prog: t_b-t_a; t_a = t_b
     items.reject! { |_| _.team.disqualified || _.team.withdrawn }
     hidden_items, visible_items = items.partition { |_| _.team.hidden }
@@ -287,7 +239,7 @@ module Contest
     r = Isuxportal::Proto::Resources::Leaderboard.new(
       teams: visible_items,
       hidden_teams: hidden_items,
-      progresses: progresses_items || [],
+      progresses: [],
       contest: Contest.to_pb,
       generated_at: Time.now.to_time,
     )
