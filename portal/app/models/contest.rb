@@ -152,8 +152,9 @@ module Contest
     end
   end
 
-  def self.leaderboard(admin: false, team: nil, solo: false, now: nil)
+  def self.leaderboard(admin: false, team: nil, solo: false, now: nil, history: true)
     view_as_team = team
+    history = true if now
     #p :___
     #t0 = t_a = Time.now
     raise ArgumentError, "solo requested but no team given" if solo && !team
@@ -168,7 +169,6 @@ module Contest
 
     benchmark_results = BenchmarkResult
       .successfully_finished
-      .order(marked_at: :asc)
       .of_visibility(visibility, team)
     if now
       benchmark_results = benchmark_results.where('marked_at <= ?', now)
@@ -177,17 +177,29 @@ module Contest
       benchmark_results = benchmark_results.where(team_id: team.id)
     end
 
-    query = benchmark_results
-      .select(:team_id, :score, :passed, :created_at, :marked_at)
-      .to_sql
+    
     #t_b = Time.now; p leaderboard_time_querybuild: t_b-t_a; t_a = t_b
-    teams = ApplicationRecord.connection_pool.with_connection do |conn|
-      conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first)
+    teams = if history
+      query = benchmark_results
+            .order(marked_at: :asc)
+            .select(:team_id, :score, :passed, :created_at, :marked_at)
+            .to_sql
+      ApplicationRecord.connection_pool.with_connection do |conn|
+        conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first)
+      end
+    else
+      ids = benchmark_results.group(:team_id).pluck(:team_id, 'max(benchmark_results.id)').map(&:last)
+      query = BenchmarkResult.where(id: ids)
+        .select(:team_id, :score, :passed, :created_at, :marked_at)
+        .to_sql
+      ApplicationRecord.connection_pool.with_connection do |conn|
+        conn.raw_connection.query(query, cast: true, cache_rows: false, stream: true).group_by(&:first)
+      end
     end
     #t_b = Time.now; p leaderboard_time_querya: t_b-t_a; t_a = t_b
     #teams = results
     #t_b = Time.now; p leaderboard_time_queryb: t_b-t_a; t_a = t_b
-    team_objs = solo ? {team.id => team} : Team.active.promoted.eager_load(admin ? :best_benchmark_result_for_admin : :best_benchmark_result).order(id: :asc).map { |t| [t.id, t] }.to_h
+    team_objs = solo ? {team.id => team} : Team.active.promoted.includes(admin ? :best_benchmark_result_for_admin : :best_benchmark_result_for_audience).order(id: :asc).map { |t| [t.id, t] }.to_h
     team_exists = {}
     #t_b = Time.now; p leaderboard_time_queryc: t_b-t_a; t_a = t_b
     items = teams.map do |team_id, rs|
@@ -209,7 +221,7 @@ module Contest
       team_exists[team_id] = true
       Isuxportal::Proto::Resources::LeaderboardItem.new(
         team: team.to_pb(detail: false, members: false),
-        score_history: Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: scores),
+        score_history: history ? Isuxportal::Proto::Resources::LeaderboardItem::History.new(scores: scores) : nil,
         best_score: now ? best_score : (team.best_benchmark_result_of_visibility(visibility, view_as_team)&.then do |i|
           Isuxportal::Proto::Resources::LeaderboardItem::LeaderboardScore.new(
             score: i.score,
@@ -223,7 +235,7 @@ module Contest
     #t_b = Time.now; p leaderboard_time_itemmap: t_b-t_a; t_a = t_b
 
     items.compact!
-    items.sort_by! { |li| s = li.score_history.scores[-1]; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
+    items.sort_by! { |li| s = li.latest_score; [s.score, -s.marked_at.seconds, -s.marked_at.nanos] }
     #t_b = Time.now; p leaderboard_time_sort: t_b-t_a; t_a = t_b
     items.reverse!
     #t_b = Time.now; p leaderboard_time_rev: t_b-t_a; t_a = t_b
