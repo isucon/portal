@@ -95,9 +95,9 @@ module Contest
     Isuxportal::Proto::Resources::Contest.new(
       registration_opens_at: Rails.application.config.x.contest.registration_open,
       registration_closes_at: Rails.application.config.x.contest.registration_close,
-      starts_at: Rails.application.config.x.contest.contest_start || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch, 0, 0),
-      freezes_at: Rails.application.config.x.contest.contest_freeze || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch+7, 0, 0),
-      ends_at: Rails.application.config.x.contest.contest_end || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch+8, 0, 0),
+      starts_at: Rails.application.config.x.contest.contest_start&.to_time || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch, 0, 0),
+      freezes_at: Rails.application.config.x.contest.contest_freeze&.to_time || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch+7, 0, 0),
+      ends_at: Rails.application.config.x.contest.contest_end&.to_time || Time.utc(now.utc.year, now.utc.month, now.utc.day, auto_contest_epoch+8, 0, 0),
       frozen: Rails.application.config.x.contest.contest_freeze&.yield_self{ |_| now >= _ } || false,
       status: case
       when team && contest_open_for_team?(now: now, team: team)
