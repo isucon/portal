@@ -2,6 +2,7 @@ require 'digest/sha2'
 require 'isuxportal/resources/leaderboard_pb'
 require 'isuxportal/services/contestant/dashboard_pb'
 require 'isuxportal/services/audience/dashboard_pb'
+require 'isuxportal/services/admin/dashboard_pb'
 
 class UpdateContestantDashboardJob < ApplicationJob
   def perform(team: nil, now: nil, frozen: Contest.contest_frozen?(now || Time.zone.now))
@@ -27,7 +28,7 @@ class UpdateContestantDashboardJob < ApplicationJob
       Rails.cache.write("leaderboard-v2:#{round}:admin", [Digest::SHA384.digest(lb_wire), lb_wire])
     end
 
-    (team ? [team] : Team.active).each_with_index do |t,i|
+    (team ? [team] : Team.active.promoted.includes(:best_benchmark_result).includes(:best_benchmark_result_for_audience).includes(:best_benchmark_result_for_admin)).each_with_index do |t,i|
       item = Contest.leaderboard(audience: true, team: t, history: true, solo: true, solo_item: true, now: now)
 
       begin
@@ -55,5 +56,7 @@ class UpdateContestantDashboardJob < ApplicationJob
       end
 
     end
+
+    nil
   end
 end
