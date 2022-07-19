@@ -1,5 +1,5 @@
 import { isuxportal } from "../pb_admin";
-import { ApiClient } from "../ApiClient";
+import { ApiError, ApiClient } from "../ApiClient";
 
 export class AdminApiClient {
   public apiClient: ApiClient;
@@ -200,8 +200,17 @@ export class AdminApiClient {
   public async getLeaderboardItems(ids: number[] | string[]) {
     const result = [];
     for (let i = 0; i < ids.length; i++) {
-      const resp = await this.getDashboardSolo(ids[i]);
-      result.push(resp.leaderboardItem!);
+      try {
+        const resp = await this.getDashboardSolo(ids[i]);
+        result.push(resp.leaderboardItem!);
+      } catch (e) {
+        if (e instanceof ApiError) {
+          if (e.remoteError?.code === 404) {
+            continue;
+          }
+        }
+        throw e;
+      }
     }
     return result;
   }

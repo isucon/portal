@@ -259,13 +259,23 @@ export class ApiClient {
     return audienceBoard;
   }
 
-  // retrieve contestant solo leaderboard items (where contains score history) for specified list of team IDs.
+  // retrieve audience solo leaderboard items (where contains score history) for specified list of team IDs.
   public async getAudienceLeaderboardItems(ids: number[] | string[]) {
     const result = [];
     for (let i = 0; i < ids.length; i++) {
-      const resp = await this.getAudienceDashboardSolo(ids[i]);
-      result.push(resp.leaderboardItem!);
+      try {
+        const resp = await this.getAudienceDashboardSolo(ids[i]);
+        result.push(resp.leaderboardItem!);
+      } catch (e) {
+        if (e instanceof ApiError) {
+          if (e.remoteError?.code === 404) {
+            continue;
+          }
+        }
+        throw e;
+      }
     }
+
     return result;
   }
 
