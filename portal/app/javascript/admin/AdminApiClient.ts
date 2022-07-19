@@ -43,7 +43,9 @@ export class AdminApiClient {
   public async getCloudFormation(id: number, type: "test" | "qualify") {
     const klass = isuxportal.proto.services.admin.GetCloudFormationResponse;
     const resp = await this.request(
-      `${this.baseUrl}/api/admin/teams/${encodeURIComponent(id.toString())}/cloud_formation?type=${encodeURIComponent(type)}`,
+      `${this.baseUrl}/api/admin/teams/${encodeURIComponent(id.toString())}/cloud_formation?type=${encodeURIComponent(
+        type
+      )}`,
       "GET",
       null,
       null
@@ -62,21 +64,21 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
-  public async listBenchmarkJobs(teamId?: number | null, status?: isuxportal.proto.resources.BenchmarkJob.Status, failedOnly?: boolean, page?: number) {
+  public async listBenchmarkJobs(
+    teamId?: number | null,
+    status?: isuxportal.proto.resources.BenchmarkJob.Status,
+    failedOnly?: boolean,
+    page?: number
+  ) {
     const klass = isuxportal.proto.services.admin.ListBenchmarkJobsResponse;
     const query: Record<string, string> = {
-      teamId: teamId?.toString() ?? '',
-      status: status?.toString() ?? '',
-      failedOnly: failedOnly ? '1' : '0',
-      page: page?.toString() ?? ''
-    }
+      teamId: teamId?.toString() ?? "",
+      status: status?.toString() ?? "",
+      failedOnly: failedOnly ? "1" : "0",
+      page: page?.toString() ?? "",
+    };
 
-    const resp = await this.request(
-      `${this.baseUrl}/api/admin/benchmark_jobs`,
-      "GET",
-      query,
-      null
-    );
+    const resp = await this.request(`${this.baseUrl}/api/admin/benchmark_jobs`, "GET", query, null);
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
@@ -161,6 +163,17 @@ export class AdminApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getDashboardSolo(id: number | string) {
+    const klass = isuxportal.proto.services.admin.SoloDashboardResponse;
+    const resp = await this.request(
+      `${this.baseUrl}/api/admin/dashboard/teams/${encodeURIComponent(id.toString())}`,
+      "GET",
+      null,
+      null
+    );
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listContestantInstances(teamId?: number | null) {
     const klass = isuxportal.proto.services.admin.ListContestantInstancesResponse;
     const resp = await this.request(
@@ -177,12 +190,21 @@ export class AdminApiClient {
     const resp = await this.request(
       `${this.baseUrl}/api/admin/dump_leaderboard`,
       "GET",
-      { when: typeof date === 'string' ? date : date.toISOString() },
+      { when: typeof date === "string" ? date : date.toISOString() },
       null
     );
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  // retrieve admin solo leaderboard items (where contains score history) for specified list of team IDs.
+  public async getLeaderboardItems(ids: number[] | string[]) {
+    const result = [];
+    for (let i = 0; i < ids.length; i++) {
+      const resp = await this.getDashboardSolo(ids[i]);
+      result.push(resp.leaderboardItem!);
+    }
+    return result;
+  }
 
   public request(path: string, method: string, query: object | null, payload: Uint8Array | null) {
     return this.apiClient.request(path, method, query, payload);

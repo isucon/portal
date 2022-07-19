@@ -28,24 +28,31 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
   const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.admin.DashboardResponse | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
 
+  const [pinnedTeamLeaderboardItems, setPinnedTeamLeaderboardItems] = React.useState<
+    isuxportal.proto.resources.ILeaderboardItem[]
+  >([]);
+
   const [teamPins, setTeamPins] = React.useState(new TeamPins());
   const [teamPinsMap, setTeamPinsMap] = React.useState(teamPins.all());
   teamPins.onChange = setTeamPinsMap;
 
-  const refresh = () => {
+  const refresh = async () => {
     if (requesting) return;
     setRequesting(true);
-    client
-      .getDashboard()
-      .then((db) => {
-        setDashboard(db);
-        setError(null);
-        setRequesting(false);
-      })
-      .catch((e) => {
-        setError(e);
-        setRequesting(false);
-      });
+
+    try {
+      const db = await client.getDashboard();
+      setDashboard(db);
+
+      const items = await client.getLeaderboardItems(Array.from(teamPinsMap.keys()));
+      setPinnedTeamLeaderboardItems(items);
+
+      setError(null);
+      setRequesting(false);
+    } catch (e) {
+      setError(e);
+      setRequesting(false);
+    }
   };
   React.useEffect(() => {
     if (!dashboard) refresh();
@@ -55,7 +62,7 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refresh, teamPinsMap]);
 
   if (!dashboard)
     return (
@@ -79,7 +86,7 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
         </div>
       </section>
       <section className="is-fullwidth px-5 py-5 is-hidden-touch">
-        <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} teamPins={teamPinsMap} />
+        <ScoreGraph teams={pinnedTeamLeaderboardItems} contest={session.contest!} teamPins={teamPinsMap} />
       </section>
       <section className="mt-3">
         <div className="level">

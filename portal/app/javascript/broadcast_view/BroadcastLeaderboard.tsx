@@ -188,7 +188,7 @@ const BroadcastLeaderboardInner: React.FC<Props> = (props: Props) => {
       })
     );
 
-    // XXX: duplicate with chooseTeamList in Leaderboard.tsx
+    // XXX: logic duplicate with chooseTeamList in Leaderboard.tsx
     const selectTeam = () => {
       switch (mode) {
         case "all":

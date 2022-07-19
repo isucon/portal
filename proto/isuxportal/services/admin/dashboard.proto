@@ -12,3 +12,9 @@ message DashboardResponse {
   google.protobuf.Timestamp earliest_unanswered_clarification_at = 2;
   int64 unanswered_clarification_count = 3;
 }
+
+message SoloDashboardQuery {}
+
+message SoloDashboardResponse {
+  isuxportal.proto.resources.LeaderboardItem leaderboard_item = 1;
+}

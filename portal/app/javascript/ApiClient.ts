@@ -139,6 +139,17 @@ export class ApiClient {
     return klass.decode(new Uint8Array(await resp.arrayBuffer()));
   }
 
+  public async getAudienceDashboardSolo(id: number | string) {
+    const klass = isuxportal.proto.services.audience.SoloDashboardResponse;
+    const resp = await this.request(
+      `${this.baseUrl}/api/audience/dashboard/teams/${encodeURIComponent(id.toString())}`,
+      "GET",
+      null,
+      null
+    );
+    return klass.decode(new Uint8Array(await resp.arrayBuffer()));
+  }
+
   public async listClarifications() {
     const klass = isuxportal.proto.services.contestant.ListClarificationsResponse;
     const resp = await this.request(`${this.baseUrl}/api/contestant/clarifications`, "GET", null, null);
@@ -213,51 +224,49 @@ export class ApiClient {
       isuxportal.proto.services.audience.IDashboardResponse
     >([this.getDashboard(), this.getAudienceDashboard()]);
 
-    const contestantLeaderboard = contestantBoard.leaderboard!;
-    const audienceLeaderboard = audienceBoard.leaderboard!;
+    const contestantLeaderboardItem = contestantBoard.leaderboardItem!;
 
-    const board: isuxportal.proto.services.contestant.IDashboardResponse = {};
-    board.leaderboard = {
-      teams: [],
-      hiddenTeams: [],
-      progresses: contestantLeaderboard.progresses,
-      contest: contestantLeaderboard.contest,
-    };
+    const dest = contestantLeaderboardItem.team!.hidden
+      ? audienceBoard.leaderboard!.hiddenTeams!
+      : audienceBoard.leaderboard!.teams!;
 
-    const listPairs = [
-      [board.leaderboard.teams!, audienceLeaderboard.teams || [], contestantLeaderboard.teams || []],
-      [board.leaderboard.hiddenTeams!, audienceLeaderboard.hiddenTeams || [], contestantLeaderboard.hiddenTeams || []],
-    ];
+    const idx = dest.findIndex((v) => v.team!.id === contestantLeaderboardItem.team!.id);
+    if (idx) {
+      dest.splice(idx, 1, contestantLeaderboardItem);
+    } else {
+      dest.push(contestantLeaderboardItem);
+    }
 
-    listPairs.forEach(([dest, audienceSrc, contestantSrc]) => {
-      audienceSrc.forEach((t) => {
-        if (t.team!.id !== id) {
-          dest.push(t);
-        }
-      });
-      contestantSrc.forEach((t) => dest.push(t));
+    dest.sort((a, b) => {
+      const as = (a.latestScore?.score ?? 0) as number;
+      const bs = (b.latestScore?.score ?? 0) as number;
+      const scoreComparision = bs - as;
+      if (scoreComparision !== 0) return scoreComparision;
 
-      dest.sort((a, b) => {
-        const as = (a.latestScore?.score ?? 0) as number;
-        const bs = (b.latestScore?.score ?? 0) as number;
-        const scoreComparision = bs - as;
-        if (scoreComparision !== 0) return scoreComparision;
+      const ats = (a.latestScore?.markedAt?.seconds! ?? 0) as number;
+      const bts = (b.latestScore?.markedAt?.seconds! ?? 0) as number;
+      const timeSecondsComparison = bts - ats;
+      if (timeSecondsComparison !== 0) return timeSecondsComparison;
 
-        const ats = (a.latestScore?.markedAt?.seconds! ?? 0) as number;
-        const bts = (b.latestScore?.markedAt?.seconds! ?? 0) as number;
-        const timeSecondsComparison = bts - ats;
-        if (timeSecondsComparison !== 0) return timeSecondsComparison;
+      const atn = (a.latestScore?.markedAt?.nanos! ?? 0) as number;
+      const btn = (b.latestScore?.markedAt?.nanos! ?? 0) as number;
+      const timeNanosComparison = btn - atn;
+      if (timeNanosComparison !== 0) return timeNanosComparison;
 
-        const atn = (a.latestScore?.markedAt?.nanos! ?? 0) as number;
-        const btn = (b.latestScore?.markedAt?.nanos! ?? 0) as number;
-        const timeNanosComparison = btn - atn;
-        if (timeNanosComparison !== 0) return timeNanosComparison;
-
-        return 0;
-      });
+      return 0;
     });
 
-    return board;
+    return audienceBoard;
+  }
+
+  // retrieve contestant solo leaderboard items (where contains score history) for specified list of team IDs.
+  public async getAudienceLeaderboardItems(ids: number[] | string[]) {
+    const result = [];
+    for (let i = 0; i < ids.length; i++) {
+      const resp = await this.getAudienceDashboardSolo(ids[i]);
+      result.push(resp.leaderboardItem!);
+    }
+    return result;
   }
 
   public async request(path: string, method: string, query: object | null, payload: Uint8Array | null) {

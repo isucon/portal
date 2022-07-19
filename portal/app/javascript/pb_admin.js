@@ -13714,6 +13714,358 @@ $root.isuxportal = (function() {
                     return DashboardResponse;
                 })();
 
+                admin.SoloDashboardQuery = (function() {
+
+                    /**
+                     * Properties of a SoloDashboardQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface ISoloDashboardQuery
+                     */
+
+                    /**
+                     * Constructs a new SoloDashboardQuery.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a SoloDashboardQuery.
+                     * @implements ISoloDashboardQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardQuery=} [properties] Properties to set
+                     */
+                    function SoloDashboardQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new SoloDashboardQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardQuery} SoloDashboardQuery instance
+                     */
+                    SoloDashboardQuery.create = function create(properties) {
+                        return new SoloDashboardQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message. Does not implicitly {@link isuxportal.proto.services.admin.SoloDashboardQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardQuery} message SoloDashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.SoloDashboardQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardQuery} message SoloDashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardQuery} SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.SoloDashboardQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardQuery} SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SoloDashboardQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SoloDashboardQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SoloDashboardQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardQuery} SoloDashboardQuery
+                     */
+                    SoloDashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.SoloDashboardQuery)
+                            return object;
+                        return new $root.isuxportal.proto.services.admin.SoloDashboardQuery();
+                    };
+
+                    /**
+                     * Creates a plain object from a SoloDashboardQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.admin.SoloDashboardQuery} message SoloDashboardQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SoloDashboardQuery.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this SoloDashboardQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SoloDashboardQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SoloDashboardQuery;
+                })();
+
+                admin.SoloDashboardResponse = (function() {
+
+                    /**
+                     * Properties of a SoloDashboardResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @interface ISoloDashboardResponse
+                     * @property {isuxportal.proto.resources.ILeaderboardItem|null} [leaderboardItem] SoloDashboardResponse leaderboardItem
+                     */
+
+                    /**
+                     * Constructs a new SoloDashboardResponse.
+                     * @memberof isuxportal.proto.services.admin
+                     * @classdesc Represents a SoloDashboardResponse.
+                     * @implements ISoloDashboardResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardResponse=} [properties] Properties to set
+                     */
+                    function SoloDashboardResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * SoloDashboardResponse leaderboardItem.
+                     * @member {isuxportal.proto.resources.ILeaderboardItem|null|undefined} leaderboardItem
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @instance
+                     */
+                    SoloDashboardResponse.prototype.leaderboardItem = null;
+
+                    /**
+                     * Creates a new SoloDashboardResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardResponse} SoloDashboardResponse instance
+                     */
+                    SoloDashboardResponse.create = function create(properties) {
+                        return new SoloDashboardResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message. Does not implicitly {@link isuxportal.proto.services.admin.SoloDashboardResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardResponse} message SoloDashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.leaderboardItem != null && Object.hasOwnProperty.call(message, "leaderboardItem"))
+                            $root.isuxportal.proto.resources.LeaderboardItem.encode(message.leaderboardItem, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.admin.SoloDashboardResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.ISoloDashboardResponse} message SoloDashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardResponse} SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.admin.SoloDashboardResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardResponse} SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SoloDashboardResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SoloDashboardResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem")) {
+                            var error = $root.isuxportal.proto.resources.LeaderboardItem.verify(message.leaderboardItem);
+                            if (error)
+                                return "leaderboardItem." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SoloDashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.admin.SoloDashboardResponse} SoloDashboardResponse
+                     */
+                    SoloDashboardResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.admin.SoloDashboardResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.admin.SoloDashboardResponse();
+                        if (object.leaderboardItem != null) {
+                            if (typeof object.leaderboardItem !== "object")
+                                throw TypeError(".isuxportal.proto.services.admin.SoloDashboardResponse.leaderboardItem: object expected");
+                            message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.fromObject(object.leaderboardItem);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a SoloDashboardResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.admin.SoloDashboardResponse} message SoloDashboardResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SoloDashboardResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.leaderboardItem = null;
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem"))
+                            object.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.toObject(message.leaderboardItem, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this SoloDashboardResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.admin.SoloDashboardResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SoloDashboardResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SoloDashboardResponse;
+                })();
+
                 admin.ListEnvChecksQuery = (function() {
 
                     /**
@@ -16923,6 +17275,358 @@ $root.isuxportal = (function() {
                     return DashboardResponse;
                 })();
 
+                audience.SoloDashboardQuery = (function() {
+
+                    /**
+                     * Properties of a SoloDashboardQuery.
+                     * @memberof isuxportal.proto.services.audience
+                     * @interface ISoloDashboardQuery
+                     */
+
+                    /**
+                     * Constructs a new SoloDashboardQuery.
+                     * @memberof isuxportal.proto.services.audience
+                     * @classdesc Represents a SoloDashboardQuery.
+                     * @implements ISoloDashboardQuery
+                     * @constructor
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardQuery=} [properties] Properties to set
+                     */
+                    function SoloDashboardQuery(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * Creates a new SoloDashboardQuery instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardQuery=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardQuery} SoloDashboardQuery instance
+                     */
+                    SoloDashboardQuery.create = function create(properties) {
+                        return new SoloDashboardQuery(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardQuery} message SoloDashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardQuery.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardQuery} message SoloDashboardQuery message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardQuery.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardQuery} SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardQuery.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.SoloDashboardQuery();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardQuery} SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardQuery.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SoloDashboardQuery message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SoloDashboardQuery.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SoloDashboardQuery message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardQuery} SoloDashboardQuery
+                     */
+                    SoloDashboardQuery.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.SoloDashboardQuery)
+                            return object;
+                        return new $root.isuxportal.proto.services.audience.SoloDashboardQuery();
+                    };
+
+                    /**
+                     * Creates a plain object from a SoloDashboardQuery message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @static
+                     * @param {isuxportal.proto.services.audience.SoloDashboardQuery} message SoloDashboardQuery
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SoloDashboardQuery.toObject = function toObject() {
+                        return {};
+                    };
+
+                    /**
+                     * Converts this SoloDashboardQuery to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardQuery
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SoloDashboardQuery.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SoloDashboardQuery;
+                })();
+
+                audience.SoloDashboardResponse = (function() {
+
+                    /**
+                     * Properties of a SoloDashboardResponse.
+                     * @memberof isuxportal.proto.services.audience
+                     * @interface ISoloDashboardResponse
+                     * @property {isuxportal.proto.resources.ILeaderboardItem|null} [leaderboardItem] SoloDashboardResponse leaderboardItem
+                     */
+
+                    /**
+                     * Constructs a new SoloDashboardResponse.
+                     * @memberof isuxportal.proto.services.audience
+                     * @classdesc Represents a SoloDashboardResponse.
+                     * @implements ISoloDashboardResponse
+                     * @constructor
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardResponse=} [properties] Properties to set
+                     */
+                    function SoloDashboardResponse(properties) {
+                        if (properties)
+                            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * SoloDashboardResponse leaderboardItem.
+                     * @member {isuxportal.proto.resources.ILeaderboardItem|null|undefined} leaderboardItem
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @instance
+                     */
+                    SoloDashboardResponse.prototype.leaderboardItem = null;
+
+                    /**
+                     * Creates a new SoloDashboardResponse instance using the specified properties.
+                     * @function create
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardResponse=} [properties] Properties to set
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardResponse} SoloDashboardResponse instance
+                     */
+                    SoloDashboardResponse.create = function create(properties) {
+                        return new SoloDashboardResponse(properties);
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardResponse} message SoloDashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.leaderboardItem != null && Object.hasOwnProperty.call(message, "leaderboardItem"))
+                            $root.isuxportal.proto.resources.LeaderboardItem.encode(message.leaderboardItem, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.ISoloDashboardResponse} message SoloDashboardResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    SoloDashboardResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardResponse} SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.isuxportal.proto.services.audience.SoloDashboardResponse();
+                        while (reader.pos < end) {
+                            var tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.decode(reader, reader.uint32());
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardResponse} SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    SoloDashboardResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a SoloDashboardResponse message.
+                     * @function verify
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    SoloDashboardResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem")) {
+                            var error = $root.isuxportal.proto.resources.LeaderboardItem.verify(message.leaderboardItem);
+                            if (error)
+                                return "leaderboardItem." + error;
+                        }
+                        return null;
+                    };
+
+                    /**
+                     * Creates a SoloDashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {isuxportal.proto.services.audience.SoloDashboardResponse} SoloDashboardResponse
+                     */
+                    SoloDashboardResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.isuxportal.proto.services.audience.SoloDashboardResponse)
+                            return object;
+                        var message = new $root.isuxportal.proto.services.audience.SoloDashboardResponse();
+                        if (object.leaderboardItem != null) {
+                            if (typeof object.leaderboardItem !== "object")
+                                throw TypeError(".isuxportal.proto.services.audience.SoloDashboardResponse.leaderboardItem: object expected");
+                            message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.fromObject(object.leaderboardItem);
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a SoloDashboardResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @static
+                     * @param {isuxportal.proto.services.audience.SoloDashboardResponse} message SoloDashboardResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    SoloDashboardResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        var object = {};
+                        if (options.defaults)
+                            object.leaderboardItem = null;
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem"))
+                            object.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.toObject(message.leaderboardItem, options);
+                        return object;
+                    };
+
+                    /**
+                     * Converts this SoloDashboardResponse to JSON.
+                     * @function toJSON
+                     * @memberof isuxportal.proto.services.audience.SoloDashboardResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    SoloDashboardResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return SoloDashboardResponse;
+                })();
+
                 audience.ListTeamsRequest = (function() {
 
                     /**
@@ -20065,7 +20769,7 @@ $root.isuxportal = (function() {
                      * Properties of a DashboardResponse.
                      * @memberof isuxportal.proto.services.contestant
                      * @interface IDashboardResponse
-                     * @property {isuxportal.proto.resources.ILeaderboard|null} [leaderboard] DashboardResponse leaderboard
+                     * @property {isuxportal.proto.resources.ILeaderboardItem|null} [leaderboardItem] DashboardResponse leaderboardItem
                      */
 
                     /**
@@ -20084,12 +20788,12 @@ $root.isuxportal = (function() {
                     }
 
                     /**
-                     * DashboardResponse leaderboard.
-                     * @member {isuxportal.proto.resources.ILeaderboard|null|undefined} leaderboard
+                     * DashboardResponse leaderboardItem.
+                     * @member {isuxportal.proto.resources.ILeaderboardItem|null|undefined} leaderboardItem
                      * @memberof isuxportal.proto.services.contestant.DashboardResponse
                      * @instance
                      */
-                    DashboardResponse.prototype.leaderboard = null;
+                    DashboardResponse.prototype.leaderboardItem = null;
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.
@@ -20115,8 +20819,8 @@ $root.isuxportal = (function() {
                     DashboardResponse.encode = function encode(message, writer) {
                         if (!writer)
                             writer = $Writer.create();
-                        if (message.leaderboard != null && Object.hasOwnProperty.call(message, "leaderboard"))
-                            $root.isuxportal.proto.resources.Leaderboard.encode(message.leaderboard, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                        if (message.leaderboardItem != null && Object.hasOwnProperty.call(message, "leaderboardItem"))
+                            $root.isuxportal.proto.resources.LeaderboardItem.encode(message.leaderboardItem, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                         return writer;
                     };
 
@@ -20152,7 +20856,7 @@ $root.isuxportal = (function() {
                             var tag = reader.uint32();
                             switch (tag >>> 3) {
                             case 1:
-                                message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.decode(reader, reader.uint32());
+                                message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.decode(reader, reader.uint32());
                                 break;
                             default:
                                 reader.skipType(tag & 7);
@@ -20189,10 +20893,10 @@ $root.isuxportal = (function() {
                     DashboardResponse.verify = function verify(message) {
                         if (typeof message !== "object" || message === null)
                             return "object expected";
-                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard")) {
-                            var error = $root.isuxportal.proto.resources.Leaderboard.verify(message.leaderboard);
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem")) {
+                            var error = $root.isuxportal.proto.resources.LeaderboardItem.verify(message.leaderboardItem);
                             if (error)
-                                return "leaderboard." + error;
+                                return "leaderboardItem." + error;
                         }
                         return null;
                     };
@@ -20209,10 +20913,10 @@ $root.isuxportal = (function() {
                         if (object instanceof $root.isuxportal.proto.services.contestant.DashboardResponse)
                             return object;
                         var message = new $root.isuxportal.proto.services.contestant.DashboardResponse();
-                        if (object.leaderboard != null) {
-                            if (typeof object.leaderboard !== "object")
-                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.leaderboard: object expected");
-                            message.leaderboard = $root.isuxportal.proto.resources.Leaderboard.fromObject(object.leaderboard);
+                        if (object.leaderboardItem != null) {
+                            if (typeof object.leaderboardItem !== "object")
+                                throw TypeError(".isuxportal.proto.services.contestant.DashboardResponse.leaderboardItem: object expected");
+                            message.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.fromObject(object.leaderboardItem);
                         }
                         return message;
                     };
@@ -20231,9 +20935,9 @@ $root.isuxportal = (function() {
                             options = {};
                         var object = {};
                         if (options.defaults)
-                            object.leaderboard = null;
-                        if (message.leaderboard != null && message.hasOwnProperty("leaderboard"))
-                            object.leaderboard = $root.isuxportal.proto.resources.Leaderboard.toObject(message.leaderboard, options);
+                            object.leaderboardItem = null;
+                        if (message.leaderboardItem != null && message.hasOwnProperty("leaderboardItem"))
+                            object.leaderboardItem = $root.isuxportal.proto.resources.LeaderboardItem.toObject(message.leaderboardItem, options);
                         return object;
                     };
 

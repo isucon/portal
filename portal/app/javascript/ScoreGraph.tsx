@@ -6,6 +6,8 @@ import uPlot from "uplot";
 import type { TeamPinsMap } from "./TeamPins";
 import { COLORS } from "./ScoreGraphColors";
 
+// XXX: ピンされたチームのみ表示(パフォーマンス上の問題)を前提とすることにしたので、全 teams と teamPins をばらばらに受け取る必要はもうない
+
 interface Props {
   teams: isuxportal.proto.resources.ILeaderboardItem[];
   contest: isuxportal.proto.resources.IContest;

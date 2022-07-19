@@ -3535,6 +3535,180 @@ export namespace isuxportal {
                     public toJSON(): { [k: string]: any };
                 }
 
+                /** Properties of a SoloDashboardQuery. */
+                interface ISoloDashboardQuery {
+                }
+
+                /** Represents a SoloDashboardQuery. */
+                class SoloDashboardQuery implements ISoloDashboardQuery {
+
+                    /**
+                     * Constructs a new SoloDashboardQuery.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.ISoloDashboardQuery);
+
+                    /**
+                     * Creates a new SoloDashboardQuery instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SoloDashboardQuery instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.ISoloDashboardQuery): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @param message SoloDashboardQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.ISoloDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @param message SoloDashboardQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.ISoloDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Verifies a SoloDashboardQuery message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SoloDashboardQuery message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SoloDashboardQuery
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Creates a plain object from a SoloDashboardQuery message. Also converts values to other types if specified.
+                     * @param message SoloDashboardQuery
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.SoloDashboardQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SoloDashboardQuery to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a SoloDashboardResponse. */
+                interface ISoloDashboardResponse {
+
+                    /** SoloDashboardResponse leaderboardItem */
+                    leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
+                }
+
+                /** Represents a SoloDashboardResponse. */
+                class SoloDashboardResponse implements ISoloDashboardResponse {
+
+                    /**
+                     * Constructs a new SoloDashboardResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.ISoloDashboardResponse);
+
+                    /** SoloDashboardResponse leaderboardItem. */
+                    public leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
+
+                    /**
+                     * Creates a new SoloDashboardResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SoloDashboardResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.ISoloDashboardResponse): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @param message SoloDashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.ISoloDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @param message SoloDashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.ISoloDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Verifies a SoloDashboardResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SoloDashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SoloDashboardResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Creates a plain object from a SoloDashboardResponse message. Also converts values to other types if specified.
+                     * @param message SoloDashboardResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.SoloDashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SoloDashboardResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
                 /** Properties of a ListTeamsRequest. */
                 interface IListTeamsRequest {
                 }
@@ -4985,8 +5159,8 @@ export namespace isuxportal {
                 /** Properties of a DashboardResponse. */
                 interface IDashboardResponse {
 
-                    /** DashboardResponse leaderboard */
-                    leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+                    /** DashboardResponse leaderboardItem */
+                    leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4998,8 +5172,8 @@ export namespace isuxportal {
                      */
                     constructor(properties?: isuxportal.proto.services.contestant.IDashboardResponse);
 
-                    /** DashboardResponse leaderboard. */
-                    public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+                    /** DashboardResponse leaderboardItem. */
+                    public leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.

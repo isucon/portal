@@ -129,7 +129,6 @@ module Contest
     end
 
     latest_result_id, latest_result_at = latest_result.pluck(:id, :marked_at)[0]
-    latest_progress_id, latest_progress_at = latest_progress&.pluck(:id, :marked_at)&.first
 
     Isuxportal::Proto::Misc::LeaderboardEtag.encode(
       Isuxportal::Proto::Misc::LeaderboardEtag.new(
@@ -139,8 +138,6 @@ module Contest
         team_last_updated: team_last_updated&.to_time,
         latest_result_id: latest_result_id  || 0,
         latest_result_at: latest_result_at&.to_time,
-        latest_progress_id: latest_progress_id || 0,
-        latest_progress_at: latest_progress_at&.to_time,
         has_progress: false,
       )
     )
@@ -152,13 +149,15 @@ module Contest
     end
   end
 
-  def self.leaderboard(admin: false, team: nil, solo: false, now: nil, history: true)
+  def self.leaderboard(admin: false, team: nil, audience: false, solo: false, solo_item: false, now: nil, history: true)
     view_as_team = team
     history = true if now
     #p :___
     #t0 = t_a = Time.now
     raise ArgumentError, "solo requested but no team given" if solo && !team
     visibility = case
+                 when audience
+                   :audience
                  when admin
                    :admin
                  when team
@@ -249,6 +248,12 @@ module Contest
         latest_score: nil,
       )
     end.compact)
+
+    if solo_item && solo
+      raise "solo but more than 1 team items computed" if items.size > 1
+      raise "solo but no team items computed" if items.size != 1
+      return items[0]
+    end
 
     #t_b = Time.now; p leaderboard_time_prog: t_b-t_a; t_a = t_b
     items.reject! { |_| _.team.disqualified || _.team.withdrawn }
