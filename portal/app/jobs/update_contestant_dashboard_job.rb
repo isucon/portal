@@ -41,7 +41,7 @@ class UpdateContestantDashboardJob < ApplicationJob
 
       begin
         resp = Isuxportal::Proto::Services::Contestant::DashboardResponse.new(
-          leaderboard_item: frozen ? item : Contest.leaderboard(team: t, history: true, solo: true, solo_item: true, now: now),
+          leaderboard_item: frozen ? Contest.leaderboard(team: t, history: true, solo: true, solo_item: true, now: now) : item,
         )
         wire = resp.class.encode(resp)
         Rails.cache.write("dashboard-v2:#{round}:contestant:team-#{t.id}", [Digest::SHA384.digest(wire), wire])
@@ -49,7 +49,7 @@ class UpdateContestantDashboardJob < ApplicationJob
 
       begin
         resp = Isuxportal::Proto::Services::Admin::SoloDashboardResponse.new(
-          leaderboard_item: frozen ? item : Contest.leaderboard(admin: true, team: t, history: true, solo: true, solo_item: true, now: now),
+          leaderboard_item: frozen ? Contest.leaderboard(admin: true, team: t, history: true, solo: true, solo_item: true, now: now) : item,
         )
         wire = resp.class.encode(resp)
         Rails.cache.write("dashboard-v2:#{round}:admin:team-#{t.id}", [Digest::SHA384.digest(wire), wire])
