@@ -23,7 +23,7 @@ class Api::Admin::LeaderboardController < Api::Admin::ApplicationController
   end
 
   private def generate_dump(time)
-    lb = Contest.leaderboard(admin: true, team: nil, progresses: false, solo: false, now: time)
+    lb = Contest.leaderboard(admin: true, team: nil, solo: false, now: time)
 
     targets = {}
     lb.teams.each do |item|
