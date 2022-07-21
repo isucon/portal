@@ -79,15 +79,8 @@ bundle exec rspec -fd
 
 - `SENTRY_DSN`
 
-## Misc
+## Dev Tips
 
-### protoc
+### Seed
 
-```
-./bin/isuxportal-protoc.sh
-```
-
-### CloudFormation テンプレートについて
-
-CloudFormation のテンプレートは`/app/models/cf_templates`に存在
-チェッカーでの AMI ID のチェックに使われる値は`/app/controllers/api/env_checks_controller`に別で記載されているので、テンプレートの変更時はそこも変更することが必要
+- `bundle exec rails db:seed` to generate dummy team and score data

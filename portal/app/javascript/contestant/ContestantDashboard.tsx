@@ -28,28 +28,35 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
   const { session, client } = props;
   const [requestingDashboard, setRequestingDashboard] = React.useState(false);
   const [requestingJobs, setRequestingJobs] = React.useState(false);
-  const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.contestant.IDashboardResponse | null>(null);
+  const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.audience.IDashboardResponse | null>(null);
   const [jobs, setJobs] = React.useState<isuxportal.proto.resources.IBenchmarkJob[] | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
+
+  const [pinnedTeamLeaderboardItems, setPinnedTeamLeaderboardItems] = React.useState<
+    isuxportal.proto.resources.ILeaderboardItem[]
+  >([]);
 
   const [teamPins, setTeamPins] = React.useState(new TeamPins());
   const [teamPinsMap, setTeamPinsMap] = React.useState(teamPins.all());
   teamPins.onChange = setTeamPinsMap;
 
-  const refreshDashboard = () => {
+  const refreshDashboard = async () => {
     if (requestingDashboard) return;
     setRequestingDashboard(true);
-    return client
-      .getContestantMergedDashboard(session.team!.id! as number)
-      .then((db) => {
-        setDashboard(db);
-        setError(null);
-        setRequestingDashboard(false);
-      })
-      .catch((e) => {
-        setError(e);
-        setRequestingDashboard(false);
-      });
+
+    try {
+      const db = await client.getContestantMergedDashboard(session.team!.id! as number);
+      setDashboard(db);
+
+      const items = await client.getAudienceLeaderboardItems(Array.from(teamPinsMap.keys()));
+      setPinnedTeamLeaderboardItems(items);
+
+      setError(null);
+      setRequestingDashboard(false);
+    } catch (e) {
+      setError(e);
+      setRequestingDashboard(false);
+    }
   };
   const refreshJobs = () => {
     if (requestingJobs) return;
@@ -82,7 +89,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
     // TODO: Retry with backoff
     const timer = setInterval(() => refreshAll(), 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refreshAll, teamPinsMap]);
 
   if (!dashboard || !jobs)
     return (
@@ -91,6 +98,17 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
         <p>Loading...</p>
       </>
     );
+
+  const scoreGraphTeams = [...pinnedTeamLeaderboardItems];
+  if (dashboard?.leaderboard && session) {
+    const contestantTeamLeaderboardItem = dashboard.leaderboard.teams?.find((v) => session.team!.id === v.team!.id);
+    if (contestantTeamLeaderboardItem) scoreGraphTeams.push(contestantTeamLeaderboardItem);
+
+    const contestantTeamLeaderboardHiddenItem = dashboard.leaderboard.hiddenTeams?.find(
+      (v) => session.team!.id === v.team!.id
+    );
+    if (contestantTeamLeaderboardHiddenItem) scoreGraphTeams.push(contestantTeamLeaderboardHiddenItem);
+  }
 
   return (
     <>
@@ -116,7 +134,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
       </section>
       <section className="is-fullwidth py-5 is-hidden-touch">
         <ScoreGraph
-          teams={dashboard?.leaderboard?.teams!}
+          teams={scoreGraphTeams}
           contest={session.contest!}
           teamId={session.team!.id!}
           teamPins={teamPinsMap}

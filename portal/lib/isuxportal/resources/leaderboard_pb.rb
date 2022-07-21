@@ -9,25 +9,26 @@ require 'isuxportal/resources/contest_pb'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("isuxportal/resources/leaderboard.proto", :syntax => :proto3) do
-    add_message "isuxportal.proto.resources.Leaderboard" do
-      repeated :teams, :message, 1, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      repeated :general_teams, :message, 2, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      repeated :student_teams, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      repeated :hidden_teams, :message, 7, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      repeated :progresses, :message, 4, "isuxportal.proto.resources.Leaderboard.LeaderboardItem"
-      optional :generated_at, :message, 6, "google.protobuf.Timestamp"
-      optional :contest, :message, 5, "isuxportal.proto.resources.Contest"
-    end
-    add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem" do
-      repeated :scores, :message, 1, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
-      optional :best_score, :message, 2, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
-      optional :latest_score, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
+    add_message "isuxportal.proto.resources.LeaderboardItem" do
+      optional :best_score, :message, 2, "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore"
+      optional :latest_score, :message, 3, "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore"
       optional :team, :message, 16, "isuxportal.proto.resources.Team"
+      optional :score_history, :message, 17, "isuxportal.proto.resources.LeaderboardItem.History"
     end
-    add_message "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore" do
+    add_message "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore" do
       optional :score, :int64, 1
       optional :started_at, :message, 2, "google.protobuf.Timestamp"
       optional :marked_at, :message, 3, "google.protobuf.Timestamp"
+    end
+    add_message "isuxportal.proto.resources.LeaderboardItem.History" do
+      repeated :scores, :message, 1, "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore"
+    end
+    add_message "isuxportal.proto.resources.Leaderboard" do
+      repeated :teams, :message, 1, "isuxportal.proto.resources.LeaderboardItem"
+      repeated :hidden_teams, :message, 7, "isuxportal.proto.resources.LeaderboardItem"
+      repeated :progresses, :message, 4, "isuxportal.proto.resources.LeaderboardItem"
+      optional :generated_at, :message, 6, "google.protobuf.Timestamp"
+      optional :contest, :message, 5, "isuxportal.proto.resources.Contest"
     end
   end
 end
@@ -35,9 +36,10 @@ end
 module Isuxportal
   module Proto
     module Resources
+      LeaderboardItem = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.LeaderboardItem").msgclass
+      LeaderboardItem::LeaderboardScore = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.LeaderboardItem.LeaderboardScore").msgclass
+      LeaderboardItem::History = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.LeaderboardItem.History").msgclass
       Leaderboard = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Leaderboard").msgclass
-      Leaderboard::LeaderboardItem = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Leaderboard.LeaderboardItem").msgclass
-      Leaderboard::LeaderboardItem::LeaderboardScore = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore").msgclass
     end
   end
 end

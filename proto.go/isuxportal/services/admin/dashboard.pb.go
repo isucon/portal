@@ -123,6 +123,91 @@ func (x *DashboardResponse) GetUnansweredClarificationCount() int64 {
 	return 0
 }
 
+type SoloDashboardQuery struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SoloDashboardQuery) Reset() {
+	*x = SoloDashboardQuery{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_admin_dashboard_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SoloDashboardQuery) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SoloDashboardQuery) ProtoMessage() {}
+
+func (x *SoloDashboardQuery) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_admin_dashboard_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SoloDashboardQuery.ProtoReflect.Descriptor instead.
+func (*SoloDashboardQuery) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_admin_dashboard_proto_rawDescGZIP(), []int{2}
+}
+
+type SoloDashboardResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LeaderboardItem *resources.LeaderboardItem `protobuf:"bytes,1,opt,name=leaderboard_item,json=leaderboardItem,proto3" json:"leaderboard_item,omitempty"`
+}
+
+func (x *SoloDashboardResponse) Reset() {
+	*x = SoloDashboardResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_isuxportal_services_admin_dashboard_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SoloDashboardResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SoloDashboardResponse) ProtoMessage() {}
+
+func (x *SoloDashboardResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_isuxportal_services_admin_dashboard_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SoloDashboardResponse.ProtoReflect.Descriptor instead.
+func (*SoloDashboardResponse) Descriptor() ([]byte, []int) {
+	return file_isuxportal_services_admin_dashboard_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SoloDashboardResponse) GetLeaderboardItem() *resources.LeaderboardItem {
+	if x != nil {
+		return x.LeaderboardItem
+	}
+	return nil
+}
+
 var File_isuxportal_services_admin_dashboard_proto protoreflect.FileDescriptor
 
 var file_isuxportal_services_admin_dashboard_proto_rawDesc = []byte{
@@ -153,12 +238,20 @@ var file_isuxportal_services_admin_dashboard_proto_rawDesc = []byte{
 	0x72, 0x65, 0x64, 0x5f, 0x63, 0x6c, 0x61, 0x72, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x5f, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x1c, 0x75,
 	0x6e, 0x61, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x65, 0x64, 0x43, 0x6c, 0x61, 0x72, 0x69, 0x66, 0x69,
-	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x3d, 0x5a, 0x3b, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x69, 0x73, 0x75, 0x63, 0x6f, 0x6e,
-	0x2f, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x67, 0x6f,
-	0x2f, 0x69, 0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x73, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x14, 0x0a, 0x12, 0x53,
+	0x6f, 0x6c, 0x6f, 0x44, 0x61, 0x73, 0x68, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x22, 0x6f, 0x0a, 0x15, 0x53, 0x6f, 0x6c, 0x6f, 0x44, 0x61, 0x73, 0x68, 0x62, 0x6f, 0x61,
+	0x72, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x10, 0x6c, 0x65,
+	0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x5f, 0x69, 0x74, 0x65, 0x6d, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x69, 0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74, 0x61,
+	0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65,
+	0x73, 0x2e, 0x4c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x49, 0x74, 0x65,
+	0x6d, 0x52, 0x0f, 0x6c, 0x65, 0x61, 0x64, 0x65, 0x72, 0x62, 0x6f, 0x61, 0x72, 0x64, 0x49, 0x74,
+	0x65, 0x6d, 0x42, 0x3d, 0x5a, 0x3b, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x69, 0x73, 0x75, 0x63, 0x6f, 0x6e, 0x2f, 0x70, 0x6f, 0x72, 0x74, 0x61, 0x6c, 0x2f, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x67, 0x6f, 0x2f, 0x69, 0x73, 0x75, 0x78, 0x70, 0x6f, 0x72, 0x74,
+	0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x61, 0x64, 0x6d, 0x69,
+	0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -173,21 +266,25 @@ func file_isuxportal_services_admin_dashboard_proto_rawDescGZIP() []byte {
 	return file_isuxportal_services_admin_dashboard_proto_rawDescData
 }
 
-var file_isuxportal_services_admin_dashboard_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_isuxportal_services_admin_dashboard_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_isuxportal_services_admin_dashboard_proto_goTypes = []interface{}{
-	(*DashboardQuery)(nil),        // 0: isuxportal.proto.services.admin.DashboardQuery
-	(*DashboardResponse)(nil),     // 1: isuxportal.proto.services.admin.DashboardResponse
-	(*resources.Leaderboard)(nil), // 2: isuxportal.proto.resources.Leaderboard
-	(*timestamp.Timestamp)(nil),   // 3: google.protobuf.Timestamp
+	(*DashboardQuery)(nil),            // 0: isuxportal.proto.services.admin.DashboardQuery
+	(*DashboardResponse)(nil),         // 1: isuxportal.proto.services.admin.DashboardResponse
+	(*SoloDashboardQuery)(nil),        // 2: isuxportal.proto.services.admin.SoloDashboardQuery
+	(*SoloDashboardResponse)(nil),     // 3: isuxportal.proto.services.admin.SoloDashboardResponse
+	(*resources.Leaderboard)(nil),     // 4: isuxportal.proto.resources.Leaderboard
+	(*timestamp.Timestamp)(nil),       // 5: google.protobuf.Timestamp
+	(*resources.LeaderboardItem)(nil), // 6: isuxportal.proto.resources.LeaderboardItem
 }
 var file_isuxportal_services_admin_dashboard_proto_depIdxs = []int32{
-	2, // 0: isuxportal.proto.services.admin.DashboardResponse.leaderboard:type_name -> isuxportal.proto.resources.Leaderboard
-	3, // 1: isuxportal.proto.services.admin.DashboardResponse.earliest_unanswered_clarification_at:type_name -> google.protobuf.Timestamp
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 0: isuxportal.proto.services.admin.DashboardResponse.leaderboard:type_name -> isuxportal.proto.resources.Leaderboard
+	5, // 1: isuxportal.proto.services.admin.DashboardResponse.earliest_unanswered_clarification_at:type_name -> google.protobuf.Timestamp
+	6, // 2: isuxportal.proto.services.admin.SoloDashboardResponse.leaderboard_item:type_name -> isuxportal.proto.resources.LeaderboardItem
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_isuxportal_services_admin_dashboard_proto_init() }
@@ -220,6 +317,30 @@ func file_isuxportal_services_admin_dashboard_proto_init() {
 				return nil
 			}
 		}
+		file_isuxportal_services_admin_dashboard_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SoloDashboardQuery); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_isuxportal_services_admin_dashboard_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SoloDashboardResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -227,7 +348,7 @@ func file_isuxportal_services_admin_dashboard_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_isuxportal_services_admin_dashboard_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

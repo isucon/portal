@@ -8,7 +8,7 @@ const NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT = 25;
 
 interface TeamItemProps {
   position: number;
-  item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+  item: isuxportal.proto.resources.ILeaderboardItem;
   changed: boolean;
   pinned: boolean;
   onPin: (teamId: string, flag: boolean) => void;
@@ -95,17 +95,18 @@ const usePrevious = function <T>(value: T) {
   return ref.current;
 };
 
+// XXX: logic duplicate with selectTeam in BroadcastLeaderboard.tsx
 const chooseTeamList = (mode: Mode, leaderboard: isuxportal.proto.resources.ILeaderboard) => {
-  switch(mode) {
+  switch (mode) {
     case "all":
       return leaderboard.teams || [];
     case "general":
-      return leaderboard.generalTeams || [];
+      return (leaderboard.teams || []).filter((i) => !i.team!.student!.status);
     case "students":
-      return leaderboard.studentTeams || [];
+      return (leaderboard.teams || []).filter((i) => i.team!.student!.status);
     case "hidden":
       return leaderboard.hiddenTeams || [];
-    default: 
+    default:
       throw new Error("[BUG] invalid mode");
   }
 };
@@ -135,28 +136,25 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
 
   type TeamStanding = {
     position: number;
-    item: isuxportal.proto.resources.Leaderboard.ILeaderboardItem;
+    item: isuxportal.proto.resources.ILeaderboardItem;
     pinned: boolean;
     me: boolean;
     lastPosition?: number;
     lastScore?: number | Long;
   };
-  const teams = filteredTeams
-    .map(
-      (item, idx): TeamStanding => {
-        const pinned = pins.has(item.team!.id!.toString());
-        const me = item.team!.id === teamId;
-        if(prevRanks.get(item.team!.id!) && prevRanks.get(item.team!.id!) !== (idx+1)) console.log(item);
-        return {
-          position: idx + 1,
-          lastPosition: prevRanks.get(item.team!.id!),
-          lastScore: prevScores.get(item.team!.id!),
-          item,
-          pinned,
-          me,
-        };
-      }
-    );
+  const teams = filteredTeams.map((item, idx): TeamStanding => {
+    const pinned = pins.has(item.team!.id!.toString());
+    const me = item.team!.id === teamId;
+    if (prevRanks.get(item.team!.id!) && prevRanks.get(item.team!.id!) !== idx + 1) console.log(item);
+    return {
+      position: idx + 1,
+      lastPosition: prevRanks.get(item.team!.id!),
+      lastScore: prevScores.get(item.team!.id!),
+      item,
+      pinned,
+      me,
+    };
+  });
   const renderTeam = (key: string, standing: TeamStanding) => {
     const { item, pinned, me, position, lastPosition, lastScore } = standing;
     return (
@@ -193,11 +191,13 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
               <span>Students</span>
             </a>
           </li>
-          {props.enableHiddenTeamsMode ?  <li className={mode === "hidden" ? "is-active" : ""}>
-            <a onClick={() => setMode("hidden")}>
-              <span>Hidden</span>
-            </a>
-          </li> : null}
+          {props.enableHiddenTeamsMode ? (
+            <li className={mode === "hidden" ? "is-active" : ""}>
+              <a onClick={() => setMode("hidden")}>
+                <span>Hidden</span>
+              </a>
+            </li>
+          ) : null}
         </ul>
       </div>
       <table className="table is-hoverable is-fullwidth isux-leaderboard">
@@ -216,7 +216,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
           {teamMe[0] && teamMe[0].position > NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT
             ? teamMe.map((v) => renderTeam("me", v))
             : []}
-          {teams.filter((v) => v.pinned).map((v) => renderTeam("pinned", v))}
+          {teams.filter((v) => v.pinned && !v.me).map((v) => renderTeam("pinned", v))}
           {teams
             .slice(0, expanded ? undefined : NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT)
             .map((v) => renderTeam("standings", v))}

@@ -2135,23 +2135,320 @@ export namespace isuxportal {
                 public toJSON(): { [k: string]: any };
             }
 
+            /** Properties of a LeaderboardItem. */
+            interface ILeaderboardItem {
+
+                /** LeaderboardItem bestScore */
+                bestScore?: (isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore|null);
+
+                /** LeaderboardItem latestScore */
+                latestScore?: (isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore|null);
+
+                /** LeaderboardItem team */
+                team?: (isuxportal.proto.resources.ITeam|null);
+
+                /** LeaderboardItem scoreHistory */
+                scoreHistory?: (isuxportal.proto.resources.LeaderboardItem.IHistory|null);
+            }
+
+            /** Represents a LeaderboardItem. */
+            class LeaderboardItem implements ILeaderboardItem {
+
+                /**
+                 * Constructs a new LeaderboardItem.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: isuxportal.proto.resources.ILeaderboardItem);
+
+                /** LeaderboardItem bestScore. */
+                public bestScore?: (isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore|null);
+
+                /** LeaderboardItem latestScore. */
+                public latestScore?: (isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore|null);
+
+                /** LeaderboardItem team. */
+                public team?: (isuxportal.proto.resources.ITeam|null);
+
+                /** LeaderboardItem scoreHistory. */
+                public scoreHistory?: (isuxportal.proto.resources.LeaderboardItem.IHistory|null);
+
+                /**
+                 * Creates a new LeaderboardItem instance using the specified properties.
+                 * @param [properties] Properties to set
+                 * @returns LeaderboardItem instance
+                 */
+                public static create(properties?: isuxportal.proto.resources.ILeaderboardItem): isuxportal.proto.resources.LeaderboardItem;
+
+                /**
+                 * Encodes the specified LeaderboardItem message. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.verify|verify} messages.
+                 * @param message LeaderboardItem message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: isuxportal.proto.resources.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified LeaderboardItem message, length delimited. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.verify|verify} messages.
+                 * @param message LeaderboardItem message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: isuxportal.proto.resources.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a LeaderboardItem message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns LeaderboardItem
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.LeaderboardItem;
+
+                /**
+                 * Decodes a LeaderboardItem message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns LeaderboardItem
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.LeaderboardItem;
+
+                /**
+                 * Verifies a LeaderboardItem message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a LeaderboardItem message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns LeaderboardItem
+                 */
+                public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.LeaderboardItem;
+
+                /**
+                 * Creates a plain object from a LeaderboardItem message. Also converts values to other types if specified.
+                 * @param message LeaderboardItem
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: isuxportal.proto.resources.LeaderboardItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this LeaderboardItem to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            namespace LeaderboardItem {
+
+                /** Properties of a LeaderboardScore. */
+                interface ILeaderboardScore {
+
+                    /** LeaderboardScore score */
+                    score?: (number|Long|null);
+
+                    /** LeaderboardScore startedAt */
+                    startedAt?: (google.protobuf.ITimestamp|null);
+
+                    /** LeaderboardScore markedAt */
+                    markedAt?: (google.protobuf.ITimestamp|null);
+                }
+
+                /** Represents a LeaderboardScore. */
+                class LeaderboardScore implements ILeaderboardScore {
+
+                    /**
+                     * Constructs a new LeaderboardScore.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore);
+
+                    /** LeaderboardScore score. */
+                    public score: (number|Long);
+
+                    /** LeaderboardScore startedAt. */
+                    public startedAt?: (google.protobuf.ITimestamp|null);
+
+                    /** LeaderboardScore markedAt. */
+                    public markedAt?: (google.protobuf.ITimestamp|null);
+
+                    /**
+                     * Creates a new LeaderboardScore instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns LeaderboardScore instance
+                     */
+                    public static create(properties?: isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore): isuxportal.proto.resources.LeaderboardItem.LeaderboardScore;
+
+                    /**
+                     * Encodes the specified LeaderboardScore message. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                     * @param message LeaderboardScore message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified LeaderboardScore message, length delimited. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.LeaderboardScore.verify|verify} messages.
+                     * @param message LeaderboardScore message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a LeaderboardScore message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns LeaderboardScore
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.LeaderboardItem.LeaderboardScore;
+
+                    /**
+                     * Decodes a LeaderboardScore message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns LeaderboardScore
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.LeaderboardItem.LeaderboardScore;
+
+                    /**
+                     * Verifies a LeaderboardScore message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a LeaderboardScore message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns LeaderboardScore
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.LeaderboardItem.LeaderboardScore;
+
+                    /**
+                     * Creates a plain object from a LeaderboardScore message. Also converts values to other types if specified.
+                     * @param message LeaderboardScore
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.resources.LeaderboardItem.LeaderboardScore, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this LeaderboardScore to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a History. */
+                interface IHistory {
+
+                    /** History scores */
+                    scores?: (isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore[]|null);
+                }
+
+                /** Represents a History. */
+                class History implements IHistory {
+
+                    /**
+                     * Constructs a new History.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.resources.LeaderboardItem.IHistory);
+
+                    /** History scores. */
+                    public scores: isuxportal.proto.resources.LeaderboardItem.ILeaderboardScore[];
+
+                    /**
+                     * Creates a new History instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns History instance
+                     */
+                    public static create(properties?: isuxportal.proto.resources.LeaderboardItem.IHistory): isuxportal.proto.resources.LeaderboardItem.History;
+
+                    /**
+                     * Encodes the specified History message. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.History.verify|verify} messages.
+                     * @param message History message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.resources.LeaderboardItem.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified History message, length delimited. Does not implicitly {@link isuxportal.proto.resources.LeaderboardItem.History.verify|verify} messages.
+                     * @param message History message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.resources.LeaderboardItem.IHistory, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a History message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns History
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.LeaderboardItem.History;
+
+                    /**
+                     * Decodes a History message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns History
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.LeaderboardItem.History;
+
+                    /**
+                     * Verifies a History message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a History message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns History
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.LeaderboardItem.History;
+
+                    /**
+                     * Creates a plain object from a History message. Also converts values to other types if specified.
+                     * @param message History
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.resources.LeaderboardItem.History, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this History to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+            }
+
             /** Properties of a Leaderboard. */
             interface ILeaderboard {
 
                 /** Leaderboard teams */
-                teams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
-
-                /** Leaderboard generalTeams */
-                generalTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
-
-                /** Leaderboard studentTeams */
-                studentTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+                teams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
 
                 /** Leaderboard hiddenTeams */
-                hiddenTeams?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+                hiddenTeams?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
 
                 /** Leaderboard progresses */
-                progresses?: (isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]|null);
+                progresses?: (isuxportal.proto.resources.ILeaderboardItem[]|null);
 
                 /** Leaderboard generatedAt */
                 generatedAt?: (google.protobuf.ITimestamp|null);
@@ -2170,19 +2467,13 @@ export namespace isuxportal {
                 constructor(properties?: isuxportal.proto.resources.ILeaderboard);
 
                 /** Leaderboard teams. */
-                public teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
-
-                /** Leaderboard generalTeams. */
-                public generalTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
-
-                /** Leaderboard studentTeams. */
-                public studentTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+                public teams: isuxportal.proto.resources.ILeaderboardItem[];
 
                 /** Leaderboard hiddenTeams. */
-                public hiddenTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+                public hiddenTeams: isuxportal.proto.resources.ILeaderboardItem[];
 
                 /** Leaderboard progresses. */
-                public progresses: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+                public progresses: isuxportal.proto.resources.ILeaderboardItem[];
 
                 /** Leaderboard generatedAt. */
                 public generatedAt?: (google.protobuf.ITimestamp|null);
@@ -2259,222 +2550,6 @@ export namespace isuxportal {
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
-            }
-
-            namespace Leaderboard {
-
-                /** Properties of a LeaderboardItem. */
-                interface ILeaderboardItem {
-
-                    /** LeaderboardItem scores */
-                    scores?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[]|null);
-
-                    /** LeaderboardItem bestScore */
-                    bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
-
-                    /** LeaderboardItem latestScore */
-                    latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
-
-                    /** LeaderboardItem team */
-                    team?: (isuxportal.proto.resources.ITeam|null);
-                }
-
-                /** Represents a LeaderboardItem. */
-                class LeaderboardItem implements ILeaderboardItem {
-
-                    /**
-                     * Constructs a new LeaderboardItem.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: isuxportal.proto.resources.Leaderboard.ILeaderboardItem);
-
-                    /** LeaderboardItem scores. */
-                    public scores: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore[];
-
-                    /** LeaderboardItem bestScore. */
-                    public bestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
-
-                    /** LeaderboardItem latestScore. */
-                    public latestScore?: (isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore|null);
-
-                    /** LeaderboardItem team. */
-                    public team?: (isuxportal.proto.resources.ITeam|null);
-
-                    /**
-                     * Creates a new LeaderboardItem instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns LeaderboardItem instance
-                     */
-                    public static create(properties?: isuxportal.proto.resources.Leaderboard.ILeaderboardItem): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
-
-                    /**
-                     * Encodes the specified LeaderboardItem message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
-                     * @param message LeaderboardItem message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified LeaderboardItem message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.verify|verify} messages.
-                     * @param message LeaderboardItem message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: isuxportal.proto.resources.Leaderboard.ILeaderboardItem, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a LeaderboardItem message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns LeaderboardItem
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
-
-                    /**
-                     * Decodes a LeaderboardItem message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns LeaderboardItem
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
-
-                    /**
-                     * Verifies a LeaderboardItem message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a LeaderboardItem message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns LeaderboardItem
-                     */
-                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Leaderboard.LeaderboardItem;
-
-                    /**
-                     * Creates a plain object from a LeaderboardItem message. Also converts values to other types if specified.
-                     * @param message LeaderboardItem
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this LeaderboardItem to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                namespace LeaderboardItem {
-
-                    /** Properties of a LeaderboardScore. */
-                    interface ILeaderboardScore {
-
-                        /** LeaderboardScore score */
-                        score?: (number|Long|null);
-
-                        /** LeaderboardScore startedAt */
-                        startedAt?: (google.protobuf.ITimestamp|null);
-
-                        /** LeaderboardScore markedAt */
-                        markedAt?: (google.protobuf.ITimestamp|null);
-                    }
-
-                    /** Represents a LeaderboardScore. */
-                    class LeaderboardScore implements ILeaderboardScore {
-
-                        /**
-                         * Constructs a new LeaderboardScore.
-                         * @param [properties] Properties to set
-                         */
-                        constructor(properties?: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore);
-
-                        /** LeaderboardScore score. */
-                        public score: (number|Long);
-
-                        /** LeaderboardScore startedAt. */
-                        public startedAt?: (google.protobuf.ITimestamp|null);
-
-                        /** LeaderboardScore markedAt. */
-                        public markedAt?: (google.protobuf.ITimestamp|null);
-
-                        /**
-                         * Creates a new LeaderboardScore instance using the specified properties.
-                         * @param [properties] Properties to set
-                         * @returns LeaderboardScore instance
-                         */
-                        public static create(properties?: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
-
-                        /**
-                         * Encodes the specified LeaderboardScore message. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
-                         * @param message LeaderboardScore message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encode(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Encodes the specified LeaderboardScore message, length delimited. Does not implicitly {@link isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore.verify|verify} messages.
-                         * @param message LeaderboardScore message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encodeDelimited(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.ILeaderboardScore, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Decodes a LeaderboardScore message from the specified reader or buffer.
-                         * @param reader Reader or buffer to decode from
-                         * @param [length] Message length if known beforehand
-                         * @returns LeaderboardScore
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
-
-                        /**
-                         * Decodes a LeaderboardScore message from the specified reader or buffer, length delimited.
-                         * @param reader Reader or buffer to decode from
-                         * @returns LeaderboardScore
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
-
-                        /**
-                         * Verifies a LeaderboardScore message.
-                         * @param message Plain object to verify
-                         * @returns `null` if valid, otherwise the reason why it is not
-                         */
-                        public static verify(message: { [k: string]: any }): (string|null);
-
-                        /**
-                         * Creates a LeaderboardScore message from a plain object. Also converts values to their respective internal types.
-                         * @param object Plain object
-                         * @returns LeaderboardScore
-                         */
-                        public static fromObject(object: { [k: string]: any }): isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore;
-
-                        /**
-                         * Creates a plain object from a LeaderboardScore message. Also converts values to other types if specified.
-                         * @param message LeaderboardScore
-                         * @param [options] Conversion options
-                         * @returns Plain object
-                         */
-                        public static toObject(message: isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                        /**
-                         * Converts this LeaderboardScore to JSON.
-                         * @returns JSON object
-                         */
-                        public toJSON(): { [k: string]: any };
-                    }
-                }
             }
 
             /** Properties of a Notification. */
@@ -3455,6 +3530,180 @@ export namespace isuxportal {
 
                     /**
                      * Converts this DashboardResponse to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a SoloDashboardQuery. */
+                interface ISoloDashboardQuery {
+                }
+
+                /** Represents a SoloDashboardQuery. */
+                class SoloDashboardQuery implements ISoloDashboardQuery {
+
+                    /**
+                     * Constructs a new SoloDashboardQuery.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.ISoloDashboardQuery);
+
+                    /**
+                     * Creates a new SoloDashboardQuery instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SoloDashboardQuery instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.ISoloDashboardQuery): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @param message SoloDashboardQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.ISoloDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SoloDashboardQuery message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardQuery.verify|verify} messages.
+                     * @param message SoloDashboardQuery message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.ISoloDashboardQuery, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Decodes a SoloDashboardQuery message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SoloDashboardQuery
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Verifies a SoloDashboardQuery message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SoloDashboardQuery message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SoloDashboardQuery
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.SoloDashboardQuery;
+
+                    /**
+                     * Creates a plain object from a SoloDashboardQuery message. Also converts values to other types if specified.
+                     * @param message SoloDashboardQuery
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.SoloDashboardQuery, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SoloDashboardQuery to JSON.
+                     * @returns JSON object
+                     */
+                    public toJSON(): { [k: string]: any };
+                }
+
+                /** Properties of a SoloDashboardResponse. */
+                interface ISoloDashboardResponse {
+
+                    /** SoloDashboardResponse leaderboardItem */
+                    leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
+                }
+
+                /** Represents a SoloDashboardResponse. */
+                class SoloDashboardResponse implements ISoloDashboardResponse {
+
+                    /**
+                     * Constructs a new SoloDashboardResponse.
+                     * @param [properties] Properties to set
+                     */
+                    constructor(properties?: isuxportal.proto.services.audience.ISoloDashboardResponse);
+
+                    /** SoloDashboardResponse leaderboardItem. */
+                    public leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
+
+                    /**
+                     * Creates a new SoloDashboardResponse instance using the specified properties.
+                     * @param [properties] Properties to set
+                     * @returns SoloDashboardResponse instance
+                     */
+                    public static create(properties?: isuxportal.proto.services.audience.ISoloDashboardResponse): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @param message SoloDashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encode(message: isuxportal.proto.services.audience.ISoloDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Encodes the specified SoloDashboardResponse message, length delimited. Does not implicitly {@link isuxportal.proto.services.audience.SoloDashboardResponse.verify|verify} messages.
+                     * @param message SoloDashboardResponse message or plain object to encode
+                     * @param [writer] Writer to encode to
+                     * @returns Writer
+                     */
+                    public static encodeDelimited(message: isuxportal.proto.services.audience.ISoloDashboardResponse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer.
+                     * @param reader Reader or buffer to decode from
+                     * @param [length] Message length if known beforehand
+                     * @returns SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Decodes a SoloDashboardResponse message from the specified reader or buffer, length delimited.
+                     * @param reader Reader or buffer to decode from
+                     * @returns SoloDashboardResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Verifies a SoloDashboardResponse message.
+                     * @param message Plain object to verify
+                     * @returns `null` if valid, otherwise the reason why it is not
+                     */
+                    public static verify(message: { [k: string]: any }): (string|null);
+
+                    /**
+                     * Creates a SoloDashboardResponse message from a plain object. Also converts values to their respective internal types.
+                     * @param object Plain object
+                     * @returns SoloDashboardResponse
+                     */
+                    public static fromObject(object: { [k: string]: any }): isuxportal.proto.services.audience.SoloDashboardResponse;
+
+                    /**
+                     * Creates a plain object from a SoloDashboardResponse message. Also converts values to other types if specified.
+                     * @param message SoloDashboardResponse
+                     * @param [options] Conversion options
+                     * @returns Plain object
+                     */
+                    public static toObject(message: isuxportal.proto.services.audience.SoloDashboardResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                    /**
+                     * Converts this SoloDashboardResponse to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
@@ -4910,8 +5159,8 @@ export namespace isuxportal {
                 /** Properties of a DashboardResponse. */
                 interface IDashboardResponse {
 
-                    /** DashboardResponse leaderboard */
-                    leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+                    /** DashboardResponse leaderboardItem */
+                    leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
                 }
 
                 /** Represents a DashboardResponse. */
@@ -4923,8 +5172,8 @@ export namespace isuxportal {
                      */
                     constructor(properties?: isuxportal.proto.services.contestant.IDashboardResponse);
 
-                    /** DashboardResponse leaderboard. */
-                    public leaderboard?: (isuxportal.proto.resources.ILeaderboard|null);
+                    /** DashboardResponse leaderboardItem. */
+                    public leaderboardItem?: (isuxportal.proto.resources.ILeaderboardItem|null);
 
                     /**
                      * Creates a new DashboardResponse instance using the specified properties.

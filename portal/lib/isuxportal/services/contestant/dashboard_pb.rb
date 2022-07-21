@@ -10,7 +10,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.contestant.DashboardQuery" do
     end
     add_message "isuxportal.proto.services.contestant.DashboardResponse" do
-      optional :leaderboard, :message, 1, "isuxportal.proto.resources.Leaderboard"
+      optional :leaderboard_item, :message, 1, "isuxportal.proto.resources.LeaderboardItem"
     end
   end
 end

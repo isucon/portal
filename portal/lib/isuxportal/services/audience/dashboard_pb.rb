@@ -12,6 +12,11 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.audience.DashboardResponse" do
       optional :leaderboard, :message, 1, "isuxportal.proto.resources.Leaderboard"
     end
+    add_message "isuxportal.proto.services.audience.SoloDashboardQuery" do
+    end
+    add_message "isuxportal.proto.services.audience.SoloDashboardResponse" do
+      optional :leaderboard_item, :message, 1, "isuxportal.proto.resources.LeaderboardItem"
+    end
   end
 end
 
@@ -21,6 +26,8 @@ module Isuxportal
       module Audience
         DashboardQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.audience.DashboardQuery").msgclass
         DashboardResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.audience.DashboardResponse").msgclass
+        SoloDashboardQuery = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.audience.SoloDashboardQuery").msgclass
+        SoloDashboardResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("isuxportal.proto.services.audience.SoloDashboardResponse").msgclass
       end
     end
   end

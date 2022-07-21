@@ -11,6 +11,11 @@ class Team < ApplicationRecord
   has_many :env_checks, dependent: :destroy
   has_many :extra_time_assignments, dependent: :destroy
 
+  # public may return a result for frozen 
+  belongs_to :best_benchmark_result, class_name: 'BenchmarkResult', optional: true
+  belongs_to :best_benchmark_result_for_audience, class_name: 'BenchmarkResult', optional: true
+  belongs_to :best_benchmark_result_for_admin, class_name: 'BenchmarkResult', optional: true
+
   has_one :survey_response, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
@@ -21,6 +26,17 @@ class Team < ApplicationRecord
 
   before_validation :generate_invite_token
   before_validation :generate_student_status
+
+  scope :include_best_benchmark_result_of_visibility, -> (visibility) {
+    case visibility
+    when :audience
+      includes(:best_benchmark_result_for_audience)
+    when :contestant
+      includes(:best_benchmark_result)
+    when :admin
+      includes(:best_benchmark_result_for_admin)
+    end
+  }
 
   scope :active, -> { where(withdrawn: false, disqualified: false) }
   scope :promoted, -> { Rails.application.config.x.contest.final ? where(final_participation: true) : where('1=1') }
@@ -55,6 +71,19 @@ class Team < ApplicationRecord
 
   def generate_invite_token
     self.invite_token ||= SecureRandom.urlsafe_base64(64)
+  end
+
+  def best_benchmark_result_of_visibility(visibility, team = nil)
+    case visibility
+    when :admin
+      best_benchmark_result_for_admin
+    when :contestant
+      team == self ? best_benchmark_result : best_benchmark_result_for_audience
+    when :audience
+      best_benchmark_result_for_audience
+    else
+      raise ArgumentError, "unknown visibility #{visibility.inspect}"
+    end
   end
 
   def to_pb(detail: false, members: false, member_detail: false)

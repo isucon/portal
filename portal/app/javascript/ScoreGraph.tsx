@@ -6,8 +6,10 @@ import uPlot from "uplot";
 import type { TeamPinsMap } from "./TeamPins";
 import { COLORS } from "./ScoreGraphColors";
 
+// XXX: ピンされたチームのみ表示(パフォーマンス上の問題)を前提とすることにしたので、全 teams と teamPins をばらばらに受け取る必要はもうない
+
 interface Props {
-  teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[];
+  teams: isuxportal.proto.resources.ILeaderboardItem[];
   contest: isuxportal.proto.resources.IContest;
   width?: number;
   teamPins: TeamPinsMap;
@@ -22,12 +24,12 @@ const usePrevious = <T extends unknown>(value: T) => {
   return ref.current;
 };
 
-const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+const calculateGraphCacheKey = (teams: isuxportal.proto.resources.ILeaderboardItem[]) => {
   let numTeams = teams.length;
-  let numScores = teams.map((item) => (item.scores || []).length).reduce((a, b) => a + b, 0);
+  let numScores = teams.map((item) => (item.scoreHistory?.scores || []).length).reduce((a, b) => a + b, 0);
   let latestTimestamp = 0;
   teams.forEach((item) => {
-    (item.scores || []).forEach((score) => {
+    (item.scoreHistory?.scores || []).forEach((score) => {
       const ts = score.markedAt!.seconds! as number;
       if (latestTimestamp < ts) latestTimestamp = ts;
     });
@@ -35,7 +37,7 @@ const calculateGraphCacheKey = (teams: isuxportal.proto.resources.Leaderboard.IL
   return JSON.stringify([numTeams, numScores, latestTimestamp]);
 };
 
-const calculateTargetTeamLegendCacheKey = (targetTeams: isuxportal.proto.resources.Leaderboard.ILeaderboardItem[]) => {
+const calculateTargetTeamLegendCacheKey = (targetTeams: isuxportal.proto.resources.ILeaderboardItem[]) => {
   return JSON.stringify(
     [...targetTeams]
       .sort((a, b) => (a.team!.id as number) - (b.team!.id as number))
@@ -107,12 +109,14 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
   const data = React.useMemo(() => {
     //console.log("ScoreGraph: setData", cacheKey);
     const timestamps: number[] = [
-      ...new Set(targetTeams.flatMap((item) => item.scores!.map((s) => s.markedAt!.seconds! as number))),
+      ...new Set(
+        targetTeams.flatMap((item) => (item.scoreHistory?.scores || []).map((s) => s.markedAt!.seconds! as number))
+      ),
     ].sort((a, b) => a - b);
     const d: [number[], ...Array<Array<number | null>>] = [timestamps];
 
     targetTeams.forEach((item, idx) => {
-      const scores = item.scores || [];
+      const scores = item.scoreHistory?.scores || [];
       const lastTs = scores.length > 0 ? scores[scores.length - 1]?.markedAt!.seconds : 0;
       const series = [];
       let tsPtr = 0;
@@ -173,7 +177,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     return () => {
       chart?.destroy();
     };
-  }, [])
+  }, []);
 
   const classNames = ["isux-scoregraph"];
   if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");

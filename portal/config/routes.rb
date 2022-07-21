@@ -69,7 +69,12 @@ Rails.application.routes.draw do
 
     scope path: 'audience', module: 'audience' do
       # audience/dashboard Dashboard: GET /api/audience/dashboard
-      resource :dashboard, only: %i(show)
+      resource :dashboard, only: %i(show) do
+        member do
+          # audience/dashboard SoloDashboard: GET /api/audience/dashboard/teams/:id
+          get 'teams/:id' => :show_solo, as: :solo
+        end
+      end
 
       # audience/team_list ListTeams: GET /api/audience/teams
       resources :teams, only: %i(index)
@@ -101,7 +106,12 @@ Rails.application.routes.draw do
 
     scope path: 'admin', module: 'admin' do
       # admin/dashboard Dashboard: GET /api/admin/dashboard
-      resource :dashboard, only: %i(show)
+      resource :dashboard, only: %i(show) do
+        member do
+          # audience/dashboard SoloDashboard: GET /api/audience/dashboard/teams/:id
+          get 'teams/:id' => :show_solo, as: :admin_solo
+        end
+      end
 
       # admin/teams ListTeams: GET /api/admin/teams
       # admin/teams GetTeam: GET /api/admin/teams/:id

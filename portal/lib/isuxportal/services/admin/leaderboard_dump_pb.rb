@@ -19,8 +19,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "isuxportal.proto.services.admin.GetLeaderboardDumpResponse.LeaderboardDumpItem" do
       optional :position, :int64, 1
       optional :team, :message, 2, "isuxportal.proto.resources.Team"
-      optional :best_score, :message, 3, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
-      optional :latest_score, :message, 4, "isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore"
+      optional :best_score, :message, 3, "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore"
+      optional :latest_score, :message, 4, "isuxportal.proto.resources.LeaderboardItem.LeaderboardScore"
       optional :target, :message, 5, "isuxportal.proto.resources.ContestantInstance"
     end
   end

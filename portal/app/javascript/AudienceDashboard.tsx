@@ -21,25 +21,33 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
   const [dashboard, setDashboard] = React.useState<isuxportal.proto.services.audience.DashboardResponse | null>(null);
   const [error, setError] = React.useState<Error | null>(null);
 
+  const [pinnedTeamLeaderboardItems, setPinnedTeamLeaderboardItems] = React.useState<
+    isuxportal.proto.resources.ILeaderboardItem[]
+  >([]);
+
   const [teamPins, setTeamPins] = React.useState(new TeamPins());
   const [teamPinsMap, setTeamPinsMap] = React.useState(teamPins.all());
   teamPins.onChange = setTeamPinsMap;
 
-  const refresh = () => {
+  const refresh = async () => {
     if (requesting) return;
     setRequesting(true);
-    client
-      .getAudienceDashboard()
-      .then((db) => {
-        setDashboard(db);
-        setError(null);
-        setRequesting(false);
-      })
-      .catch((e) => {
-        setError(e);
-        setRequesting(false);
-      });
+
+    try {
+      const db = await client.getAudienceDashboard();
+      setDashboard(db);
+
+      const items = await client.getAudienceLeaderboardItems(Array.from(teamPinsMap.keys()));
+      setPinnedTeamLeaderboardItems(items);
+
+      setError(null);
+      setRequesting(false);
+    } catch (e) {
+      setError(e);
+      setRequesting(false);
+    }
   };
+
   React.useEffect(() => {
     if (!dashboard) refresh();
   }, [dashboard]);
@@ -48,7 +56,7 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
     // TODO: Retry with backoff
     const timer = setInterval(() => refresh(), 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refresh, teamPinsMap]);
 
   if (!dashboard)
     return (
@@ -72,13 +80,18 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
         </div>
       </section>
       <section className="is-fullwidth py-5 is-hidden-touch">
-        <ScoreGraph teams={dashboard?.leaderboard?.teams!} contest={session.contest!} teamPins={teamPinsMap} />
+        <ScoreGraph teams={pinnedTeamLeaderboardItems} contest={session.contest!} teamPins={teamPinsMap} />
       </section>
       <div className="columns">
         <div className="column is-12">
           <section className="py-5">
             <p className="title"> Leaderboard </p>
-            <Leaderboard leaderboard={dashboard?.leaderboard!} teamPins={teamPinsMap} onPin={teamPins.set} enableHiddenTeamsMode={false} />
+            <Leaderboard
+              leaderboard={dashboard?.leaderboard!}
+              teamPins={teamPinsMap}
+              onPin={teamPins.set}
+              enableHiddenTeamsMode={false}
+            />
           </section>
         </div>
       </div>

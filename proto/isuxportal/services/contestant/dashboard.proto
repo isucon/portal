@@ -7,5 +7,5 @@ import "isuxportal/resources/leaderboard.proto";
 message DashboardQuery {}
 
 message DashboardResponse {
-  isuxportal.proto.resources.Leaderboard leaderboard = 1;
+  isuxportal.proto.resources.LeaderboardItem leaderboard_item = 1;
 }

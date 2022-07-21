@@ -17,8 +17,8 @@ message GetLeaderboardDumpResponse {
   message LeaderboardDumpItem {
     int64 position = 1;
     isuxportal.proto.resources.Team team = 2;
-    isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore best_score = 3;
-    isuxportal.proto.resources.Leaderboard.LeaderboardItem.LeaderboardScore latest_score = 4;
+    isuxportal.proto.resources.LeaderboardItem.LeaderboardScore best_score = 3;
+    isuxportal.proto.resources.LeaderboardItem.LeaderboardScore latest_score = 4;
     isuxportal.proto.resources.ContestantInstance target = 5;
   }
 }
