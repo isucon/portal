@@ -216,7 +216,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
           {teamMe[0] && teamMe[0].position > NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT
             ? teamMe.map((v) => renderTeam("me", v))
             : []}
-          {teams.filter((v) => v.pinned).map((v) => renderTeam("pinned", v))}
+          {teams.filter((v) => v.pinned && !v.me).map((v) => renderTeam("pinned", v))}
           {teams
             .slice(0, expanded ? undefined : NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT)
             .map((v) => renderTeam("standings", v))}
