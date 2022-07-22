@@ -10,7 +10,7 @@ class Api::Admin::DashboardsController < Api::Admin::ApplicationController
     clar_count = Clarification.unanswered.requested.count
     cache_sum, cache = Rails.cache.read("leaderboard-v2:#{final}:admin")
     render protobuf: Isuxportal::Proto::Services::Admin::DashboardResponse.new(
-      leaderboard: cache_sum && cache ? Isuxportal::Proto::Resources::Leaderboard.decode(_) : Contest.leaderboard(admin: true, team: nil, history: false),
+      leaderboard: cache_sum && cache ? Isuxportal::Proto::Resources::Leaderboard.decode(cache) : Contest.leaderboard(admin: true, team: nil, history: false),
       unanswered_clarification_count: clar_count,
       earliest_unanswered_clarification_at: Clarification.unanswered.requested.order(created_at: :desc).limit(1).pluck(:created_at)&.first&.to_time,
     )
