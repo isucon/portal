@@ -58,6 +58,15 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
     return () => clearInterval(timer);
   }, [refresh, teamPinsMap]);
 
+  React.useEffect(() => {
+    if (!dashboard || !teamPins) return;
+    teamPins.removeUnknownItems(() =>
+      [...(dashboard.leaderboard?.teams ?? []), ...(dashboard.leaderboard?.hiddenTeams ?? [])].map((v) =>
+        v.team!.id!.toString()
+      )
+    );
+  }, [teamPins, dashboard]);
+
   if (!dashboard)
     return (
       <>

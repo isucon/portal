@@ -16,18 +16,36 @@ const savePins = (pins: TeamPinsMap) => {
   const data = JSON.stringify(Array.from(pins.keys()));
   try {
     window.localStorage.setItem("isuxportal-dashboard-pins", data);
-  } catch(e) {
+  } catch (e) {
     console.warn(e);
   }
 };
 
 export class TeamPins {
   pins: TeamPinsMap;
+  haveRemovedUnknownItems: boolean;
   public onChange?: (newMap: TeamPinsMap) => void;
 
   constructor() {
     this.pins = loadPins();
+    this.haveRemovedUnknownItems = false;
     this.set = this.set.bind(this);
+  }
+
+  public removeUnknownItems(allTeamIdsFn: () => string[]) {
+    if (this.haveRemovedUnknownItems) return;
+    const existingIds = new Map(allTeamIdsFn().map((v) => [v, true]));
+    let changed = false;
+    this.pins.forEach((_, k) => {
+      if (!existingIds.get(k)) {
+        console.log("Removing unexisting team ID from pins", k);
+        this.pins.delete(k);
+        changed = true;
+      }
+    });
+    this.haveRemovedUnknownItems = true;
+    if (changed) savePins(this.pins);
+    if (changed && this.onChange) this.onChange(this.all());
   }
 
   public set(teamId: string, flag: boolean) {

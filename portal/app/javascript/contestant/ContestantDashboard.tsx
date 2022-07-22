@@ -91,6 +91,15 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
     return () => clearInterval(timer);
   }, [refreshAll, teamPinsMap]);
 
+  React.useEffect(() => {
+    if (!dashboard || !teamPins) return;
+    teamPins.removeUnknownItems(() =>
+      [...(dashboard.leaderboard?.teams ?? []), ...(dashboard.leaderboard?.hiddenTeams ?? [])].map((v) =>
+        v.team!.id!.toString()
+      )
+    );
+  }, [teamPins, dashboard]);
+
   if (!dashboard || !jobs)
     return (
       <>
