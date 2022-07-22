@@ -152,7 +152,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
               leaderboard={dashboard?.leaderboard!}
               teamId={session.team!.id!}
               teamPins={teamPinsMap}
-              onPin={teamPins.set}
+              onPin={teamPins.setAndEnsureCapacity}
               enableHiddenTeamsMode={false}
             />
           </section>

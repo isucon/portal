@@ -126,7 +126,7 @@ export const AdminDashboard: React.FC<Props> = ({ session, client }) => {
             <Leaderboard
               leaderboard={dashboard?.leaderboard!}
               teamPins={teamPinsMap}
-              onPin={teamPins.set}
+              onPin={teamPins.setAndEnsureCapacity}
               enableHiddenTeamsMode={true}
             />
           </section>

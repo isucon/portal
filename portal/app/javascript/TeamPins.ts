@@ -21,6 +21,8 @@ const savePins = (pins: TeamPinsMap) => {
   }
 };
 
+const CAPACITY = 20;
+
 export class TeamPins {
   pins: TeamPinsMap;
   haveRemovedUnknownItems: boolean;
@@ -30,6 +32,7 @@ export class TeamPins {
     this.pins = loadPins();
     this.haveRemovedUnknownItems = false;
     this.set = this.set.bind(this);
+    this.setAndEnsureCapacity = this.setAndEnsureCapacity.bind(this);
   }
 
   public removeUnknownItems(allTeamIdsFn: () => string[]) {
@@ -46,6 +49,14 @@ export class TeamPins {
     this.haveRemovedUnknownItems = true;
     if (changed) savePins(this.pins);
     if (changed && this.onChange) this.onChange(this.all());
+  }
+
+  public setAndEnsureCapacity(teamId: string, flag: boolean) {
+    if (flag && !this.pins.get(teamId) && this.pins.size >= CAPACITY) {
+      alert(`Maximum number of pinned team is limited to ${CAPACITY}`);
+      return;
+    }
+    return this.set(teamId, flag);
   }
 
   public set(teamId: string, flag: boolean) {
