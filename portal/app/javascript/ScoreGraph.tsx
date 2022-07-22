@@ -3,16 +3,12 @@ import type { isuxportal } from "./pb";
 import React from "react";
 import uPlot from "uplot";
 
-import type { TeamPinsMap } from "./TeamPins";
 import { COLORS } from "./ScoreGraphColors";
-
-// XXX: ピンされたチームのみ表示(パフォーマンス上の問題)を前提とすることにしたので、全 teams と teamPins をばらばらに受け取る必要はもうない
 
 interface Props {
   teams: isuxportal.proto.resources.ILeaderboardItem[];
   contest: isuxportal.proto.resources.IContest;
   width?: number;
-  teamPins: TeamPinsMap;
   teamId?: number | Long;
 }
 
@@ -45,8 +41,7 @@ const calculateTargetTeamLegendCacheKey = (targetTeams: isuxportal.proto.resourc
   );
 };
 
-export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, teamPins }) => {
-  const [showPinnedOnly, setShowPinnedOnly] = React.useState(false);
+export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId }) => {
   const [scoreFilter, setScoreFilter] = React.useState<number | null>(null);
 
   const elem = React.useRef<HTMLDivElement>(null);
@@ -54,10 +49,9 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
   const targetTeams = React.useMemo(() => {
     let t = teams;
-    if (showPinnedOnly) t = t.filter((item) => teamPins.has(item.team!.id!.toString()) || item.team!.id! == teamId);
     if (scoreFilter) t = t.filter((item) => ((item.bestScore?.score! as number) ?? 0) >= scoreFilter);
     return t;
-  }, [calculateGraphCacheKey(teams), [...teamPins.keys()].join(","), teamId, showPinnedOnly, scoreFilter]);
+  }, [calculateGraphCacheKey(teams), teamId, scoreFilter]);
 
   const uplotOpts = React.useMemo(
     (): uPlot.Options => ({
@@ -94,16 +88,10 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
         },
       ],
       legend: {
-        show: showPinnedOnly || scoreFilter !== null,
+        show: true,
       },
     }),
-    [
-      width,
-      contest.startsAt!.seconds!,
-      contest.endsAt!.seconds!,
-      showPinnedOnly || scoreFilter !== null,
-      calculateTargetTeamLegendCacheKey(targetTeams),
-    ]
+    [width, contest.startsAt!.seconds!, contest.endsAt!.seconds!, calculateTargetTeamLegendCacheKey(targetTeams)]
   );
 
   const data = React.useMemo(() => {
@@ -179,9 +167,7 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
     };
   }, []);
 
-  const classNames = ["isux-scoregraph"];
-  if (showPinnedOnly) classNames.push("isux-scoregraph-pinnedonly");
-  if (scoreFilter) classNames.push("isux-scoregraph-pinnedonly");
+  const classNames = ["isux-scoregraph", "isux-scoregraph-pinnedonly"]; // XXX: unify 2 classes to one
 
   return (
     <section>
@@ -192,26 +178,10 @@ export const ScoreGraph: React.FC<Props> = ({ teams, contest, width, teamId, tea
 
         <div className="level-right has-text-right">
           <ScoreGraphScoreFilter onChange={setScoreFilter} />
-          <ScoreGraphPinFilter showPinnedOnly={showPinnedOnly} onChange={setShowPinnedOnly} />
         </div>
       </div>
       <div className={classNames.join(" ")} ref={elem} />
     </section>
-  );
-};
-
-const ScoreGraphPinFilter = ({
-  showPinnedOnly,
-  onChange,
-}: {
-  showPinnedOnly: boolean;
-  onChange: (showPinnedOnly: boolean) => void;
-}) => {
-  return (
-    <label className="checkbox">
-      <input type="checkbox" checked={showPinnedOnly} onChange={(e) => onChange(e.target.checked)} />
-      Show pinned only
-    </label>
   );
 };
 

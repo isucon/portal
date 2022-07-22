@@ -133,12 +133,7 @@ export const ContestantDashboard: React.FC<Props> = (props: Props) => {
         </div>
       </section>
       <section className="is-fullwidth py-5 is-hidden-touch">
-        <ScoreGraph
-          teams={scoreGraphTeams}
-          contest={session.contest!}
-          teamId={session.team!.id!}
-          teamPins={teamPinsMap}
-        />
+        <ScoreGraph teams={scoreGraphTeams} contest={session.contest!} teamId={session.team!.id!} />
       </section>
       <div className="columns">
         <div className="column is-7 px-5">

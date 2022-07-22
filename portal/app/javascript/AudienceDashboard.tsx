@@ -80,7 +80,7 @@ export const AudienceDashboard: React.FC<Props> = ({ session, client }) => {
         </div>
       </section>
       <section className="is-fullwidth py-5 is-hidden-touch">
-        <ScoreGraph teams={pinnedTeamLeaderboardItems} contest={session.contest!} teamPins={teamPinsMap} />
+        <ScoreGraph teams={pinnedTeamLeaderboardItems} contest={session.contest!} />
       </section>
       <div className="columns">
         <div className="column is-12">
