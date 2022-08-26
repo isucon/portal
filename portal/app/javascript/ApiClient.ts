@@ -231,7 +231,7 @@ export class ApiClient {
       : audienceBoard.leaderboard!.teams!;
 
     const idx = dest.findIndex((v) => v.team!.id === contestantLeaderboardItem.team!.id);
-    if (idx) {
+    if (idx >= 0) {
       dest.splice(idx, 1, contestantLeaderboardItem);
     } else {
       dest.push(contestantLeaderboardItem);
