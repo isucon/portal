@@ -2,7 +2,7 @@ import type { isuxportal } from "./pb";
 import React from "react";
 
 import { Timestamp } from "./Timestamp";
-import type { TeamPinsMap, TeamPins } from "./TeamPins";
+import type { TeamPinsMap } from "./TeamPins";
 
 const NUMBER_OF_ROWS_VISIBLE_BY_DEFAULT = 25;
 
@@ -129,7 +129,7 @@ export const Leaderboard: React.FC<Props> = (props: Props) => {
     })
   );
   const prevScores = new Map(
-    (prevFilteredTeams || []).map((t, idx) => {
+    (prevFilteredTeams || []).map((t) => {
       return [t.team!.id, t.latestScore?.score!];
     })
   );
